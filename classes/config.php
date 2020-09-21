@@ -20,7 +20,7 @@
     else
     {
 		
-        $siteURL                    = "http://localhost/HHC_system";
+        $siteURL                    = "http://localhost/HHC_system/";
         $siteUrlName                = "SPERO";
         $GLOBALS["host"]            = "localhost";
         $GLOBALS["dbuid"]           = "root";

@@ -483,6 +483,7 @@ if($_REQUEST['EID'])
       </div>
     </div>
   </div>
+  
   <!-- Modal Popup code start --->
   <div class="modal fade" id="vw_professional">
     <div class="modal-dialog" style="width:900px !important;">

@@ -20,7 +20,7 @@
                 email_id,
                 password,
                 status,
-                last_login
+                last_login,avaya_agentid 
             FROM sp_employees 
             WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "'";
         $Loginresult=$db->query($checkExist);
@@ -39,6 +39,7 @@
                 $_SESSION['employee_type']        = $EmployeeLog['type'];
                 $_SESSION['employee_hospital_id'] = $EmployeeLog['hospital_id'];
                 $_SESSION['emp_nm']               = $EmployeeLog['employee_name'];
+                $_SESSION['avaya_agentid']        = $EmployeeLog['avaya_agentid'];
                 // update last login time 
                 if($EmployeeLog['type'] == '2')
                 {

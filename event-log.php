@@ -42,6 +42,7 @@ if($_REQUEST['EID'])
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Welcome to SPERO</title>
 </head>
+
 <body>
 <style type="text/css">
     .free-wall {  margin: 15px; }
@@ -319,6 +320,7 @@ if($_REQUEST['EID'])
 </section>
 <?php include "include/scripts.php"; ?>
 <?php include "include/eventLogscripts.php"; ?>
+
 <script type="text/javascript">    
   function ChangeAjaxJs()
   {
@@ -2070,6 +2072,7 @@ if($_REQUEST['EID'])
 		});
         Hide_Load();
    }
+   
     function ViewEvent(event_id)
     {
         if(event_id)
@@ -3584,6 +3587,7 @@ if($_REQUEST['EID'])
         }
     }
 </script>
+
 <script src="js/jRating.jquery.js" type="text/javascript"></script>
   <link rel="stylesheet" href="css/jRating.jquery.css" type="text/css" />
 <?php
@@ -3680,6 +3684,7 @@ if(mysql_num_rows($db->query($chk_job_closure_sql)))
 }
 
 }?>
+    
     <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
@@ -4655,6 +4660,88 @@ function getProfessionalDetails(eventId, serviceId)
 
 </body>
 </body>
+<script>
+var $AVAYA_INCOMING_CALL_FLAG = 1;
+var $Avaya_Incoming_Call_Timer = null;
+$(window).load(function () {
+    $Avaya_Incoming_Call_Timer = setInterval(avaya_change_incoming_call, 5000);
+});
+function avaya_change_incoming_call() {
+    
+    if ($AVAYA_INCOMING_CALL_FLAG == 1) {
+       // alert($AVAYA_INCOMING_CALL_FLAG);
+        $status='1';
+         var data1="status="+status+"&action=chk_call";
+    $.ajax({
+                    url: "incomming_popup.php", type: "post", data: data1, cache: false,async: false,
+            
+            beforeSend: function() 
+            {
+                //Display_Load();
+            },
+            success: function (html)
+                {
+                    $abc = html;
+                    if($abc != ' '){
+                    //alert(html);
+                        $('#vw_professional').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                        setHeight:500,
+                    });
+                    $('[data-toggle="tooltip"]').tooltip();
+                    $(".modal-dialog").css("width", "350px");
+                    $(".modal-dialog").css("background-color", "#A3E4D7");
+                   // $(".modal-content").css("background-color", "#45B39D ");
+                    //$('.modal-dialog').modal('hide'); 
+                    }
+                },
+                complete : function()
+                {
+                    Hide_Load();
+                }
+             });
+    }
+}
+
+function avaya_start_incoming_call() {
+    $AVAYA_INCOMING_CALL_FLAG = 1;
+}
+
+function softdial(){
+       $status='1';
+    var data1="status="+status+"&action=vw_dial";
+    $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                      //  alert(html);
+                        $('#vw_professional').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                        setHeight:500,
+                                        
+                                        //theme:"minimal-dark"
+                                });
+                                         
+                        $('[data-toggle="tooltip"]').tooltip();
+                        $(".modal-dialog").css("width", "350px");
+                        $(".modal-dialog").css("background-color", "#A3E4D7");
+                        $(".modal-content").css("background-color", "#45B39D ");
+                        
+                        //$('.modal-dialog').modal('hide'); 
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+   }
+</script>
 <?php
 $db->close(); 
 ?>
