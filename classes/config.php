@@ -19,13 +19,18 @@
     }
     else
     {
-		
-        $siteURL                    = "http://localhost/HHC_system/";
+		$siteURL                    = "";
         $siteUrlName                = "SPERO";
         $GLOBALS["host"]            = "localhost";
         $GLOBALS["dbuid"]           = "root";
         $GLOBALS["dbpwd"]           = "";
-		$GLOBALS["dbname"]          = "hospitalguru_local";
+        $GLOBALS["dbname"]          = "hospitalguru_local";
+       /* $siteURL                    = "http://localhost/HHC_system/";
+        $siteUrlName                = "SPERO";
+        $GLOBALS["host"]            = "localhost";
+        $GLOBALS["dbuid"]           = "root";
+        $GLOBALS["dbpwd"]           = "";
+		$GLOBALS["dbname"]          = "hospitalguru_local";*/
         //$GLOBALS["dbname"]          = "Spero_live_test";
         //$GLOBALS["dbname"]          = "hospital_spero_broadcast_live"; 
 		
