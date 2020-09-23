@@ -4670,7 +4670,7 @@ function avaya_change_incoming_call() {
     
     if ($AVAYA_INCOMING_CALL_FLAG == 1) {
        // alert($AVAYA_INCOMING_CALL_FLAG);
-        $status='R';
+        var status='R';
          var data1="status="+status+"&action=chk_call";
     $.ajax({
                     url: "incomming_popup.php", type: "post", data: data1, cache: false,async: false,
@@ -4741,6 +4741,57 @@ function softdial(){
                     }
              }); 
    }
+   function acceptCaller(calling_phone_no)
+   {
+       if(calling_phone_no)
+        {
+            var status='1';
+            document.getElementById("phone_no").value = calling_phone_no;
+            var data1="phone_no="+calling_phone_no+"&status="+status+"&action=CheckCallerExist";
+            //alert(data1);
+                $.ajax({
+                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        // Popup_Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        var result=html.trim();
+                        //alert(result);
+                        if(result)
+                        {
+                            var res = result.split("-"); 
+                            if(res[0])
+                            {
+                                $("#name").val(res[0]);
+                            }
+                            if(res[1])
+                            {
+                                $("#caller_first_name").val(res[1]);
+                            }
+                            if(res[2])
+                            {
+                                $("#caller_middle_name").val(res[2]);
+                            }
+                        }
+                        else
+                        {
+                            $("#name,#caller_first_name,#caller_middle_name").val('');
+                        }  
+                    },
+                    complete : function()
+                    {
+                        $("#vw_professional").modal("hide");
+                    }
+                }); 
+           // }  
+        } 
+        else 
+        {
+            $("#name,#caller_first_name,#caller_middle_name").val('');
+        }
+    }
 </script>
 <?php
 $db->close(); 

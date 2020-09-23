@@ -27,8 +27,8 @@ if($_REQUEST['action']=='chk_call')
           $condition .= "AND CallUniqueID = '" . $args['CallUniqueID'] . "' ";
       }
     */ 
-    if (trim($args['status']) != '') {
-        $condition .= "AND status = '" . $args['status'] . "' ";
+    if (trim($_REQUEST['status']) != '') {
+        $condition .= "AND status = '" . $_REQUEST['status'] . "' ";
     }
 
    $max_id=mysql_query("SELECT * FROM sp_incoming_call  where is_deleted = '0' $condition ORDER BY call_datetime DESC limit 0, 1") or die(mysql_error());
@@ -137,7 +137,8 @@ $('.fa-long-arrow-left').on('click', function() {
         <h2 align="center"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span><?php echo $calling_phone_no; ?></h2>
         </div>
         <div align="center ">
-        <button type="button" class="btn-lg btn-success"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
+        
+        <button type="button" class="btn-lg btn-success" onclick="return acceptCaller(<?php echo $calling_phone_no; ?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
         <button type="button" class="btn-lg btn-danger"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>
         </div>
         <br>
