@@ -12,6 +12,8 @@
     {
         $UserName=$db->escape($_REQUEST['email_id']);
         $Password=md5($db->escape($_REQUEST['password']));
+        $extention_id=$db->escape($_REQUEST['extention_id']);
+        
         $checkExist="SELECT employee_id,
                 hospital_id,
                 employee_code,
@@ -22,7 +24,8 @@
                 status,
                 last_login,avaya_agentid 
             FROM sp_employees 
-            WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "'";
+            WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' AND avaya_agentid = '" . $extention_id . "' And is_login='1' ";
+       // echo $checkExist;
         $Loginresult=$db->query($checkExist);
         if(mysql_num_rows($db->query($checkExist)))
         {
