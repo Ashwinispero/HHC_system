@@ -4670,7 +4670,7 @@ function avaya_change_incoming_call() {
     
     if ($AVAYA_INCOMING_CALL_FLAG == 1) {
        // alert($AVAYA_INCOMING_CALL_FLAG);
-        $status='1';
+        $status='R';
          var data1="status="+status+"&action=chk_call";
     $.ajax({
                     url: "incomming_popup.php", type: "post", data: data1, cache: false,async: false,

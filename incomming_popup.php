@@ -16,24 +16,21 @@
 <?php
 if($_REQUEST['action']=='chk_call')
 {
-  $args['agent_no']=56;
-  $args['ext_no'] =12;
-  if (trim($args['agent_no']) != '') {
-    $condition .= "AND agent_no = '" . $args['agent_no'] . "' ";
-  }
-  if (trim($args['ext_no']) != '') {
+    $args['ext_no'] = $_SESSION['avaya_agentid'];
+    if (trim($args['ext_no']) != '') {
       $condition .= "AND ext_no = '" . $args['ext_no'] . "' ";
-  }
- /* if (trim($args['calling_phone_no']) != '') {
-      $condition .= "AND calling_phone_no = '" . $args['calling_phone_no'] . "' ";
-  }
-  if (trim($args['CallUniqueID']) != '') {
-      $condition .= "AND CallUniqueID = '" . $args['CallUniqueID'] . "' ";
-  }
-  if (trim($args['status']) != '') {
-      $condition .= "AND status = '" . $args['status'] . "' ";
-  }
-*/
+    }
+    /* if (trim($args['calling_phone_no']) != '') {
+          $condition .= "AND calling_phone_no = '" . $args['calling_phone_no'] . "' ";
+      }
+      if (trim($args['CallUniqueID']) != '') {
+          $condition .= "AND CallUniqueID = '" . $args['CallUniqueID'] . "' ";
+      }
+    */ 
+    if (trim($args['status']) != '') {
+        $condition .= "AND status = '" . $args['status'] . "' ";
+    }
+
    $max_id=mysql_query("SELECT * FROM sp_incoming_call  where is_deleted = '0' $condition ORDER BY call_datetime DESC limit 0, 1") or die(mysql_error());
    $max_id_row = mysql_fetch_array($max_id);
    $row_count = mysql_num_rows($max_id); 
@@ -41,8 +38,8 @@ if($_REQUEST['action']=='chk_call')
 			if($row_count > 0)
 			{ 
         $calling_phone_no=$max_id_row['calling_phone_no'];
-        ?>
-        <style>
+?>
+<style>
 .digit,
 .dig {
   float: left;
