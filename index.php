@@ -35,6 +35,14 @@
                 {
                     var result = html.trim();
                     //alert(result);
+                    if(result=='Avaya')
+                    {
+                        $("#extention_id").val("");
+                        $("#extention_id").focus();
+                        $("#error").show();
+                        $("#error").text("Avaya ID Incorect or Extention already login"); 
+                        $('#error').delay(15000).fadeOut('slow');
+                    }
                     if(result=='incorrect')
                     {
                         $("#password").val("");

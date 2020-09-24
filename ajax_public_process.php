@@ -14,21 +14,18 @@
         $Password=md5($db->escape($_REQUEST['password']));
         $extention_id=$db->escape($_REQUEST['extention_id']);
         
-        $checkExist="SELECT employee_id,
-                hospital_id,
-                employee_code,
-                CONCAT(first_name, ' ', name) AS employee_name,
-                type,
-                email_id,
-                password,
-                status,
-                last_login,avaya_agentid 
-            FROM sp_employees 
-            WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' AND avaya_agentid = '" . $extention_id . "' And is_login='1' ";
+        $checkExist="SELECT employee_id,hospital_id,employee_code,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
+                    FROM sp_employees 
+                    WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' ";
        // echo $checkExist;
         $Loginresult=$db->query($checkExist);
         if(mysql_num_rows($db->query($checkExist)))
-        {
+        { $checkExist_avaya="SELECT employee_id,hospital_id,employee_code,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
+            FROM sp_employees 
+            WHERE avaya_agentid = '" . $extention_id . "' And is_login='1' ";
+            $checkExist_avaya_Loginresult=$db->query($checkExist_avaya);
+            if(mysql_num_rows($db->query($checkExist_avaya)))
+            {
             $_SESSION['eventAccess'] = '';
             $EmployeeLog=$db->fetch_array($Loginresult);
             if($EmployeeLog['status']=='2' || $EmployeeLog['status']=='3')
@@ -46,6 +43,7 @@
                 // update last login time 
                 if($EmployeeLog['type'] == '2')
                 {
+                   
                     $remoteIP = $_SERVER['REMOTE_ADDR'];
                     //echo $remoteIP;
                     //121.242.76.226 - dinanath
@@ -76,6 +74,7 @@
                             $_SESSION['eventAccess'] = 'No';
                         }
                         $updateData['last_login']=date('Y-m-d H:i:s');
+                        $updateData['is_login']='0';
                         $db->query_update('sp_employees', $updateData, "employee_id='".$EmployeeLog['employee_id']."'");
                         echo "success";
                         exit;
@@ -91,6 +90,10 @@
                     exit;
                 }
             }
+        }else{
+            echo "Avaya";
+            exit;
+        }
         }
         else
         {
@@ -133,6 +136,9 @@
     }
     else if($_REQUEST['action']=='logout')
     {
+        $updateData['is_login']='1';
+        $db->query_update('sp_employees', $updateData, "employee_id='".$_SESSION['employee_id']."'");
+                        
           session_destroy();
             ?>
                 <script language="javascript" type="text/javascript">
