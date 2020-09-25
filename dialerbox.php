@@ -88,9 +88,15 @@
 var count = 0;
 
 $(".digit").on('click', function() {
-  var num = ($(this).clone().children().remove().end().text());
+  var num1 = ($(this).clone().children().remove().end().text());
+ // alert(num1);
   if (count < 11) {
-    $("#output").append('<span>' + num.trim() + '</span>');
+    
+     var ex_no = document.getElementById("output").value;
+     //alert(ex_no);
+     var phone_no = ex_no + num1;
+    document.getElementById("output").value = phone_no;
+   // $("#output").append('<span>' + num.trim() + '</span>');
 
     count++
   }
@@ -114,45 +120,26 @@ $('.fa-long-arrow-left').on('click', function() {
 </div>
 
 <div class="container">
-  <div id="output"></div>
+  <input id="output" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
   <div class="row">
-    <div class="digit" id="one">1</div>
-    <div class="digit" id="two">2
-      <div class="sub">ABC</div>
-    </div>
-    <div class="digit" id="three">3
-      <div class="sub">DEF</div>
-    </div>
+    <div class="digit" id="one" >1</div>
+    <div class="digit" id="two" >2</div>
+    <div class="digit" id="three">3</div>
   </div>
   <div class="row">
-    <div class="digit" id="four">4
-      <div class="sub">GHI</div>
-    </div>
-    <div class="digit" id="five">5
-      <div class="sub">JKL</div>
-    </div>
-    <div class="digit">6
-      <div class="sub">MNO</div>
-    </div>
+    <div class="digit" id="four">4</div>
+    <div class="digit" id="five">5</div>
+    <div class="digit" id="six">6 </div>
   </div>
   <div class="row">
-    <div class="digit">7
-      <div class="sub">PQRS</div>
-    </div>
-    <div class="digit">8
-      <div class="sub">TUV</div>
-    </div>
-    <div class="digit">9
-      <div class="sub">WXYZ</div>
-    </div>
+    <div class="digit" id="seven">7</div>
+    <div class="digit" id="eight">8</div>
+    <div class="digit" id="nine">9</div>
   </div>
   <div class="row">
-    <div class="digit">*
-    </div>
-    <div class="digit">0
-    </div>
-    <div class="digit">#
-    </div>
+    <div class="digit">*</div>
+    <div class="digit" id="zero">0</div>
+    <div class="digit">#</div>
   </div>
   <div class="botrow"><i class="fa fa-star-o dig" aria-hidden="true"></i>
     <div id="call"><i class="fa fa-phone" aria-hidden="true"></i></div>
