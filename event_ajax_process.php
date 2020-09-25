@@ -33,13 +33,25 @@ if($_REQUEST['action'] == 'updatePurposeId')
         $db->query($updateEvents);
     }
 }
+elseif($_REQUEST['action'] == 'Checkdisconnect')
+{
+    $phone_no = $_REQUEST['phone_no'];
+    $status = $_REQUEST['status'];
+    $unic_id = $_REQUEST['unic_id'];
+    if($status == 1){
+        $updateEvents= "update sp_incoming_call set is_deleted='1' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
+        echo $updateEvents;
+        $db->query($updateEvents);
+   }
+}
 elseif($_REQUEST['action'] == 'CheckCallerExist')
 {
     $phone_no = $_REQUEST['phone_no'];
     $status = $_REQUEST['status'];
+    $unic_id = $_REQUEST['unic_id'];
     //var_dump($status);
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set status='C' where calling_phone_no = '".$phone_no."'";
+        $updateEvents= "update sp_incoming_call set status='C' , is_deleted='1' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."'";
         $db->query($updateEvents);
    }
     $checkExist = "select caller_id,name,first_name,middle_name from sp_callers where phone_no = '".$phone_no."' ";

@@ -4741,13 +4741,14 @@ function softdial(){
                     }
              }); 
    }
-   function acceptCaller(calling_phone_no)
+   function acceptCaller(calling_phone_no,unic_id)
    {
        if(calling_phone_no)
         {
+           // alert(unic_id);
             var status='1';
             document.getElementById("phone_no").value = calling_phone_no;
-            var data1="phone_no="+calling_phone_no+"&status="+status+"&action=CheckCallerExist";
+            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&action=CheckCallerExist";
             //alert(data1);
                 $.ajax({
                     url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
@@ -4792,8 +4793,36 @@ function softdial(){
             $("#name,#caller_first_name,#caller_middle_name").val('');
         }
     }
-    function disconnect_Caller(calling_phone_no){
-        $("#vw_professional").modal("hide");
+    function disconnect_Caller(calling_phone_no,unic_id){
+        if(calling_phone_no)
+        {
+           // alert(unic_id);
+            var status='1';
+            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&action=Checkdisconnect";
+            //alert(data1);
+                $.ajax({
+                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        // Popup_Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        var result=html.trim();
+                        //alert(result);
+                        $("#vw_professional").modal("hide");
+                    },
+                    complete : function()
+                    {
+                        $("#vw_professional").modal("hide");
+                    }
+                }); 
+           // }  
+        } 
+        else 
+        {
+            $("#name,#caller_first_name,#caller_middle_name").val('');
+        }
     }
 </script>
 <?php

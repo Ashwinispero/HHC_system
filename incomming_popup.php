@@ -39,6 +39,7 @@ if($_REQUEST['action']=='chk_call')
         $calling_phone_no=$max_id_row['calling_phone_no'];
         $status=$max_id_row['status'];
         $cl_status=$max_id_row['cl_status'];
+        $CallUniqueID=$max_id_row['CallUniqueID'];
         //var_dump($status);die();
         if($status == 'R' && $cl_status == '1'){
           ?>
@@ -53,7 +54,7 @@ if($_REQUEST['action']=='chk_call')
         </div>
         <div align="center ">
         
-        <button type="button" class="btn-lg btn-success" onclick="return acceptCaller(<?php echo $calling_phone_no; ?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
+        <button type="button" class="btn-lg btn-success" onclick="return acceptCaller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
         <button type="button" class="btn-lg btn-danger"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>
         </div>
         <br>
@@ -71,8 +72,7 @@ if($_REQUEST['action']=='chk_call')
         <h2 align="center"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span><?php echo $calling_phone_no; ?></h2>
         </div>
         <div align="center ">
-        
-        <button type="button" class="btn-lg btn-success" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>OK</button>
+        <button type="button" class="btn-lg btn-success" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);">OK</button>
          </div>
         <br>
       <?php  }

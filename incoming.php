@@ -55,7 +55,7 @@ $avaya_data = array(
    // print_r($avaya_data);
     if($post->CallState == "D"){
         //print_r($avaya_data);
-        $updateEvents= "update sp_incoming_call set status='D' , cl_status='2' where calling_phone_no = '".$post->CalledDevice."'";
+        $updateEvents= "update sp_incoming_call set status='D' , cl_status='2' , is_deleted='0' where calling_phone_no = '".$post->CalledDevice."' AND CallUniqueID='".$post->CallUniqueID."' ";
         //print_r($updateEvents);
         $db->query($updateEvents); 
     }
