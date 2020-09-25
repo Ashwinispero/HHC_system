@@ -35,21 +35,31 @@ $avaya_data = array(
     'status' => $post->CallState,
     'call_datetime' => date('Y-m-d H:i:s'),
    'is_deleted' => '0');
+   //print_r($avaya_data);
    if($post->CallState == "R" || $post->CallState == "B"){
       
        $avaya_data['call_rinning_datetime'] = date('Y-m-d').' '.$post->CallTime;
        $avaya_data['avaya_call_time'] = $post->calltime;
        $avaya_data['call_datetime'] = date('Y-m-d H:i:s');
+       $avaya_data['cl_status'] ='1' ;
       $avaya_data_insert =$avayaClass->insert_avaya_incoming_call($avaya_data);
       
-                  print_r($avaya_data_insert);
+                 // print_r($avaya_data_insert);
       
-    //  print_r($avaya_data);
+      
      // $query_insert=mysql_query("insert into `sp_incoming_call` VALUES('".$avaya_data."')");
        //     echo $query_insert;
       // $this->query_insert('sp_incoming_call', $avaya_data);
    }
    else{
+   // print_r($avaya_data);
+    if($post->CallState == "D"){
+        //print_r($avaya_data);
+        $updateEvents= "update sp_incoming_call set status='D' , cl_status='2' where calling_phone_no = '".$post->CalledDevice."'";
+        //print_r($updateEvents);
+        $db->query($updateEvents); 
+    }
+}
                
        /*     if($post['Param1'] != '' && $post['calltype'] == 'I'){
                 $avaya_data['call_audio'] = $post['Param1'];
@@ -65,10 +75,8 @@ $avaya_data = array(
             
             $avaya_call = $this->call_model->update_avaya_call_by_calluniqueid($avaya_data);   
             $avaya_call = $this->corona_model->update_avaya_call_by_calluniqueid($avaya_data);   */
-        } 
-      /*  if($post['callstate'] == "D"){
-
-            
+         
+      /*  
             $inc_avaya_data = array('inc_avaya_uniqueid'=>$post['calluniqueid']);
             if($post['Param1'] != '' && $post['CallType'] == 'I'){
                 $inc_avaya_data['inc_audio_file']=$post['Param1'];

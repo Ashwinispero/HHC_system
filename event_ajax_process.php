@@ -39,7 +39,7 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     $status = $_REQUEST['status'];
     //var_dump($status);
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set status='D' where calling_phone_no = '".$phone_no."' ";
+        $updateEvents= "update sp_incoming_call set status='C' where calling_phone_no = '".$phone_no."'";
         $db->query($updateEvents);
    }
     $checkExist = "select caller_id,name,first_name,middle_name from sp_callers where phone_no = '".$phone_no."' ";

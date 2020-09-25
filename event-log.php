@@ -4792,6 +4792,9 @@ function softdial(){
             $("#name,#caller_first_name,#caller_middle_name").val('');
         }
     }
+    function disconnect_Caller(calling_phone_no){
+        $("#vw_professional").modal("hide");
+    }
 </script>
 <?php
 $db->close(); 
