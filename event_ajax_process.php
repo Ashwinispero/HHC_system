@@ -40,8 +40,9 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
     $unic_id = $_REQUEST['unic_id'];
     if($status == 1){
         $updateEvents= "update sp_incoming_call set is_deleted='1' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
-        echo $updateEvents;
+        
         $db->query($updateEvents);
+        echo 'Success';
    }
 }
 elseif($_REQUEST['action'] == 'CheckCallerExist')
