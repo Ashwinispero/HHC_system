@@ -4709,6 +4709,8 @@ function avaya_start_incoming_call() {
 }
 function soft_call(){
     var phone_no = parseInt(document.getElementById('output').value);
+    //var user = '<?php //echo $_SESSION['first_name'];?>';
+   
     var data1="phone_no="+phone_no+"&action=vw_softdial";
     //var_dump(data1);die();
     $.ajax({

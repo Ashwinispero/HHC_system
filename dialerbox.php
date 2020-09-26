@@ -155,8 +155,8 @@ $('.fa-long-arrow-left').on('click', function() {
 }elseif($_REQUEST['action']=='vw_softdial')
 {
   $phone_no=$_REQUEST['phone_no'];
-  
-  $form_url =  "http://192.168.0.131/API/Click2call.php?user=ashwini&phoneno=".urlencode($phone_no)."";
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);

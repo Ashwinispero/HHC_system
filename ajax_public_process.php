@@ -14,13 +14,13 @@
         $Password=md5($db->escape($_REQUEST['password']));
         $extention_id=$db->escape($_REQUEST['extention_id']);
         
-        $checkExist="SELECT employee_id,hospital_id,employee_code,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
+        $checkExist="SELECT employee_id,hospital_id,employee_code,first_name,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
                     FROM sp_employees 
                     WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' ";
        // echo $checkExist;
         $Loginresult=$db->query($checkExist);
         if(mysql_num_rows($db->query($checkExist)))
-        { $checkExist_avaya="SELECT employee_id,hospital_id,employee_code,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
+        { $checkExist_avaya="SELECT employee_id,hospital_id,employee_code,first_name,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
             FROM sp_employees 
             WHERE avaya_agentid = '" . $extention_id . "' And is_login='1' ";
             $checkExist_avaya_Loginresult=$db->query($checkExist_avaya);
@@ -39,6 +39,7 @@
                 $_SESSION['employee_type']        = $EmployeeLog['type'];
                 $_SESSION['employee_hospital_id'] = $EmployeeLog['hospital_id'];
                 $_SESSION['emp_nm']               = $EmployeeLog['employee_name'];
+                $_SESSION['first_name']           = $EmployeeLog['first_name'];
                 $_SESSION['avaya_agentid']        = $EmployeeLog['avaya_agentid'];
                 // update last login time 
                 if($EmployeeLog['type'] == '2')
