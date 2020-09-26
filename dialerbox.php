@@ -12,6 +12,11 @@
         require_once 'classes/functions.php'; 
         require_once 'classes/config.php'; 
 ?>
+
+<?php
+    if($_REQUEST['action']=='vw_dial')
+    {
+?>
 <style>
 
 
@@ -109,10 +114,6 @@ $('.fa-long-arrow-left').on('click', function() {
 </script>
 <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-<?php
-    if($_REQUEST['action']=='vw_dial')
-    {
-?>
 <div style="background-color: #76D7C4  ">
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -141,12 +142,29 @@ $('.fa-long-arrow-left').on('click', function() {
     <div class="digit" id="zero">0</div>
     <div class="digit">#</div>
   </div>
-  <div class="botrow"><i class="fa fa-star-o dig" aria-hidden="true"></i>
+  <div class="botrow">
+   <!-- <i class="fa fa-star-o dig" aria-hidden="true"></i>
     <div id="call"><i class="fa fa-phone" aria-hidden="true"></i></div>
-    <i class="fa fa-long-arrow-left dig" aria-hidden="true"></i>
+    <i class="fa fa-long-arrow-left dig" aria-hidden="true"></i>-->
+    <button type="button" class="btn-lg btn-success" onclick="return soft_call();"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Softdial</button>
+         
   </div>
 </div>
 </div>
 <?php  
+}elseif($_REQUEST['action']=='vw_softdial')
+{
+  $phone_no=$_REQUEST['phone_no'];
+  
+  $form_url =  "http://192.168.0.131/API/Click2call.php?user=ashwini&phoneno=".urlencode($phone_no)."";
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
 }
 ?>

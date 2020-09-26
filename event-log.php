@@ -4707,7 +4707,27 @@ function avaya_change_incoming_call() {
 function avaya_start_incoming_call() {
     $AVAYA_INCOMING_CALL_FLAG = 1;
 }
-
+function soft_call(){
+    var phone_no = parseInt(document.getElementById('output').value);
+    var data1="phone_no="+phone_no+"&action=vw_softdial";
+    //var_dump(data1);die();
+    $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        alert('Call Placed');
+                        
+                    },
+                    complete : function()
+                    {
+                        $("#vw_professional").modal("hide");
+                    }
+             }); 
+}
 function softdial(){
        $status='1';
     var data1="status="+status+"&action=vw_dial";
