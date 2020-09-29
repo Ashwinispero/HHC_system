@@ -4827,7 +4827,8 @@ function softdial(){
         {
            // alert(unic_id);
             var status='1';
-            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&action=Checkdisconnect";
+            var disconect_remark = document.getElementById('disconect_remark').value
+            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&disconect_remark="+disconect_remark+"&action=Checkdisconnect";
             //alert(data1);
                 $.ajax({
                     url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,

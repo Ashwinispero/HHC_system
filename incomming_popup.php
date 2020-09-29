@@ -62,18 +62,24 @@ if($_REQUEST['action']=='chk_call')
         }
         else if($status == 'D' && $cl_status == '2'){ 
         ?>
-         <div style="background-color: #76D7C4  ">
-        <div class="modal-header">
+        
+       
+        <div class="modal-header" style="background-color: #76D7C4  ">
         <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h3 class="modal-title" align="center">Call Disconnected</span></h3>	
         </div>
-        </div>
+        
         <div>
         <h2 align="center"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span><?php echo $calling_phone_no; ?></h2>
+        </div>
+        <div class="row" align="center" >
+        <h3>Enter Remark:</h3>	
+        <textarea id= "disconect_remark" rows="4" cols="50"></textarea>
         </div>
         <div align="center ">
         <button type="button" class="btn-lg btn-success" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);">OK</button>
          </div>
+      
         <br>
       <?php  }
 ?>
