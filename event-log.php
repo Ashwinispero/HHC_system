@@ -4822,6 +4822,47 @@ function softdial(){
             $("#name,#caller_first_name,#caller_middle_name").val('');
         }
     }
+    function disconnect_HD(calling_phone_no,unic_id){
+        
+        if(calling_phone_no)
+        {
+           // alert(unic_id);
+            var status='1';
+         /*   var disconect_remark = document.getElementById('disconect_remark').value
+            if(disconect_remark=='')
+            {
+                alert('hi');
+            }else{ }*/
+            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&disconect_remark="+disconect_remark+"&action=Checkdisconnect";
+            //alert(data1);
+                $.ajax({
+                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        // Popup_Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        var result=html.trim();
+                        //alert(result);
+                        //$("#vw_professional").modal("hide");
+                    },
+                    complete : function()
+                    {
+                        //$("#vw_professional").modal("hide");
+                        $("#remark_disconect").show();
+                        $("#btn_incoming").hide();
+                        
+                    }
+                }); 
+           // }  
+        
+        } 
+        else 
+        {
+            $("#name,#caller_first_name,#caller_middle_name").val('');
+        }
+    }
     function disconnect_Caller(calling_phone_no,unic_id){
         if(calling_phone_no)
         {

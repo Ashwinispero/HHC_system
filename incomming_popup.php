@@ -52,10 +52,15 @@ if($_REQUEST['action']=='chk_call')
         <div>
         <h2 align="center"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span><?php echo $calling_phone_no; ?></h2>
         </div>
-        <div align="center ">
+        <div id="remark_disconect" class="row" align="center" style="display:none">
+        <h3>Enter Remark:</h3>	
+        <textarea id= "disconect_remark" rows="4" cols="50"></textarea>
+        <button type="button" class="btn-lg btn-danger" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>
+        </div>
+        <div align="center " id="btn_incoming">
         
         <button type="button" class="btn-lg btn-success" onclick="return acceptCaller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
-       <!-- <button type="button" class="btn-lg btn-danger" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>-->
+        <button type="button" class="btn-lg btn-danger" onclick="return disconnect_HD(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>
         </div>
         <br>
           <?php 

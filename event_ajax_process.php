@@ -40,7 +40,7 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
     $unic_id = $_REQUEST['unic_id'];
     $disconect_remark = $_REQUEST['disconect_remark'];
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set is_deleted='1' ,dis_conn_massage = '".$disconect_remark."' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
+        $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='D' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
         
         $db->query($updateEvents);
         echo 'Success';
@@ -54,6 +54,7 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     //var_dump($status);
     if($status == 1){
         $updateEvents= "update sp_incoming_call set status='C'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."'";
+        // var_dump($updateEvents);
         $db->query($updateEvents);
         /*
         $phone_no=$_REQUEST['phone_no'];
