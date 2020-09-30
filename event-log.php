@@ -289,6 +289,13 @@ if($_REQUEST['EID'])
       </div>
     </div>
   </div>
+  <div class="modal fade" id="vw_avaya">
+    <div class="modal-dialog" style="width:350px !important;">
+      <div class="modal-content" id="AllAjaxData_avaya"> </div>
+      <!-- /.modal-content --> 
+    </div>
+    <!-- /.modal-dialog --> 
+  </div>
     <!-- Modal Popup code start ---> 
     <div class="modal fade" id="vw_professional"> 
         <div class="modal-dialog" style="width:900px !important;">
@@ -4742,8 +4749,8 @@ function softdial(){
                     success: function (html)
                     {
                       //  alert(html);
-                        $('#vw_professional').modal({backdrop: 'static',keyboard: false}); 
-                        $("#AllAjaxData").html(html);
+                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
                         $("#viewEventDetails .modal-body").mCustomScrollbar({
                                         setHeight:500,
                                         
@@ -4751,9 +4758,9 @@ function softdial(){
                                 });
                                          
                         $('[data-toggle="tooltip"]').tooltip();
-                        $(".modal-dialog").css("width", "350px");
-                        $(".modal-dialog").css("background-color", "#A3E4D7");
-                        $(".modal-content").css("background-color", "#45B39D ");
+                      //  $(".modal-dialog").css("width", "350px");
+                      //  $(".modal-dialog").css("background-color", "#A3E4D7");
+                      //  $(".modal-content").css("background-color", "#45B39D ");
                         
                         //$('.modal-dialog').modal('hide'); 
                     },
