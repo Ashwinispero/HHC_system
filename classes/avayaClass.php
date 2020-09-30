@@ -24,7 +24,7 @@
     {
       //echo 'dfvsf';
         $query = $this->query_insert('sp_incoming_call', $arg);
-        return 'True';
+        return $query;
         
     }
 }

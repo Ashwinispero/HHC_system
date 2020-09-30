@@ -55,6 +55,20 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     if($status == 1){
         $updateEvents= "update sp_incoming_call set status='C'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."'";
         $db->query($updateEvents);
+        /*
+        $phone_no=$_REQUEST['phone_no'];
+        $user = $_SESSION['first_name'];
+        $form_url =  "http://192.168.0.131/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
+        $data_to_post = array();
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $form_url);
+        curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        echo $result;
+        */
    }
     $checkExist = "select caller_id,name,first_name,middle_name from sp_callers where phone_no = '".$phone_no."' ";
     if(mysql_num_rows($db->query($checkExist)))
