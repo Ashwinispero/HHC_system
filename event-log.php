@@ -4691,14 +4691,14 @@ function avaya_change_incoming_call() {
                     $abc = html;
                     if($abc != ' '){
                     //alert(html);
-                        $('#vw_professional').modal({backdrop: 'static',keyboard: false}); 
-                        $("#AllAjaxData").html(html);
+                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
                         $("#viewEventDetails .modal-body").mCustomScrollbar({
                         setHeight:500,
                     });
                     $('[data-toggle="tooltip"]').tooltip();
-                    $(".modal-dialog").css("width", "350px");
-                    $(".modal-dialog").css("background-color", "#A3E4D7");
+                //    $(".modal-dialog").css("width", "350px");
+               //     $(".modal-dialog").css("background-color", "#A3E4D7");
                    // $(".modal-content").css("background-color", "#45B39D ");
                     //$('.modal-dialog').modal('hide'); 
                     }
@@ -4728,12 +4728,13 @@ function soft_call(){
                     },
                     success: function (html)
                     {
+                        alert(html);
                         alert('Call Placed');
                         
                     },
                     complete : function()
                     {
-                        $("#vw_professional").modal("hide");
+                        $("#vw_avaya").modal("hide");
                     }
              }); 
 }
@@ -4819,7 +4820,7 @@ function softdial(){
                     },
                     complete : function()
                     {
-                        $("#vw_professional").modal("hide");
+                        $("#vw_avaya").modal("hide");
                     }
                 }); 
            // }  
@@ -4852,11 +4853,11 @@ function softdial(){
                     {
                         var result=html.trim();
                         //alert(result);
-                        //$("#vw_professional").modal("hide");
+                        //$("#vw_avaya").modal("hide");
                     },
                     complete : function()
                     {
-                        //$("#vw_professional").modal("hide");
+                        //$("#vw_avaya").modal("hide");
                         $("#remark_disconect").show();
                         $("#btn_incoming").hide();
                         
@@ -4888,11 +4889,11 @@ function softdial(){
                     {
                         var result=html.trim();
                         //alert(result);
-                        $("#vw_professional").modal("hide");
+                        $("#vw_avaya").modal("hide");
                     },
                     complete : function()
                     {
-                        $("#vw_professional").modal("hide");
+                        $("#vw_avaya").modal("hide");
                     }
                 }); 
            // }  
