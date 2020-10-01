@@ -161,6 +161,7 @@ else
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Rt.Vou.No</th>
+                <th>Audio</th>
                 <th style="text-align:center !important;"><a href="javascript:void(0);" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',\'\',\''.$order.'\',\'event_status\');" style="color:#fff; text-align:center">Status '.$img5.' </a></th>
                 <th>Action</th>
               </tr>
@@ -277,6 +278,8 @@ else
                 <td style = "' . $style .'">' . $service_date . '</td>
                 <td style = "' . $style .'">' . $service_date_to_max . '</td>
                 <td style = "' . $style .'">' . $paymentReceiptNumbers . '</td>
+        <td style = "' . $style .'">'; if($recListValue['call_audio'] ==''){ }else { ?><a  target="_blank" href=" <?php echo $recListValue['call_audio']; ?> " ><span aria-hidden="true" class="glyphicon glyphicon-play"></span></a> <?php  }
+                echo '</td>
                 <td width="15%">
                     <div class="col-lg-5 paddingLR0 text-right">'.$progress.'% &nbsp; </div>
                     <div class="col-lg-7 paddingLR0">
