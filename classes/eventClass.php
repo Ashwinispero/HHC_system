@@ -29,7 +29,7 @@ class eventClass extends AbstractDB
         $insertData['professional_id'] = $arg['professional_id'];
         $insertData['consultant_id']   = $arg['caller_consultant_id'];
         $employee_id                   = $arg['employee_id'];
-
+        $CallUniqueID                  = $arg['CallUniqueID'];
         /* ---------- Edit Event Log     --------- */
         $Edit_CallerId = $arg['Edit_CallerId'];
         $Edit_event_id = $arg['Edit_event_id'];
@@ -194,7 +194,7 @@ class eventClass extends AbstractDB
             $createEvent['added_by'] = $employee_id;
             $createEvent['Added_through'] = 1;
             $createEvent['Invoice_narration'] = $Invoice_narration;
-            
+            $createEvent['CallUniqueID'] = $CallUniqueID;
             $createEvent['added_date'] = date('Y-m-d H:i:s');
     
             
@@ -205,7 +205,7 @@ class eventClass extends AbstractDB
             $createEvent['branch_code'] = $branch_code;	
             $createEvent['hospital_id'] = $employeee_record['hospital_id'];	
             $EventId=$this->query_insert('sp_events',$createEvent);
-
+            unset($_SESSION["CallUniqueID"]);
             // Added Activity Log
             if (!empty($EventId)) {
                 $insertActivityArr = array();

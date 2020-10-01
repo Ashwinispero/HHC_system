@@ -135,7 +135,7 @@ else if($_REQUEST['action']=='submitCaller')
 			$arr['professional_id']=$_POST['choose_professional_id'];
             $arr['caller_consultant_id']=$_POST['caller_consultant_id'];
 			$arr['hospital_id']=$_SESSION['hospital_id'];
-            
+            $arr['CallUniqueID']=$_SESSION['CallUniqueID'];
             if(isset($_SESSION['employee_id']))
             {
                 $InsertRecord=$eventClass->InsertCallers($arr); 

@@ -40,13 +40,14 @@ if($_REQUEST['action']=='chk_call')
         $status=$max_id_row['status'];
         $cl_status=$max_id_row['cl_status'];
         $CallUniqueID=$max_id_row['CallUniqueID'];
+        $_SESSION['CallUniqueID'] = $CallUniqueID;
         //var_dump($status);die();
         if($status == 'R' && $cl_status == '1'){
           ?>
           <div style="background-color: #76D7C4  ">
         <div class="modal-header">
         <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="modal-title" align="center">Incomming Call</span></h3>	
+        <h3 class="modal-title" align="center">Incomming Call<?php echo $_SESSION['CallUniqueID']; ?></span></h3>	
         </div>
         </div>
         <div>
