@@ -156,12 +156,13 @@ else
                 <th><a href="javascript:void(0);" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',\'\',\''.$order.'\',\'event_code\');" style="color:#fff;">Event Id '.$img2.' </a></th>
                 <th><a href="javascript:void(0);" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',\'\',\''.$order.'\',\'event_date\');" style="color:#fff;">Event Date Time '.$img3.' </a></th>
                 <th>Call Purpose</th>
+                <th>Caller No</th>
                 <th>Patient Name</th>
+                <th>Patient No</th>
                 <th>Professional Name</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Rt.Vou.No</th>
-                <th>Audio</th>
                 <th style="text-align:center !important;"><a href="javascript:void(0);" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',\'\',\''.$order.'\',\'event_status\');" style="color:#fff; text-align:center">Status '.$img5.' </a></th>
                 <th>Action</th>
               </tr>
@@ -269,18 +270,20 @@ else
                 <td>'.$recListValue['event_code'].'</td>
                 <td>'.date('d M Y h:i A',strtotime($recListValue['event_date'])).'</td>
                 <td style = "' . $isConvertedServiceStyle .'">'.$callpurpose.'</td>
+                <td>'.$recListValue['mobile_no'].'</td>
                 <td>';
                     if(!empty($recListValue['patientNm'])) { echo $recListValue['patientNm']; } else {  echo "NA"; }
                 echo '</td>
+                <td>'.$recListValue['mobile_no'].'</td>
                 <td>';
                  if(!empty($recListValue['profNm'])) { echo $recListValue['profNm']; } else {  echo "NA"; }
                 echo '</td>
                 <td style = "' . $style .'">' . $service_date . '</td>
                 <td style = "' . $style .'">' . $service_date_to_max . '</td>
-                <td style = "' . $style .'">' . $paymentReceiptNumbers . '</td>
-        <td style = "' . $style .'">'; if($recListValue['call_audio'] ==''){ }else { ?><a  target="_blank" href=" <?php echo $recListValue['call_audio']; ?> " ><span aria-hidden="true" class="glyphicon glyphicon-play"></span></a> <?php  }
-                echo '</td>
-                <td width="15%">
+                <td style = "' . $style .'">' . $paymentReceiptNumbers . '</td>';
+              //  echo '<td style = "' . $style .'">'; if($recListValue['call_audio'] ==''){ }else { ?><!--<a  target="_blank" href=" <?php //echo $recListValue['call_audio']; ?> " ><span aria-hidden="true" class="glyphicon glyphicon-play"></span></a> --><?php // }
+               // echo '</td>';
+                echo '<td width="15%">
                     <div class="col-lg-5 paddingLR0 text-right">'.$progress.'% &nbsp; </div>
                     <div class="col-lg-7 paddingLR0">
                         <div class="progress">

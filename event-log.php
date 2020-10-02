@@ -4745,7 +4745,7 @@ function softdial(){
                     url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
                     {
-                        Display_Load();
+                        //Display_Load();
                     },
                     success: function (html)
                     {
@@ -4753,7 +4753,7 @@ function softdial(){
                         $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
                         $("#AllAjaxData_avaya").html(html);
                         $("#viewEventDetails .modal-body").mCustomScrollbar({
-                                        setHeight:500,
+                                        setHeight:300,
                                         
                                         //theme:"minimal-dark"
                                 });
