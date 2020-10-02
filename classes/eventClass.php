@@ -205,7 +205,8 @@ class eventClass extends AbstractDB
             $createEvent['branch_code'] = $branch_code;	
             $createEvent['hospital_id'] = $employeee_record['hospital_id'];	
             $EventId=$this->query_insert('sp_events',$createEvent);
-            unset($_SESSION["CallUniqueID"]);
+            //unset($_SESSION["CallUniqueID"]);
+            $_SESSION["CallUniqueID"]='';
             // Added Activity Log
             if (!empty($EventId)) {
                 $insertActivityArr = array();
