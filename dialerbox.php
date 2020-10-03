@@ -165,6 +165,53 @@ $('.fa-long-arrow-left').on('click', function() {
   curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
   $result = curl_exec($curl);
   curl_close($curl);
+//  $rel = explode(" ",$result,0);
+  //echo json_encode($rel);
+  echo $result;
+}
+elseif($_REQUEST['action']=='vw_pause_mode')
+{
+  $status=$_REQUEST['status'];
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=PAUSE";
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
+}
+elseif($_REQUEST['action']=='vw_ready_mode')
+{
+  $status=$_REQUEST['status'];
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=RESUME";
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
+}
+elseif($_REQUEST['action']=='vw_hang_mode')
+{
+  $status=$_REQUEST['status'];
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/Hangup.php?user=".$user;
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
   echo $result;
 }
 ?>

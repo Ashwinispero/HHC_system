@@ -4717,7 +4717,8 @@ function avaya_start_incoming_call() {
 function soft_call(){
     var phone_no = parseInt(document.getElementById('output').value);
     //var user = '<?php //echo $_SESSION['first_name'];?>';
-   
+    $("#ready_mode").hide();
+    $("#pause_mode").hide();
     var data1="phone_no="+phone_no+"&action=vw_softdial";
     //var_dump(data1);die();
     $.ajax({
@@ -4730,11 +4731,12 @@ function soft_call(){
                     {
                         alert(html);
                         alert('Call Placed');
-                        
+                        $("#hang_mode").show();
                     },
                     complete : function()
                     {
                         $("#vw_avaya").modal("hide");
+                       
                     }
              }); 
 }
@@ -4902,6 +4904,75 @@ function softdial(){
         {
             $("#name,#caller_first_name,#caller_middle_name").val('');
         }
+    }
+    function ready_mode(){
+        $("#pause_mode").show();
+        $("#ready_mode").hide();
+        var status='1'
+        var data1="status="+status+"&action=vw_ready_mode";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        alert(html);
+                        alert('User now Ready mode');
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                }); 
+    }
+    function pause_mode(){
+        $("#ready_mode").show();
+        $("#pause_mode").hide();
+        var status='1'
+        var data1="status="+status+"&action=vw_pause_mode";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        alert(html);
+                        alert('User now Pause mode');
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                });
+    }
+    function hang_mode(){
+      //  $("#ready_mode").show();
+       // $("#pause_mode").hide();
+        var status='1'
+        var data1="status="+status+"&action=vw_hang_mode";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        alert(html);
+                        alert('User now ready mode');
+                        $("#pause_mode").show();
+                        $("#ready_mode").show();
+                        $("#hang_mode").hide();
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                });
     }
 </script>
 <?php

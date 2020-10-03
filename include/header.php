@@ -55,6 +55,13 @@ $RequestedRec = $employeesClass->GetEmployeeById($arr);
         </ul>
       </div>
       <!--/.nav-collapse --> 
+      <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right">
+        <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang up Mode</button>
+        <button type="button" id="ready_mode" class="btn-lg btn-warning" style="display:none" onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
+        <button type="button" id="pause_mode" class="btn-lg btn-success" onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
+        </ul>
+      </div>
     </div>
     <!--/.container-fluid --> 
   </nav>
