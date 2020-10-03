@@ -4729,6 +4729,8 @@ function soft_call(){
                     },
                     success: function (html)
                     {
+                        var res = html.split(" ", 1);
+                        alert(res);
                         alert(html);
                         alert('Call Placed');
                         $("#hang_mode").show();
@@ -4741,6 +4743,8 @@ function soft_call(){
              }); 
 }
 function softdial(){
+    // ready_mode
+   // var disconect_remark = document.getElementById('disconect_remark').value
        $status='1';
     var data1="status="+status+"&action=vw_dial";
     $.ajax({

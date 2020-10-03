@@ -47,7 +47,7 @@ if($_REQUEST['action']=='chk_call')
           <div style="background-color: #76D7C4  ">
         <div class="modal-header">
         <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="modal-title" align="center">Incomming Call<?php echo $_SESSION['CallUniqueID']; ?></span></h3>	
+        <h3 class="modal-title" align="center">Incomming Call</span></h3>	
         </div>
         </div>
         <div>
