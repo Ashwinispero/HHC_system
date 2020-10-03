@@ -54,12 +54,10 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     //var_dump($status);
     if($status == 1){
         $updateEvents= "update sp_incoming_call set status='C'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."'";
-        // var_dump($updateEvents);
         $db->query($updateEvents);
-        /*
-        $phone_no=$_REQUEST['phone_no'];
+        
         $user = $_SESSION['first_name'];
-        $form_url =  "http://192.168.0.131/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
+        $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value='ACCEPT'";
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -68,8 +66,8 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
         $result = curl_exec($curl);
         curl_close($curl);
-        echo $result;
-        */
+        //echo $result;
+        
    }
     $checkExist = "select caller_id,name,first_name,middle_name from sp_callers where phone_no = '".$phone_no."' ";
     if(mysql_num_rows($db->query($checkExist)))

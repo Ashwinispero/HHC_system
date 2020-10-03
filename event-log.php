@@ -4823,6 +4823,9 @@ function softdial(){
                     complete : function()
                     {
                         $("#vw_avaya").modal("hide");
+                        $("#ready_mode").hide();
+                        $("#pause_mode").hide();
+                        $("#hang_mode").show();
                     }
                 }); 
            // }  
