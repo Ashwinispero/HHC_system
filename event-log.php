@@ -4965,7 +4965,7 @@ function softdial(){
                         alert(html);
                         alert('User now ready mode');
                         $("#pause_mode").show();
-                        $("#ready_mode").show();
+                        $("#ready_mode").hide();
                         $("#hang_mode").hide();
                     },
                     complete : function()
