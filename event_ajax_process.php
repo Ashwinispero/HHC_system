@@ -43,6 +43,16 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
         $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='D' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
         
         $db->query($updateEvents);
+        $user = $_SESSION['first_name'];
+        $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value='END'";
+        $data_to_post = array();
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $form_url);
+        curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+        $result = curl_exec($curl);
+        curl_close($curl);
         echo 'Success';
    }
 }
