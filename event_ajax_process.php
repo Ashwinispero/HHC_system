@@ -44,7 +44,7 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
         
         $db->query($updateEvents);
         $user = $_SESSION['first_name'];
-        $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value='END'";
+        $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value=END";
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
