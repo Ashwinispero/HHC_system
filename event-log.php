@@ -4781,26 +4781,16 @@ function softdial(){
    {
        if(calling_phone_no)
         {
-           // alert(unic_id);
-          // window.location = '/event-log.php?calling_phone_no=' + calling_phone_no+'&unic_id='+unic_id;
-            var status='1';
-            document.getElementById("phone_no").value = calling_phone_no;
-            var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&action=CheckCallerExist";
-            //alert(data1);
+            $(window).on('load', function() {
+                var status = '1';
+                document.getElementById("phone_no").value = calling_phone_no;
+                var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&action=CheckCallerExist";
                 $.ajax({
                     url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
-                    beforeSend: function() 
-                    {
-                        // alert('hi');
-                        // Popup_Display_Load();
-                        //window.location = "event-log.php";
-                        // changePagination('eventLogListing','include_event_log.php','','','','');  
-                        //window.location='event-log.php';
-                        //$( "#RightSideDiv" ).load(window.location.href + " #RightSideDiv" );
-                        //window.location = '/event-log.php?EID=' + EID;
+                    beforeSend: function() {
+                        Popup_Display_Load();
                     },
-                    success: function (html)
-                    {
+                    success: function (html) {
                         var result=html.trim();
                         //alert(result);
                         if(result)
@@ -4824,16 +4814,15 @@ function softdial(){
                             $("#name,#caller_first_name,#caller_middle_name").val('');
                         }  
                     },
-                    complete : function()
-                    {
+                    complete : function() {
+                        Popup_Hide_Load();
                         $("#vw_avaya").modal("hide");
                         $("#ready_mode").hide();
                         $("#pause_mode").hide();
                         $("#hang_mode").show();
                     }
-                }); 
-           // }  
-        } 
+                });
+            } 
         else 
         {
             $("#name,#caller_first_name,#caller_middle_name").val('');

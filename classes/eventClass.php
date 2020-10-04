@@ -343,6 +343,12 @@ class eventClass extends AbstractDB
             $employees = rtrim($employee_ids,',');
             $preAddedBy = " and added_by IN ($employees)";
         }*/
+
+        // Added this condition for load last 45 days records on the event list page
+		if (empty($SearchByPatients) && empty($search_value) && empty($SearchByPurpose) &&
+            empty($SearchByProfessional) && empty($SearchfromDate_service) && empty($SearchfromDate) && !empty($arg['listPageDefaultFilter'])) {
+            $preWhere .= " AND DATE_FORMAT(se.event_date,'%Y-%m-%d') >= '" . date('Y-m-d', strtotime(' -45 day')) . "'  AND DATE_FORMAT(se.event_date,'%Y-%m-%d') <= '" . date('Y-m-d') . "'";
+        }
         
         
         if($SearchfromDate_service && $SearchToDate_service)
