@@ -60,6 +60,7 @@ $RequestedRec = $employeesClass->GetEmployeeById($arr);
         <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang up Mode</button>
         <button type="button" id="ready_mode" class="btn-lg btn-warning"  onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
         <button type="button" id="pause_mode" class="btn-lg btn-success" style="display:none" onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
+        <button type="button" id="conf_mode" class="btn-lg btn-success" style="display:none" onclick="return conf_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Conferance call</button>
         </ul>
       </div>
     </div>
