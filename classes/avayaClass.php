@@ -27,4 +27,8 @@
         return $query;
         
     }
+    public function insert_avaya_outgoing_call($args){
+        $query = $this->query_insert('sp_outgoing_call', $args);
+        return $query;
+    }
 }

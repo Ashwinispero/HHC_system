@@ -2,6 +2,7 @@
         require_once "classes/thumbnail_images.class.php";
         require_once "classes/SimpleImage.php";        
         include "classes/eventClass.php";
+        
         $eventClass = new eventClass();
         include "classes/employeesClass.php";
         $employeesClass = new employeesClass();
@@ -11,6 +12,9 @@
         $commonClass= new commonClass();
         require_once 'classes/functions.php'; 
         require_once 'classes/config.php'; 
+
+require_once 'classes/avayaClass.php';
+$avayaClass=new avayaClass();
 ?>
 
 <?php
@@ -149,6 +153,19 @@ elseif($_REQUEST['action']=='vw_softdial')
 {
   $phone_no=$_REQUEST['phone_no'];
   $user = $_SESSION['first_name'];
+  $avaya_agentid=$_SESSION['avaya_agentid'];
+  $unique_id = time();
+  $avaya_data = array(
+    
+    'CallUniqueID'=> $unique_id,
+    'call_extension' => $avaya_agentid,
+    'call_mobile' => $phone_no,
+    'call_agentid' => $user,
+    'call_status' => '1',
+    'call_datetime' => date('Y-m-d H:i:s')
+  );
+  $avaya_data_insert =$avayaClass->insert_avaya_outgoing_call($avaya_data);
+
   $form_url =  "http://192.168.0.131/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
   $data_to_post = array();
   $curl = curl_init();

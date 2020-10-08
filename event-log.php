@@ -4729,12 +4729,20 @@ function soft_call(){
                     },
                     success: function (html)
                     {
-                        var res = html.split(" ", 1);
-                        alert(res);
-                        alert(html);
-                        alert('Call Placed');
+                        // var res = html.split(" ", 1);
+                        // alert(html);
+                        var sttr1="ERROR:"
+                        var val = sttr1.search(html);
+                        //alert(val);
+                        if(val == 0){
+                            alert('Call Placed');
                         $("#hang_mode").show();
                         $("#conf_mode").show();
+                        }else{
+                            alert(html);
+                            $("#pause_mode").show();
+                        }
+                        
                     },
                     complete : function()
                     {
