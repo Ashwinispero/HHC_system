@@ -214,4 +214,44 @@ elseif($_REQUEST['action']=='vw_hang_mode')
   curl_close($curl);
   echo $result;
 }
+elseif($_REQUEST['action']=='vw_conf')
+{ 
+  //$status=$_REQUEST['status'];
+  ?>
+  
+
+  <div style="background-color: #76D7C4  ">
+        <div class="modal-header">
+        <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" align="center">Add Conferance Call</span></h3>	
+        </div>
+        </div>
+        <br>
+        <div align="center" >
+        <input id="conf_no" style="width:80%;" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
+        </div>
+        <br>
+        <div align="center " id="btn_incoming">
+        
+        <button type="button" class="btn-lg btn-success" onclick="return add_call();"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Add Call</button>
+        </div>
+        <br>
+        <?php
+}
+elseif($_REQUEST['action']=='vw_conf_mode'){
+  $status=$_REQUEST['status'];
+  $conf_no=$_REQUEST['conf_no'];
+  $user = $_SESSION['first_name'];
+  //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
+  $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
+}
 ?>

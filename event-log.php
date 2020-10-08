@@ -4734,11 +4734,12 @@ function soft_call(){
                         alert(html);
                         alert('Call Placed');
                         $("#hang_mode").show();
+                        $("#conf_mode").show();
                     },
                     complete : function()
                     {
                         $("#vw_avaya").modal("hide");
-                       
+                        
                     }
              }); 
 }
@@ -4774,6 +4775,7 @@ function softdial(){
                     complete : function()
                     {
                        Hide_Load();
+                       
                     }
              }); 
    }
@@ -4830,6 +4832,7 @@ function softdial(){
                         $("#ready_mode").hide();
                         $("#pause_mode").hide();
                         $("#hang_mode").show();
+                        $("#conf_mode").show();
                     }
                 }); 
            // }  
@@ -4885,7 +4888,7 @@ function softdial(){
         {
            // alert(unic_id);
             var status='1';
-            var disconect_remark = document.getElementById('disconect_remark').value
+            var disconect_remark = document.getElementById('disconect_remark').value;
             var data1="phone_no="+calling_phone_no+"&unic_id="+unic_id+"&status="+status+"&disconect_remark="+disconect_remark+"&action=Checkdisconnect";
             //alert(data1);
                 $.ajax({
@@ -4974,6 +4977,59 @@ function softdial(){
                         $("#pause_mode").show();
                         $("#ready_mode").hide();
                         $("#hang_mode").hide();
+                        $("#conf_mode").hide();
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                });
+    }
+    function conf_mode()
+    {
+        $status='1';
+        var data1="status="+status+"&action=vw_conf";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        //Display_Load();
+                    },
+                    success: function (html)
+                    {
+                      //  alert(html);
+                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                        setHeight:300,
+                                     
+                                });
+                                         
+                        $('[data-toggle="tooltip"]').tooltip();
+                      
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+    }
+    function add_call(){
+        var status='1'
+        var confer_no=document.getElementById('conf_no').value
+        var data1="status="+status+"&conf_no="+confer_no+"&action=vw_conf_mode";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        alert(html);
+                        alert('conferance call');
+                        $("#hang_mode").show();
+                        $("#conf_mode").show();
                     },
                     complete : function()
                     {
