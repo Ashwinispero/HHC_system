@@ -4714,6 +4714,44 @@ function avaya_change_incoming_call() {
 function avaya_start_incoming_call() {
     $AVAYA_INCOMING_CALL_FLAG = 1;
 }
+function soft_call_dial(no){
+    alert(no);
+   // var phone_no = parseInt(document.getElementById('output').value);
+    //var user = '<?php //echo $_SESSION['first_name'];?>';
+    $("#ready_mode").hide();
+    $("#pause_mode").hide();
+    var data1="phone_no="+no+"&action=vw_softdial";
+    //var_dump(data1);die();
+    $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        // var res = html.split(" ", 1);
+                        // alert(html);
+                        var sttr1="ERROR:"
+                        var val = sttr1.search(html);
+                        //alert(val);
+                        if(val == 0){
+                            alert('Call Placed');
+                        $("#hang_mode").show();
+                        $("#conf_mode").show();
+                        }else{
+                            alert(html);
+                            $("#pause_mode").show();
+                        }
+                        
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                        
+                    }
+             });
+}
 function soft_call(){
     var phone_no = parseInt(document.getElementById('output').value);
     //var user = '<?php //echo $_SESSION['first_name'];?>';

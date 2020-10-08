@@ -274,7 +274,10 @@ else
                 <td>';
                     if(!empty($recListValue['patientNm'])) { echo $recListValue['patientNm']; } else {  echo "NA"; }
                 echo '</td>
-                <td>'.$recListValue['mobile_no'].'</td>
+                <td>
+                <a href="javascript:void(0);" title="Soft Dial" onclick="soft_call_dial('.$recListValue['mobile_no'].')"; data-toggle="tooltip" data-placement="top" title="Softdial">
+                '.$recListValue['mobile_no'].'</a>
+                </td>
                 <td>';
                  if(!empty($recListValue['profNm'])) { echo $recListValue['profNm']; } else {  echo "NA"; }
                 echo '</td>
