@@ -14,13 +14,9 @@
 ?>
 
 <?php
-    if($_REQUEST['action']=='vw_dial')
-    {
+    if($_REQUEST['action']=='vw_dial'){
 ?>
 <style>
-
-
-
 .digit,
 .dig {
   float: left;
@@ -37,10 +33,10 @@
 
 .container {
   background-color: white;
-  width: 280px;
+  width: 250px;
   padding: 20px;
   margin: 30px auto;
-  height: 420px;
+  height: 300px;
   text-align: center;
   box-shadow: 0 4px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
@@ -114,45 +110,42 @@ $('.fa-long-arrow-left').on('click', function() {
 </script>
 <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-<div style="background-color: #76D7C4  ">
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <h4 class="modal-title">Soft Phone</span></h4>
-</div>
-
-<div class="container">
-  <input id="output" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
-  <div class="row">
-    <div class="digit" id="one" >1</div>
-    <div class="digit" id="two" >2</div>
-    <div class="digit" id="three">3</div>
-  </div>
-  <div class="row">
-    <div class="digit" id="four">4</div>
-    <div class="digit" id="five">5</div>
-    <div class="digit" id="six">6 </div>
-  </div>
-  <div class="row">
-    <div class="digit" id="seven">7</div>
-    <div class="digit" id="eight">8</div>
-    <div class="digit" id="nine">9</div>
-  </div>
-  <div class="row">
-    <div class="digit">*</div>
-    <div class="digit" id="zero">0</div>
-    <div class="digit">#</div>
-  </div>
-  <div class="botrow">
-   <!-- <i class="fa fa-star-o dig" aria-hidden="true"></i>
-    <div id="call"><i class="fa fa-phone" aria-hidden="true"></i></div>
-    <i class="fa fa-long-arrow-left dig" aria-hidden="true"></i>-->
-    <button type="button" class="btn-lg btn-success" onclick="return soft_call();"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Softdial</button>
-         
-  </div>
-</div>
-</div>
-<?php  
-}elseif($_REQUEST['action']=='vw_softdial')
+  <div style="background-color: #76D7C4  ">
+        <div class="modal-header">
+        <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" align="center"> Soft Phone  </span></h3>	
+        </div>
+        </div>
+        <br>
+        <div align="center" >
+        <input id="output" onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
+        </div>
+        <div align="center " class="container">
+        <div class="row">
+          <div class="digit" id="one" >1</div>
+          <div class="digit" id="two" >2</div>
+          <div class="digit" id="three">3</div>
+        </div>
+        <div class="row">
+          <div class="digit" id="four">4</div>
+          <div class="digit" id="five">5</div>
+          <div class="digit" id="six">6 </div>
+        </div>
+        <div class="row">
+          <div class="digit" id="seven">7</div>
+          <div class="digit" id="eight">8</div>
+          <div class="digit" id="nine">9</div>
+        </div>
+        <div class="row">
+          <div class="digit">*</div>
+          <div class="digit" id="zero">0</div>
+          <div class="digit">#</div>
+        </div>
+        <button type="button" class="btn-lg btn-success" onclick="return soft_call();"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Softdial</button>
+    </div>
+        <br>
+<?php }
+elseif($_REQUEST['action']=='vw_softdial')
 {
   $phone_no=$_REQUEST['phone_no'];
   $user = $_SESSION['first_name'];
@@ -240,10 +233,13 @@ elseif($_REQUEST['action']=='vw_conf')
 }
 elseif($_REQUEST['action']=='vw_conf_mode'){
   $status=$_REQUEST['status'];
+  //$no = '77';
   $conf_no=$_REQUEST['conf_no'];
+ // $conf_no_new=$no.''.$conf_no;
   $user = $_SESSION['first_name'];
   //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
   $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
+    var_dump($form_url);
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);

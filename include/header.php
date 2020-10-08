@@ -24,7 +24,14 @@ $RequestedRec = $employeesClass->GetEmployeeById($arr);
         <a href="event-log.php" class="navbar-brand clearSessioncls"><img src="images/logo.png" alt="SPERO"></a> </div>
       <div class="navbar-collapse collapse" id="navbar">
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="javascript:void(0);" data-placement="top" title="View Dialer Box" onclick="softdial()"; data-toggle="tooltip" class="clearSessioncls"> <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a></li>
+       <!-- <li> 
+        <button type="button" id="soft" class="btn-lg btn-info"  onclick="return softdial();"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> soft call</button>
+        
+        <a href="javascript:void(0);" data-placement="top" title="View Dialer Box" onclick="softdial()"; data-toggle="tooltip" class="clearSessioncls"> <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a>
+        </li>-->
+        <li>
+        <a href="javascript:void(0);"  title="View Dialer Box" onclick="softdial()"; > <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a>
+        </li>
         
             <li><a href="event-log.php" class="clearSessioncls"> <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Attend Call</a></li>
         <?php if($_SESSION['employee_type']=='1') { ?>

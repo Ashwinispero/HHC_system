@@ -4756,8 +4756,16 @@ function softdial(){
                     },
                     success: function (html)
                     {
-                      //  alert(html);
                         $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                       setHeight:100,
+                                    
+                                });
+                                         
+                       // $('[data-toggle="tooltip"]').tooltip();
+                        //alert(html);
+                       /* $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
                         $("#AllAjaxData_avaya").html(html);
                         $("#viewEventDetails .modal-body").mCustomScrollbar({
                                         setHeight:300,
@@ -4765,7 +4773,7 @@ function softdial(){
                                         //theme:"minimal-dark"
                                 });
                                          
-                        $('[data-toggle="tooltip"]').tooltip();
+                        $('[data-toggle="tooltip"]').tooltip();*/
                       //  $(".modal-dialog").css("width", "350px");
                       //  $(".modal-dialog").css("background-color", "#A3E4D7");
                       //  $(".modal-content").css("background-color", "#45B39D ");
