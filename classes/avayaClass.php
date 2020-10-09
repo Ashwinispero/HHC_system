@@ -31,4 +31,12 @@
         $query = $this->query_insert('sp_outgoing_call', $args);
         return $query;
     }
+    public function insert_avaya_conf_call($args){
+        $query = $this->query_insert('sp_coferance_call', $args);
+        return $query;
+    }
+    public function insert_mode_status($args){
+        $query = $this->query_insert('sp_ready_pause_history', $args);
+        return $query;
+    }
 }

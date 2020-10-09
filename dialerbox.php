@@ -183,6 +183,19 @@ elseif($_REQUEST['action']=='vw_pause_mode')
 {
   $status=$_REQUEST['status'];
   $user = $_SESSION['first_name'];
+  $employee_id = $_SESSION['employee_id'];
+  $avaya_agentid = $_SESSION['avaya_agentid'] ;
+  $unique_id = time();
+  $avaya_data = array(
+    
+    'ext_no'=> $avaya_agentid,
+    'CallUniqueID' => $unique_id,
+    'user_id' => $employee_id,
+    'mode_status' => '1',
+    'date_time' => date('Y-m-d H:i:s'),
+    'is_deleted' => '0'
+  );
+  $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
   $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=PAUSE";
   $data_to_post = array();
   $curl = curl_init();
@@ -198,6 +211,19 @@ elseif($_REQUEST['action']=='vw_ready_mode')
 {
   $status=$_REQUEST['status'];
   $user = $_SESSION['first_name'];
+  $employee_id = $_SESSION['employee_id'];
+  $avaya_agentid = $_SESSION['avaya_agentid'] ;
+  $unique_id = time();
+  $avaya_data = array(
+    
+    'ext_no'=> $avaya_agentid,
+    'CallUniqueID' => $unique_id,
+    'user_id' => $employee_id,
+    'mode_status' => '2',
+    'date_time' => date('Y-m-d H:i:s'),
+    'is_deleted' => '0'
+  );
+  $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
   $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=RESUME";
   $data_to_post = array();
   $curl = curl_init();
@@ -254,6 +280,18 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
   $conf_no=$_REQUEST['conf_no'];
  // $conf_no_new=$no.''.$conf_no;
   $user = $_SESSION['first_name'];
+  $avaya_agentid=$_SESSION['avaya_agentid'];
+  $unique_id = time();
+  $avaya_data = array(
+    
+    'CallUniqueID'=> $unique_id,
+    'call_extension' => $avaya_agentid,
+    'call_mobile' => $conf_no,
+    'call_agentid' => $user,
+    'call_status' => '4',
+    'call_datetime' => date('Y-m-d H:i:s')
+  );
+  $avaya_data_insert =$avayaClass->insert_avaya_conf_call($avaya_data);
   //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
   $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
     var_dump($form_url);
