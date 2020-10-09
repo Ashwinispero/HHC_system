@@ -4715,7 +4715,7 @@ function avaya_start_incoming_call() {
     $AVAYA_INCOMING_CALL_FLAG = 1;
 }
 function soft_call_dial(no){
-    alert(no);
+    //alert(no);
    // var phone_no = parseInt(document.getElementById('output').value);
     //var user = '<?php //echo $_SESSION['first_name'];?>';
     $("#ready_mode").hide();

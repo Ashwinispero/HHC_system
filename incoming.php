@@ -26,8 +26,12 @@ $agent = $post->CalledDevice;
 $log_time = date('Y-m-d H:i:s');
 //$post_encode = json_encode($post);
 $current_time = strtotime(date('Y-m-d H:i:s')); 
+
+if (strlen($agent) == 12 && substr($agent, 0, 2) == "91")
+    $mobile = substr($agent, 2, 10);
+//echo $mobile;
 $avaya_data = array(
-    'calling_phone_no' => $post->CalledDevice,
+    'calling_phone_no' => $mobile,
     'CallUniqueID'=> $post->CallUniqueID,
     'ext_no' => $post->CallingDevice,
     'agent_no' => $post->CalledDevice,
