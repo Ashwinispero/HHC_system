@@ -354,18 +354,20 @@ class eventClass extends AbstractDB
         if($SearchfromDate_service && $SearchToDate_service)
         {
             $daterange_service .= " AND dtl_pln.Actual_Service_date BETWEEN '".$SearchfromDate_service."' AND '".$SearchToDate_service."' ";
-            $RecordSql="SELECT calls.call_audio,se.CallUniqueID,se.event_id,se.event_code, se.caller_id,se.purpose_event_id,se.patient_id,sp.mobile_no,sp.name,sp.first_name,se.purpose_id,se.event_date,se.note,se.description,se.status,se.event_status,se.estimate_cost,se.finalcost,se.added_by,se.Added_through,se.added_date ,sp.hhc_code,se.isArchive, sp.isVIP, se.isConvertedService, se.enquiry_status, se.enquiry_cancellation_reason,Invoice_narration
+            $RecordSql="SELECT callerno.phone_no,se.caller_id,calls.call_audio,se.CallUniqueID,se.event_id,se.event_code, se.caller_id,se.purpose_event_id,se.patient_id,sp.mobile_no,sp.name,sp.first_name,se.purpose_id,se.event_date,se.note,se.description,se.status,se.event_status,se.estimate_cost,se.finalcost,se.added_by,se.Added_through,se.added_date ,sp.hhc_code,se.isArchive, sp.isVIP, se.isConvertedService, se.enquiry_status, se.enquiry_cancellation_reason,Invoice_narration
                     FROM sp_events as se LEFT JOIN sp_patients as sp ON se.patient_id = sp.patient_id 
                     LEFT JOIN sp_detailed_event_plan_of_care as dtl_pln ON se.event_id = dtl_pln.event_id 
                     LEFT JOIN sp_incoming_call as calls ON se.CallUniqueID = calls.CallUniqueID
+                    LEFT JOIN sp_callers as callerno ON se.caller_id = callerno.caller_id
                      ".$join."
                     WHERE 1 and se.status !='3' ".$isStatusWhere." ".$preWhere." ".$daterange_service." GROUP BY se.event_id ".$filterWhere." ";
        
         }
         else{
-        $RecordSql="SELECT calls.call_audio,se.CallUniqueID,se.event_id,se.event_code, se.caller_id,se.purpose_event_id,se.patient_id,sp.mobile_no,sp.name,sp.first_name,se.purpose_id,se.event_date,se.note,se.description,se.status,se.event_status,se.estimate_cost,se.finalcost,se.added_by,se.Added_through,se.added_date ,sp.hhc_code,se.isArchive, sp.isVIP, se.isConvertedService, se.enquiry_status, se.enquiry_cancellation_reason,Invoice_narration
+        $RecordSql="SELECT callerno.phone_no,se.caller_id,calls.call_audio,se.CallUniqueID,se.event_id,se.event_code, se.caller_id,se.purpose_event_id,se.patient_id,sp.mobile_no,sp.name,sp.first_name,se.purpose_id,se.event_date,se.note,se.description,se.status,se.event_status,se.estimate_cost,se.finalcost,se.added_by,se.Added_through,se.added_date ,sp.hhc_code,se.isArchive, sp.isVIP, se.isConvertedService, se.enquiry_status, se.enquiry_cancellation_reason,Invoice_narration
                     FROM sp_events as se LEFT JOIN sp_patients as sp ON se.patient_id = sp.patient_id
                     LEFT JOIN sp_incoming_call as calls ON se.CallUniqueID = calls.CallUniqueID
+                    LEFT JOIN sp_callers as callerno ON se.caller_id = callerno.caller_id
                      ".$join."
                     WHERE 1 and se.status !='3' ".$isStatusWhere." ".$preWhere." ".$daterange." GROUP BY se.event_id ".$filterWhere." ";
         }

@@ -270,7 +270,10 @@ else
                 <td>'.$recListValue['event_code'].'</td>
                 <td>'.date('d M Y h:i A',strtotime($recListValue['event_date'])).'</td>
                 <td style = "' . $isConvertedServiceStyle .'">'.$callpurpose.'</td>
-                <td>'.$recListValue['mobile_no'].'</td>
+                <td>
+                <a href="javascript:void(0);" title="Soft Dial" onclick="soft_call_dial('.$recListValue['phone_no'].')"; data-toggle="tooltip" data-placement="top" title="Softdial">
+                '.$recListValue['phone_no'].'</a>
+                </td>
                 <td>';
                     if(!empty($recListValue['patientNm'])) { echo $recListValue['patientNm']; } else {  echo "NA"; }
                 echo '</td>
