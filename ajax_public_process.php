@@ -44,6 +44,18 @@ $avayaClass=new avayaClass();
                 $_SESSION['emp_nm']               = $EmployeeLog['employee_name'];
                 $_SESSION['first_name']           = $EmployeeLog['first_name'];
                 $_SESSION['avaya_agentid']        = $EmployeeLog['avaya_agentid'];
+
+                $unique_id = time();
+                $avaya_data = array(
+                    
+                    'ext_no'=> $avaya_agentid,
+                    'CallUniqueID' => $unique_id,
+                    'user_id' => $employee_id,
+                    'mode_status' => '2',
+                    'date_time' => date('Y-m-d H:i:s'),
+                    'is_deleted' => '0'
+                );
+                $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);  
                 // update last login time 
                 if($EmployeeLog['type'] == '2')
                 {

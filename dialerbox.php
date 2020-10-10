@@ -155,6 +155,8 @@ elseif($_REQUEST['action']=='vw_softdial')
   $user = $_SESSION['first_name'];
   $avaya_agentid=$_SESSION['avaya_agentid'];
   $unique_id = time();
+  $_SESSION['CallUniqueID'] = $unique_id;
+  $_SESSION['Call_status_I_O'] = 'Outgoing';
   $avaya_data = array(
     
     'CallUniqueID'=> $unique_id,
@@ -239,6 +241,18 @@ elseif($_REQUEST['action']=='vw_hang_mode')
 {
   $status=$_REQUEST['status'];
   $user = $_SESSION['first_name'];
+  if($_SESSION['Call_status_I_O'] == 'Incoming'){
+    $updateData['call_disconnect_datetime']=date('Y-m-d H:i:s');
+    $updateData['status']='D';
+    $updateData['message']='call Disconnect';
+    $db->query_update('sp_incoming_call', $updateData, "CallUniqueID='".$_SESSION['CallUniqueID']."'"); 
+  }elseif($_SESSION['Call_status_I_O']=='Outgoing'){
+    $updateData['call_disconnect_datetime']=date('Y-m-d H:i:s');
+    $updateData['call_status']='2';
+    $db->query_update('sp_outgoing_call', $updateData, "CallUniqueID='".$_SESSION['CallUniqueID']."'");
+  }
+  $_SESSION["CallUniqueID"]='';
+  $_SESSION['Call_status_I_O']='';
   $form_url =  "http://192.168.0.131/API/Hangup.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
@@ -293,7 +307,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
  // $conf_no_new=$no.''.$conf_no;
   $user = $_SESSION['first_name'];
   $avaya_agentid=$_SESSION['avaya_agentid'];
-  $unique_id = time();
+  $unique_id = $_SESSION["CallUniqueID"];
   $avaya_data = array(
     
     'CallUniqueID'=> $unique_id,
@@ -301,6 +315,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
     'call_mobile' => $conf_no,
     'call_agentid' => $user,
     'call_status' => '4',
+    'call_type'=>$_SESSION['Call_status_I_O'],
     'call_datetime' => date('Y-m-d H:i:s')
   );
   $avaya_data_insert =$avayaClass->insert_avaya_conf_call($avaya_data);

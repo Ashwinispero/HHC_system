@@ -35,14 +35,15 @@ $avaya_data = array(
     'CallUniqueID'=> $post->CallUniqueID,
     'ext_no' => $post->CallingDevice,
     'agent_no' => $post->CalledDevice,
-    'message' => $post->CallStateDesc,
+   // 'message' => $post->CallStateDesc,
+   'message' => 'Ringing',
     'status' => $post->CallState,
     'call_audio'=> $post->Param1,
     'call_datetime' => date('Y-m-d H:i:s'),
    'is_deleted' => '0');
    //print_r($avaya_data);
    if($post->CallState == "R" || $post->CallState == "B"){
-      
+       $_SESSION['Call_status_I_O'] = 'Incoming';
        $avaya_data['call_rinning_datetime'] = date('Y-m-d').' '.$post->CallTime;
        $avaya_data['avaya_call_time'] = $post->calltime;
        $avaya_data['call_datetime'] = date('Y-m-d H:i:s');

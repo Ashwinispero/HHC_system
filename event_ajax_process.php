@@ -63,12 +63,13 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     $unic_id = $_REQUEST['unic_id'];
     //var_dump($status);
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set status='C'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."'";
+        $updateEvents= "update sp_incoming_call set status='C', call_connect_datetime='".date('Y-m-d H:i:s')."' ,message='Connect'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
+          // var_dump($updateEvents);
         $db->query($updateEvents);
         
         $user = $_SESSION['first_name'];
         $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value=ACCEPT";
-         //   var_dump($form_url);
+         
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
