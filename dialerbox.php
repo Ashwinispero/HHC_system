@@ -253,6 +253,18 @@ elseif($_REQUEST['action']=='vw_hang_mode')
 elseif($_REQUEST['action']=='vw_conf')
 { 
   //$status=$_REQUEST['status'];
+  $status=$_REQUEST['status'];
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/ParkCall.php?user=".$user;
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  //echo $result;
   ?>
   
 
@@ -294,7 +306,21 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
   $avaya_data_insert =$avayaClass->insert_avaya_conf_call($avaya_data);
   //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
   $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
-    var_dump($form_url);
+  var_dump($form_url);
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
+}
+elseif($_REQUEST['action']=='vw_merge_mode'){
+  $status=$_REQUEST['status'];
+  $user = $_SESSION['first_name'];
+  $form_url =  "http://192.168.0.131/API/GrabCall.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);

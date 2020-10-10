@@ -80,6 +80,8 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
         <button type="button" id="ready_mode" style="display:none" class="btn-lg btn-warning"  onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
         <button type="button" id="pause_mode" style="display:none" class="btn-lg btn-success"  onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
         <button type="button" id="conf_mode" class="btn-lg btn-info" style="display:none"  onclick="return conf_mode();"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> Conferance call</button>
+        <button type="button" id="merge_mode" class="btn-lg btn-info" style="display:none"  onclick="return merge_mode();"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Mearge call</button>
+        
         </ul>
       </div>
     </div>

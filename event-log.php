@@ -5038,6 +5038,7 @@ function softdial(){
                         $("#ready_mode").hide();
                         $("#hang_mode").hide();
                         $("#conf_mode").hide();
+                        $("#merge_mode").hide();
                     },
                     complete : function()
                     {
@@ -5091,8 +5092,9 @@ function softdial(){
                         //alert(val);
                         if(val == 0){
                             bootbox.alert("<div class='msg-success'>Conferance Call Connected..</div>");
-                            $("#hang_mode").show();
-                            $("#conf_mode").show();
+                            $("#hang_mode").hide();
+                            $("#conf_mode").hide();
+                            $("#merge_mode").show();
                         }else{
                             bootbox.alert("<div class='msg-error'>ERROR: Conferance Call Not Connected..</div>");
                             $("#hang_mode").show();
@@ -5103,6 +5105,42 @@ function softdial(){
                     complete : function()
                     {
                         $("#vw_avaya").modal("hide");
+                    }
+                });
+    }
+    function merge_mode(){
+        //ttp://192.168.0.131/API/GrabCall.php?user=ashwini
+        var status='1'
+        var data1="status="+status+"&action=vw_merge_mode";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       /// alert(html);
+                        var sttr1="SUCCESS:"
+                        var val = sttr1.search(html);
+                      //  alert(val);
+                        if(val == -1){
+                        bootbox.alert("<div class='msg-success'>Successfully call Merged</div>");
+                        $("#pause_mode").hide();
+                        $("#ready_mode").hide();
+                        $("#hang_mode").show();
+                        $("#conf_mode").hide();
+                        $("#merge_mode").hide();
+                        }else{
+                            bootbox.alert("<div class='msg-error'>ERROR: merge Call..</div>");
+                            $("#hang_mode").show();
+                            //$("#conf_mode").show();
+                            $("#merge_mode").show();
+                        }
+                    },
+                    complete : function()
+                    {
+                       // $("#vw_avaya").modal("hide");
                     }
                 });
     }
