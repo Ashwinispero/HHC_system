@@ -112,6 +112,21 @@ class employeesClass extends AbstractDB
         else
             return array('data' => array(), 'count' => 0); 
     }
+    public function get_emp_status($arg)
+    {
+        $employee_id=$this->escape($arg['employee_id']);
+        $GetOneEmployeeStatusSql="SELECT * FROM sp_ready_pause_history WHERE user_id='".$employee_id."' order by date_time DESC limit 1";
+        if($this->num_of_rows($this->query($GetOneEmployeeStatusSql)))
+        {
+            $Employee_status = $this->fetch_array($this->query($GetOneEmployeeStatusSql));
+            $Employee_current['mode_status']=$Employee_status['mode_status']; 
+            return $Employee_current;
+        }
+        else {
+            return 0;
+        }
+        
+    }
     public function GetEmployeeById($arg)
     {
         $employee_id=$this->escape($arg['employee_id']);

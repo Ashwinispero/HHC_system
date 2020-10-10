@@ -6,6 +6,9 @@
         require_once "classes/eventClass.php";
         $eventClass = new eventClass();
         require_once "classes/config.php";
+
+        require_once 'classes/avayaClass.php';
+$avayaClass=new avayaClass();
 ?>
 <?php
     if($_REQUEST['action']=='CheckLogin')
@@ -139,7 +142,21 @@
     {
         $updateData['is_login']='1';
         $db->query_update('sp_employees', $updateData, "employee_id='".$_SESSION['employee_id']."'");
-                        
+
+        $employee_id = $_SESSION['employee_id'];
+        $avaya_agentid = $_SESSION['avaya_agentid'] ;
+        $unique_id = time();
+        $avaya_data = array(
+            
+            'ext_no'=> $avaya_agentid,
+            'CallUniqueID' => $unique_id,
+            'user_id' => $employee_id,
+            'mode_status' => '1',
+            'date_time' => date('Y-m-d H:i:s'),
+            'is_deleted' => '0'
+        );
+        $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);       
+
           session_destroy();
             ?>
                 <script language="javascript" type="text/javascript">

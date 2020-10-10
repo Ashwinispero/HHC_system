@@ -15,6 +15,7 @@ require_once 'classes/employeesClass.php';
 $employeesClass=new employeesClass();
 $arr['employee_id'] = $_SESSION['employee_id'];
 $RequestedRec = $employeesClass->GetEmployeeById($arr);
+$RequestedStatus = $employeesClass->get_emp_status($arr);
 ?>
 <header>
   <nav class="navbar navbar-default">
@@ -65,8 +66,19 @@ $RequestedRec = $employeesClass->GetEmployeeById($arr);
       <div class="navbar-collapse collapse" id="navbar">
         <ul class="nav navbar-nav navbar-right">
         <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang Up Mode</button>
-        <button type="button" id="ready_mode" class="btn-lg btn-warning"  onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
-        <button type="button" id="pause_mode" class="btn-lg btn-success" style="display:none" onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
+        <?php 
+         if($RequestedStatus['mode_status']=='1'){ ?>
+         <button type="button" id="ready_mode" class="btn-lg btn-warning"  onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
+        
+         <?php
+          }
+          else if($RequestedStatus['mode_status']=='2'){ ?>
+            <button type="button" id="pause_mode" class="btn-lg btn-success"  onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
+        <?php
+          }
+          ?>
+        <button type="button" id="ready_mode" style="display:none" class="btn-lg btn-warning"  onclick="return ready_mode();"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Mode</button>
+        <button type="button" id="pause_mode" style="display:none" class="btn-lg btn-success"  onclick="return pause_mode();"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Ready Mode</button>
         <button type="button" id="conf_mode" class="btn-lg btn-info" style="display:none"  onclick="return conf_mode();"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> Conferance call</button>
         </ul>
       </div>
