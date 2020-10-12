@@ -45,13 +45,15 @@ $avayaClass=new avayaClass();
                 $_SESSION['first_name']           = $EmployeeLog['first_name'];
                 $_SESSION['avaya_agentid']        = $EmployeeLog['avaya_agentid'];
 
+                //After login user bydefault in pause mode
+                $_SESSION['mode_status']          = '1';
                 $unique_id = time();
                 $avaya_data = array(
                     
-                    'ext_no'=> $avaya_agentid,
+                    'ext_no'=> $_SESSION['avaya_agentid'],
                     'CallUniqueID' => $unique_id,
-                    'user_id' => $employee_id,
-                    'mode_status' => '2',
+                    'user_id' => $_SESSION['employee_id'],
+                    'mode_status' => '1',
                     'date_time' => date('Y-m-d H:i:s'),
                     'is_deleted' => '0'
                 );

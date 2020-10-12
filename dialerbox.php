@@ -187,6 +187,7 @@ elseif($_REQUEST['action']=='vw_pause_mode')
   $user = $_SESSION['first_name'];
   $employee_id = $_SESSION['employee_id'];
   $avaya_agentid = $_SESSION['avaya_agentid'] ;
+  $_SESSION['mode_status'] ='1';
   $unique_id = time();
   $avaya_data = array(
     
@@ -216,8 +217,8 @@ elseif($_REQUEST['action']=='vw_ready_mode')
   $employee_id = $_SESSION['employee_id'];
   $avaya_agentid = $_SESSION['avaya_agentid'] ;
   $unique_id = time();
+  $_SESSION['mode_status'] ='2';
   $avaya_data = array(
-    
     'ext_no'=> $avaya_agentid,
     'CallUniqueID' => $unique_id,
     'user_id' => $employee_id,
