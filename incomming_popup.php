@@ -17,6 +17,7 @@
 if($_REQUEST['action']=='chk_call')
 {
     $args['ext_no'] = $_SESSION['avaya_agentid'];
+    $args['mode_status'] = $_SESSION['mode_status'];
     if (trim($args['ext_no']) != '') {
       $condition .= "AND ext_no = '" . $args['ext_no'] . "' ";
     }
@@ -30,7 +31,8 @@ if($_REQUEST['action']=='chk_call')
    /* if (trim($_REQUEST['status']) != '') {
         $condition .= "AND cl_status = '1' ";
     }*/
-
+   // var_dump($_SESSION['mode_status']);
+    if ($args['mode_status'] == 2){
     $max_id=mysql_query("SELECT * FROM sp_incoming_call  where is_deleted = '0'  $condition ORDER BY call_datetime DESC limit 0, 1") or die(mysql_error());
     $max_id_row = mysql_fetch_array($max_id);
     $row_count = mysql_num_rows($max_id); 
@@ -93,5 +95,5 @@ if($_REQUEST['action']=='chk_call')
     return 'false';
   } ?>
 <?php  
-}
+} }
 ?>

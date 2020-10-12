@@ -61,10 +61,10 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     $phone_no = $_REQUEST['phone_no'];
     $status = $_REQUEST['status'];
     $unic_id = $_REQUEST['unic_id'];
-    //var_dump($status);
+    //var_dump($unic_id);
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set status='C', call_connect_datetime='".date('Y-m-d H:i:s')."' ,message='Connect'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
-          // var_dump($updateEvents);
+        $updateEvents= "update sp_incoming_call set status='C', call_connect_datetime='".date('Y-m-d H:i:s')."' ,message='Connect'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION['CallUniqueID']."' ";
+         //  var_dump($updateEvents);
         $db->query($updateEvents);
         
         $user = $_SESSION['first_name'];
