@@ -37,6 +37,7 @@ $avaya_data = array(
        $avaya_data['avaya_call_time'] = $post->calltime;
        $avaya_data['call_datetime'] = date('Y-m-d H:i:s');
        $avaya_data['cl_status'] ='1' ;
+      
        $avaya_data_insert =$avayaClass->insert_avaya_incoming_call($avaya_data);
        echo $avaya_data_insert;
     } 

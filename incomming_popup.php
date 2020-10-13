@@ -33,6 +33,7 @@ if($_REQUEST['action']=='chk_call')
     }*/
    // var_dump($_SESSION['mode_status']);
     if ($args['mode_status'] == 2){
+      $_SESSION['Call_status_I_O']='Incoming';
     $max_id=mysql_query("SELECT * FROM sp_incoming_call  where is_deleted = '0'  $condition ORDER BY call_datetime DESC limit 0, 1") or die(mysql_error());
     $max_id_row = mysql_fetch_array($max_id);
     $row_count = mysql_num_rows($max_id); 

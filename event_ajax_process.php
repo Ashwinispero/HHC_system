@@ -40,11 +40,12 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
     $unic_id = $_REQUEST['unic_id'];
     $disconect_remark = $_REQUEST['disconect_remark'];
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='D' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$unic_id."' ";
+        $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='D' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION["CallUniqueID"]."' ";
         
         $db->query($updateEvents);
         $user = $_SESSION['first_name'];
-        $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value=END";
+       // $form_url =  "http://192.168.0.131/API/CallResponse.php?user=".$user."&value=END";
+        $form_url =  "http://192.168.0.131/API/Hangup.php?user=".$user;
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
