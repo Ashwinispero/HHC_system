@@ -170,8 +170,19 @@ $avayaClass=new avayaClass();
             'is_deleted' => '0'
         );
         $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);       
-
-          session_destroy();
+        $user = $_SESSION['first_name'];
+        $form_url =  "http://192.168.0.131/API/Logout.php?user=".$user;
+        $data_to_post = array();
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $form_url);
+        curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+        $result = curl_exec($curl);
+        curl_close($curl);
+       // echo $result;
+       //var_dump($result);die();
+        session_destroy();
             ?>
                 <script language="javascript" type="text/javascript">
                     window.location ="index.php";
