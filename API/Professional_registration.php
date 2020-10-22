@@ -11,6 +11,8 @@ $professionalsClass = new professionalsClass();
 //require_once 'classes/AbstractDB.php';
 // header("Accept: application/json");
 //header("Content-Type: application/json; charset=UTF-8");
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 include ('config.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -199,11 +201,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
                     }
 
-                    $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                    
                     $txtMsg = '';
 
                     $txtMsg .= " Welcome to Spero Home HealthCare ,Your Account Verification OTP is:$otp .OTP is valid for 30 Minutes ";
-
+                    $args = array(
+                        'msg' => $txtMsg,
+                        'mob_no' => $mobile_no
+                        );
+                    $sms_data =$commonClass->sms_send($args);
+                    /*  $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                     $data_to_post = array();
                     $data_to_post['uname'] = 'SperocHL';
                     $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -218,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                     $result = curl_exec($curl);
                     curl_close($curl);
-
+                        */
                     $current_time = date('Y-m-d H:i:s');
                     $OTP_timestamp = strtotime($current_time) + 30 * 60;
                     $otp_expiry_time = date('Y-m-d H:i:s', $OTP_timestamp);
