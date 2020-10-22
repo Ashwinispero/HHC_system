@@ -10,7 +10,9 @@ $mail = new PHPMailer(true);
 
 require_once 'inc_classes.php';
 	   require_once 'classes/eventClass.php';
-	   $eventClass=new eventClass();
+       $eventClass=new eventClass();
+       include "classes/commonClass.php";
+$commonClass= new commonClass();
 	if($_GET['export'])
     {
         $folder="eventsPDF/";
@@ -114,7 +116,7 @@ require_once 'inc_classes.php';
     $mail->send();	
     
     
-    $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+    
 		
 						$query=mysql_query("SELECT * FROM sp_events where event_id='".$eventid."'") or die(mysql_error());
 						$row = mysql_fetch_array($query) or die(mysql_error());
@@ -165,22 +167,23 @@ require_once 'inc_classes.php';
 						$txtMsg1 .= " to Spero for ".$services_name;
 						$txtMsg1 .= ". Total Amount ".$Total_amt;
 						$txtMsg1 .= ", Balance Amount ".$balance_amt;
-						$txtMsg1 .= ". Thank you. For queries please contact 7620400100";
-        
-                        $data_to_post = array();
-                        $data_to_post['uname'] = 'SperocHL';
-                        $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
-                        $data_to_post['send'] = 'speroc';
-                        $data_to_post['dest'] = $profmob1; 
-						$data_to_post['msg'] = $txtMsg1;
+                        $txtMsg1 .= ". Thank you. For queries please contact 7620400100";
+                        
+                       
 						
-						   $args = array(
-							'msg' => $txtMsg1,
-							'mob_no' => $profmob1
-						);
-						//$sms_data = sms_send($args);
-						
-
+						$args = array(
+                            'msg' => $txtMsg1,
+                            'mob_no' => $profmob1
+                            );
+                        $sms_data =$commonClass->sms_send($args);
+						/*
+                        $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                            $data_to_post = array();
+                            $data_to_post['uname'] = 'SperocHL';
+                            $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
+                            $data_to_post['send'] = 'speroc';
+                            $data_to_post['dest'] = $profmob1; 
+                            $data_to_post['msg'] = $txtMsg1;
                         $curl = curl_init();
                         curl_setopt($curl,CURLOPT_URL, $form_url);
                         curl_setopt($curl,CURLOPT_POST, sizeof($data_to_post));
@@ -188,7 +191,7 @@ require_once 'inc_classes.php';
 						$result = curl_exec($curl);
                         curl_close($curl);
 		
-		
+		*/
    
 
 	}

@@ -4529,7 +4529,7 @@ class eventClass extends AbstractDB
                             }
 
                             // send sms 
-                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                            
                             $txtMsg = '';
 
                             $txtMsg .= "New service requested for " . $serviceDtl['service_title'] . " Service  " . $serviceDate . ", " . $serviceTime . ". ";	
@@ -4537,7 +4537,13 @@ class eventClass extends AbstractDB
                             $txtMsg .= ",For queries please contact 7620400100 ";
                             $txtMsg .= "Regards,";
                             $txtMsg .= " Spero Healthcare Innovations Pvt Ltd.";
-
+                            $args = array(
+                                'msg' => $txtMsg,
+                                'mob_no' => $professionalDtl['mobile_no']
+                                );
+                            $sms_data =$commonClass->sms_send($args);
+                            /*
+                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                             $data_to_post = array();
                             $data_to_post['uname'] = 'SperocHL';
                             $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
@@ -4550,7 +4556,7 @@ class eventClass extends AbstractDB
                             curl_setopt($curl,CURLOPT_POST, sizeof($data_to_post));
                             curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
                             $result = curl_exec($curl);
-                            curl_close($curl);
+                            curl_close($curl);*/
                         }
                     }
                 }
