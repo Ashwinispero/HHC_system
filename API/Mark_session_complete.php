@@ -1,7 +1,8 @@
 <?php
 
 require_once 'classes/professionalsClass.php';
-
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 $professionalsClass = new professionalsClass();
 
 include ('config.php');
@@ -173,9 +174,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                             $otp = rand(1000, 9999);
                                             if ($mobileNumber)
                                             {
-                                                $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                               
                                                 $txtMsg = '';
                                                 $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                                $args = array(
+                                                    'msg' => $txtMsg,
+                                                    'mob_no' => $mobileNumber
+                                                    );
+                                                $sms_data =$commonClass->sms_send($args);
+                                                /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $data_to_post = array();
                                                 $data_to_post['uname'] = 'SperocHL';
                                                 $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -189,14 +196,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                                 $result = curl_exec($curl);
-                                                curl_close($curl);
+                                                curl_close($curl);*/
 
                                             }
                                             if ($prof_mobile_no)
                                             {
-                                                $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                                
                                                 $txtMsg = '';
                                                 $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                                $args = array(
+                                                    'msg' => $txtMsg,
+                                                    'mob_no' => $prof_mobile_no
+                                                    );
+                                                $sms_data =$commonClass->sms_send($args);
+                                                /*$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $data_to_post = array();
                                                 $data_to_post['uname'] = 'SperocHL';
                                                 $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -210,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                                 $result = curl_exec($curl);
-                                                curl_close($curl);
+                                                curl_close($curl);*/
 
                                             }
 
@@ -285,9 +298,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
                                             if ($mobileNumber)
                                             {
-                                                $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                               // $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $txtMsg = '';
                                                 $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                                $args = array(
+                                                    'msg' => $txtMsg,
+                                                    'mob_no' => $mobileNumber
+                                                    );
+                                                $sms_data =$commonClass->sms_send($args);
+                                                /*$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $data_to_post = array();
                                                 $data_to_post['uname'] = 'SperocHL';
                                                 $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -301,14 +320,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                                 $result = curl_exec($curl);
-                                                curl_close($curl);
+                                                curl_close($curl);*/
 
                                             }
                                             if ($prof_mobile_no)
                                             {
-                                                $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                               // $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $txtMsg = '';
                                                 $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                                $args = array(
+                                                    'msg' => $txtMsg,
+                                                    'mob_no' => $prof_mobile_no
+                                                    );
+                                                $sms_data =$commonClass->sms_send($args);
+                                                /*$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                                 $data_to_post = array();
                                                 $data_to_post['uname'] = 'SperocHL';
                                                 $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -322,7 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                                 $result = curl_exec($curl);
-                                                curl_close($curl);
+                                                curl_close($curl);*/
 
                                             }
                                             $sql_OTP = mysql_query("Update sp_detailed_event_plan_of_care set OTP='$otp',otp_expire_time='$otp_expiry_time' where Detailed_plan_of_care_id='$Session_id' ");
@@ -427,9 +452,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                         $otp = rand(1000, 9999);
                                         if ($mobileNumber)
                                         {
-                                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                           
                                             $txtMsg = '';
                                             $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                            $args = array(
+                                                'msg' => $txtMsg,
+                                                'mob_no' => $mobileNumber
+                                                );
+                                            $sms_data =$commonClass->sms_send($args);
+                                            /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                             $data_to_post = array();
                                             $data_to_post['uname'] = 'SperocHL';
                                             $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -443,15 +474,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                             $result = curl_exec($curl);
-                                            curl_close($curl);
+                                            curl_close($curl); */
 
                                         }
                                         if ($prof_mobile_no)
                                         {
-                                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                            //$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                             $txtMsg = '';
                                             $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
-                                            $data_to_post = array();
+                                            $args = array(
+                                                'msg' => $txtMsg,
+                                                'mob_no' => $prof_mobile_no
+                                                );
+                                            $sms_data =$commonClass->sms_send($args);
+                                            /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php"; 
+                                                $data_to_post = array();
                                             $data_to_post['uname'] = 'SperocHL';
                                             $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
                                             $data_to_post['send'] = 'speroc';
@@ -464,7 +501,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                             $result = curl_exec($curl);
-                                            curl_close($curl);
+                                            curl_close($curl); */
 
                                         }
                                         $sql_OTP = mysql_query("Update sp_detailed_event_plan_of_care set OTP='$otp',otp_expire_time='$otp_expiry_time' where Detailed_plan_of_care_id='$Session_id' ");
@@ -495,9 +532,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                         $otp = rand(1000, 9999);
                                         if ($mobileNumber)
                                         {
-                                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                            
                                             $txtMsg = '';
                                             $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                            $args = array(
+                                                'msg' => $txtMsg,
+                                                'mob_no' => $mobileNumber
+                                                );
+                                            $sms_data =$commonClass->sms_send($args);
+                                            /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                             $data_to_post = array();
                                             $data_to_post['uname'] = 'SperocHL';
                                             $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -511,14 +554,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                             $result = curl_exec($curl);
-                                            curl_close($curl);
+                                            curl_close($curl); */
 
                                         }
                                         if ($prof_mobile_no)
                                         {
-                                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                                            //$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                             $txtMsg = '';
                                             $txtMsg .= "OTP for completed service is : $otp. Kindly share OTP with your professional.";
+                                            $args = array(
+                                                'msg' => $txtMsg,
+                                                'mob_no' => $prof_mobile_no
+                                                );
+                                            $sms_data =$commonClass->sms_send($args);
+                                            /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                                             $data_to_post = array();
                                             $data_to_post['uname'] = 'SperocHL';
                                             $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -532,7 +581,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                                             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                                             $result = curl_exec($curl);
-                                            curl_close($curl);
+                                            curl_close($curl); */
 
                                         }
                                         $sql_OTP = mysql_query("Update sp_detailed_event_plan_of_care set OTP='$otp',otp_expire_time='$otp_expiry_time' where Detailed_plan_of_care_id='$Session_id' ");
