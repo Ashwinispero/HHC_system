@@ -4,6 +4,8 @@
     require_once 'classes/professionalsClass.php';
     
     $professionalsClass=new professionalsClass();
+    include "classes/commonClass.php";
+$commonClass= new commonClass();
 	include('config.php');
 			  
     
@@ -144,7 +146,6 @@
 										
 											$otp = rand(1000, 9999);
 											$sql = mysql_query("Update sp_service_professionals set OTP='".$otp."' where mobile_no='".$mobile_no."' ");
-												$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
 												$txtMsg='';
 																		
 																		
@@ -152,7 +153,13 @@
 												$txtMsg .= " OTP for account activation ".$otp;
 												$txtMsg .= " OTP is validate for one time password generation ";
 												
-												
+												$args = array(
+													'msg' => $txtMsg,
+													'mob_no' => $mobile_no
+													);
+												$sms_data =$commonClass->sms_send($args);
+												/*
+												$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
 																		
 												$data_to_post = array();
 												$data_to_post['uname'] = 'SperocHL';
@@ -168,6 +175,7 @@
 												curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
 												$result = curl_exec($curl);
 												curl_close($curl);
+												*/
 											
 									echo json_encode(array("data"=>null,"error"=>array(  "code"=>3, "message"=>"Your account is not activated")));	
 				 
