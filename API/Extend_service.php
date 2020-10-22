@@ -2,6 +2,8 @@
 require_once 'classes/eventClass.php';
 //require_once 'classes/commonClass.php';
 $eventClass=new eventClass();
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 include('config.php');
          
 		 if($_SERVER['REQUEST_METHOD']=='POST')
@@ -424,11 +426,16 @@ include('config.php');
 							
 							
 							
-								$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+								
 								$txtMsg='';
 								
 							$txtMsg .= " OTP for extension of current service $event_code is : $otp. Kindly share OTP with your professional.";
-																	
+							$args = array(
+								'msg' => $txtMsg1,
+								'mob_no' => $mobile_no
+								);
+							$sms_data =$commonClass->sms_send($args);
+							/*$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";								
 									$data_to_post = array();
 									$data_to_post['uname'] = 'SperocHL';
 									$data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
@@ -442,7 +449,7 @@ include('config.php');
 									curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
 									$result = curl_exec($curl);
 									curl_close($curl);
-									
+								*/	
 									
 									 $current_time = date('Y-m-d H:i:s');
 								   $OTP_timestamp = strtotime($current_time) + 30*60;
