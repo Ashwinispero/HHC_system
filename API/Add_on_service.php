@@ -2,6 +2,8 @@
 require_once 'classes/eventClass.php';
 //require_once 'classes/commonClass.php';
 $eventClass = new eventClass();
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 include ('config.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -363,11 +365,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             $service_title = $service_infos['service_title'];
 
                             $otp = rand(1000, 9999);
-                            $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                            
                             $txtMsg = '';
 
                             $txtMsg .= "OTP for new service request for $service_title on $fromDatest to $fromDatet is : $otp. Kindly share OTP with your professional.";
+                            $args = array(
+                                'msg' => $txtMsg,
+                                'mob_no' => $mobile_no
+                                );
+                            $sms_data =$commonClass->sms_send($args);
 
+                           /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                             $data_to_post = array();
                             $data_to_post['uname'] = 'SperocHL';
                             $data_to_post['pass'] = 'SpeRo@12'; //s1M$t~I)';
@@ -380,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                             curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                             $result = curl_exec($curl);
-                            curl_close($curl);
+                            curl_close($curl);*/
 
                             $arc['event_code'] = $EventCode;
                             $arc['caller_id'] = $caller_id;
