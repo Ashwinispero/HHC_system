@@ -1,4 +1,4 @@
-<?php   
+<?php  /* 
 $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
 $txtMsg = '';
 $mobileNumber='8551995260';
@@ -33,6 +33,32 @@ curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
 $result = curl_exec($curl);
 echo $result;
 curl_close($curl);
+*/
 
-
+?>
+<?php
+	// Account details
+	$apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
+	
+	// Message details
+	$numbers = array(918551995260);
+	$sender = urlencode('TXTLCL');
+	$message = rawurlencode('This is your message');
+ 
+	$numbers = implode(',', $numbers);
+ 
+	// Prepare data for POST request
+	$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+ 
+	// Send the POST request with cURL
+	$ch = curl_init('https://api.textlocal.in/send/');
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($ch);
+	var_dump($response);die();
+	curl_close($ch);
+	
+	// Process your response here
+	echo $response;
 ?>
