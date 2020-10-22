@@ -249,4 +249,9 @@ $formDate1=date_format($date1,"Y-m-d");
 				
              </div>
           </div>
+          <div class="row">
+			<div class="col-lg-3" align="right">
+				<input type="button" onclick="return SMS();" value="SMS" name="btn-view-schedule" class="btn btn-download" style="background-color:#00cfcb;color:white">
+			</div>
+			</div>
           </div>

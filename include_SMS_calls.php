@@ -95,13 +95,13 @@
 			}
 			$Total_Services=$Physician_assistant+$Physiotherapy+$Healthcare_attendants+$Nurse+$Laboratory_services+$Respiratory_care+$X_rayat_home+$Hca_package+$Medical_transportation+$Physiotherapy_New+$Assisted_living+$Physician_service+$Maid_service;
 		
-		$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+		//$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
 		
 		//Dr.Rahil Mobile No 9890738374 & Dr.shelke mobile no 9552594108
 		//$mobno=9890738374;
 		$mobno=9552594108;
 		//$mobno3=7774081894;
-        $profmob =$mobno;
+        		$profmob =$mobno;
 		//$profmob1 =$mobno2;
 		//$profmob2 =$mobno3;
 		
@@ -121,40 +121,35 @@
 						$txtMsg1 .= " Physician Service-".$Physician_service."\n";
 						$txtMsg1 .= " Maid Service-".$Maid_service."\n";
 						$txtMsg1 .= " Total Services-".$Total_Services;
-                        
-                        //dr.Rahil text msg
-                        /*$args = array(
-							'msg' => $txtMsg1,
-							'mob_no' => $profmob
-						);
-						$sms_data = sms_send($args);*/
-						
-                        $data_to_post = array();
+                      
+                        //dr.Shelke text msg
+                        $args = array(
+			'msg' => $txtMsg1,
+			'mob_no' => $profmob
+			);
+		$sms_data = sms_send($args);
+		//  var_dump($args);die();				
+                      /*  $data_to_post = array();
                         $data_to_post['uname'] = 'SperocHL';
                         $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
                         $data_to_post['send'] = 'speroc';
                         $data_to_post['dest'] = $profmob; 
-						$data_to_post['msg'] = $txtMsg1;
-						
-						
-						
-					
-
-                        $curl = curl_init();
+		$data_to_post['msg'] = $txtMsg1;
+		$curl = curl_init();
                         curl_setopt($curl,CURLOPT_URL, $form_url);
                         curl_setopt($curl,CURLOPT_POST, sizeof($data_to_post));
                         curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
                         $result = curl_exec($curl);
                         curl_close($curl);
 						
-						//Dr.Shelke text msg 1 st
+		//Dr.Shelke text msg 1 st
 						
-						$data_to_post = array();
+		$data_to_post = array();
                         $data_to_post['uname'] = 'SperocHL';
                         $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
                         $data_to_post['send'] = 'speroc';
                         $data_to_post['dest'] = $profmob1; 
-						$data_to_post['msg'] = $txtMsg1;
+		$data_to_post['msg'] = $txtMsg1;
 
                         $curl = curl_init();
                         curl_setopt($curl,CURLOPT_URL, $form_url);
@@ -170,12 +165,12 @@
                         $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
                         $data_to_post['send'] = 'speroc';
                         $data_to_post['dest'] = $profmob2; 
-						$data_to_post['msg'] = $txtMsg1;
+		$data_to_post['msg'] = $txtMsg1;
 
                         $curl = curl_init();
                         curl_setopt($curl,CURLOPT_URL, $form_url);
                         curl_setopt($curl,CURLOPT_POST, sizeof($data_to_post));
                         curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
                         $result = curl_exec($curl);
-                        curl_close($curl);
+                        curl_close($curl);*/
 ?>
