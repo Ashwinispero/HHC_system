@@ -1042,7 +1042,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         $DocDtls=$eventClass->GetConsultantByPatient($argsDoc); 
                         
                                                                         
-                        $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                        
 
                         //.............. send msg to professional .......//
 						$query=mysql_query("SELECT * FROM sp_events where event_id='".$ValRequirement['event_id']."'") or die(mysql_error());
@@ -1065,13 +1065,14 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                        $args = array(
 							'msg' => $txtMsg1,
 							'mob_no' => $profmob
-						);
+						);  
 					$sms_data = sms_send($args);  
                         
                         
                         
                         
-                    /*    $data_to_post = array();
+                    /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+                        $data_to_post = array();
                         $data_to_post['uname'] = 'SperocHL';
                         $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
                         $data_to_post['send'] = 'speroc';
