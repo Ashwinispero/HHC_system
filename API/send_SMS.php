@@ -1,5 +1,7 @@
  <?php 
 require_once('config.php');
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 	
 
 		if($_SERVER['REQUEST_METHOD']=='POST')
@@ -12,7 +14,7 @@ require_once('config.php');
             $profmob =$data->profmob;
 			
 	
-				$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+				
 				$txtMsg3='';
  
                     $txtMsg3.= " Dear,$patientname,";
@@ -27,6 +29,12 @@ require_once('config.php');
 										//For feedback,service extention or any query call Spero on 7620400100";
                     
 					echo $txtMsg3;
+					$args = array(
+						'msg' => $txtMsg3,
+						'mob_no' => $mobileNumber
+						);
+					$sms_data =$commonClass->sms_send($args);
+					/*$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                     
                     
 									$data_to_post['uname'] = 'SperocHL';
@@ -42,7 +50,7 @@ require_once('config.php');
 								    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 									$result = curl_exec($curl);
 									curl_close($curl);
-
+*/
                                                         
                      
 							
