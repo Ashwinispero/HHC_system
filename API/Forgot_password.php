@@ -1,5 +1,7 @@
 <?php 
 require_once('config.php');
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 	
 
 		if($_SERVER['REQUEST_METHOD']=='POST')
@@ -30,7 +32,7 @@ require_once('config.php');
                         			
 									$sql_OTP_update = mysql_query("Update sp_service_professionals set OTP='$otp',otp_expire_time='$otp_expiry_time' where mobile_no='".$mobileNumber."' ");
 									
-									$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
+									
 									$txtMsg='';
 									
 									
@@ -39,7 +41,13 @@ require_once('config.php');
 									$txtMsg .= " OTP is validate for one time password generation ";*/
 									
 										$txtMsg .= "OTP to reset password is : $otp. OTP is valid for 30 Minutes";
-									
+										$args = array(
+											'msg' => $txtMsg,
+											'mob_no' => $mobileNumber
+											);
+										$sms_data =$commonClass->sms_send($args);	
+										/*
+										$form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
 								//	$data_to_post = array();
 									$data_to_post['uname'] = 'SperocHL';
 									$data_to_post['pass'] = 'SpeRo@12';
@@ -54,7 +62,7 @@ require_once('config.php');
 								    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 									$result = curl_exec($curl);
 									curl_close($curl);
-
+									*/
 									
 									 echo json_encode(array("data"=>null,"error"=>null));
 								}
