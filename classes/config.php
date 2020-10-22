@@ -81,53 +81,7 @@
      * 6 - General inforamation
      * 7 - Job closure
      */
-    function sms_send($args){
-       
-        $text_msg = $args['msg'];
-        $mobile_no=$args['mob_no'];
-        $mobile_no =  "8551995260";
-        $apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
-	
-        // Message details
-        $numbers = array($mobile_no);
-        $sender = urlencode('TXTLCL');
-        $message = rawurlencode($text_msg);
     
-        $numbers = implode(',', $numbers);
-        var_dump($message);die();
-        // Prepare data for POST request
-        $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
-    
-        // Send the POST request with cURL
-        $ch = curl_init('https://api.textlocal.in/send/');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        var_dump($response);die();
-        curl_close($ch);
-        // Process your response here
-        echo $response;
-        /*$form_url = "http://www.mgage.solutions/SendSMS/sendmsg.php?uname=BVGMEMS&pass=m2v5c2&send=BVGEMS&dest=".urlencode($mobile_no)."&msg=".urlencode($text_msg);
-        $data_to_post = array();
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $form_url);
-        curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
-        $result = curl_exec($curl);
-        curl_close($curl);*/
-       // var_dump($result);die();
-       // $asSMSReponse = explode("-", $send_dr_sms);
-        //var_dump($result);die();
-        /*$result = array('inc_ref_id' => $inc_id,
-            'sms_usertype' => 'Dispatch',
-            'sms_res' => $result[0],
-            'sms_res_text' => $asSMSReponse[1] ? $asSMSReponse[1] : '',
-            'sms_datetime' => $datetime);*/
-       
-        //$CI->inc_model->insert_sms_response($result);
-}
      
           function send_curl_request($url, $parameter = '', $method = "get") {
 

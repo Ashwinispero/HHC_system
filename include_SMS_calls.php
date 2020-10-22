@@ -127,8 +127,10 @@
 			'msg' => $txtMsg1,
 			'mob_no' => $profmob
 			);
-		$sms_data = sms_send($args);
-		//  var_dump($args);die();				
+		//$sms_data = sms_send($args);
+		//var_dump($args);die();
+		$sms_data =$commonClass->sms_send($args);
+		  				
                       /*  $data_to_post = array();
                         $data_to_post['uname'] = 'SperocHL';
                         $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';

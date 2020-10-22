@@ -1,6 +1,7 @@
 <?php
 require_once('inc_classes.php');
-
+include "classes/commonClass.php";
+$commonClass= new commonClass();
 
 $Prof_service_id=$_GET['Prof_service_id'];
 $msg=$_GET['msg'];
@@ -72,16 +73,21 @@ if($type==1)
 }
 else if($type==2)
 {
-    $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
-	$phone_no=8551995260;
+    $phone_no=8551995260;
 	$Name='Ashwini';
 	$txtMsg1 .= "Dear".$Name;
 	$txtMsg1 .= ",".$msg;
 	//$txtMsg1 .= ",".$msg;
-    $txtMsg1 .= ",For queries please contact 7620400100";
+    	$txtMsg1 .= ",For queries please contact 7620400100";
 	$txtMsg1 .= "Regards,";
 	$txtMsg1 .= "Spero Healthcare Innovations Pvt Ltd.";
-                        
+	$args = array(
+		'msg' => $txtMsg1,
+		'mob_no' => $phone_no
+		);
+	$sms_data =$commonClass->sms_send($args);	
+/*
+    $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";                   
     $data_to_post = array();
     $data_to_post['uname'] = 'SperocHL';
     $data_to_post['pass'] = 'SpeRo@12';//s1M$t~I)';
@@ -95,6 +101,7 @@ else if($type==2)
     curl_setopt($curl,CURLOPT_POSTFIELDS, $data_to_post);
     $result = curl_exec($curl);
     curl_close($curl);
+    */
 	$Notification = mysql_query("SELECT * FROM sp_professional_services where service_id='$Prof_service_id' and status=1");
 	$row_count = mysql_num_rows($Notification);
 	if($row_count > 0)
