@@ -33,6 +33,9 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
         <li>
         <a href="javascript:void(0);"  title="View Dialer Box" onclick="softdial()"; > <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a>
         </li>
+        <li>
+        <a href="javascript:void(0);"  title="View missedcall popup" onclick="missedcall()"; > <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> missed call</a>
+        </li>
         
             <li><a href="event-log.php" class="clearSessioncls"> <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Attend Call</a></li>
         <?php if($_SESSION['employee_type']=='1') { ?>

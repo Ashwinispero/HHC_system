@@ -360,4 +360,47 @@ elseif($_REQUEST['action']=='vw_merge_mode'){
   curl_close($curl);
   echo $result;
 }
+elseif($_REQUEST['action']=='vw_MissedCall'){ ?>
+  <div style="background-color: #76D7C4  ">
+    <div class="modal-header">
+      <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h3 class="modal-title" align="center"> Missed call  </span></h3>	
+    </div>
+  </div>
+  <div class="row">
+					<div class="col-sm-2" style="font-size:20px">Select Date:</div>
+                    <div class="col-sm-2" >
+                        <input type="date"  id="from_date" name="from_date" placeholder="from_date" style="width:100%" >
+						<div id="error_message_from_date" style="color:red"></div>
+					</div>
+          <div class="col-sm-2" style="font-size:20px">Select Date:</div>
+                    <div class="col-sm-2" >
+                        <input type="date"  id="to_date" name="to_date" placeholder="to_date" style="width:100%" >
+						<div id="error_message_to_date" style="color:red"></div>
+					</div>
+					<div class="col-lg-3 marginB20 paddingl0">
+                    <input type="button" onclick="return search_missed_calls();" value="View Call's" name="btn-view-schedule" class="btn btn-download" style="background-color:#00cfcb;color:white">
+					</div>
+	</div>
+  
+<?php
+}
+elseif($_REQUEST['action']=='check_missed_call'){ 
+  $from_date=$_REQUEST['from_date'];
+  $to_date=$_REQUEST['to_date'];
+
+  $form_url =  "http://192.168.0.131/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
+    //echo $form_url;
+    $data_to_post = array();
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $form_url);
+    curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+    $result = curl_exec($curl);
+    curl_close($curl);
+    echo $result;
+
+
+ }
 ?>
