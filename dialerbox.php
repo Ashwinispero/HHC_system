@@ -381,6 +381,9 @@ elseif($_REQUEST['action']=='vw_MissedCall'){ ?>
 					<div class="col-lg-3 marginB20 paddingl0">
                     <input type="button" onclick="return search_missed_calls();" value="View Call's" name="btn-view-schedule" class="btn btn-download" style="background-color:#00cfcb;color:white">
 					</div>
+          <div id="Missed_call_list">
+             
+          </div>
 	</div>
   
 <?php

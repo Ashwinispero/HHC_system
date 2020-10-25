@@ -4799,8 +4799,8 @@ function search_missed_calls(){
     //alert();
     var from_date=document.getElementById('from_date').value;
     var to_date=document.getElementById('to_date').value;
-    var data1="from_date="+from_date+"&to_date="+to_date+"&action=check_missed_call";
-    /*$.ajax({
+   /* var data1="from_date="+from_date+"&to_date="+to_date+"&action=check_missed_call";
+    $.ajax({
                     url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
                     {
@@ -4829,11 +4829,11 @@ function search_missed_calls(){
 			{
                 if(xmlhttp.readyState==4 && xmlhttp.status==200)
 				{
-					//alert(xmlhttp.responseText);
-                   	document.getElementById("View_calls").innerHTML=xmlhttp.responseText;
+					alert(xmlhttp.responseText);
+                   	document.getElementById("Missed_call_list").innerHTML=xmlhttp.responseText;
 				}
 			}
-			xmlhttp.open("POST","include_view_calls.php?Current_call="+Current_call,true);
+			xmlhttp.open("POST","dialerbox.php?from_date="+from_date+"&to_date="+to_date+"&action=check_missed_call",true);
 			xmlhttp.send();
 
 }
