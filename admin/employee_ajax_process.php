@@ -17,6 +17,9 @@ if($_REQUEST['action']=='vw_add_employee')
     $LocationList=$commonClass->GetAllLocations();
     // Get All hospital List 
     $HospitalList=$commonClass->GetAllHospitals();   
+    // Get all ext no list
+    $avaya_extid = $commonClass->GetAllAvaya_agentid();   
+    //var_dump($avaya_agentid);die();
  ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -60,7 +63,30 @@ if($_REQUEST['action']=='vw_add_employee')
                                </select>
                            </label>
                        </div>
-                </div>        
+                </div>   
+                <div class="editform">
+                   <label>Select Ext No <span class="required">*</span></label>
+                       <div class="value dropdown">
+                           <label>
+                               <select name="avaya_agentid" id="avaya_agentid" class="validate[required]">
+                               <option value=""<?php if($_POST['avaya_agentid']=='') { echo 'selected="selected"'; } else if($EmpDtls['ext_no']=='') { echo 'selected="selected"'; } ?>>Extention ID</option>
+                                    <?php
+                                    //var_dump($EmpDtls['avaya_agentid']);die();
+                                        foreach($avaya_extid as $key=>$avaya_extid)
+                                        {
+                                            //var_dump($avaya_extid['ext_no']);
+                                            if($EmpDtls['avaya_agentid'] == $avaya_extid['ext_no'])
+                                                echo '<option value="'.$avaya_extid['ext_no'].'" selected="selected">'.$avaya_extid['ext_no'].'</option>';
+                                            else if($_POST['avaya_agentid'] == $avaya_extid['ext_no'])
+                                                echo '<option value="'.$avaya_extid['ext_no'].'" selected="selected">'.$avaya_extid['ext_no'].'</option>';
+                                            else
+                                                echo '<option value="'.$avaya_extid['ext_no'].'">'.$avaya_extid['ext_no'].'</option>';
+                                        }                            
+                                    ?>
+                               </select>
+                           </label>
+                       </div>
+                </div>      
                 <div class="editform">
                     <label>Last Name <span class="required">*</span></label>
                     <div class="value">
@@ -201,6 +227,7 @@ else if($_REQUEST['action']=='add_employee')
         $employee_id=strip_tags($_POST['employee_id']);
         $type=strip_tags($_POST['type']);
         $hospital_id=strip_tags($_POST['hospital_id']);
+        $avaya_agentid=strip_tags($_POST['avaya_agentid']);
         $name=strip_tags($_POST['name']);
         $first_name=strip_tags($_POST['first_name']);
         $middle_name=strip_tags($_POST['middle_name']);
@@ -230,6 +257,11 @@ else if($_REQUEST['action']=='add_employee')
         {
             $success=0;
             $errors[$i++]="Please select hospital";
+        }
+        if($avaya_agentid=='')
+        {
+            $success=0;
+            $errors[$i++]="Please select Avaya agentid";
         }
         if($name=='')
         {
@@ -337,6 +369,7 @@ else if($_REQUEST['action']=='add_employee')
             $arr['employee_id']=$employee_id;
             $arr['type']=$type;
             $arr['hospital_id']=$hospital_id;
+            $arr['avaya_agentid']=$avaya_agentid;
             $arr['name']=ucwords(strtolower($name));
             $arr['first_name']=ucwords(strtolower($first_name));
             $arr['middle_name']=ucwords(strtolower($middle_name));

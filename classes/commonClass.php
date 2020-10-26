@@ -110,6 +110,18 @@ class commonClass extends AbstractDB
        else 
            return 0;
     }
+    public function GetAllAvaya_agentid($arg = array())
+    {
+       $preWhere="";
+       $Avaya_agentid="SELECT * FROM sp_avaya_extensions WHERE is_deleted='0' ".$preWhere." ORDER BY id ASC";
+       if($this->num_of_rows($this->query($Avaya_agentid)))
+       {
+          $agentid=$this->fetch_all_array($Avaya_agentid) ;
+          return $agentid;
+       }
+       else 
+           return 0;
+    }
     
     /**
 	* This function is used for get all subservies 

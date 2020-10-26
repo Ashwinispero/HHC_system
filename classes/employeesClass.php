@@ -130,7 +130,7 @@ class employeesClass extends AbstractDB
     public function GetEmployeeById($arg)
     {
         $employee_id=$this->escape($arg['employee_id']);
-        $GetOneEmployeeSql="SELECT employee_id,employee_code,type,hospital_id,name,first_name,middle_name,designation,email_id,phone_no,mobile_no,dob,address,work_phone_no,work_email_id,location_id,qualification,specialization,work_experience,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date FROM sp_employees WHERE employee_id='".$employee_id."'";
+        $GetOneEmployeeSql="SELECT avaya_agentid,employee_id,employee_code,type,hospital_id,name,first_name,middle_name,designation,email_id,phone_no,mobile_no,dob,address,work_phone_no,work_email_id,location_id,qualification,specialization,work_experience,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date FROM sp_employees WHERE employee_id='".$employee_id."'";
         if($this->num_of_rows($this->query($GetOneEmployeeSql)))
         {
             $Employee = $this->fetch_array($this->query($GetOneEmployeeSql));
@@ -226,6 +226,7 @@ class employeesClass extends AbstractDB
             }
             $insertData['type']               = $this->escape($arg['type']);
             $insertData['hospital_id']        = $this->escape($arg['hospital_id']);
+            $insertData['avaya_agentid']        = $this->escape($arg['avaya_agentid']);
             $insertData['name']               = $this->escape($arg['name']);
             $insertData['first_name']         = $this->escape($arg['first_name']);
             $insertData['middle_name']        = $this->escape($arg['middle_name']);
