@@ -335,7 +335,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
 
   //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
   $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
-  var_dump($form_url);
+  //var_dump($form_url);
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -393,17 +393,46 @@ elseif($_REQUEST['action']=='check_missed_call'){
   $to_date=$_REQUEST['to_date'];
 
   $form_url =  "http://192.168.0.131/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
-    //echo $form_url;
-    $data_to_post = array();
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $form_url);
-    curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
-    $result = curl_exec($curl);
-    curl_close($curl);
-    echo $result;
-
+    echo $form_url;
+   // $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+ // curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  //curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  echo $result;
+  //  $form_url =   "http://192.168.0.131/API/DropCall.php?startdate=2020-10-01&enddate=2020-10-25";
+  // $form_url = rawurlencode($form_url);
+  //  echo $form_url;
+/*
+  $data_to_post = array();
+  $header = "Accept: application/json";
+  $curl = curl_init();
+ // curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+ // curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_HEADER, TRUE);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  try {
+    //json_decode(curl_exec($curl));
+  $result =  json_decode(curl_exec($curl));
+  echo curl_error();
+  var_dump($result);die();
+  echo $result;
+  }
+  catch(Exception $e) {
+    print_r($e);
+  }
+  //print_r(curl_getinfo($curl));
+  //var_dump($result);die();
+  curl_close($curl);
+  
+  echo $result;
+  */
+  
 
  }
 ?>
