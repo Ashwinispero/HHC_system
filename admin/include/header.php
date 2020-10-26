@@ -371,6 +371,29 @@ $(document).ready(function()  {
                         </ul>
                     </li>
                     <!-- Account section ends here -->
+                    <!-- Revoltel Report section start here -->
+                    <li class="navbar_child_li" id="report_master_menu">
+                        <a href="javacript:void(0);">
+                            <i><img src="images/my-profile.png"></i> Revoltel Report
+                        </a>
+                        <ul>
+                            <!-- manage missed call report section start here -->
+                            <?php if (in_array("43", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_missed_Call_report.php') echo 'active'; ?>">
+                                    <a href="manage_missed_Call_report.php"><i><img src="images/manage_locations.png"></i>Missed Call Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage missed call report section end here -->
+                            <!-- manage adio report section start here -->
+                            <?php if (in_array("44", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_adiocall_report.php') echo 'active'; ?>">
+                                    <a href="manage_adiocall_report.php"><i><img src="images/manage_locations.png"></i>Audio File Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage adio call report section start here -->
+                        </ul>
+                    </li>
+                    <!-- Revoltel Report section ends here -->
 
                     <!-- Set cookies section start here -->
                     <?php if (in_array("15", $moduleids)) { ?>
