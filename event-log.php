@@ -38,6 +38,28 @@ if($_REQUEST['EID'])
     /* fix rtl for demo */
     .chosen-rtl .chosen-drop { left: -9000px; }
     #calendar { max-width: 900px; margin: 0 auto; }
+
+  
+.notification {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+
+.notification .badge {
+  position: absolute;
+  
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+}
 </style>  
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Welcome to SPERO</title>
@@ -110,8 +132,35 @@ if($_REQUEST['EID'])
 			<!--<a target = '_blank'  href='Assisted_Living_Avaibality.php' style="margin-right:5%">Assisted Living Avaibility</a>-->
 			<a target = '_blank'  href='schedule_display_new.php' style="margin-right:5%">Professional Schedule</a>
 			<!--<a target = '_blank'  href='schedule_display.php' style="margin-right:5%">Professional Schedule</a>-->
-			<a target = '_blank'  href='Enuiry_call_display.php' style="margin-right:5%">Enquiry call</a>
-			<a target = '_blank'  href='Ongoing_calls.php' style="margin-right:5%">Ongoing Call's</a>
+			<!--<a target = '_blank'  href='Enuiry_call_display.php' style="margin-right:5%">Enquiry call</a>-->
+            <a target = '_blank'  href='Ongoing_calls.php' style="margin-right:5%">Ongoing Call's</a>
+            <div class="form-group col-lg-2 ">
+                        
+                       <?php  $recListResponse = $commonClass->GetTodayEnquiryCall();  
+                       if($recListResponse)
+                       {
+                       ?>
+                        <span class="badge" style="color: white;background-color: red;top: 50px" ><?php echo count($recListResponse); ?></span>
+                                <select class="chosen-select form-control notification"  style="border-color:red" name="SearchKeyword" id="SearchKeyword" onChange="searchRecords();">
+                               <option value="">Search Today Enquiry</option>
+                                 <?php
+                                    $recListResponse = $commonClass->GetTodayEnquiryCall();  
+                                   // $recList=$recListResponse['data'];
+                                   
+                                    foreach($recListResponse as $key=>$valProfessional)
+                                    {
+                                      if($_POST['event_code'] == $valProfessional['event_code'])
+                                          echo '<option value="'.$valProfessional['event_id'].'" selected="selected">'.$valProfessional['event_code'].'</option>';
+                                      else
+                                          echo '<option value="'.$valProfessional['event_id'].'">'.$valProfessional['event_code'].'</option>';
+                                    }
+
+                                 ?>
+                             </select>
+                            
+                        <?php } ?>
+                        <!--</label>-->
+                    </div>
 			</div>
 		   <h2 class="page-title">Event Log</h2>
 			

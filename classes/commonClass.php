@@ -188,6 +188,21 @@ class commonClass extends AbstractDB
      
       //$CI->inc_model->insert_sms_response($result);
 }
+public function GetTodayEnquiryCall()
+{
+  // $events = mysql_query("SELECT * FROM sp_events where (enquiry_status=1 OR enquiry_status=2) and (service_date_of_Enquiry BETWEEN '$formDate1%' AND '$toDate2%') ORDER BY service_date_of_Enquiry DESC");
+      $today_date = date("Y-m-d");
+      $EnquiryCAllSql="SELECT *  FROM sp_events WHERE  (enquiry_status=1 OR enquiry_status=2) and (service_date_of_Enquiry ='".$today_date."') ORDER BY service_date_of_Enquiry DESC ";
+       //var_dump($EnquiryCAllSql);
+      // echo $EnquiryCAllSql; die();
+       if($this->num_of_rows($this->query($EnquiryCAllSql)))
+       {
+          $EnquiryCAll=$this->fetch_all_array($EnquiryCAllSql) ;
+          return $EnquiryCAll;
+       }
+       else 
+           return 0; 
+}
 }
 //END
 ?>
