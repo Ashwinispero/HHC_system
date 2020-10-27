@@ -78,8 +78,10 @@ if($row_count > 0)
 	<td>'.$RecordSql_rows['phone_no'].'</td>
 	<td>'.$RecordSql_rows['mobile_no'].'</td>
 	<td>'.$RecordSql_rows['first_name'].' '.$RecordSql_rows['name'].'</td>
-	<td>'.$RecordSql_rows['call_audio'].'</td>';
-            echo '</tr>';
+        <td style = "' . $style .'">';
+         if($RecordSql_rows['call_audio'] ==''){ }else { ?><a  target="_blank" href=" <?php echo $RecordSql_rows['call_audio']; ?> " ><span aria-hidden="true" class="glyphicon glyphicon-play"></span></a> <?php  }
+        echo '</td>';
+        echo '</tr>';
 	}
 }
 else

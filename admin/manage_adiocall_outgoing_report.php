@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            <img src="images/locations_big.png" alt="Manage Payments">Manage Incoming Audio Report                
+                            <img src="images/locations_big.png" alt="Manage Payments">Manage Outgoing Audio Report                
                             <!--<a href="javascript:void(0);" onclick="return vw_add_location(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD LOCATION</a>-->
                         </h1>
                     </div>

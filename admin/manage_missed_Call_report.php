@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>New Manage Receipt </title>
+    <title>Manage Missed call</title>
     <?php include "include/css-includes.php";?>
 </head>
 <body>
@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            <img src="images/locations_big.png" alt="Manage Payments">Manage Receipt                
+                            <img src="images/locations_big.png" alt="Manage Payments">Manage Missed Call Report            
                             <!--<a href="javascript:void(0);" onclick="return vw_add_location(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD LOCATION</a>-->
                         </h1>
                     </div>
@@ -34,33 +34,18 @@
                 <div class="col-lg-12 paddingLR20 paddingt20">
                 <div class="col-lg-3 marginB20 paddingl0">
                         <div class="searchBox" style="width:96%;">
-                            <input class="data-entry-search datepicker_from" placeholder="From Date" type="text" name="formDate" id="formDate_receipt" value="" >                      
+                            <input class="data-entry-search datepicker_from" placeholder="From Date" type="text" name="formDate_missed" id="formDate_missed" value="" >                      
                         </div>
                     </div>
                     <div class="col-lg-3 marginB20 paddingl0">
                         <div class="searchBox" style="width:96%;">                            
-                            <input class="data-entry-search datepicker_to" placeholder="To Date" type="text" name="toDate" id="toDate_receipt" value="" >                           
+                            <input class="data-entry-search datepicker_to" placeholder="To Date" type="text" name="toDate_missed" id="toDate_missed" value="" >                           
                         </div>
                     </div>   
-<div class="col-lg-3 marginB20 paddingl0">
-                        <div class="searchBox" style="width:96%;">                            
-                            <select  name="hospital_name" id="hospital_id" onchange="Hospital_List();" >
-                            <?php
-								$Query=mysql_query("select * from sp_hospitals ORDER BY hospital_id ASC");
-								while($row=mysql_fetch_array($Query))
-								{
-							?>
-							<option value="<?php echo $row['hospital_id'] ;?>" ><?php echo $row['hospital_name'];?> </option>
-							<?php
-								}
-							?>
-							
-							</select>
-                        </div>
-                    </div>					
+                    				
                    
 				    <div class="col-lg-3 marginB20 paddingl0">
-                             <input type="button" onclick="return search_Receipt_record();" value="View Payments" name="btn-view-schedule" class="btn btn-download">
+                             <input type="button" onclick="return search_missed_record();" value="View List" name="btn-view-schedule" class="btn btn-download">
                      </div>
 					<div>
                     <!--<div class="pull-right paddingLR0" style="padding-left:15px !important;">
@@ -75,7 +60,7 @@
                     </div>
 					
 					
-					<div id="Receipt">
+					<div id="Missed_Call">
                     <div class="clearfix"></div>
                     <div class="LocationsListing">
 					<div>Please Select Date First...</div>
@@ -185,39 +170,13 @@
     }	
 	
 
-        function checkForEnterSearch (event) 
-        {
-            if (event.keyCode == 13) 
-            {
-                searchRecords();
-            }
-        }
-		function serch_receipt_dw()
-		{
-			var formDate_receipt=document.getElementById('formDate_receipt').value;
-			var toDate_receipt=document.getElementById('toDate_receipt').value;
-			var hospital_id=document.getElementById('hospital_id').value;
-			//var w = window.open('/apex/CompetencyDrillDownPage?testvalue='+drilldownparam, target='_blank')
-			window.open('csv_New_include_export_receipt.php?formDate_receipt='+formDate_receipt+'&toDate_receipt='+toDate_receipt+'&hospital_id='+hospital_id,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
-			return false
-
-		}
-        function search_Receipt_record()
-        {	//-------Sort By payment date function-----------
-		    //-----Author: ashwini 31-05-2016-----
-            //changePagination('LocationsListing','include_payments.php','','','','');
-			
-			 var formDate_receipt=document.getElementById('formDate_receipt').value;
-			 var toDate_receipt=document.getElementById('toDate_receipt').value;
-			 var hospital_id=document.getElementById('hospital_id').value;
-			// var type_of_payment=document.getElementById('type_of_payment').value;
-			 
-			// var event_code=document.getElementById('event_code').value;
-			 //alert(event_code);
-			// var HHC_NO=document.getElementById('HHC_NO').value;
-			
-			 var xmlhttp;
-			 if(window.XMLHttpRequest)
+		
+        function search_missed_record()
+        {	
+            var formDate_missed=document.getElementById('formDate_missed').value;
+			var toDate_missed=document.getElementById('toDate_missed').value;
+			var xmlhttp;
+			if(window.XMLHttpRequest)
 			{
 				xmlhttp=new XMLHttpRequest();
 			}
@@ -229,190 +188,13 @@
 			{
                 if(xmlhttp.readyState==4 && xmlhttp.status==200)
 				{
-                   	document.getElementById("Receipt").innerHTML=xmlhttp.responseText;
+                   	document.getElementById("Missed_Call").innerHTML=xmlhttp.responseText;
 				}
 			}
-			xmlhttp.open("POST","New_include_export_receipt.php?formDate_receipt="+formDate_receipt+"&toDate_receipt="+toDate_receipt+"&hospital_id="+hospital_id,true);
+			xmlhttp.open("POST","New_include_export_receipt_old.php?formDate_missed="+formDate_missed+"&toDate_missed="+toDate_missed,true);
 			xmlhttp.send();
         }
-        function vw_add_location(value)
-        {
-            Popup_Display_Load();
-            var data1="location_id="+value+"&action=vw_add_location";
-            $.ajax({
-                url: "location_ajax_process.php", type: "post", data: data1, cache: false,
-                success: function (html)
-                {
-                   // alert(html);
-                   $('#edit_location').modal('show'); 
-                   $("#AllAjaxData").html(html);
-                   $("#frm_add_location").validationEngine('attach',{promptPosition : "bottomLeft"}); 
-                   Popup_Hide_Load();
-                }
-            });
-        }
-        function add_location_submit()
-        {
-           if($("#frm_add_location").validationEngine('validate')) 
-           {
-               $('#submitForm').prop('disabled', true);
-               $("#frm_add_location").ajaxForm({
-                    beforeSend: function() 
-                    {
-                        Display_Load();
-                    },
-                   success: function (html)
-                   {
-                       var result=html.trim();
-                      // alert(result);
-                      if(result=='ValidationError')
-                       {
-                          bootbox.alert("<div class='msg-error'>There is some validation error please check all fields are proper.</div>");  
-                       }
-                       if(result=='locationexists')
-                       {
-                          bootbox.alert("<div class='msg-error'>Location details already exists, it may be on trash list, so please try another one.</div>"); 
-                       }
-                       else 
-                       {
-                            $('#edit_location').modal('hide'); 
-                            if(result=='InsertSuccess')
-                            {
-                                 bootbox.alert("<div class='msg-success'>Location details added successfully.</div>",function()
-                                 {
-                                     changePagination('LocationsListing','include_payments.php','','','','');
-                                 });
-                            }
-                            else if(result=='UpdateSuccess')
-                            {
-                                 bootbox.alert("<div class='msg-success'>Location details updated successfully.</div>",function()
-                                 {
-                                     changePagination('LocationsListing','include_payments.php','','','','');
-                                 });
-                            }  
-                       }
-                       $('#submitForm').prop('disabled', false);
-                   },
-                    complete : function()
-                    {
-                       Hide_Load();
-                    }  
-               }).submit();
-           }
-           else 
-           {
-                $('#submitForm').prop('disabled', false);
-                bootbox.alert("<div class='msg-error'>Please fill the required fields.</div>", function() 
-                {
-                    $("#location").focus();
-                });
-           }
-        }
-        function change_status(location_id,curr_status,actionVal)
-        { 
-           var prompt_msg="";
-           var success_msg=""; 
-           if(actionVal=='Active')
-           {
-               prompt_msg ="Are you sure you want to activate this location ?"; 
-               success_msg="activated";  
-           }
-           else if(actionVal=='Inactive')
-           {
-               prompt_msg ="Are you sure you want to inactive this location ?"; 
-               success_msg="deactivated";  
-           }
-           else if(actionVal=='Delete')
-           {
-               prompt_msg="Are you sure you want to delete this location ?";
-               success_msg="deleted";
-           }
-           bootbox.confirm(prompt_msg, function (res) 
-           {
-               if(res==true)
-               {
-                   var data1 = "login_user_id=<?php echo $_SESSION['admin_user_id']; ?>&location_id="+location_id+"&curr_status="+curr_status+"&actionval="+actionVal+"&action=change_status";
-                 //  alert(data1);
-                   $.ajax({
-                       url: "location_ajax_process.php", type: "post", data: data1, cache: false,async: false,
-                        beforeSend: function() 
-                        {
-                            Display_Load();
-                        },
-                        success: function (html)
-                        {
-                          var result=html.trim();
-                          // alert(result);
-
-                          if(result=='success')
-                          {
-                              bootbox.alert("<div class='msg-success'>Location "+success_msg+" successfully.</div>",function()
-                              {
-                                  changePagination('LocationsListing','include_payments.php','','','','');
-                              });
-                          }
-                          else
-                          {
-                              bootbox.alert("<div class='msg-error'>Error In Operation</div>");
-                          }
-                        },
-                        complete : function()
-                        {
-                           Hide_Load();
-                        }
-                   });
-               }
-           });   
-        }
-		/*function download_payment_receipt(event_requirement_id,event_id)
-		{
-			window.open('csv_include_payment_receipt.php?event_requirement_id='+event_requirement_id+'&event_id='+event_id,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
-			return false
-		}*/
-		//Spero system
-		function download_payment_receipt(event_requirement_id,event_id, paymentId)
-		{
-			//alert(event_requirement_id);
-        var data1="event_id="+event_id+"&event_requirement_id="+event_requirement_id+"&payment_id="+paymentId;
-        $.ajax({
-            url: "include_download_payment_receipt.php", type: "post", data: data1, cache: false,async: false,
-           
-            success: function (html)
-            { 
-			//alert(html);
-			//var html='abc';
-                var dataRecipt=html;
-                var maindata = {html:dataRecipt, event_id:+event_id};
-               //var siteurl="http://localhost:/spero_system/amod/admin/";    
-			var siteurl=window.location.protocol;
-			//var siteurl=window.location.href;
-			
-                $.ajax({
-                    url: 'download_receipt_pdf.php',
-                    async: false,
-                    cache: false,
-                    data: maindata,
-                    type: 'POST',
-					 beforeSend: function() 
-                    {
-                       Display_Load();
-                    },
-                    success: function(result) 
-                    {  //alert(siteurl);
-						var w = location.href=siteurl+'download_receipt_pdf.php?export=1&file='+result; 
-                    },
-                    complete : function()
-                    {
-                       Hide_Load();
-                    }
-                });				  
-            },
-            complete : function()
-            {
-               Hide_Load();
-            }
-        }); 
-		}
+       
     </script>
 </body>
 </html>

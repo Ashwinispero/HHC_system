@@ -387,10 +387,17 @@ $(document).ready(function()  {
                             <!-- manage adio report section start here -->
                             <?php if (in_array("44", $moduleids)) { ?>
                                 <li class="<?php if($page_name == 'manage_adiocall_report.php') echo 'active'; ?>">
-                                    <a href="manage_adiocall_report.php"><i><img src="images/manage_locations.png"></i>Audio File Report</a>
+                                    <a href="manage_adiocall_report.php"><i><img src="images/manage_locations.png"></i>Incomming Audio File Report</a>
                                 </li> 
                             <?php } ?>
                             <!-- manage adio call report section start here -->
+                             <!-- manage adio report outgoing section start here -->
+                             <?php if (in_array("45", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_adiocall_outgoing_report.php') echo 'active'; ?>">
+                                    <a href="manage_adiocall_outgoing_report.php"><i><img src="images/manage_locations.png"></i>Outgoing Audio File Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage adio call report outgoing section start here -->
                         </ul>
                     </li>
                     <!-- Revoltel Report section ends here -->
