@@ -5543,6 +5543,8 @@ class eventClass extends AbstractDB
             $insertData['added_date']         = date('Y-m-d H:i:s');
             $insertData['last_modified_by']   = $_SESSION['employee_id'];
             $insertData['last_modified_date'] = date('Y-m-d H:i:s');
+            $insertData['follow_up_next_date']     = $arg['follow_up_next_date'];
+            
 
             /*echo '<pre>insertData .... <br>';
             print_r($insertData);
@@ -5551,6 +5553,10 @@ class eventClass extends AbstractDB
 
             $insertedRecordId = $this->query_insert('sp_enquiry_follow_up', $insertData);
             if (!empty($insertedRecordId)) {
+
+                $updateData['service_date_of_Enquiry'] = $arg['follow_up_next_date'];
+                $where = "event_id ='" . $arg['event_id'] . "' ";
+                $updateResult = $this->query_update('sp_events', $updateData, $where);
                 // Added activity while adding enquiry follow up
                 $getEventDtlsSql = "SELECT event_code,
                     purpose_id

@@ -2324,7 +2324,16 @@ else if ($_REQUEST['action'] == 'SubmitCancelEnquiry') {
                         <input type = "textarea" name = "follow_up_desc" id = "follow_up_desc" class = "validate[required] form-control" />
                     </div>
                 </div>
-
+                <!-- Add Date picker code start here -->
+                <div class = "editform" style="margin:10px 0px 10px 0px;">
+                    <label>
+                        Select Next followup Date : <span style="color:red;">*</span> 
+                    </label>
+                    <div class = "value">
+                      <input  name = "follow_up_next_date" id = "follow_up_next_date" type="date" class = "validate[required] form-control ">
+                    </div>
+                </div>
+                <!-- Add Date picker code ends here -->
                 <div class="modal-footer"> 
                     <input type = "button" name = "btn_enquiry_follow_up" id = "btn_enquiry_follow_up" class = "btn btn-download" value = "Save Changes" onclick="return enquiryFollowUpSubmit();">
                 </div>
@@ -2342,6 +2351,7 @@ else if ($_REQUEST['action'] == 'SubmitCancelEnquiry') {
         $followUpDate = $_POST['follow_up_date'];
         $followUpTime = $_POST['follow_up_time'];
         $followUpDesc = $_POST['follow_up_desc'];
+        $follow_up_next_date = $_POST['follow_up_next_date'];
 
         if ($followUpDate == '') {
             $success = 0;
@@ -2357,7 +2367,11 @@ else if ($_REQUEST['action'] == 'SubmitCancelEnquiry') {
             $success = 0;
             $errors[$i++] = "Please enter follow up description";
         }
-
+        if ($follow_up_next_date == '') {
+            $success = 0;
+            $errors[$i++] = "Please enter follow up next date description";
+        }
+        
         if (count($errors)) {
             echo "validationError";
             exit;
@@ -2368,6 +2382,8 @@ else if ($_REQUEST['action'] == 'SubmitCancelEnquiry') {
             $arr['follow_up_date'] = ($followUpDate ? date('Y-m-d', strtotime($followUpDate)) : $tomorrow);
             $arr['follow_up_time'] = ($followUpTime ? $followUpTime : "11:00 AM");
             $arr['follow_up_desc'] = $followUpDesc;
+            $arr['follow_up_next_date'] = $follow_up_next_date;
+            
 
             $recordId = $eventClass->addEnquiryFollowUp($arr);
 
