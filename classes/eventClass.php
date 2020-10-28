@@ -5555,6 +5555,7 @@ class eventClass extends AbstractDB
             if (!empty($insertedRecordId)) {
 
                 $updateData['service_date_of_Enquiry'] = $arg['follow_up_next_date'];
+                $updateData['enquiry_status'] = '2';
                 $where = "event_id ='" . $arg['event_id'] . "' ";
                 $updateResult = $this->query_update('sp_events', $updateData, $where);
                 // Added activity while adding enquiry follow up
