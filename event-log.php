@@ -5226,7 +5226,7 @@ function softdial(){
                 });
     }
     function merge_mode(){
-        //ttp://192.168.0.131/API/GrabCall.php?user=ashwini
+        //ttp://183.87.122.153/API/GrabCall.php?user=ashwini
         var status='1'
         var data1="status="+status+"&action=vw_merge_mode";
         $.ajax({

@@ -171,7 +171,7 @@ $avayaClass=new avayaClass();
         );
         $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);       
         $user = $_SESSION['first_name'];
-        $form_url =  "http://192.168.0.131/API/Logout.php?user=".$user;
+        $form_url =  "http://183.87.122.153/API/Logout.php?user=".$user;
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);

@@ -168,7 +168,7 @@ elseif($_REQUEST['action']=='vw_softdial')
   );
   $avaya_data_insert =$avayaClass->insert_avaya_outgoing_call($avaya_data);
 
-  $form_url =  "http://192.168.0.131/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
+  $form_url =  "http://183.87.122.153/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -199,7 +199,7 @@ elseif($_REQUEST['action']=='vw_pause_mode')
     'is_deleted' => '0'
   );
   $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
-  $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=PAUSE";
+  $form_url =  "http://183.87.122.153/API/ChangeState.php?user=".$user."&value=PAUSE";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -227,7 +227,7 @@ elseif($_REQUEST['action']=='vw_ready_mode')
     'is_deleted' => '0'
   );
   $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
-  $form_url =  "http://192.168.0.131/API/ChangeState.php?user=".$user."&value=RESUME";
+  $form_url =  "http://183.87.122.153/API/ChangeState.php?user=".$user."&value=RESUME";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -256,7 +256,7 @@ elseif($_REQUEST['action']=='vw_hang_mode')
   $_SESSION["CallUniqueID"]='';
   $_SESSION['Call_status_I_O']='';
   $_SESSION['mode_status'] ='2';
-  $form_url =  "http://192.168.0.131/API/Hangup.php?user=".$user;
+  $form_url =  "http://183.87.122.153/API/Hangup.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -323,7 +323,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
   );
   $avaya_data_insert =$avayaClass->insert_avaya_conf_call($avaya_data);
 
-  $form_url =  "http://192.168.0.131/API/ParkCall.php?user=".$user;
+  $form_url =  "http://183.87.122.153/API/ParkCall.php?user=".$user;
     $data_to_post = array();
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -333,8 +333,8 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
     $result = curl_exec($curl);
     curl_close($curl);
 
-  //$user = $_SESSION['first_name']; http://192.168.0.131/API/Conference.php?user=ashwini&phoneno=XXXXXX
-  $form_url =  "http://192.168.0.131/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
+  //$user = $_SESSION['first_name']; http://183.87.122.153/API/Conference.php?user=ashwini&phoneno=XXXXXX
+  $form_url =  "http://183.87.122.153/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
   //var_dump($form_url);
   $data_to_post = array();
   $curl = curl_init();
@@ -349,7 +349,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
 elseif($_REQUEST['action']=='vw_merge_mode'){
   $status=$_REQUEST['status'];
   $user = $_SESSION['first_name'];
-  $form_url =  "http://192.168.0.131/API/GrabCall.php?user=".$user;
+  $form_url =  "http://183.87.122.153/API/GrabCall.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -392,7 +392,7 @@ elseif($_REQUEST['action']=='check_missed_call'){
   $from_date=$_REQUEST['from_date'];
   $to_date=$_REQUEST['to_date'];
 
-  $form_url =  "http://192.168.0.131/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
+  $form_url =  "http://183.87.122.153/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
     echo $form_url;
    // $data_to_post = array();
   $curl = curl_init();
@@ -403,7 +403,7 @@ elseif($_REQUEST['action']=='check_missed_call'){
   $result = curl_exec($curl);
   curl_close($curl);
   echo $result;
-  //  $form_url =   "http://192.168.0.131/API/DropCall.php?startdate=2020-10-01&enddate=2020-10-25";
+  //  $form_url =   "http://183.87.122.153/API/DropCall.php?startdate=2020-10-01&enddate=2020-10-25";
   // $form_url = rawurlencode($form_url);
   //  echo $form_url;
 /*
