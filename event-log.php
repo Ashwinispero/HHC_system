@@ -128,21 +128,15 @@ if($_REQUEST['EID'])
         <div class="col-lg-12 paddingLR0" >            
             <!-- ---------------- Event Log start ----------- -->
             <div class="white-bg" id="RightSideDiv" style="display: n one;">
-			<div align="right" class="row">
-			<!--<a target = '_blank'  href='Assisted_Living_Avaibality.php' style="margin-right:5%">Assisted Living Avaibility</a>-->
-			<a target = '_blank'  href='schedule_display_new.php' style="margin-right:5%">Professional Schedule</a>
-			<!--<a target = '_blank'  href='schedule_display.php' style="margin-right:5%">Professional Schedule</a>-->
-			<!--<a target = '_blank'  href='Enuiry_call_display.php' style="margin-right:5%">Enquiry call</a>-->
-            <a target = '_blank'  href='Ongoing_calls.php' style="margin-right:5%">Ongoing Call's</a>
-            <div class="form-group col-lg-2 ">
-                        
-                       <?php  $recListResponse = $commonClass->GetTodayEnquiryCall();  
+            
+            <div class="form-group col-lg-4">
+                        <?php  $recListResponse = $commonClass->GetTodayEnquiryCall();  
                        if($recListResponse)
                        {
                        ?>
                         <span class="badge" style="color: white;background-color: red;top: 50px" ><?php echo count($recListResponse); ?></span>
                                 <select class="chosen-select form-control notification"  style="border-color:red" name="SearchKeyword" id="SearchKeyword" onChange="searchRecords();">
-                               <option value="">Search Today Enquiry</option>
+                               <option value="">Today Enquiry Calls</option>
                                  <?php
                                     $recListResponse = $commonClass->GetTodayEnquiryCall();  
                                    // $recList=$recListResponse['data'];
@@ -160,7 +154,14 @@ if($_REQUEST['EID'])
                             
                         <?php } ?>
                         <!--</label>-->
-                    </div>
+            </div>
+			<div align="right" class="row">
+			<!--<a target = '_blank'  href='Assisted_Living_Avaibality.php' style="margin-right:5%">Assisted Living Avaibility</a>-->
+			<a target = '_blank'  href='schedule_display_new.php' style="margin-right:5%">Professional Schedule</a>
+			<!--<a target = '_blank'  href='schedule_display.php' style="margin-right:5%">Professional Schedule</a>-->
+			<!--<a target = '_blank'  href='Enuiry_call_display.php' style="margin-right:5%">Enquiry call</a>-->
+            <a target = '_blank'  href='Ongoing_calls.php' style="margin-right:5%">Ongoing Call's</a>
+            
 			</div>
 		   <h2 class="page-title">Event Log</h2>
 			
