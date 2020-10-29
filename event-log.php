@@ -4786,13 +4786,13 @@ function soft_call_dial(no){
                         var val = sttr1.search(html);
                         //alert(val);
                         if(val == 0){
-                            bootbox.alert("<div class='msg-success'>Call Connected Successfully</div>");
+                            //bootbox.alert("<div class='msg-success'>Call Connected Successfully</div>");
                             $("#hang_mode").show();
                             $("#conf_mode").show();
                             return false;
                         }else{
-                            alert(html);
-                            bootbox.alert("<div class='msg-error'>ERROR : Something Wents Wrong</div>");
+                            //alert(html);
+                           // bootbox.alert("<div class='msg-error'>ERROR : Something Wents Wrong</div>");
                             $("#pause_mode").show();
                             return false;
                             
@@ -4827,12 +4827,12 @@ function soft_call(){
                         var val = sttr1.search(html);
                         //alert(val);
                         if(val == 0){
-                            bootbox.alert("<div class='msg-success'>Call Connected Successfully</div>");
+                           // bootbox.alert("<div class='msg-success'>Call Connected Successfully</div>");
                             $("#hang_mode").show();
                             $("#conf_mode").show();
                             //return false;
                         }else{
-                            bootbox.alert("<div class='msg-error'>ERROR : Something Wents Wrong</div>");
+                           // bootbox.alert("<div class='msg-error'>ERROR : Something Wents Wrong</div>");
                             $("#pause_mode").show();
                             //return false;
                         }
@@ -5105,9 +5105,7 @@ function softdial(){
                     },
                     success: function (html)
                     {
-                       // alert(html);
-                        //bootbox.alert("<div class='msg-error'>Now you in Ready mode</div>");
-                        bootbox.alert("<div class='msg-success'>Now you are in Ready mode</div>");
+                       //bootbox.alert("<div class='msg-success'>Now you are in Ready mode</div>");
                        // alert('User now Ready mode');
                     },
                     complete : function()
@@ -5129,7 +5127,7 @@ function softdial(){
                     },
                     success: function (html)
                     {
-                        bootbox.alert("<div class='msg-success'>Now you are in Pause mode</div>");
+                        //bootbox.alert("<div class='msg-success'>Now you are in Pause mode</div>");
                     },
                     complete : function()
                     {
@@ -5150,7 +5148,7 @@ function softdial(){
                     },
                     success: function (html)
                     {
-                        bootbox.alert("<div class='msg-success'>Call disconnected..Now you are in Ready mode</div>");
+                        //bootbox.alert("<div class='msg-success'>Call disconnected..Now you are in Ready mode</div>");
                         $("#pause_mode").show();
                         $("#ready_mode").hide();
                         $("#hang_mode").hide();
@@ -5208,12 +5206,12 @@ function softdial(){
                         var val = sttr1.search(html);
                         //alert(val);
                         if(val == 0){
-                            bootbox.alert("<div class='msg-success'>Conferance Call Connected..</div>");
+                            //bootbox.alert("<div class='msg-success'>Conferance Call Connected..</div>");
                             $("#hang_mode").hide();
                             $("#conf_mode").hide();
                             $("#merge_mode").show();
                         }else{
-                            bootbox.alert("<div class='msg-error'>ERROR: Conferance Call Not Connected..</div>");
+                           // bootbox.alert("<div class='msg-error'>ERROR: Conferance Call Not Connected..</div>");
                             $("#hang_mode").show();
                             $("#conf_mode").show();
                         }
@@ -5242,14 +5240,14 @@ function softdial(){
                         var val = sttr1.search(html);
                       //  alert(val);
                         if(val == -1){
-                        bootbox.alert("<div class='msg-success'>Successfully call Merged</div>");
+                      //  bootbox.alert("<div class='msg-success'>Successfully call Merged</div>");
                         $("#pause_mode").hide();
                         $("#ready_mode").hide();
                         $("#hang_mode").show();
                         $("#conf_mode").hide();
                         $("#merge_mode").hide();
                         }else{
-                            bootbox.alert("<div class='msg-error'>ERROR: merge Call..</div>");
+                          //  bootbox.alert("<div class='msg-error'>ERROR: merge Call..</div>");
                             $("#hang_mode").show();
                             //$("#conf_mode").show();
                             $("#merge_mode").show();
