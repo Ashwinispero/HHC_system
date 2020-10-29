@@ -292,6 +292,25 @@ elseif($_REQUEST['action']=='vw_conf')
         </div>
         </div>
         <br>
+        <select class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional();">
+                                 <option value="">Search Professional</option>
+                                 <?php
+                                    $recArgs['pageIndex']='1';
+                                    $recArgs['pageSize']='all';
+                                    $recArgs['isActiveOnly'] = '1';
+                                    $recListResponse = $professionalsClass->ProfessionalsList_Active_Inactive($recArgs);
+                                    $recList=$recListResponse['data'];
+                                    foreach($recList as $key=>$valProfessional)
+                                    {
+                                      if($_POST['search_professional_id'] == $valProfessional['service_professional_id'])
+                                          echo '<option value="'.$valProfessional['mobile_no'].'" selected="selected">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                      else
+                                          echo '<option value="'.$valProfessional['mobile_no'].'">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                    }
+
+                                 ?>
+                             </select>
+        <br>
         <div align="center" >
         <input id="conf_no"  onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
         </div>

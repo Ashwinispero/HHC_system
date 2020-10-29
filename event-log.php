@@ -5259,6 +5259,13 @@ function softdial(){
                     }
                 });
     }
+    function search_professional(){
+        
+        var search_professionalid = document.getElementById('search_professionalid').value;
+        //alert(search_professionalid);
+        document.getElementById("conf_no").value = search_professionalid;
+        
+    }
 </script>
 <?php
 $db->close(); 

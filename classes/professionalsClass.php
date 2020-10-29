@@ -117,7 +117,7 @@ class professionalsClass extends AbstractDB
 		$groupBy = " GROUP BY t1.service_professional_id";
 
         //$ProfessionalsSql="SELECT service_professional_id FROM sp_service_professionals WHERE 1 ".$preWhere." ".$filterWhere." ";
-        $ProfessionalsSql="SELECT t1.service_professional_id FROM sp_service_professionals as t1 LEFT JOIN sp_professional_services as t2 ON t1.service_professional_id = t2.service_professional_id " . $join . " WHERE 1 ".$preWhere."  " . $groupBy . " ".$filterWhere."";
+        $ProfessionalsSql="SELECT t1.service_professional_id,t1.mobile_no FROM sp_service_professionals as t1 LEFT JOIN sp_professional_services as t2 ON t1.service_professional_id = t2.service_professional_id " . $join . " WHERE 1 ".$preWhere."  " . $groupBy . " ".$filterWhere."";
 		
 
 		//echo '<pre>';
