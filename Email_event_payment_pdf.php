@@ -100,7 +100,7 @@ $commonClass= new commonClass();
     $mail->addReplyTo('noreply@sperocloud.com');
  //  $mail->addCC('Ashwinik.speroinfosystems@gmail.com');
    $mail->addCC('kalpana@sperohealthcare.in');
-  $mail->addBCC('info@sperohealthcare.in');
+  //$mail->addBCC('info@sperohealthcare.in');
 
 
     //Attachments
