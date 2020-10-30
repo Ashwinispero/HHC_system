@@ -597,7 +597,15 @@ $avayaClass=new avayaClass();
 
             //Get event requirement details
             $eventRequirementDtls = $eventClass->getEventRequirementDtls($arr['eventId']);
-
+            $eventServicetDtls = $eventClass->GetEventRequirement_service($arr['eventId']);
+            //var_dump($eventServicetDtls);die();
+            foreach($eventServicetDtls as $key=>$valRequirements)
+            {
+                
+               $service_title = $valRequirements['service_title'];
+               $recommomded_service = $valRequirements['recommomded_service'];
+            }
+            // var_dump($service_title);die();
             if (!empty($eventRequirementDtls)) {
                 $arr['payment_id'] = $eventClass->addEventPayment($arr);
                 // Insert details in payment details table
@@ -607,7 +615,7 @@ $avayaClass=new avayaClass();
                     $tallyStatus = $eventClass->updateTallyStatus($arr['eventId']);
 
                     $txtMsg = '';
-                    $txtMsg .= "Spero Healthcare Innovation, Dear ".$first_name." ".$name." [".$hhc_code."], We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').". Thank You!";
+                    $txtMsg .= "Spero Healthcare Innovation,\n Dear ".$first_name." ".$name." [".$hhc_code."],\n We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').".\n Against ".$service_title." [".$recommomded_service."].\n Thank You!";
                     $args = array(
                                     'msg' => $txtMsg,
                                     'mob_no' => $mobile_no

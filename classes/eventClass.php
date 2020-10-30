@@ -1494,6 +1494,7 @@ class eventClass extends AbstractDB
     }
     public function GetEventCaller($arg)
     {
+        
         $event_id=$this->escape($arg['event_id']); 
         $CallerSql="SELECT t1.event_id,t1.event_status,t1.relation,t1.patient_id,t1.purpose_id,t2.professional_id,t2.consultant_id,t2.caller_id,t2.name AS caller_last_name,t2.first_name AS caller_first_name,t2.middle_name AS caller_middle_name,t2.phone_no,t3.name AS AttendBy,t3.type,t1.note FROM sp_events t1".
             " INNER JOIN sp_callers t2 ON t2.caller_id=t1.caller_id".
@@ -1507,13 +1508,32 @@ class eventClass extends AbstractDB
             else
                 return 0;
     }
+    public function GetEventRequirement_service($arg)
+    {
+       // var_dump($arg);die();
+       $event_id=$this->escape($arg['event_id']); 
+       $RequirementSql="SELECT t1.event_requirement_id,t1.event_id,t1.service_id,t1.sub_service_id,t2.service_title,t3.recommomded_service FROM sp_event_requirements t1".
+                       " INNER JOIN sp_services t2 ON t2.service_id=t1.service_id".
+                       " INNER JOIN sp_sub_services t3 ON t3.sub_service_id=t1.sub_service_id".
+                       " WHERE t1.event_id='".$arg."'";
+                     //  echo $RequirementSql;
+       if($this->num_of_rows($this->query($RequirementSql)))
+       {
+            $Requirement=$this->fetch_all_array($RequirementSql);
+            return $Requirement;
+       }
+       else 
+           return 0;
+    }
     public function GetEventRequirement($arg)
     {
+        //var_dump($arg['event_id']);die();
        $event_id=$this->escape($arg['event_id']); 
        $RequirementSql="SELECT t1.event_requirement_id,t1.event_id,t1.service_id,t1.sub_service_id,t2.service_title,t3.recommomded_service FROM sp_event_requirements t1".
                        " INNER JOIN sp_services t2 ON t2.service_id=t1.service_id".
                        " INNER JOIN sp_sub_services t3 ON t3.sub_service_id=t1.sub_service_id".
                        " WHERE t1.event_id='".$event_id."'";
+                       echo $RequirementSql;
        if($this->num_of_rows($this->query($RequirementSql)))
        {
             $Requirement=$this->fetch_all_array($RequirementSql);
