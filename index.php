@@ -98,17 +98,7 @@
                     <div class="form-group">
                         <input type="password" class="validate[required] form-control SperoLogin" id="password" name="password" placeholder="Password" maxlength="30" >
                     </div>
-                    <select class="validate[required] form-control " id="extention_id"  name="extention_id" >
-                          <option value="">Select Exention ID</option>
-                          <?php
-                          $selectRecord = "SELECT ext_no,id FROM sp_avaya_extensions WHERE is_deleted='0'";
-                          $AllRrecord = $db->fetch_all_array($selectRecord);
-                          foreach($AllRrecord as $key=>$valRecords)
-                          {
-                            echo '<option value="'.$valRecords['ext_no'].'">'.$valRecords['ext_no'].'</option>';
-                          }
-                          ?>
-                    </select>
+                    
                     <div id="error" style="color:red;display:none;"></div>
                     <div class="text-center margintop20"><input type="submit" class="" value="Login" name="login" onclick="return LoginSubmit();"  /></div>
                 </form>
