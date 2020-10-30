@@ -4696,7 +4696,15 @@ class eventClass extends AbstractDB
         $insertData['status']                        = $arg['status'];
 
         $recordId = $this->query_insert('sp_payments', $insertData);
-
+        /*
+        $txtMsg = '';
+        $txtMsg .= "OTP for new service request for $service_title on $fromDatest to $fromDatet is : $otp. Kindly share OTP with your professional.";
+        $args = array(
+                        'msg' => $txtMsg,
+                        'mob_no' => $mobile_no
+                    );
+        $sms_data =$commonClass->sms_send($args);
+        */
         if (!empty($recordId)) {
             // Get Event details
             $param['event_id'] = $arg['eventId'];

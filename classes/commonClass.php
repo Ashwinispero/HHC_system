@@ -149,7 +149,7 @@ class commonClass extends AbstractDB
       $mobile_no=$args['mob_no'];
       $mobile_no =  "8551995260";
       $apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
-      
+      var_dump($text_msg);die();
       // Message details
       $numbers = array($mobile_no);
       $sender = urlencode('TXTLCL');

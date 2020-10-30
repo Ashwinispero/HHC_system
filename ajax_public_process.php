@@ -5,6 +5,8 @@
         $adminClass = new adminClass();
         require_once "classes/eventClass.php";
         $eventClass = new eventClass();
+        include "classes/commonClass.php";
+        $commonClass= new commonClass();
         require_once "classes/config.php";
 
         require_once 'classes/avayaClass.php';
@@ -19,16 +21,11 @@ $avayaClass=new avayaClass();
         
         $checkExist="SELECT employee_id,hospital_id,employee_code,first_name,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
                     FROM sp_employees 
-                    WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' ";
+                    WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' AND  is_login='1'";
        // echo $checkExist;
         $Loginresult=$db->query($checkExist);
         if(mysql_num_rows($db->query($checkExist)))
-        { $checkExist_avaya="SELECT employee_id,hospital_id,employee_code,first_name,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
-            FROM sp_employees 
-            WHERE avaya_agentid = '" . $extention_id . "' And is_login='1' ";
-            $checkExist_avaya_Loginresult=$db->query($checkExist_avaya);
-            if(mysql_num_rows($db->query($checkExist_avaya)))
-            {
+        { 
             $_SESSION['eventAccess'] = '';
             $EmployeeLog=$db->fetch_array($Loginresult);
             if($EmployeeLog['status']=='2' || $EmployeeLog['status']=='3')
@@ -108,10 +105,7 @@ $avayaClass=new avayaClass();
                     exit;
                 }
             }
-        }else{
-            echo "Avaya";
-            exit;
-        }
+        
         }
         else
         {
@@ -559,12 +553,10 @@ $avayaClass=new avayaClass();
         // Get hospital details
         $arr['hospitalId'] = '';
         $arr['branchName'] = '';
-        $getHospitalDtlsSql = "SELECT h.hospital_id,
-                h.branch,
-                e.finalcost
+        $getHospitalDtlsSql = "SELECT h.hospital_id,h.branch,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
             FROM sp_events AS e
-            INNER JOIN sp_hospitals h
-                ON e.hospital_id = h.hospital_id
+            INNER JOIN sp_hospitals h ON e.hospital_id = h.hospital_id
+            INNER JOIN sp_patients p ON e.patient_id = p.patient_id
             WHERE event_id = '" . $arr['eventId'] . "'";
 
         //echo '<pre>$getHospitalDtlsSql ----<br/>';
@@ -576,6 +568,11 @@ $avayaClass=new avayaClass();
             $arr['hospitalId'] = $hospitalDtls['hospital_id'];
             $arr['branchName'] = $hospitalDtls['branch'];
             $finalCost         = $hospitalDtls['finalcost'];
+            $first_name         = $hospitalDtls['first_name'];
+            $name         = $hospitalDtls['name'];
+            $hhc_code         = $hospitalDtls['hhc_code'];
+            $mobile_no         = $hospitalDtls['mobile_no'];
+
         }
 
         // Generate receipt number
@@ -609,6 +606,13 @@ $avayaClass=new avayaClass();
                     // Update tally status in event table
                     $tallyStatus = $eventClass->updateTallyStatus($arr['eventId']);
 
+                    $txtMsg = '';
+                    $txtMsg .= "Spero Healthcare Innovation, Dear ".$first_name." ".$name." [".$hhc_code."], We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').". Thank You!";
+                    $args = array(
+                                    'msg' => $txtMsg,
+                                    'mob_no' => $mobile_no
+                                );
+                    $sms_data =$commonClass->sms_send($args);
                     if (empty($tallyStatus)) {
                         echo "errorInUpdateTallyStatus";
                         exit; 
