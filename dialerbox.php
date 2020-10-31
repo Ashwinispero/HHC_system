@@ -13,7 +13,20 @@
         require_once 'classes/functions.php'; 
         require_once 'classes/config.php'; 
 
-require_once 'classes/avayaClass.php';
+require_once 'classes/avayaClass.php'; ?>
+
+<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+    <script>
+    	$('#search_professionalid').multiselect({
+					enableCaseInsensitiveFiltering: true,
+					enableFiltering: true,
+					nonSelectedText:'Assign Professional',
+					maxHeight: 250,
+					buttonWidth:'auto!important'
+				});
+    </script>
+    <?php
 $avayaClass=new avayaClass();
 ?>
 

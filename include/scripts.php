@@ -49,6 +49,7 @@
              if(assingedDivClass=="eventLogListing" || assingedDivClass=="KnowledgeDocsListing" ||  assingedDivClass=="AssessmentListing" || assingedDivClass == "enquiryFollowUpListing")
              {
                  var SearchKey=$("#SearchKeyword").val();
+                 var SearchKeyword_new=$("#SearchKeyword_new").val();
                  var SearchByPurpose=$("#search_purpose_id").val();
                 // var SearchByEmployee=$("#search_employee_id").val();
                  var SearchByProfessional=$("#search_professional_id").val();
@@ -62,6 +63,7 @@
                 // alert(status_val);
                  //queryString+='&SearchKey='+SearchKey='&SearchfromDate='+SearchfromDate+'&SearchToDate='+SearchToDate;
                  queryString+='&SearchKey='+SearchKey;
+                 queryString+='&SearchKeyword_new='+SearchKeyword_new;
                  queryString+='&SearchByPurpose='+SearchByPurpose;
              //    queryString+='&SearchByEmployee='+SearchByEmployee;
                  queryString+='&SearchByProfessional='+SearchByProfessional;

@@ -241,6 +241,7 @@ class eventClass extends AbstractDB
 
         $SearchByPatients= trim($this->escape($arg['SearchByPatients']));
         $search_value= trim($this->escape($arg['search_Value']));
+        $SearchKeyword_new = trim($this->escape($arg['SearchKeyword_new']));
         $SearchByPurpose= $this->escape($arg['SearchByPurpose']);
       //  $SearchByEmployee= $this->escape($arg['SearchByEmployee']);
         
@@ -263,6 +264,11 @@ class eventClass extends AbstractDB
         {
            $preWhere .="AND (se.event_code LIKE '%".$search_value."%' OR DATE_FORMAT(se.event_date,'%Y-%m-%d') LIKE '%".$search_value."%' OR sp.hhc_code LIKE '%".$search_value."%' OR CONCAT(sp.name, ' ',sp.first_name,' ',sp.middle_name) LIKE '%".$search_value."%')"; 
         }
+        if(!empty($SearchKeyword_new) && $SearchKeyword_new !='null')
+        {
+           $preWhere .="AND (se.event_code LIKE '%".$SearchKeyword_new."%' OR DATE_FORMAT(se.event_date,'%Y-%m-%d') LIKE '%".$SearchKeyword_new."%' OR sp.hhc_code LIKE '%".$SearchKeyword_new."%' OR CONCAT(sp.name, ' ',sp.first_name,' ',sp.middle_name) LIKE '%".$SearchKeyword_new."%')"; 
+        }
+        
         
         if($SearchfromDate && $SearchToDate=='')
         {

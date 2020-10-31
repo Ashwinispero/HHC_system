@@ -12,7 +12,10 @@ else
         $search_Value=$_POST['SearchKey'];
     else
         $search_Value="";
-    
+        if($_POST['SearchKeyword_new'] && $_POST['SearchKeyword_new']!="undefined")
+        $SearchKeyword_new=$_POST['SearchKeyword_new'];
+    else
+        $SearchKeyword_new="";
     if($_POST['SearchByPurpose'] && $_POST['SearchByPurpose']!="undefined")
         $search_by_purpose=$_POST['SearchByPurpose'];
     else
@@ -60,6 +63,7 @@ else
     $recArgs['pageIndex']=$pageId;
     $recArgs['pageSize']=PAGE_PER_NO;
     $recArgs['search_Value']=$search_Value;
+    $recArgs['SearchKeyword_new']=$SearchKeyword_new;
     $recArgs['SearchByPurpose']=$search_by_purpose;
   //  $recArgs['SearchByEmployee']=$search_by_employee;
     $recArgs['SearchByProfessional']=$search_by_professional;

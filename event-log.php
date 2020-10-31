@@ -135,7 +135,7 @@ if($_REQUEST['EID'])
                        {
                        ?>
                         <span class="badge" style="color: white;background-color: red;top: 50px" ><?php echo count($recListResponse); ?></span>
-                                <select class="chosen-select form-control notification"  style="border-color:red" name="SearchKeyword" id="SearchKeyword" onChange="searchRecords();">
+                                <select class="chosen-select form-control notification"  style="border-color:red" name="SearchKeyword_new" id="SearchKeyword_new" onChange="searchRecords();">
                                <option value="">Today Enquiry Calls</option>
                                  <?php
                                     $recListResponse = $commonClass->GetTodayEnquiryCall();  
