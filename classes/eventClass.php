@@ -1539,7 +1539,7 @@ class eventClass extends AbstractDB
                        " INNER JOIN sp_services t2 ON t2.service_id=t1.service_id".
                        " INNER JOIN sp_sub_services t3 ON t3.sub_service_id=t1.sub_service_id".
                        " WHERE t1.event_id='".$event_id."'";
-                       echo $RequirementSql;
+                     //  echo $RequirementSql;
        if($this->num_of_rows($this->query($RequirementSql)))
        {
             $Requirement=$this->fetch_all_array($RequirementSql);
