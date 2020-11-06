@@ -149,15 +149,15 @@ class commonClass extends AbstractDB
       $mobile_no=$args['mob_no'];
       $mobile_no =  "8551995260";
       $apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
-      var_dump($text_msg);die();
+     // var_dump($text_msg);die();
       // Message details
       $numbers = array($mobile_no);
-      $sender = urlencode('TXTLCL');
+      $sender = urlencode('SPEROO');
       $message = rawurlencode($text_msg);
       $numbers = implode(',', $numbers);
       // Prepare data for POST request
       $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
-  
+     // var_dump($message);die();
       // Send the POST request with cURL
       $ch = curl_init('https://api.textlocal.in/send/');
       curl_setopt($ch, CURLOPT_POST, true);
@@ -166,7 +166,6 @@ class commonClass extends AbstractDB
       $response = curl_exec($ch);
       var_dump($response);die();
       curl_close($ch);
-      // Process your response here
       echo $response;
       /*$form_url = "http://www.mgage.solutions/SendSMS/sendmsg.php?uname=BVGMEMS&pass=m2v5c2&send=BVGEMS&dest=".urlencode($mobile_no)."&msg=".urlencode($text_msg);
       $data_to_post = array();

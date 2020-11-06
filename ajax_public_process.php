@@ -21,7 +21,7 @@ $avayaClass=new avayaClass();
         
         $checkExist="SELECT employee_id,hospital_id,employee_code,first_name,CONCAT(first_name, ' ', name) AS employee_name,type,email_id,password,status,last_login,avaya_agentid 
                     FROM sp_employees 
-                    WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' AND  is_login='1'";
+                    WHERE email_id = '" . $UserName . "' AND password = '" . $Password . "' ";
        // echo $checkExist;
         $Loginresult=$db->query($checkExist);
         if(mysql_num_rows($db->query($checkExist)))

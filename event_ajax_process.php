@@ -1051,24 +1051,30 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 															$caller_detail=mysql_query("SELECT * FROM sp_callers where caller_id='".$caller_id."'") or die(mysql_error());
 															$row1 = mysql_fetch_array($caller_detail) or die(mysql_error());
 															$phone_no=$row1['phone_no'];
-                        $profmob = $professionalDtls['mobile_no'];
-                        $txtMsg1 .= " Dear ".$professionalDtls['name']." ".$professionalDtls['first_name'];
-                        $txtMsg1 .= " Patient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
-						$txtMsg1 .= " Caller No : ".$phone_no;
-                        $txtMsg1 .= " Mob No : ".$PatientDtls['mobile_no'];
-						
-                        $txtMsg1 .= " Address : ".$PatientDtls['residential_address'];
-                        
-                        $txtMsg1 .= $dateofServicenew;//$dateofService;
-                        $txtMsg1 .= " Msg : ".$reporting_instructionNew;
-                        
+                                    $profmob = $professionalDtls['mobile_no'];
+                                    $txtMsg1 .= "Dear ".$professionalDtls['name']." ".$professionalDtls['first_name']."%";
+                                    $txtMsg1 .= ",%nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
+                                    $txtMsg1 .= ",%nCaller No : ".$phone_no;
+                                    $txtMsg1 .= " ,%nMob No : ".$PatientDtls['mobile_no'];
+                                    $txtMsg1 .= ",%Address : ".$PatientDtls['residential_address'];
+                                    $txtMsg1 .= ",".$dateofServicenew;//$dateofService;
+                                    $txtMsg1 .= ",%nMsg : ".$reporting_instructionNew;
+                                    $txtMsg1 .= ".";
+                                    //var_dump($txtMsg1);die();
+                       // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
 							'msg' => $txtMsg1,
 							'mob_no' => $profmob
 						);  
                         $sms_data =$commonClass->sms_send($args);  
                         
-                        
+                       /* Dear aa bbb,
+                        Patient : nn hhh,
+                        Caller No : nnn ,
+                        Mob No : hhh,
+                        Address : hhh,
+                       bbb,
+                        Msg : vbnv.*/
                         
                         
                     /* $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
@@ -1137,14 +1143,14 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 						$txtMsg3.= " For feedback,service extention or any query please call Spero on 7620400100 " ;
 						
 					
-						
+						/*
                         $data_to_post2 = array();
                         $data_to_post2['uname'] = 'SperocHL';
                         $data_to_post2['pass'] = 'SpeRo@12';//s1M$t~I)';
                         $data_to_post2['send'] = 'speroc';
                         $data_to_post2['dest'] = $PatientDtls['mobile_no'];
                         $data_to_post2['msg'] = $txtMsg3;
-                        
+                        */
                         $patientmb=$PatientDtls['mobile_no'];
                         
                   

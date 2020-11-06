@@ -305,7 +305,9 @@ elseif($_REQUEST['action']=='vw_conf')
         </div>
         </div>
         <br>
-        <select class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional();">
+        
+        <div  align="center">
+        <select style="width:100%" class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional();">
                                  <option value="">Search Professional</option>
                                  <?php
                                     $recArgs['pageIndex']='1';
@@ -323,6 +325,7 @@ elseif($_REQUEST['action']=='vw_conf')
 
                                  ?>
                              </select>
+                             </div>
         <br>
         <div align="center" >
         <input id="conf_no"  onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
