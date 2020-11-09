@@ -558,7 +558,7 @@ class professionalsClass extends AbstractDB
 				$address = str_replace(" ", "+", $google_location);
 			}
 			
-			$json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyC8lSxG4pg8hWyd52oqUQJKWnjQSe20dvc&address=$address&sensor=false&region=$region");
+			$json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&address=$address&sensor=false&region=$region");
 			$json = json_decode($json);
 
 			$lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
