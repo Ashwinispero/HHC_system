@@ -374,9 +374,17 @@ $(document).ready(function()  {
                     <!-- Revoltel Report section start here -->
                     <li class="navbar_child_li" id="report_master_menu">
                         <a href="javacript:void(0);">
-                            <i><img src="images/my-profile.png"></i> Revoltel Report
+                            <i><img src="images/my-profile.png"></i>  Report
                         </a>
                         <ul>
+                        <!-- manage adio call report section start here -->
+                             <!-- manage adio report outgoing section start here -->
+                             <?php if (in_array("46", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_distance_travel_report.php') echo 'active'; ?>">
+                                    <a href="manage_distance_travel_report.php"><i><img src="images/manage_locations.png"></i>Outgoing Audio File Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage adio call report outgoing section start here -->
                             <!-- manage missed call report section start here -->
                             <?php if (in_array("43", $moduleids)) { ?>
                                 <li class="<?php if($page_name == 'manage_missed_Call_report.php') echo 'active'; ?>">
