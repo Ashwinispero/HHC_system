@@ -615,9 +615,14 @@ $avayaClass=new avayaClass();
                     $tallyStatus = $eventClass->updateTallyStatus($arr['eventId']);
 
                     $txtMsg = '';
-                    $txtMsg .= "Spero Healthcare Innovation,\n Dear ".$first_name." ".$name." [".$hhc_code."],\n We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').".\n Against ".$service_title." [".$recommomded_service."].\n Thank You!";
+                    $txtMsg1 .= "Spero Healthcare Innovation,";
+                    $txtMsg1 .= "%nDear ".$first_name." ".name."[".$hhc_code."],";
+                    $txtMsg1 .= "%nEvent ID: ".$arr['eventId'];
+                    $txtMsg1 .= ",%nWe have received ".$arr['payType']." payment against ".$arr['eventId']."[".$service_title."-".$recommomded_service."] Rs.".$arr['amount']." On ".date('Y-m-d').",";
+                    $txtMsg1 .= "%nThank You.";
+                    //$txtMsg .= "Spero Healthcare Innovation,\n Dear ".$first_name." ".$name." [".$hhc_code."],\n We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').".\n Against ".$service_title." [".$recommomded_service."].\n Thank You!";
                     $args = array(
-                                    'msg' => $txtMsg,
+                                    'msg' => $txtMsg1,
                                     'mob_no' => $mobile_no
                                 );
                     $sms_data =$commonClass->sms_send($args);

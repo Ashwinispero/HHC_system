@@ -1135,15 +1135,13 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 						$txtMsg3 .= $dateofServicenew;//$dateofService;
 					*/
 					
-					    $txtMsg3.= " Dear ".$PatientDtls['name']." ".$PatientDtls['first_name']." , "."\n";
-						$txtMsg3.= " Professional: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name']." , "."\n";
-						$txtMsg3.= " Mob No: ".$profmob." , "."\n";
-						$txtMsg3.= $dateofServicepatient." , "."\n";
-						$txtMsg3.= " In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532 \n";
-						$txtMsg3.= " For feedback,service extention or any query please call Spero on 7620400100 " ;
+					    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
+						$txtMsg3.= "%nProf. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
+						$txtMsg3.= "%nEvent ID: ".$argsDoc['event_id'].",";
+						$txtMsg3.= "%nIn case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
+						$txtMsg3.= "%nFor feedback, service extension or any query please call Spero on 7620400100." ;
 						
-					
-						/*
+                       /*
                         $data_to_post2 = array();
                         $data_to_post2['uname'] = 'SperocHL';
                         $data_to_post2['pass'] = 'SpeRo@12';//s1M$t~I)';
