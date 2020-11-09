@@ -28,7 +28,7 @@ $date2=date_create("$toDate");
 $toDate2=date_format($date2,"Y-m-d H:i:s");
 $hospital_id=$_GET['hospital_id'];
 
-        
+ echo 'hi';       
 if($formDate=='' and $toDate=='')
 {
             $preWhere .= " AND DATE_FORMAT(se.event_date,'%Y-%m-%d') >= '" . date('Y-m-d', strtotime(' -45 day')) . "'  AND DATE_FORMAT(se.event_date,'%Y-%m-%d') <= '" . date('Y-m-d') . "'";
@@ -61,23 +61,25 @@ if($row_count > 0)
                   <table class="table table-hover table-bordered">
                   <tr> 
                         <th width="3%">Event ID</th>
-                        <th width="5%">DMHHC</th>
                         <th width="5%">Purpose of call</th>
-                        <th width="5%">Caller No</th>
-		<th width="5%">Patient No.</th>
                         <th width="5%">Patient Name</th>
-		<th width="5%">Audio File</th>
+                        <th width="5%">Patient Address</th>
+                        <th width="5%">Professional Address</th>
+                        <th width="5%">Session Units</th>
+                        <th width="5%">Distance KM</th>
+		<th width="5%">Total Distance Travelled</th>
                 </tr>';
             while($RecordSql_rows=mysql_fetch_array($RecordSql))
             {		
 	
 	echo '<tr>
 	<td>'.$RecordSql_rows['event_code'].'</td>
-            <td>'.$RecordSql_rows['hhc_code'].'</td>
-            <td>'.$RecordSql_rows['hhc_code'].'</td>
-	<td>'.$RecordSql_rows['phone_no'].'</td>
-	<td>'.$RecordSql_rows['mobile_no'].'</td>
-	<td>'.$RecordSql_rows['first_name'].' '.$RecordSql_rows['name'].'</td>
+            <td>'.''.'</td>
+            <td>'.$RecordSql_rows['first_name'].' '.$RecordSql_rows['name'].'</td>
+            <td>'.''.'</td>
+	<td>'.''.'</td>
+	<td>'.''.'</td>
+	<td>'.''.'</td>
         <td style = "' . $style .'">';
          if($RecordSql_rows['call_audio'] ==''){ }else { ?><a  target="_blank" href=" <?php echo $RecordSql_rows['call_audio']; ?> " ><span aria-hidden="true" class="glyphicon glyphicon-play"></span></a> <?php  }
         echo '</td>';

@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Incoming Audio</title>
+    <title>Distance travel Report</title>
     <?php include "include/css-includes.php";?>
 </head>
 <body>
@@ -202,10 +202,11 @@
 		}
         function search_record()
         {	
+                    
             var formDate_distance=document.getElementById('formDate_distance').value;
 	var toDate_distance=document.getElementById('toDate_distance').value;
 	var hospital_id=document.getElementById('hospital_id').value;
-	var xmlhttp;
+            var xmlhttp;
             if(window.XMLHttpRequest)
 	{
 	xmlhttp=new XMLHttpRequest();
@@ -218,10 +219,11 @@
 	{
             if(xmlhttp.readyState==4 && xmlhttp.status==200)
 	            {
+                                    alert(xmlhttp.responseText);
                    	document.getElementById("distance_Report").innerHTML=xmlhttp.responseText;
 		}
 	}
-	xmlhttp.open("POST","include_distance_travel_report.php?formDate_distance="+formDate_audio+"&toDate_distance="+toDate_audio+"&hospital_id="+hospital_id,true);
+	xmlhttp.open("POST","include_distance_travel_report.php?formDate_distance="+formDate_distance+"&toDate_distance="+toDate_distance+"&hospital_id="+hospital_id,true);
 	xmlhttp.send();
         }
         function vw_add_location(value)
