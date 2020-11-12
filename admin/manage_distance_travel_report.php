@@ -59,20 +59,16 @@
                         </div>
                     </div>					
                    
-				    <div class="col-lg-3 marginB20 paddingl0">
-                             <input type="button" onclick="return search_record();" value="View List" name="btn-view-schedule" class="btn btn-download">
+                    <div class="col-lg-3 marginB20 paddingl0">
+                             <input type="button" onclick="return search_record();" value="View Event List" name="btn-view-schedule" class="btn btn-download">
                      </div>
 					<div>
-                    <!--<div class="pull-right paddingLR0" style="padding-left:15px !important;">
-                        <?php //if(isset($_SESSION['admin_user_type']) && $_SESSION['admin_user_type']=='1') { echo '<a href="manage_locations_trash.php" data-toggle="tooltip" title="Trash"><img src="images/trash.png" alt="trash"></a>'; }
-                        ?>
-                    </div>-->
-                    <!--<div class="col-lg-2 paddingR0 pull-right text-right dropdown">
+                    <div class="col-lg-2 paddingR0 pull-right text-right dropdown">
                         <!--<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="window.open('csv_include_export_receipt.php','_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); return false;">-->
-		<!--<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="return serch_receipt_dw();">
+						<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="return dwnload_dist_travel();">
                             <img src="images/icon-download.png" border="0" class="example-fade" />                                
                         </a>
-                    </div>-->
+                    </div>
 		<div id="distance_Report">
                                     <div class="clearfix"></div>
                                     <div class="LocationsListing">
@@ -190,16 +186,7 @@
                 searchRecords();
             }
         }
-		function serch_receipt_dw()
-		{
-			var formDate_receipt=document.getElementById('formDate_receipt').value;
-			var toDate_receipt=document.getElementById('toDate_receipt').value;
-			var hospital_id=document.getElementById('hospital_id').value;
-			//var w = window.open('/apex/CompetencyDrillDownPage?testvalue='+drilldownparam, target='_blank')
-			window.open('csv_New_include_export_receipt.php?formDate_receipt='+formDate_receipt+'&toDate_receipt='+toDate_receipt+'&hospital_id='+hospital_id,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
-			return false
-
-		}
+		
         function search_record()
         {	
                     
@@ -242,168 +229,21 @@
                 }
             });
         }
-        function add_location_submit()
-        {
-           if($("#frm_add_location").validationEngine('validate')) 
-           {
-               $('#submitForm').prop('disabled', true);
-               $("#frm_add_location").ajaxForm({
-                    beforeSend: function() 
-                    {
-                        Display_Load();
-                    },
-                   success: function (html)
-                   {
-                       var result=html.trim();
-                      // alert(result);
-                      if(result=='ValidationError')
-                       {
-                          bootbox.alert("<div class='msg-error'>There is some validation error please check all fields are proper.</div>");  
-                       }
-                       if(result=='locationexists')
-                       {
-                          bootbox.alert("<div class='msg-error'>Location details already exists, it may be on trash list, so please try another one.</div>"); 
-                       }
-                       else 
-                       {
-                            $('#edit_location').modal('hide'); 
-                            if(result=='InsertSuccess')
-                            {
-                                 bootbox.alert("<div class='msg-success'>Location details added successfully.</div>",function()
-                                 {
-                                     changePagination('LocationsListing','include_payments.php','','','','');
-                                 });
-                            }
-                            else if(result=='UpdateSuccess')
-                            {
-                                 bootbox.alert("<div class='msg-success'>Location details updated successfully.</div>",function()
-                                 {
-                                     changePagination('LocationsListing','include_payments.php','','','','');
-                                 });
-                            }  
-                       }
-                       $('#submitForm').prop('disabled', false);
-                   },
-                    complete : function()
-                    {
-                       Hide_Load();
-                    }  
-               }).submit();
-           }
-           else 
-           {
-                $('#submitForm').prop('disabled', false);
-                bootbox.alert("<div class='msg-error'>Please fill the required fields.</div>", function() 
-                {
-                    $("#location").focus();
-                });
-           }
-        }
-        function change_status(location_id,curr_status,actionVal)
-        { 
-           var prompt_msg="";
-           var success_msg=""; 
-           if(actionVal=='Active')
-           {
-               prompt_msg ="Are you sure you want to activate this location ?"; 
-               success_msg="activated";  
-           }
-           else if(actionVal=='Inactive')
-           {
-               prompt_msg ="Are you sure you want to inactive this location ?"; 
-               success_msg="deactivated";  
-           }
-           else if(actionVal=='Delete')
-           {
-               prompt_msg="Are you sure you want to delete this location ?";
-               success_msg="deleted";
-           }
-           bootbox.confirm(prompt_msg, function (res) 
-           {
-               if(res==true)
-               {
-                   var data1 = "login_user_id=<?php echo $_SESSION['admin_user_id']; ?>&location_id="+location_id+"&curr_status="+curr_status+"&actionval="+actionVal+"&action=change_status";
-                 //  alert(data1);
-                   $.ajax({
-                       url: "location_ajax_process.php", type: "post", data: data1, cache: false,async: false,
-                        beforeSend: function() 
-                        {
-                            Display_Load();
-                        },
-                        success: function (html)
-                        {
-                          var result=html.trim();
-                          // alert(result);
-
-                          if(result=='success')
-                          {
-                              bootbox.alert("<div class='msg-success'>Location "+success_msg+" successfully.</div>",function()
-                              {
-                                  changePagination('LocationsListing','include_payments.php','','','','');
-                              });
-                          }
-                          else
-                          {
-                              bootbox.alert("<div class='msg-error'>Error In Operation</div>");
-                          }
-                        },
-                        complete : function()
-                        {
-                           Hide_Load();
-                        }
-                   });
-               }
-           });   
-        }
-		/*function download_payment_receipt(event_requirement_id,event_id)
-		{
-			window.open('csv_include_payment_receipt.php?event_requirement_id='+event_requirement_id+'&event_id='+event_id,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
+        function dwnload_dist_travel(){
+            //-------Sort By payment date function-----------
+		    //-----Author: ashwini 31-05-2016-----
+            //changePagination('LocationsListing','include_payments.php','','','','');
+			var formDate_distance=document.getElementById('formDate_distance').value;
+			var toDate_distance=document.getElementById('toDate_distance').value;
+			var hospital_id=document.getElementById('hospital_id').value;
+			//var w = window.open('/apex/CompetencyDrillDownPage?testvalue='+drilldownparam, target='_blank')
+			window.open('csv_dist_travel_report.php?formDate_distance='+formDate_distance+'&toDate_distance='+toDate_distance+'&hospital_id='+hospital_id,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
 			return false
-		}*/
-		//Spero system
-		function download_payment_receipt(event_requirement_id,event_id, paymentId)
-		{
-			//alert(event_requirement_id);
-        var data1="event_id="+event_id+"&event_requirement_id="+event_requirement_id+"&payment_id="+paymentId;
-        $.ajax({
-            url: "include_download_payment_receipt.php", type: "post", data: data1, cache: false,async: false,
-           
-            success: function (html)
-            { 
-			//alert(html);
-			//var html='abc';
-                var dataRecipt=html;
-                var maindata = {html:dataRecipt, event_id:+event_id};
-               //var siteurl="http://localhost:/spero_system/amod/admin/";    
-			var siteurl=window.location.protocol;
-			//var siteurl=window.location.href;
-			
-                $.ajax({
-                    url: 'download_receipt_pdf.php',
-                    async: false,
-                    cache: false,
-                    data: maindata,
-                    type: 'POST',
-					 beforeSend: function() 
-                    {
-                       Display_Load();
-                    },
-                    success: function(result) 
-                    {  //alert(siteurl);
-						var w = location.href=siteurl+'download_receipt_pdf.php?export=1&file='+result; 
-                    },
-                    complete : function()
-                    {
-                       Hide_Load();
-                    }
-                });				  
-            },
-            complete : function()
-            {
-               Hide_Load();
-            }
-        }); 
-		}
+
+			 
+        }
+      
+		
     </script>
 </body>
 </html>

@@ -40,58 +40,47 @@ if($formDate!='' and $toDate!='')
 		//$events = mysql_query("SELECT * FROM sp_events where added_date BETWEEN '$formDate1%' AND '$toDate2%' ORDER BY added_date DESC");
 		
 	}
-	$total=0;
-	
 	$row_count = mysql_num_rows($events);
 	if($row_count > 0)
-		{
-			echo '<div class="table-responsive" id="payment"><table class="table table-hover table-bordered">
-                <tr> 
-                <th width="2%">Event Date</th>
-		<th width="2%">Patient Name</th>
-                <th width="2%">Professional Name</th>
-		<th width="2%">Patient Address</th>
-                <th width="2%">Professional Address</th>
-                <th width="2%">Service Date</th>
-		<th width="2%">Sessions</th>
-                <th width="2%">Distance KM</th>
-                <th width="2%">Total KM</th>
-		
-		
+	{
+		echo '<div class="table-responsive" id="payment"><table class="table table-hover table-bordered">
+            <tr> 
+			<th width="2%">Event Date</th>
+			<th width="2%">Event code</th>
+			<th width="2%">Patient Name</th>
+            <th width="2%">Professional Name</th>
+			<th width="2%">Patient Address</th>
+            <th width="2%">Professional Address</th>
+            <th width="2%">Service Date</th>
+			<th width="2%">Sessions</th>
+            <th width="2%">Distance KM</th>
+            <th width="2%">Total KM</th>
 		</tr>';
 		
 		for($i=1; $i<=$row_count;)
-			{
-				
+		{
 			while ($events_rows = mysql_fetch_array($events))
-				{		
-					$event_id=$events_rows['event_id'];
-					$event_code=$events_rows['event_code'];
-					$event_date=$events_rows['event_date'];
-					$patient_id=$events_rows['patient_id'];
+			{		
+				$event_id=$events_rows['event_id'];
+				$event_code=$events_rows['event_code'];
+				$event_date=$events_rows['event_date'];
+				$patient_id=$events_rows['patient_id'];
 					
 					$patient_hhc_no = mysql_query("SELECT * FROM sp_patients  where patient_id='$patient_id'");
 					if(mysql_num_rows($patient_hhc_no) < 1 )
 					{
-					$hhc_code='';
 					$first_name='';
 					$middle_name='';
 					$name='';
-					$residential_address='';
-					$permanant_address='';
-					$mobile_no='';
+					$google_location='';
 					}
 					else
 					{
 					$row2 = mysql_fetch_array($patient_hhc_no) or die(mysql_error());
-					$hhc_code=$row2['hhc_code'];
 					$first_name1=$row2['first_name'];
 					$middle_name1=$row2['middle_name'];
 					$name1=$row2['name'];
-					$residential_address=$row2['residential_address'];
-					$permanant_address=$row2['permanant_address'];
-                                        $mobile_no=$row2['mobile_no'];
-                                        $google_location=$row2['google_location'];
+					$google_location=$row2['google_location'];
 					}
 					
 					$requirement_id= mysql_query("SELECT * FROM sp_event_requirements  where event_id='$event_id'");
@@ -107,10 +96,7 @@ if($formDate!='' and $toDate!='')
 						{
 						$event_requirement_id=$row1['event_requirement_id'];
 						
-						$sub_service= mysql_query("SELECT * FROM sp_event_requirements  where event_requirement_id='$event_requirement_id'");
-						$sub_service_id_new = mysql_fetch_array($sub_service) or die(mysql_error());
-						$sub_service_id=$sub_service_id_new['sub_service_id'];
-						$service_id=$sub_service_id_new['service_id'];
+					
 						
 					//echo $sub_service_id;
 					//Professional Name
@@ -126,8 +112,8 @@ if($formDate!='' and $toDate!='')
 						$name=$professional_name_abc['name'];
 						$title=$professional_name_abc['title'];
 						$first_name=$professional_name_abc['first_name'];
-                                                $middle_name=$professional_name_abc['middle_name'];
-                                                $google_location_prof=$professional_name_abc['google_work_location'];
+                        $middle_name=$professional_name_abc['middle_name'];
+                        $google_location_prof=$professional_name_abc['google_work_location'];
 						$professional_name=$title.' '.$name.' '.$first_name.' '.$middle_name;
 					}
 					else
@@ -141,35 +127,12 @@ if($formDate!='' and $toDate!='')
 							$professional_name='Conveyance_Cost';
 						}
 					}
-						
-						//echo $sub_service_id;professional_vender_id
-						$sub_service= mysql_query("SELECT * FROM sp_sub_services  where sub_service_id='$sub_service_id'");
-						if(mysql_num_rows($sub_service) < 1 )
-						{
-						$recommomded_service='';
-						$cost='';
-						}
-						else{
-						$row3 = mysql_fetch_array($sub_service) or die(mysql_error());
-						$recommomded_service=$row3['recommomded_service'];
-						$service_id=$row3['service_id'];
-						
-						$service= mysql_query("SELECT * FROM sp_services  where service_id='$service_id'");
-						$service_name = mysql_fetch_array($service) or die(mysql_error());
-						$recomended_service_name=$service_name['service_title'];
-						
-						$UOM=$row3['UOM'];
-						$cost=$row3['cost'];
-							
-							//$cost=$row4['service_cost'];
-						}
-						
-						$plan_of_care= mysql_query("SELECT * FROM sp_event_plan_of_care  where event_requirement_id='$event_requirement_id'");
-						if(mysql_num_rows($plan_of_care) < 1 )
-						{
-						 $numberDays_qty ='';
-						}
-						else
+		$plan_of_care= mysql_query("SELECT * FROM sp_event_plan_of_care  where event_requirement_id='$event_requirement_id'");
+		if(mysql_num_rows($plan_of_care) < 1 )
+		{
+			$numberDays_qty ='';
+		}
+		else
 						{
 							while($row4=mysql_fetch_array($plan_of_care))
 						{
@@ -189,47 +152,7 @@ if($formDate!='' and $toDate!='')
 						$numberDays1=$numberDays + 1 ;
 						$numberDays_qty = intval($numberDays1);
 						
-							$Voucher_Ref=$hhc_code.'/'.$event_code;
-							//date format
-							$date_time1 = explode(" ",$event_date);
-							$exploded_date1 = $date_time1[0];
-							$event_date = date('d-m-Y',strtotime($exploded_date1));
-							//date
-							$current_year = Date("d-m-Y");
-							list($d,$m,$y) = explode('-',$current_year);
-							$fin_year = $y+1;
-							$current_year_new = Date("d-m-y");
-							list($d_new,$m_new,$y_new) = explode('-',$current_year_new);
-							$fin_year_new = $y_new+1;
-					
-							if($recommomded_service=='Other')
-							{
-								$finalcost=$row4['service_cost'];
-								$cost=$finalcost / $numberDays_qty;
-								
-							}
-							else
-							{
-								if(($service_id==17 OR $service_id==13) AND $sub_service_id!=425)
-								{
-									$finalcost=$row4['service_cost']; 
-									$cost=$finalcost / $numberDays_qty;
-								}
-								else
-								{
-									$finalcost=$cost * $numberDays_qty; 
-								}
-								//$finalcost=$cost * $numberDays_qty;
-							}
-						
-							
-			if (date('m') > 3) {
-				$financial_year = date('Y')."-".(date('y') +1);
-			}
-			else {
-				$financial_year = (date('Y')-1)."-".date('y');
-			}
-			//$finalcost=round($finalcost);
+			
                         $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
     
                         // Change address format
@@ -267,29 +190,29 @@ if($formDate!='' and $toDate!='')
                         $unit = 'K';
                         $unit = strtoupper($unit);
                         if($unit == "K"){
-                                $total = round($miles * 1.609344, 2).' km';
+                                $total = round($miles * 1.609344, 2);
                         }elseif($unit == "M"){
                                 $total =  round($miles * 1609.344, 2).' meters';
                         }else{
                                 $total =  round($miles, 2).' miles';
                         }			//	<td>'.$branch_code.'/'.$y.'-'.$fin_year_new.'/'.$bill_no_ref_no.'</td>
-						
+						$total_KM_travel=$total * $numberDays_qty;
 						if($sub_service_id!=423)
 						{
 							echo '<tr>
 							<td>'.$event_date.'</td>
-                                                        <td>'.$first_name1.' '.$middle_name1.' '.$name1.'</td>
-                                                        <td>'.$professional_name.'</td>
+							<td>'.$event_code.'</td>
+							<td>'.$first_name1.' '.$middle_name1.' '.$name1.'</td>
+                             <td>'.$professional_name.'</td>
 							<td>'.$google_location.'</td>
 							<td>'.$google_location_prof.'</td>
 							<td>'.$service_date.' To '.$service_date_to.'</td>
 							<td>'.$numberDays_qty.'</td>
-							<td>'.$total.'</td>
-							<td>'.''.'</td>';
+							<td>'.$total.' '.'KM'.'</td>
+							<td>'.$total_KM_travel.' '.'KM'.'</td>';
 						   
 							echo '</tr>';
-						
-						}
+		}
 						
 			}
 //Ashu
@@ -298,9 +221,7 @@ if($formDate!='' and $toDate!='')
 						}
 
 			}
-					
-			
-			$i++;
+		
 				}
 				
 				
@@ -308,32 +229,23 @@ if($formDate!='' and $toDate!='')
 		}
 		else
 		{
+			
 			echo '<div class="table-responsive" id="payment"><table class="table table-hover table-bordered">
-                <tr> 
-                     <th width="2%">Branch</th>
-					<th width="2%">Voucher Number/Bill No</th>
-                    <th width="2%">Voucher Type</th>
-					<th width="2%">Voucher Date</th>
-                    <th width="2%">Voucher Ref</th>
-                    <th width="2%">Party Name</th>
-					<th width="2%">Address 1</th>
-                    <th width="2%">Address 2</th>
-                    <th width="2%">Address 3 / Phone No.</th>
-					<th width="2%">Stock Item</th>
-                    <th width="2%">Qty</th>
-					<th width="2%">Rate</th>
-					<th width="2%">Amount</th>
-					<th width="2%">From Date</th>
-					<th width="2%">To Date</th>
-                    <th width="2%">Name OF Professional</th>
-                    <th width="2%">Narration</th>
-					 <th width="2%">UOM</th>
-					 <th width="2%">Category</th>
-					
-                </tr>';
-				 echo "<tr>";
+            <tr> 
+			<th width="2%">Event Date</th>
+			<th width="2%">Event code</th>
+			<th width="2%">Patient Name</th>
+            <th width="2%">Professional Name</th>
+			<th width="2%">Patient Address</th>
+            <th width="2%">Professional Address</th>
+            <th width="2%">Service Date</th>
+			<th width="2%">Sessions</th>
+            <th width="2%">Distance KM</th>
+            <th width="2%">Total KM</th>
+		</tr>';
+				
 				  //echo "<td colspan="2">"."Sum: $180"."</td>";
-              echo "<td colspan='14' align='middle'>" . "Record Not found for this date" . "</td>";
+              echo "<td colspan='10' align='middle'>" . "Record Not found for this date" . "</td>";
               
 
               echo "</tr>";
