@@ -204,6 +204,8 @@ else if($_REQUEST['action'] == 'generateHHCno')
         $email_id=strip_tags($_POST['patient_email_id']);
         $dob=strip_tags($_POST['patientdob']);
         $doctor_id=strip_tags($_POST['doctor_id']);
+        $ref_hos_id=strip_tags($_POST['ref_hos_id']);
+        $ref_hos_nm=strip_tags($_POST['ref_hos_nm']);
         $hospital_id=strip_tags($_POST['hospital_id']);
         $consultant_id=strip_tags($_POST['consultant_id']);
         if($prv_purpose_id=='')
@@ -266,6 +268,8 @@ else if($_REQUEST['action'] == 'generateHHCno')
             $arr['temp_event_id']=$temp_event_id;
             $arr['employee_id']=$_SESSION['employee_id'];
             $arr['hospital_id']=$hospital_id;
+            $arr['ref_hos_id']=$ref_hos_id;
+            $arr['ref_hos_nm']=$ref_hos_nm;
             $arr['exist_hhc_code']=$exist_hhc_code;
             
             $InsertRecord=$eventClass->InsertPatients($arr); 
@@ -289,6 +293,17 @@ else if($_REQUEST['action'] == 'generateHHCno')
         }
 
     }
+}
+else if($_REQUEST['action'] == "OtherChange")
+{
+    $value = $_REQUEST['value'];
+    $type = $_REQUEST['type'];
+    echo '<div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Other Hospital:</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="ref_hos_nm" name="ref_hos_nm" >
+                    </div>
+                  </div>';
 }
 else if($_REQUEST['action'] == "DoctorsConsultantChange")
 {

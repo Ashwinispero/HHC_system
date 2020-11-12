@@ -1081,6 +1081,28 @@ if($_REQUEST['EID'])
         else 
             return true;
     }
+    function SelctedOther(value,type){
+        if(value=='Other'){
+        var data1="value="+value+"&type="+type+"&action=OtherChange";
+        $.ajax({
+            url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+            beforeSend: function() 
+            {
+                Display_Load();
+            },
+            success: function (html)
+            {
+               //alert(html);
+                $("#Other_Hos_Details").html(html);
+                
+            },
+            complete : function()
+            {
+                Hide_Load();
+            }
+        });
+    }
+    }
     function SelctedDoctors(value,type)
     {
         var data1="doctor_consId="+value+"&type="+type+"&action=DoctorsConsultantChange";

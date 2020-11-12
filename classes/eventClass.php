@@ -478,6 +478,18 @@ class eventClass extends AbstractDB
         else
             return array('data' => array(), 'count' => 0);
     }
+    public function Ref_Hospital_Name()
+    {
+        $selectRecord = "select * from sp_hospitals ORDER BY hospital_id ASC";        
+        if($this->num_of_rows($this->query($selectRecord)))
+        {
+            $AllRrecord = $this->fetch_all_array($selectRecord);
+            
+            return $AllRrecord;
+        }
+        else 
+            return 0;  
+    }
     public function DoctorsConsultantList($arg)
     {
         $type=$this->escape($arg['type']);
@@ -575,6 +587,8 @@ class eventClass extends AbstractDB
     }
     public function InsertPatients($arg)
     {
+        $ref_hos_id=$arg['ref_hos_id'];
+        $ref_hos_nm=$arg['ref_hos_nm'];
         $employee_id = $arg['employee_id'];        
         $purpose_id=$arg['purpose_id'];
         $hospital_id=$arg['hospital_id'];    
@@ -592,9 +606,9 @@ class eventClass extends AbstractDB
         $insertData['mobile_no']=$arg['mobile_no'];
         $insertData['phone_no']=$arg['phone_no'];
         $insertData['email_id']=$arg['email_id'];
+        
         if(!empty($arg['dob']))
             $insertData['dob']= date('Y-m-d',strtotime($arg['dob'])); 
-        
         $insertData['status']=1;        
         $valPat = randomPass(5,'1234567890');
         
@@ -621,7 +635,7 @@ class eventClass extends AbstractDB
 
         $insertData['lattitude']=$lat;
         $insertData['langitude']=$long;
-        /*          get lettitude/ langitude          */
+         /*          get lettitude/ langitude          */
         if($exist_hhc_code)
         {
             $select_exist = "SELECT patient_id,
@@ -793,10 +807,7 @@ class eventClass extends AbstractDB
 
                     $patientDiff = array_diff_assoc($existPatientIds, $insertData);
 
-                    echo '</pre>';
-                    print_r($patientDiff);
-                    echo '</pre>';
-                    exit;
+                    
 
                     if (!empty($patientDiff)) {
                         $messageStr = "";
@@ -815,7 +826,7 @@ class eventClass extends AbstractDB
             }
         }
         /* ------- Update event  -------- */
-
+        
         // Get event details 
         $getEventSql = "SELECT patient_id,
             purpose_id,
@@ -828,12 +839,15 @@ class eventClass extends AbstractDB
         if (mysql_num_rows($this->query($getEventSql))) {
             $eventDtls = $this->fetch_array($this->query($getEventSql));
         }
-
+        
+        
         $temp_event_id                    = $arg['temp_event_id'];
         $updateData['patient_id']         = $RecordId;
         $updateData['purpose_id']         = $purpose_id;
         $updateData['event_status']       = 2;
         $updateData['last_modified_by']   = $employee_id;
+        $updateData['ref_hos_id']         = $ref_hos_id;
+       $updateData['ref_hos_nm']         = $arg['ref_hos_nm'];
         $updateData['last_modified_date'] = date('Y-m-d H:i:s');
         $where = "event_id = '" . $temp_event_id . "' ";
         $updateEvent = $this->query_update('sp_events', $updateData, $where);

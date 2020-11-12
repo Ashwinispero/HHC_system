@@ -254,6 +254,33 @@ else
                         <input maxlength="12" type="text" class="form-control datepicker" id="patientdob" name="patientdob" value="<?php if(!empty($recListResponse['dob']) && $recListResponse['dob'] !='0000-00-00') echo date('d-m-Y',strtotime($recListResponse['dob'])); else { echo $_POST['patientdob']; } ?>" />
                     </div>
                 </div>
+                <div class="form-group margintop25">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Ref.Hospital Name:</label>
+                    <div class="col-sm-8">
+                        <!--<label class="select-box-lbl">-->
+                            
+                            <select class="chosen-select form-control"  id="ref_hos_id" name="ref_hos_id" onchange="return SelctedOther(this.value,1);">
+                              <option value="">Ref hospital Name</option>
+                              <?php
+                              
+                              $Resulthos = $eventClass->Ref_Hospital_Name();                          
+                              foreach($Resulthos as $key=>$valRecords)
+                              {
+                                  if($EditedResponseDoctor['hospital_id'] == $valRecords['hospital_id'])
+                                      echo '<option value="'.$valRecords['hospital_id'].'" selected="selected">'.$valRecords['hospital_name'].'</option>';
+                                  else
+                                      echo '<option value="'.$valRecords['hospital_id'].'" >'.$valRecords['hospital_name'].'</option>';
+                              }
+                              echo '<option value="'.'Other'.'" >'.'Other'.'</option>';
+                              ?>
+                            </select>
+                            <!--</label>-->
+                    </div>
+                </div>
+                <div id="Other_Hos_Details" >
+                  
+                  
+                </div>
 <!--                  <div class="form-group">
                     <label for="inputPassword3" class="col-sm-3 control-label">DOB :</label>
                     <div class="col-sm-9">
