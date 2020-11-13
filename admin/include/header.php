@@ -379,6 +379,13 @@ $(document).ready(function()  {
                         <ul>
                         <!-- manage adio call report section start here -->
                              <!-- manage adio report outgoing section start here -->
+                             <?php if (in_array("47", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_job_closure_Login_logout_report.php') echo 'active'; ?>">
+                                    <a href="manage_job_closure_Login_logout_report.php"><i><img src="images/manage_locations.png"></i>Professional APP LoginLogout Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage adio call report outgoing section start here -->
+                             <!-- manage adio report outgoing section start here -->
                              <?php if (in_array("46", $moduleids)) { ?>
                                 <li class="<?php if($page_name == 'manage_distance_travel_report.php') echo 'active'; ?>">
                                     <a href="manage_distance_travel_report.php"><i><img src="images/manage_locations.png"></i>Distance Travel Report</a>
