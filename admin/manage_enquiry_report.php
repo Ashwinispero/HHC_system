@@ -42,20 +42,17 @@
                             <input class="data-entry-search datepicker_to" placeholder="To Date" type="text" name="toDate" id="toDate_enquiry" value="" >                           
                         </div>
                     </div>   
-<div class="col-lg-3 marginB20 paddingl0">
+                    <div class="col-lg-3 marginB20 paddingl0">
                         <div class="searchBox" style="width:96%;">                            
-                            <select  name="hospital_name" id="hospital_id" onchange="Hospital_List();" >
-                            <?php
-								$Query=mysql_query("select * from sp_hospitals ORDER BY hospital_id ASC");
-								while($row=mysql_fetch_array($Query))
-								{
-							?>
-							<option value="<?php echo $row['hospital_id'] ;?>" ><?php echo $row['hospital_name'];?> </option>
-							<?php
-								}
-							?>
-							
-							</select>
+                            <select  name="report_type" id="report_type">
+                            <option value="">Select Report Type</option>
+                            <option value="1">enquiry no action taken</option>
+                            <option value="2">enquiry no action taken  With  latest data added by modify by</option>
+                            <option value="3">Converted to service with added by and modify by</option>
+                            <option value="4">Total converted to service</option>
+                            <option value="5">cancle enquiry with added by </option>
+                            <option value="6">cancel enquiry</option>
+                            </select>
                         </div>
                     </div>					
                    
@@ -65,7 +62,7 @@
 					<div>
                     <div class="col-lg-2 paddingR0 pull-right text-right dropdown">
                         <!--<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="window.open('csv_include_export_receipt.php','_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); return false;">-->
-						<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="return dwnload_dist_travel();">
+						<a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="return dwnload_Report();">
                             <img src="images/icon-download.png" border="0" class="example-fade" />                                
                         </a>
                     </div>
@@ -191,8 +188,8 @@
         {	
                     
             var formDate_enquiry=document.getElementById('formDate_enquiry').value;
-	var toDate_enquiry=document.getElementById('toDate_enquiry').value;
-	var hospital_id=document.getElementById('hospital_id').value;
+	        var toDate_enquiry=document.getElementById('toDate_enquiry').value;
+	        var report_type=document.getElementById('report_type').value;
             var xmlhttp;
             if(window.XMLHttpRequest)
 	{
@@ -210,14 +207,15 @@
                    	document.getElementById("distance_Report").innerHTML=xmlhttp.responseText;
 		}
 	}
-	xmlhttp.open("POST","include_enquiry_report.php?formDate_enquiry="+formDate_enquiry+"&toDate_enquiry="+toDate_enquiry+"&hospital_id="+hospital_id,true);
+	xmlhttp.open("POST","include_enquiry_report.php?formDate_enquiry="+formDate_enquiry+"&toDate_enquiry="+toDate_enquiry+"&report_type="+report_type,true);
 	xmlhttp.send();
         }
         
-        function dwnload_dist_travel(){
+        function dwnload_Report(){
             var formDate_enquiry=document.getElementById('formDate_enquiry').value;
 	var toDate_enquiry=document.getElementById('toDate_enquiry').value;
-	window.open('csv_enquiry_report.php?formDate_enquiry='+formDate_enquiry+'&toDate_enquiry='+toDate_enquiry,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
+    var report_type=document.getElementById('report_type').value;
+	window.open('csv_enquiry_report.php?formDate_enquiry='+formDate_enquiry+'&toDate_enquiry='+toDate_enquiry+'&report_type='+report_type,'_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); 
 	return false
 
 			 

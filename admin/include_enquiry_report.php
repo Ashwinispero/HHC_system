@@ -19,19 +19,20 @@ else
 {	
 	//-----Author: ashwini 31-05-2016-----
 	//--Code for date range--
-$formDate=$_GET['formDate_enquiry'];
-$date1=date_create("$formDate");
-$formDate1=date_format($date1,"Y-m-d H:i:s");
+$formDate1=$_GET['formDate_enquiry'];
+$date1=date_create("$formDate1");
+$formDate=date_format($date1,"Y-m-d H:i:s");
 
-$toDate_enquiry=$_GET['toDate_enquiry'];
-$date2=date_create("$toDate");
-$toDate2=date_format($date2,"Y-m-d H:i:s");
-$hospital_id=$_GET['hospital_id'];
+$toDate2=$_GET['toDate_enquiry'];
+$date2=date_create("$toDate2");
+$toDate=date_format($date2,"Y-m-d H:i:s");
+$report_type=$_GET['report_type'];
 
 //1. enquiry no action taken   
+if($report_type=='1'){
 if($formDate!='' and $toDate!='')
 {
-$events = mysql_query("SELECT ev.event_code,CONCAT (pt.name, ' ',pt.first_name, ' ',pt.middle_name) as patientName,ser.service_title,sub.recommomded_service FROM sp_events as ev LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id LEFT JOIN sp_services as ser ON er.service_id=ser.service_id LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id WHERE ev.purpose_id=2 AND ev.enquiry_status=1 AND ev.enquiry_added_date BETWEEN  '$formDate1%' AND '$toDate2%' ");
+$events = mysql_query("SELECT ev.event_code,CONCAT (pt.name, ' ',pt.first_name, ' ',pt.middle_name) as patientName,ser.service_title,sub.recommomded_service FROM sp_events as ev LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id LEFT JOIN sp_services as ser ON er.service_id=ser.service_id LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id WHERE ev.purpose_id=2 AND ev.enquiry_status=1 AND ev.enquiry_added_date BETWEEN  '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -84,7 +85,7 @@ else
 				 
 				 
 }
-
+}else if($report_type=='2'){
 // 2nd enquiry :  enquiry no action taken  With  latest data added by modify by
 if($formDate!='' and $toDate!='')
 {
@@ -96,7 +97,7 @@ LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id
 LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id
 LEFT JOIN sp_services as ser ON er.service_id=ser.service_id
 LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id
-WHERE ev.purpose_id=2 AND ev.enquiry_status=1 AND ev.enquiry_added_date BETWEEN '$formDate1%' AND '$toDate2%' ");
+WHERE ev.purpose_id=2 AND ev.enquiry_status=1 AND ev.enquiry_added_date BETWEEN '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -172,6 +173,7 @@ else
 				 
 				 
 }
+}else if($report_type=='3'){
 //3rd enquiry : Converted to service with added by and modify by
 if($formDate!='' and $toDate!='')
 {
@@ -184,7 +186,7 @@ LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id
 LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id
 LEFT JOIN sp_services as ser ON er.service_id=ser.service_id
 LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id
-WHERE ev.purpose_id=1 AND ev.isConvertedService=2 AND ev.enquiry_added_date BETWEEN  '$formDate1%' AND '$toDate2%' ");
+WHERE ev.purpose_id=1 AND ev.isConvertedService=2 AND ev.enquiry_added_date BETWEEN  '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -260,6 +262,7 @@ else
 				 
 				 
 }
+}else if($report_type=='4'){
 //4th enquiry : Total converted to service
 if($formDate!='' and $toDate!='')
 {
@@ -272,7 +275,7 @@ LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id
 LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id
 LEFT JOIN sp_services as ser ON er.service_id=ser.service_id
 LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id
-WHERE ev.purpose_id=1 AND ev.isConvertedService=2 AND ev.enquiry_added_date BETWEEN  '$formDate1%' AND '$toDate2%' ");
+WHERE ev.purpose_id=1 AND ev.isConvertedService=2 AND ev.enquiry_added_date BETWEEN  '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -325,6 +328,7 @@ else
 				 
 				 
 }
+}else if($report_type=='5'){
 //5th enquiry : cancle enquiry with added by 
 if($formDate!='' and $toDate!='')
 {
@@ -339,7 +343,7 @@ LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id
 LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id
 LEFT JOIN sp_services as ser ON er.service_id=ser.service_id
 LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id
-WHERE ev.purpose_id=2 AND ev.enquiry_status=4 AND ev.enquiry_added_date BETWEEN  '$formDate1%' AND '$toDate2%' ");
+WHERE ev.purpose_id=2 AND ev.enquiry_status=4 AND ev.enquiry_added_date BETWEEN  '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -392,8 +396,8 @@ if($row_count > 0)
                                                 <td>'.$note.'</td>
                                                 <td>'.$service_title.'</td>
                                                 <td>'.$recommomded_service.'</td>
-                                                <td>'.enquiry_cancel_from.'</td>
-                                                <td>'.enquiry_cancellation_reason.'</td>
+                                                <td>'.$enquiry_cancel_from.'</td>
+                                                <td>'.$enquiry_cancellation_reason.'</td>
                                                 <td>'.$residential_address.'</td>
 				';
 				echo '</tr>';
@@ -428,10 +432,11 @@ else
 				 
 				 
 }
+}else if($report_type=='6'){
 //6th enquiry : cancel enquiry
 if($formDate!='' and $toDate!='')
 {
-$events = mysql_query("SELECT ev.event_code,CONCAT (pt.name, ' ',pt.first_name, ' ',pt.middle_name) as patientName, ev.enquiry_added_date,ev.added_by,ev.last_modified_by, ev.event_date,ev.note, ser.service_title,sub.recommomded_service,enquiry_cancel_from,enquiry_cancellation_reason,pt.residential_address FROM sp_events as ev LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id LEFT JOIN sp_services as ser ON er.service_id=ser.service_id LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id WHERE ev.purpose_id=2 AND ev.enquiry_status=4 AND ev.enquiry_added_date BETWEEN   '$formDate1%' AND '$toDate2%' ");
+$events = mysql_query("SELECT ev.event_code,CONCAT (pt.name, ' ',pt.first_name, ' ',pt.middle_name) as patientName, ev.enquiry_added_date,ev.added_by,ev.last_modified_by, ev.event_date,ev.note, ser.service_title,sub.recommomded_service,enquiry_cancel_from,enquiry_cancellation_reason,pt.residential_address FROM sp_events as ev LEFT JOIN sp_enquiry_requirements as er ON ev.event_id=er.event_id LEFT JOIN sp_patients as pt ON pt.patient_id=ev.patient_id LEFT JOIN sp_services as ser ON er.service_id=ser.service_id LEFT JOIN sp_sub_services as sub ON er.sub_service_id=sub.sub_service_id WHERE ev.purpose_id=2 AND ev.enquiry_status=4 AND ev.enquiry_added_date BETWEEN   '$formDate%' AND '$toDate%' ");
 }
 $row_count = mysql_num_rows($events);
 if($row_count > 0)
@@ -484,8 +489,8 @@ if($row_count > 0)
                                                 <td>'.$note.'</td>
                                                 <td>'.$service_title.'</td>
                                                 <td>'.$recommomded_service.'</td>
-                                                <td>'.enquiry_cancel_from.'</td>
-                                                <td>'.enquiry_cancellation_reason.'</td>
+                                                <td>'.$enquiry_cancel_from.'</td>
+                                                <td>'.$enquiry_cancellation_reason.'</td>
                                                 <td>'.$residential_address.'</td>
 				';
 				echo '</tr>';
@@ -519,6 +524,7 @@ else
 	echo "</table>";
 				 
 				 
+}
 }
 }
 ?>
