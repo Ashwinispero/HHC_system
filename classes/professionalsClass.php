@@ -32,6 +32,91 @@ class professionalsClass extends AbstractDB
         else 
             return 0;
     }
+    public function Professionals_Notifinction()
+    {
+	mysql_connect("localhost", "root", " ") or
+	//die("Could not connect: " . mysql_error()); 
+      // mysql_connect("localhost", "spero_pune", "Spero@Pune@2016") or
+	//die("Could not connect: " . mysql_error());
+        mysql_select_db("hospitalguru_local");	
+        $preWhere="";
+        $filterWhere="";
+        $join="";
+        $today = date("Y-m-d"); 
+        $preWhere=" AND (Actual_Service_date BETWEEN '$today 00:00:00' AND '$today 23:59:59' )"; 
+        $ProfessionalsSql=mysql_query("SELECT t1.* FROM sp_detailed_event_plan_of_care as t1 WHERE 1 ".$preWhere." ");
+        if($this->num_of_rows($ProfessionalsSql))
+        { 
+	//var_dump(mysql_fetch_array($ProfessionalsSql));
+	while ($val_records=mysql_fetch_array($ProfessionalsSql)) 
+	{    
+		$Actual_Service_date=$val_records['Actual_Service_date'];
+		$start_date=$val_records['start_date'];
+		$end_date=$val_records['end_date'];
+		$event_requirement_id=$val_records['event_requirement_id'];
+		$event_id=$val_records['event_id'];
+		$professional_vender_id=$val_records['professional_vender_id'];
+		$plan_of_care_id=$val_records['plan_of_care_id'];
+		$professional= mysql_query("SELECT * FROM sp_event_professional  where event_requirement_id='$event_requirement_id'");
+		if(mysql_num_rows($professional) < 1 )
+		{
+		$professional_vender_id='';
+		}
+		else
+		{
+		$professional_new = mysql_fetch_array($professional) or die(mysql_error());
+		$professional_vender_id=$professional_new['professional_vender_id'];
+		$professional_name= mysql_query("SELECT * FROM sp_service_professionals  where service_professional_id='$professional_vender_id'");
+		$professional_name_abc = mysql_fetch_array($professional_name) or die(mysql_error());
+		$name=$professional_name_abc['name'];
+		$title=$professional_name_abc['title'];
+		$first_name=$professional_name_abc['first_name'];
+		$middle_name=$professional_name_abc['middle_name'];
+		}
+		
+		echo $event_id;
+		$payments_event_code = mysql_query("SELECT * FROM sp_events  where event_id='$event_id'");
+		$row1 = mysql_fetch_array($payments_event_code) or die(mysql_error());
+		$patient_id=$row1['patient_id'];
+		$event_code=$row1['event_code'];
+							
+		$payments_event_code = mysql_query("SELECT * FROM sp_patients  where patient_id='$patient_id'");
+		$row2 = mysql_fetch_array($payments_event_code) or die(mysql_error());
+		$first_name=$row2['first_name'];
+		$middle_name=$row2['middle_name'];
+		$name=$row2['name'];
+		$hhc_code=$row2['hhc_code'];
+		$Patinet_name = $first_name." ".$name;
+
+		$txtMsg = '';
+                    	$txtMsg1 .= "Spero Healthcare Innovation,";
+		$txtMsg1 .= "%nDear ".$title." ".$first_name.",";
+		$txtMsg1 .= ",%nThis is reminder for your today service on ".$Actual_Service_date.",";
+                    	$txtMsg1 .= "%nPatient Name: ".$Patinet_name." [".$event_code." ],";
+                    	$txtMsg1.= "%nIf you have any query please call on 7620400100.";
+		$txtMsg1 .= "%nThank You.";
+		var_dump($txtMsg1);die();
+		
+		$mobile_no =  "8551995260";
+		$apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
+		$numbers = array($mobile_no);
+		$sender = urlencode('SPEROO');
+		$message = rawurlencode($text_msg1);
+		$numbers = implode(',', $numbers);
+		$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+		$ch = curl_init('https://api.textlocal.in/send/');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
+		echo $response;
+
+	}
+	
+        }
+    }
     public function ProfessionalsList_Active_Inactive($arg)
     {
         $preWhere="";

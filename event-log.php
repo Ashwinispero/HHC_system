@@ -5288,6 +5288,26 @@ function softdial(){
         document.getElementById("conf_no").value = search_professionalid;
         
     }
+    function professional_remainder(){
+        //ttp://183.87.122.153/API/GrabCall.php?user=ashwini
+        var status='1'
+        var data1="status="+status+"&action=professional_service_remainder";
+        $.ajax({
+                    url: "ajax_public_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       alert('done');
+                    },
+                    complete : function()
+                    {
+                       // $("#vw_avaya").modal("hide");
+                    }
+                });
+    }
 </script>
 <?php
 $db->close(); 

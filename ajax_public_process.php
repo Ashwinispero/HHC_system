@@ -9,6 +9,9 @@
         $commonClass= new commonClass();
         require_once "classes/config.php";
 
+        include "classes/professionalsClass.php";
+        $professionalsClass = new professionalsClass();
+
         require_once 'classes/avayaClass.php';
 $avayaClass=new avayaClass();
 ?>
@@ -688,5 +691,13 @@ $avayaClass=new avayaClass();
         echo 'sepratedTitle--';
         echo $recordServices['service_title'];
         }
+    }
+    else if($_REQUEST['action'] == 'professional_service_remainder')
+    {
+        $recListResponse = $professionalsClass->Professionals_Notifinction();
+        $recList=$recListResponse['data'];
+        foreach($recList as $key=>$valProfessional)
+        {}
+        
     }
 ?> 
