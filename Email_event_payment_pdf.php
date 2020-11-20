@@ -121,7 +121,8 @@ $commonClass= new commonClass();
 						$query=mysql_query("SELECT * FROM sp_events where event_id='".$eventid."'") or die(mysql_error());
 						$row = mysql_fetch_array($query) or die(mysql_error());
 						$patient_id=$row['patient_id'];
-						$Total_amt=$row['finalcost'];
+                        $Total_amt=$row['finalcost'];
+                        $event_code=$row['event_code'];
 						
 						$patient_detail=mysql_query("SELECT * FROM sp_patients where patient_id='".$patient_id."'") or die(mysql_error());
 						$row_patient_detail= mysql_fetch_array($patient_detail) or die(mysql_error());
@@ -172,6 +173,7 @@ $commonClass= new commonClass();
                        
 						
 						$args = array(
+                            'event_code'=> $event_code,
                             'msg' => $txtMsg1,
                             'mob_no' => $profmob1
                             );

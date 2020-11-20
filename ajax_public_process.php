@@ -556,7 +556,7 @@ $avayaClass=new avayaClass();
         // Get hospital details
         $arr['hospitalId'] = '';
         $arr['branchName'] = '';
-        $getHospitalDtlsSql = "SELECT h.hospital_id,h.branch,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
+        $getHospitalDtlsSql = "SELECT h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
             FROM sp_events AS e
             INNER JOIN sp_hospitals h ON e.hospital_id = h.hospital_id
             INNER JOIN sp_patients p ON e.patient_id = p.patient_id
@@ -575,7 +575,7 @@ $avayaClass=new avayaClass();
             $name         = $hospitalDtls['name'];
             $hhc_code         = $hospitalDtls['hhc_code'];
             $mobile_no         = $hospitalDtls['mobile_no'];
-
+            $event_code         = $hospitalDtls['event_code'];
         }
 
         // Generate receipt number
@@ -625,6 +625,7 @@ $avayaClass=new avayaClass();
                     $txtMsg1 .= "%nThank You.";
                     //$txtMsg .= "Spero Healthcare Innovation,\n Dear ".$first_name." ".$name." [".$hhc_code."],\n We have received ".$arr['payType']." payment Rs.".$arr['amount']." on ".date('Y-m-d H:i:s').".\n Against ".$service_title." [".$recommomded_service."].\n Thank You!";
                     $args = array(
+                                    'event_code'=> $event_code,
                                     'msg' => $txtMsg1,
                                     'mob_no' => $mobile_no
                                 );

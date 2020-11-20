@@ -147,6 +147,7 @@ class commonClass extends AbstractDB
       
       $text_msg = $args['msg'];
       $mobile_no=$args['mob_no'];
+      $event_code=$args['event_code'];
       $mobile_no =  "8551995260";
       $apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
      // var_dump($text_msg);die();
@@ -166,7 +167,16 @@ class commonClass extends AbstractDB
       $response = curl_exec($ch);
       var_dump($response);die();
       curl_close($ch);
-      echo $response;
+
+      $today_datetime = date("Y-m-d H:i:s"); 
+		$insertData = array();
+		$insertData['sms_event_code'] = $event_code;
+		$insertData['sms_mobile_no'] = $mobile_no;
+		$insertData['sms_text'] = $message;
+		$insertData['sms_datetime'] = $today_datetime;
+		$RecordId=$this->query_insert('sp_sms_response', $insertData);
+		echo $response;
+      
       /*$form_url = "http://www.mgage.solutions/SendSMS/sendmsg.php?uname=BVGMEMS&pass=m2v5c2&send=BVGEMS&dest=".urlencode($mobile_no)."&msg=".urlencode($text_msg);
       $data_to_post = array();
       $curl = curl_init();

@@ -1009,6 +1009,8 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 
                     // Get Patient Details 
                     $args['patient_id']=$EventDtls['patient_id'];
+                    $event_code=$EventDtls['event_code'];
+                    
                     $PatientDtls=$eventClass->GetPatientById($args);                    
 
                     if($arr['type']=='1')
@@ -1078,6 +1080,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                     //var_dump($txtMsg1);die();
                        // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
+                        'event_code'=> $event_code,
 							'msg' => $txtMsg1,
 							'mob_no' => $profmob
 						);  
@@ -1169,6 +1172,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                   
                  
                             $args = array(
+                                'event_code'=> $event_code,
 							'msg' => $txtMsg3,
 							'mob_no' => $patientmb
 						);

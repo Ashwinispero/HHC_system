@@ -74,7 +74,6 @@ class professionalsClass extends AbstractDB
 		$middle_name=$professional_name_abc['middle_name'];
 		}
 		
-		echo $event_id;
 		$payments_event_code = mysql_query("SELECT * FROM sp_events  where event_id='$event_id'");
 		$row1 = mysql_fetch_array($payments_event_code) or die(mysql_error());
 		$patient_id=$row1['patient_id'];
@@ -111,11 +110,19 @@ class professionalsClass extends AbstractDB
 		$response = curl_exec($ch);
 		
 		curl_close($ch);
+		$today_datetime = date("Y-m-d H:i:s"); 
+		$insertData = array();
+		$insertData['sms_event_code'] = $event_code;
+		$insertData['sms_mobile_no'] = $mobile_no;
+		$insertData['sms_text'] = $txtMsg1;
+		$insertData['sms_datetime'] = $today_datetime;
+		$RecordId=$this->query_insert('sp_sms_response', $insertData);
 		echo $response;
 
 	}
 	
         }
+        	
     }
     public function ProfessionalsList_Active_Inactive($arg)
     {
