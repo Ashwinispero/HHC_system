@@ -63,7 +63,7 @@ if($_REQUEST['action']=='chk_call')
         </div>
         <div align="center " id="btn_incoming">
         
-        <button type="button" class="btn-lg btn-success" onclick="return acceptCaller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
+        <button type="button" class="btn-lg btn-success" onclick="return Caller_history(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Accept</button>
         <button type="button" class="btn-lg btn-danger" onclick="return disconnect_HD(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Call Decline</button>
         </div>
         <br>

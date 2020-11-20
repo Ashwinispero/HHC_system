@@ -83,12 +83,19 @@
                  var existing_mobile_no=$("#existing_mobile_no").val();
                  var ex_landline_no=$("#ex_landline_no").val();
                  var ex_dob=$("#existing_dob").val();
+                 var phone_no=$("#phone_no").val();
                  queryString+='&existing_hhc_code='+existing_hhc_code;
                  queryString+='&existing_patient_name='+existing_patient_name;
                  queryString+='&existing_mobile_no='+existing_mobile_no;
                  queryString+='&ex_landline_no='+ex_landline_no;
                  queryString+='&existing_dob='+ex_dob;
+                 queryString+='&phone_no='+phone_no;
              }
+             else if(assingedDivClass=="ExistingCallerForm")
+            {
+                var ex_dob=$("#phone_no").val();
+                queryString+='&phone_no='+phone_no;
+            }
              else if(assingedDivClass == 'newPatientListing')
              {
                  var SearchByPatients=$("#selected_patient_exist").val();

@@ -789,6 +789,88 @@ class patientsClass extends AbstractDB
         else
             return array('data' => array(), 'count' => 0); 
     }
+    public function SearchCallerHistory($arg)
+    {
+        $preWhere="";
+        $filterWhere="";
+        $phone_no= trim($this->escape($arg['phone_no']));
+         $filter_type=$this->escape($arg['filter_type']);
+        if ($phone_no)
+            $preWhere .= " AND phone_no = '".$phone_no."'";
+        
+        $PatientsSql = "SELECT caller_id FROM sp_callers WHERE 1 AND status='1' ".$preWhere." ";
+        //echo $PatientsSql;
+        $this->result = $this->query($PatientsSql);
+        if ($this->num_of_rows($this->result))
+        {
+            $val_records=$this->fetch_array($this->query($PatientsSql));
+            
+           // $pager = new PS_Pagination($PatientsSql,$arg['pageSize'],$arg['pageIndex'],'');
+            //$all_records= $pager->paginate();
+           // while($val_records=$this->fetch_array($all_records))
+            //{
+                // Getting Record Detail
+
+                $RecordSql_event= "SELECT event_code,patient_id,event_id FROM sp_events WHERE caller_id='".$val_records['caller_id']."'";
+                $RecordResult_event=$this->fetch_array($this->query($RecordSql_event));
+               // $patient_id = $RecordResult_event['patient_id'];
+               // $event_code = $RecordResult_event['event_code'];
+                $this->result = $this->query($RecordSql_event);
+                if ($this->num_of_rows($this->result))
+                {
+                    $pager = new PS_Pagination($RecordSql_event,$arg['pageSize'],$arg['pageIndex'],'');
+                    $all_records= $pager->paginate();
+                    while($val_record=$this->fetch_array($all_records))
+                    {
+                        // If landline Number Not Available
+                        $event_code = $val_record['event_code'];
+                        if (empty($val_record['patient_id']))
+                        $val_record['patient_id']='Not Available';
+
+                        $RecordSql = "SELECT patient_id,hhc_code,name,first_name,middle_name,email_id,residential_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_date FROM sp_patients WHERE patient_id='".$val_record['patient_id']."'";
+                        $RecordResult=$this->fetch_array($this->query($RecordSql));
+                            
+                        
+
+                        // Getting Location Name
+                        if (!empty($RecordResult['location_id']))
+                        {
+                        $LocationSql = "SELECT location_id,location,pin_code FROM sp_locations WHERE location_id='".$RecordResult['location_id']."'";
+                        $LocationDtls=$this->fetch_array($this->query($LocationSql));
+                        $RecordResult['locationNm']=$LocationDtls['location']; 
+                        $RecordResult['LocationPinCode']=$LocationDtls['pin_code']; 
+                        }
+                        
+                        // Getting Status
+                        if (!empty($RecordResult['status']))
+                        {
+                            $StatusArr=array(1=>'Active',2=>'Inactive',3=>'Deleted');
+                            $RecordResult['statusVal']=$StatusArr[$RecordResult['status']];
+                        }
+                        
+                        // check is it any event log present for this patient
+                        $RecordResult['event_code'] = $event_code;
+                        $chk_event_log_sql = "SELECT event_id FROM sp_events WHERE patient_id='".$RecordResult['patient_id']."'";
+                        if ($this->num_of_rows($this->query($chk_event_log_sql)))
+                        $RecordResult['isEvents']= "1";
+                        else 
+                        $RecordResult['isEvents']= "0"; 
+
+                        $this->resultPatients[]=$RecordResult;
+
+                    } 
+                }
+         //}
+            $resultArray['count'] = $pager->total_rows;
+        }
+        if (count($this->resultPatients))
+        {
+            $resultArray['data']=$this->resultPatients;
+            return $resultArray;
+        }
+        else
+            return array('data' => array(), 'count' => 0); 
+    }
     public function SearchPatients($arg)
     {
         $preWhere="";

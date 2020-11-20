@@ -107,6 +107,11 @@ if($_REQUEST['EID'])
                                 <?php include "include_new_patient.php"; ?>   
                             </div>
                         </div>
+                        <div role="tabpanel" class="tab-pane " id="new" display="none" >
+                            <div class="newPatientListing_new">
+                                <?php include "include_existing_caller.php"; ?>   
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4978,6 +4983,38 @@ function softdial(){
                     }
              }); 
    }
+   function Caller_history(calling_phone_no,unic_id)
+    {
+        
+        document.getElementById("phone_no").value = calling_phone_no;
+        alert('hi');
+    $("#ExistingCallerForm").ajaxForm({
+        beforeSend: function() 
+                {
+                    Display_Load();
+                },
+                success: function (html)
+                {
+                     var result=html.trim(); 
+                     //alert(result);
+                     $("#RightSideDiv").hide();
+                     $("#SearchRightSideDiv").show();         
+                     changePagination('searchPatientListing','search_existing_caller.php','','','','');
+                     $("#JobClosureDiv").hide();       
+                     $("#FeedbackDivs").hide();       
+                     //$("#SearchRightSideDiv").html(result);
+                },
+                complete : function()
+                {
+                    acceptCaller(calling_phone_no,unic_id);
+                    $("#vw_avaya").modal("hide");
+                        $("#ready_mode").hide();
+                        $("#pause_mode").hide();
+                        $("#hang_mode").show();
+                        $("#conf_mode").show();
+                }
+            }).submit();
+    }
    function acceptCaller(calling_phone_no,unic_id)
    {
        if(calling_phone_no)
