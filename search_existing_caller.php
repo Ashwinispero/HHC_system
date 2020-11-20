@@ -38,7 +38,7 @@ else
     if($recListCount)
     {
     echo '
-            <h2 class="page-title">Search Results</h2>
+            <h2 class="page-title">Caller History Results</h2>
             <div class="row">
             <div id="freewall" class="free-wall">';
             foreach ($recListSearch as $recListKey => $recListValueSearch) 
@@ -46,13 +46,22 @@ else
             echo '<div class="brick">
                     <div class="search-result" >
            		<div class="result-list">
-                            <label>HHC No:</label>
+                            <label>Event Code:</label>
                             <div class="search-text">'.$recListValueSearch['event_code'].'</div>
                         </div>
                         <div class="result-list">
-                            <label>Name:</label> 
+                            <label>Purpose Of Call:</label> 
+                            <div class="search-text">'.$recListValueSearch['purpose_name'].'</div>
+                        </div>
+                        <div class="result-list">
+                        <label>DateTime:</label> 
+                        <div class="search-text">'.$recListValueSearch['added_date'].'</div>
+                    </div>
+                        <div class="result-list">
+                            <label>Patinet Name:</label> 
                             <div class="search-text">'.$recListValueSearch['name']." ".$recListValueSearch['first_name']." ".$recListValueSearch['middle_name'].'</div>
                         </div>
+                       
                         <div class="result-list">
                             <label>Contact No:</label>
                             <div class="search-text">'.$recListValueSearch['mobile_no'].'</div>
@@ -61,9 +70,9 @@ else
                             <label>Address:</label>
                             <div class="search-text">'.$recListValueSearch['residential_address'].'</div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="text-right padding10"><input type="submit" class="btn btn-select" value="Select" onclick="return SeclectPatient('.$recListValueSearch['patient_id'].')"></div>
-                    </div> 
+                        <div class="clearfix"></div>';
+                       // <div class="text-right padding10"><input type="submit" class="btn btn-select" value="Select" onclick="return SeclectPatient('.$recListValueSearch['patient_id'].')"></div>
+                    echo '</div> 
 		</div>';
             }
 		    

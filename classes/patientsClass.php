@@ -811,7 +811,7 @@ class patientsClass extends AbstractDB
             //{
                 // Getting Record Detail
 
-                $RecordSql_event= "SELECT event_code,patient_id,event_id FROM sp_events WHERE caller_id='".$val_records['caller_id']."'";
+                $RecordSql_event= "SELECT event_code,patient_id,event_id,purpose_id,added_date FROM sp_events WHERE caller_id='".$val_records['caller_id']."'";
                 $RecordResult_event=$this->fetch_array($this->query($RecordSql_event));
                // $patient_id = $RecordResult_event['patient_id'];
                // $event_code = $RecordResult_event['event_code'];
@@ -824,14 +824,19 @@ class patientsClass extends AbstractDB
                     {
                         // If landline Number Not Available
                         $event_code = $val_record['event_code'];
+                        $purpose_id = $val_record['purpose_id'];
+                        $RecordResult['added_date'] = $val_record['added_date'];
                         if (empty($val_record['patient_id']))
                         $val_record['patient_id']='Not Available';
 
                         $RecordSql = "SELECT patient_id,hhc_code,name,first_name,middle_name,email_id,residential_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_date FROM sp_patients WHERE patient_id='".$val_record['patient_id']."'";
                         $RecordResult=$this->fetch_array($this->query($RecordSql));
                             
+                        //GETTING PURPOSE OF CALL
+                        $PurposeSql = "SELECT * FROM sp_purpose_call WHERE purpose_id='".$purpose_id."' AND status='1' ";
+                        $PurposeSqlDtls=$this->fetch_array($this->query($PurposeSql));
+                        $RecordResult['purpose_name']=$PurposeSqlDtls['name']; 
                         
-
                         // Getting Location Name
                         if (!empty($RecordResult['location_id']))
                         {
