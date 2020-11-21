@@ -11,6 +11,10 @@ else
         $enquiryNote=$EditedResponseArr['note'];
     }
     ?>
+    <!--datetimepicker-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- Added JS Files --->
     <script src="js/jRating.jquery.js" type="text/javascript"></script>
 	<script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
@@ -26,7 +30,7 @@ else
             <span><img src = "images/requirnment-icon.png" width = "29" height = "29"></span>
             REQUIREMENTS
         </h4>
-
+        
         <div class = "form-group">
             <div class = "col-sm-12">
                 <div class = "form-group">
@@ -64,13 +68,18 @@ else
             </div>
         </div>
 		<h4 class="section-head"><span><img src="images/requirnment-icon.png" width="29" height="29"></span>Enquiry Date of Service</h4>
-        <input  class="form-control"type="date" name="date_of_service" id="date_of_service" value="" width="29">                           
+        <input  class="form-control" name="date_of_service" id="date_of_service" value="" width="420">                           
          <br>
         <div class="form-group">
             <div class="col-sm-12">                            
                 <input type="button" class="btn btn-primary" id="enquiryNote" name="enquiryNote" value="SUBMIT" onclick="return SubmitEnquiryNote();">
             </div>
         </div>
+        <script>
+        $('#date_of_service').datetimepicker({ 
+		footer: true, 
+		modal: true });
+    </script>
         </form>
 <?php
 }?>

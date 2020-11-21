@@ -17,8 +17,9 @@ if($_REQUEST['action'] == 'EnquiryNoteForm')
         $temp_event_id=$_POST['enquiryEvent_id'];
         $prv_purpose_id=$_POST['enq_purpose_id'];
         $enquiryNote=strip_tags($_POST['enquiry_note']);
-        $date_of_service=strip_tags($_POST['date_of_service']);
-        
+        $newDate=strip_tags($_POST['date_of_service']);
+        $date_of_service = date("Y-m-d h:m:s", strtotime($newDate));
+       // var_dump($newDate);die();
         $serviceIds = $_POST['enquiryRequirnment'];
 
         if (!empty($serviceIds)) {
