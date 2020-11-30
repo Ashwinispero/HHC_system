@@ -201,7 +201,9 @@ public function GetTodayEnquiryCall()
 {
   // $events = mysql_query("SELECT * FROM sp_events where (enquiry_status=1 OR enquiry_status=2) and (service_date_of_Enquiry BETWEEN '$formDate1%' AND '$toDate2%') ORDER BY service_date_of_Enquiry DESC");
       $today_date = date("Y-m-d");
+      $today_date = date('Y-m-d', strtotime($today_date . ' +1 days'));
       $today_date1 = date("Y-m-d");
+      $today_date1 = date('Y-m-d', strtotime($today_date1 . ' +1 days'));
       $EnquiryCAllSql="SELECT *  FROM sp_events WHERE  (enquiry_status=1 OR enquiry_status=2) and (service_date_of_Enquiry BETWEEN '$today_date 00:00:00' AND '$today_date1 23:59:59') ORDER BY service_date_of_Enquiry DESC ";
        //var_dump($EnquiryCAllSql);
       // echo $EnquiryCAllSql; die();
