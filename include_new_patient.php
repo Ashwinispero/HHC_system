@@ -259,7 +259,7 @@ else
                     <div class="col-sm-8">
                         <!--<label class="select-box-lbl">-->
                             
-                            <select class="chosen-select form-control"  id="ref_hos_id" name="ref_hos_id" onchange="return SelctedOther(this.value,1);">
+                            <select class="validate[required] chosen-select form-control"  id="ref_hos_id" name="ref_hos_id" onchange="return SelctedOther(this.value,1);">
                               <option value="">Ref hospital Name</option>
                               <?php
                               

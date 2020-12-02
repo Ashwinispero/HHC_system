@@ -1078,7 +1078,7 @@ if($_REQUEST['EID'])
             bootbox.alert("<div class='msg-error'>Please submit caller details form.</div>");
             return false;
         }
-        else if($("#patient_name").val() == ''  ||  $("#patient_mobile_no").val() =='' || $("#patient_email_id").val() =='' ) //|| $("#patient_location").val() ==''
+        else if($("#ref_hos_id").val() == ''  ||$("#patient_name").val() == ''  ||  $("#patient_mobile_no").val() =='' || $("#patient_email_id").val() =='' ) //|| $("#patient_location").val() ==''
         {
             bootbox.alert("<div class='msg-error'>Please enter all patient details.</div>");
             return false;

@@ -228,6 +228,11 @@ else if($_REQUEST['action'] == 'generateHHCno')
             $success=0;
             $errors[$i++]="Please enter phone number.";
         }
+        if($ref_hos_id == '')
+        {
+            $success=0;
+            $errors[$i++]="Please Select Referance Hospital Name.";
+        }
         if($exist_hhc_code == '')
         {
             $chk_ExistRecord="SELECT patient_id FROM sp_patients WHERE name='".$name."' and mobile_no = '".$mobile_no."' "; 
