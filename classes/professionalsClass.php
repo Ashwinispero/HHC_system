@@ -88,12 +88,12 @@ class professionalsClass extends AbstractDB
 		$Patinet_name = $first_name." ".$name;
 
 		$txtMsg = '';
-                    	$txtMsg1 .= "Spero Healthcare Innovation,";
-		$txtMsg1 .= "%nDear ".$title." ".$first_name.",";
-		$txtMsg1 .= ",%nThis is reminder for your today service on ".$Actual_Service_date.",";
-                    	$txtMsg1 .= "%nPatient Name: ".$Patinet_name." [".$event_code." ],";
-                    	$txtMsg1.= "%nIf you have any query please call on 7620400100.";
-		$txtMsg1 .= "%nThank You.";
+                    	$txtMsg1 .= "Spero,";
+		$txtMsg1 .= "Dear ".$title." ".$first_name.",";
+		$txtMsg1 .= "This is reminder for your today service on ".$Actual_Service_date.",";
+                    	$txtMsg1 .= "Patient Name: ".$Patinet_name." [".$event_code." ],";
+                    	$txtMsg1.= "If you have any query please call on 7620400100.";
+		$txtMsg1 .= "Thank You.";
 		var_dump($txtMsg1);die();
 		
 		$mobile_no =  "8551995260";

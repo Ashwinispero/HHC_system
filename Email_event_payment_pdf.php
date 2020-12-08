@@ -172,12 +172,12 @@ $commonClass= new commonClass();
                         
                        
 						
-						$args = array(
+					/*	$args = array(
                             'event_code'=> $event_code,
                             'msg' => $txtMsg1,
                             'mob_no' => $profmob1
                             );
-                        $sms_data =$commonClass->sms_send($args);
+                        $sms_data =$commonClass->sms_send($args);*/
 						/*
                         $form_url = "http://api.unicel.in/SendSMS/sendmsg.php";
                             $data_to_post = array();

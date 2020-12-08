@@ -1043,7 +1043,9 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                 $serviceTimenew=$valDatData['start_date'].' to '.$valDatData['end_date'];
                                 $serviceTime=$valDatData['start_date'];
                                 
-                                $dateofServicenew .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTimenew;
+                                $dateofServicenew .= "Dt:".$service_datenew1."Rp tm:".$serviceTimenew;
+                                $dateofServicepatient .= " Date:".$service_datenew1." Reporting time : ".$serviceTime;
+                               // $dateofServicenew .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTimenew;
                                 $dateofServicepatient .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTime;
                                 
                                 $msgtcount++;
@@ -1072,16 +1074,20 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 															$caller_id=$row['caller_id'];
 															$caller_detail=mysql_query("SELECT * FROM sp_callers where caller_id='".$caller_id."'") or die(mysql_error());
 															$row1 = mysql_fetch_array($caller_detail) or die(mysql_error());
-															$phone_no=$row1['phone_no'];
-                                    $profmob = $professionalDtls['mobile_no'];
-                                    $txtMsg1 .= "Dear ".$professionalDtls['name']." ".$professionalDtls['first_name']."%";
-                                    $txtMsg1 .= ",%nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
-                                    $txtMsg1 .= ",%nCaller No : ".$phone_no;
-                                    $txtMsg1 .= " ,%nMob No : ".$PatientDtls['mobile_no'];
-                                    $txtMsg1 .= ",%Address : ".$PatientDtls['residential_address'];
-                                    $txtMsg1 .= ",".$dateofServicenew;//$dateofService;
-                                    $txtMsg1 .= ",%nMsg : ".$reporting_instructionNew;
-                                    $txtMsg1 .= ".";
+                                                            $phone_no=$row1['phone_no'];
+                                                            
+
+                          
+
+                                                            $profmob = $professionalDtls['mobile_no'];
+                                                            $txtMsg1 .= "Dear ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
+                                                            $txtMsg1 .= ",Patient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
+                                                            $txtMsg1 .= ",Caller No : ".$phone_no;
+                                                            $txtMsg1 .= " ,Mob No : ".$PatientDtls['mobile_no'];
+                                                            $txtMsg1 .= ",Address : ".$PatientDtls['residential_address'];
+                                                            $txtMsg1 .= ",".$dateofServicenew;//$dateofService;
+                                                            $txtMsg1 .= ",Msg:".$reporting_instructionNew;
+                                                            $txtMsg1 .= ".";
                                     //var_dump($txtMsg1);die();
                        // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
@@ -1157,13 +1163,14 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         $txtMsg3 .= " Caller No : ".$phone_no;
 						$txtMsg3 .= $dateofServicenew;//$dateofService;
 					*/
-					
-					    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
-						$txtMsg3.= "%nProf. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
-						$txtMsg3.= "%nEvent ID: ".$argsDoc['event_id'].",";
-						$txtMsg3.= "%nIn case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
-						$txtMsg3.= "%nFor feedback, service extension or any query please call Spero on 7620400100." ;
-						
+                    
+                    
+
+                    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
+                    $txtMsg3.= "Prof. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
+                    $txtMsg3.= "Event ID: ".$argsDoc['event_id'].",";
+                    $txtMsg3.= "In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
+                    $txtMsg3.= "For feedback, service extension or any query please call Spero on 7620400100." ;
                        /*
                         $data_to_post2 = array();
                         $data_to_post2['uname'] = 'SperocHL';
