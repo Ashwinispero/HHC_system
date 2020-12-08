@@ -32,6 +32,126 @@ class professionalsClass extends AbstractDB
         else 
             return 0;
     }
+    public function daily_service_count()
+    {
+	mysql_connect("localhost", "root", " ") or
+	mysql_select_db("hospitalguru_local");
+	
+	$date = date('d-m-Y');
+	$new_date=date('Y-m-d H:i:s', strtotime($date));
+	$new_date1 = date('Y-m-d H:i:s', strtotime($new_date . ' +1 days'));
+	$today_date=date('Y-m-d', strtotime($date));
+	$Previous_date = date('Y-m-d H:i:s', strtotime($new_date . ' -65 days'));
+			
+	$Current_call=$_GET['flag'];
+
+	$Physician_assistant=0;
+	$Physiotherapy=0;
+	$Healthcare_attendants=0;
+	$Nurse=0;
+	$Laboratory_services=0;
+	$Respiratory_care=0;
+	$X_rayat_home=0;
+	$Hca_package=0;
+	$Medical_transportation=0;
+	$Physiotherapy_New=0;
+	$Assisted_living=0;
+	$Physician_service=0;
+	$Maid_service=0;
+	$Total_Services=0;
+	$plan_of_care=mysql_query("SELECT * FROM sp_event_plan_of_care  where added_date BETWEEN '$Previous_date%' AND '$new_date1%'");
+			while($plan_of_care_detail=mysql_fetch_array($plan_of_care))
+			{
+				$service_date=$plan_of_care_detail['service_date'];
+				$service_date_to=$plan_of_care_detail['service_date_to'];
+				$event_requirement_id=$plan_of_care_detail['event_requirement_id'];
+					$professional_vender_id=$plan_of_care_detail['professional_vender_id'];
+				
+				$event_requirement=mysql_query("SELECT * FROM sp_event_requirements where event_requirement_id='$event_requirement_id'") or die(mysql_error());
+				$event_requirement_row = mysql_fetch_array($event_requirement);
+				$service_id=$event_requirement_row['service_id'];
+				$sub_service_id=$event_requirement_row['sub_service_id'];
+				if($service_id!=10 AND $service_id!=6 AND $sub_service_id!=423)
+				{
+					
+					
+					
+				$event_Service=mysql_query("SELECT * FROM sp_services where service_id='$service_id'") or die(mysql_error());
+				$event_Service_row = mysql_fetch_array($event_Service);
+				$service_title=$event_Service_row['service_title'];
+					
+				$begin = new DateTime($service_date);
+				$end=date('Y-m-d', strtotime('+1 day', strtotime($service_date_to)));
+				$end = new DateTime($end);
+				$daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
+				foreach($daterange as $date)
+				{
+					$date_service=$date->format("Y-m-d") ;
+					if($date_service==$today_date)
+					{
+						//echo $date_service;
+						if($service_id==2){$Physician_assistant++;}
+					elseif($service_id==3){$Physiotherapy++;}
+					elseif($service_id==4){$Healthcare_attendants++;}
+					elseif($service_id==5){$Nurse++;}
+					elseif($service_id==8){$Laboratory_services++;}
+					elseif($service_id==11){$Respiratory_care++;}
+					elseif($service_id==12){$X_rayat_home++;}
+					elseif($service_id==13){$Hca_package++;}
+					elseif($service_id==15){$Medical_transportation++;}
+					elseif($service_id==16){$Physiotherapy_New++;}
+					elseif($service_id==17){$Assisted_living++;}
+					elseif($service_id==18){$Physician_service++;}
+					elseif($service_id==19){$Maid_service++;}
+					$count++;
+					}
+				}
+				}
+			}
+			$txtMsg1 .= "Spero Home Healthcare,";
+			$txtMsg1 .= "Total Services Count";
+			$txtMsg1 .= " Physician Assistant-".$Physician_assistant.",";
+			$txtMsg1 .= " Physiotherapy-".$Physiotherapy.",";
+			$txtMsg1 .= " Healthcare Attendants-".$Healthcare_attendants.",";
+			$txtMsg1 .= " Nurse-".$Nurse.",";
+			$txtMsg1 .= " Laboratory Services-".$Laboratory_services.",";
+			$txtMsg1 .= " Respiratory Care-".$Respiratory_care.",";
+			$txtMsg1 .= " X-ray at home-".$X_rayat_home.",";
+			$txtMsg1 .= " Hca Package-".$Hca_package.",";
+			$txtMsg1 .= " Medical Transportation-".$Medical_transportation.",";
+			$txtMsg1 .= " Physiotherapy New-".$Physiotherapy_New.",";
+			$txtMsg1 .= " Physician Service-".$Physician_service.",";
+			$txtMsg1 .= " Maid Service-".$Maid_service.",";
+			$txtMsg1 .= " Total Services-".$Total_Services;
+			          
+			var_dump($txtMsg1);die();
+                      
+            var_dump($txtMsg1);die();
+		
+		$mobile_no =  "8551995260";
+		$apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
+		$numbers = array($mobile_no);
+		$sender = urlencode('SPEROO');
+		$message = rawurlencode($text_msg1);
+		$numbers = implode(',', $numbers);
+		$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+		$ch = curl_init('https://api.textlocal.in/send/');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
+		$today_datetime = date("Y-m-d H:i:s"); 
+		$insertData = array();
+		$insertData['sms_event_code'] = $event_code;
+		$insertData['sms_mobile_no'] = $mobile_no;
+		$insertData['sms_text'] = $txtMsg1;
+		$insertData['sms_datetime'] = $today_datetime;
+		$RecordId=$this->query_insert('sp_sms_response', $insertData);
+		echo $response;	
+        
+    }
     public function Professionals_Notifinction()
     {
 	mysql_connect("localhost", "root", " ") or

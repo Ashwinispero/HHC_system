@@ -701,4 +701,12 @@ $avayaClass=new avayaClass();
         {}
         
     }
+    else if($_REQUEST['action'] == 'daily_service_count_SMS')
+    {
+        $recListResponse = $professionalsClass->daily_service_count();
+        $recList=$recListResponse['data'];
+        foreach($recList as $key=>$valProfessional)
+        {}
+        
+    }
 ?> 
