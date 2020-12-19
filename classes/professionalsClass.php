@@ -197,6 +197,22 @@ class professionalsClass extends AbstractDB
 		$row1 = mysql_fetch_array($payments_event_code) or die(mysql_error());
 		$patient_id=$row1['patient_id'];
 		$event_code=$row1['event_code'];
+
+		$payments_deatils = mysql_query("SELECT * FROM sp_payments  where event_id='$event_id'");
+		$row_count = mysql_num_rows($payments_deatils);
+		if($row_count > 0)
+		{
+			$amt = 0;
+			while ($payment_rows = mysql_fetch_array($payments_deatils))
+			{	
+				$amount=$payment_rows['amount'];
+				$amt=$amount+$amt;
+			}
+			$payment_status ='Rs.'.$amt.'Received';
+		}
+		else{
+		$payment_status='NOT Complete';
+		}	
 							
 		$payments_event_code = mysql_query("SELECT * FROM sp_patients  where patient_id='$patient_id'");
 		$row2 = mysql_fetch_array($payments_event_code) or die(mysql_error());
@@ -208,35 +224,38 @@ class professionalsClass extends AbstractDB
 
 		$txtMsg = '';
                     	$txtMsg1 .= "Spero,";
-		$txtMsg1 .= "Dear ".$title." ".$first_name.",";
-		$txtMsg1 .= "This is reminder for your today service on ".$Actual_Service_date.",";
-                    	$txtMsg1 .= "Patient Name: ".$Patinet_name." [".$event_code." ],";
-                    	$txtMsg1.= "If you have any query please call on 7620400100.";
-		$txtMsg1 .= "Thank You.";
+		$txtMsg1 .= "\nDear ".$title." ".$first_name.",";
+		$txtMsg1 .= "\nThis is reminder for your today service on ".$Actual_Service_date.",";
+		$txtMsg1 .= "\nPatient Name: ".$Patinet_name." [".$event_code." ],";
+		$txtMsg1 .= "\nPayment Status: ".$payment_status." ";
+                    	$txtMsg1.= "\nIf you have any query please call on 7620400100.";
+		$txtMsg1 .= "\nThank You.";
 		var_dump($txtMsg1);die();
 		
 		$mobile_no =  "8551995260";
-		$apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
-		$numbers = array($mobile_no);
-		$sender = urlencode('SPEROO');
-		$message = rawurlencode($text_msg1);
-		$numbers = implode(',', $numbers);
-		$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
-		$ch = curl_init('https://api.textlocal.in/send/');
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($ch);
-		
-		curl_close($ch);
-		$today_datetime = date("Y-m-d H:i:s"); 
-		$insertData = array();
-		$insertData['sms_event_code'] = $event_code;
-		$insertData['sms_mobile_no'] = $mobile_no;
-		$insertData['sms_text'] = $txtMsg1;
-		$insertData['sms_datetime'] = $today_datetime;
-		$RecordId=$this->query_insert('sp_sms_response', $insertData);
-		echo $response;
+			$curl = curl_init();
+			$message = rawurlencode($txtMsg1);
+			curl_setopt_array($curl, array(
+			CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=4197-35YW4IZVOETDQT0MDI&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_POSTFIELDS => "",
+			));
+		      
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+			echo $response;
+			curl_close($curl);
+		      
+			if ($err) {
+			echo "cURL Error #:" . $err;
+			} else {
+			echo $response;
+			}
 
 	}
 	
