@@ -109,47 +109,46 @@ class professionalsClass extends AbstractDB
 				}
 			}
 			$txtMsg1 .= "Spero Home Healthcare,";
-			$txtMsg1 .= "Total Services Count";
-			$txtMsg1 .= " Physician Assistant-".$Physician_assistant.",";
-			$txtMsg1 .= " Physiotherapy-".$Physiotherapy.",";
-			$txtMsg1 .= " Healthcare Attendants-".$Healthcare_attendants.",";
-			$txtMsg1 .= " Nurse-".$Nurse.",";
-			$txtMsg1 .= " Laboratory Services-".$Laboratory_services.",";
-			$txtMsg1 .= " Respiratory Care-".$Respiratory_care.",";
-			$txtMsg1 .= " X-ray at home-".$X_rayat_home.",";
-			$txtMsg1 .= " Hca Package-".$Hca_package.",";
-			$txtMsg1 .= " Medical Transportation-".$Medical_transportation.",";
-			$txtMsg1 .= " Physiotherapy New-".$Physiotherapy_New.",";
-			$txtMsg1 .= " Physician Service-".$Physician_service.",";
-			$txtMsg1 .= " Maid Service-".$Maid_service.",";
-			$txtMsg1 .= " Total Services-".$Total_Services;
+			$txtMsg1 .= "\n Total Services Count";
+			$txtMsg1 .= "\n Physician Assistant-".$Physician_assistant.",";
+			$txtMsg1 .= "\n Physiotherapy-".$Physiotherapy.",";
+			$txtMsg1 .= "\n Healthcare Attendants-".$Healthcare_attendants.",";
+			$txtMsg1 .= "\n Nurse-".$Nurse.",";
+			$txtMsg1 .= "\n Laboratory Services-".$Laboratory_services.",";
+			$txtMsg1 .= "\n Respiratory Care-".$Respiratory_care.",";
+			$txtMsg1 .= "\n X-ray at home-".$X_rayat_home.",";
+			$txtMsg1 .= "\n Hca Package-".$Hca_package.",";
+			$txtMsg1 .= "\n Medical Transportation-".$Medical_transportation.",";
+			$txtMsg1 .= "\n Physiotherapy New-".$Physiotherapy_New.",";
+			$txtMsg1 .= "\n Physician Service-".$Physician_service.",";
+			$txtMsg1 .= "\n Maid Service-".$Maid_service.",";
+			$txtMsg1 .= "\n Total Services-".$Total_Services;
 			          
-			var_dump($txtMsg1);die();
-                      
-            var_dump($txtMsg1);die();
-		
-		$mobile_no =  "8551995260";
-		$apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
-		$numbers = array($mobile_no);
-		$sender = urlencode('SPEROO');
-		$message = rawurlencode($text_msg1);
-		$numbers = implode(',', $numbers);
-		$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
-		$ch = curl_init('https://api.textlocal.in/send/');
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($ch);
-		
-		curl_close($ch);
-		$today_datetime = date("Y-m-d H:i:s"); 
-		$insertData = array();
-		$insertData['sms_event_code'] = $event_code;
-		$insertData['sms_mobile_no'] = $mobile_no;
-		$insertData['sms_text'] = $txtMsg1;
-		$insertData['sms_datetime'] = $today_datetime;
-		$RecordId=$this->query_insert('sp_sms_response', $insertData);
-		echo $response;	
+			
+			$mobile_no =  "8551995260";
+			$curl = curl_init();
+			$message = rawurlencode($txtMsg1);
+			curl_setopt_array($curl, array(
+			CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=4197-35YW4IZVOETDQT0MDI&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_POSTFIELDS => "",
+			));
+		      
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+			echo $response;
+			curl_close($curl);
+		      
+			if ($err) {
+			echo "cURL Error #:" . $err;
+			} else {
+			echo $response;
+			}	
         
     }
     public function Professionals_Notifinction()
