@@ -143,12 +143,41 @@ class commonClass extends AbstractDB
            return 0;
 	   }
     }
+    public function sms_send_prof(){
+      $text_msg = $args['msg'];
+      $mobile_no=$args['mob_no'];
+      $event_code=$args['event_code'];
+      $mobile_no =  "8551995260";
+      $curl = curl_init();
+      $message = rawurlencode($text_msg);
+      curl_setopt_array($curl, array(
+      CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=4197-35YW4IZVOETDQT0MDI&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_POSTFIELDS => "",
+      ));
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      echo $response;
+      curl_close($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+      echo $response;
+      }
+    }
     public function sms_send($args){
       
       $text_msg = $args['msg'];
       $mobile_no=$args['mob_no'];
       $event_code=$args['event_code'];
-      $mobile_no =  "8551995260";
+      //$mobile_no =  "8551995260";
       $apiKey = urlencode('DYj0ooG2pfo-150ozYrDn36WfoGBkZOum6v5J76fIk');
      // var_dump($text_msg);die();
       // Message details

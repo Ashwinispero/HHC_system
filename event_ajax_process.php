@@ -1095,7 +1095,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 							'msg' => $txtMsg1,
 							'mob_no' => $profmob
 						);  
-                        $sms_data =$commonClass->sms_send($args);  
+                        $sms_data =$commonClass->sms_send_prof($args);  
                         
                        /* Dear aa bbb,
                         Patient : nn hhh,
