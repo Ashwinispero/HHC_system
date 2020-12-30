@@ -427,7 +427,7 @@ elseif($_REQUEST['action']=='check_missed_call'){
   $from_date=$_REQUEST['from_date'];
   $to_date=$_REQUEST['to_date'];
 
-  $form_url =  "http://183.87.122.153/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
+  $form_url =  "http://183.87.122.153/API/Dropcall.php?startdate=".$from_date."&enddate=".$to_date." ";
     echo $form_url;
    // $data_to_post = array();
   $curl = curl_init();
