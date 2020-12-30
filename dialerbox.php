@@ -426,48 +426,13 @@ elseif($_REQUEST['action']=='vw_MissedCall'){ ?>
 elseif($_REQUEST['action']=='check_missed_call'){ 
   $from_date=$_REQUEST['from_date'];
   $to_date=$_REQUEST['to_date'];
-
-  $form_url =  "http://183.87.122.153/API/Dropcall.php?startdate=".$from_date."&enddate=".$to_date." ";
-    echo $form_url;
-   // $data_to_post = array();
+ $form_url =  "http://183.87.122.153/API/Dropcall.php?startdate=".$from_date."&enddate=".$to_date."";
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
- // curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  //curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
   $result = curl_exec($curl);
   curl_close($curl);
   echo $result;
-  //  $form_url =   "http://183.87.122.153/API/DropCall.php?startdate=2020-10-01&enddate=2020-10-25";
-  // $form_url = rawurlencode($form_url);
-  //  echo $form_url;
-/*
-  $data_to_post = array();
-  $header = "Accept: application/json";
-  $curl = curl_init();
- // curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-  curl_setopt($curl, CURLOPT_URL, $form_url);
- // curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($curl, CURLOPT_HEADER, TRUE);
-  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
-  try {
-    //json_decode(curl_exec($curl));
-  $result =  json_decode(curl_exec($curl));
-  echo curl_error();
-  var_dump($result);die();
-  echo $result;
-  }
-  catch(Exception $e) {
-    print_r($e);
-  }
-  //print_r(curl_getinfo($curl));
-  //var_dump($result);die();
-  curl_close($curl);
-  
-  echo $result;
-  */
-  
 
  }
 ?>
