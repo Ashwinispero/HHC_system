@@ -292,6 +292,9 @@ if($_REQUEST['EID'])
             <div class="eventLogListing">
                 <?php  include "include_event_log.php"; ?> 
             </div>
+            <div id="in1">
+            <iframe></iframe>
+            </div>
             </div>
             <!-- ---------------- Event Log End ----------- -->
             
@@ -353,7 +356,7 @@ if($_REQUEST['EID'])
   </div>
     <!-- Modal Popup code start ---> 
     <div class="modal fade" id="vw_professional"> 
-        <div class="modal-dialog" style="width:900px !important;">
+        <div class="modal-dialog" style="width:950px !important;">
           <div class="modal-content" id="AllAjaxData">
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -4906,7 +4909,7 @@ function search_missed_calls(){
 			{
                 if(xmlhttp.readyState==4 && xmlhttp.status==200)
 				{
-					alert(xmlhttp.responseText);
+					//alert(xmlhttp.responseText);
                    	document.getElementById("Missed_call_list").innerHTML=xmlhttp.responseText;
 				}
 			}

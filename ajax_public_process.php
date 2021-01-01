@@ -58,17 +58,14 @@ $avayaClass=new avayaClass();
                     'is_deleted' => '0'
                 );
                 $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);  
-                $form_url =  "http://192.168.0.131/API/Signon.php?user=".$_SESSION['first_name']."&exten=".$_SESSION['avaya_agentid']."&campaign=RevolTel";
-                 //  echo $form_url;
-                    $data_to_post = array();
+                $form_url =  "http://192.168.0.131/API/Signon.php?user=".$_SESSION['first_name']."&exten=".$_SESSION['avaya_agentid']."&campaign=RevolTel ";
+                  //  echo $form_url; die();
                     $curl = curl_init();
                     curl_setopt($curl, CURLOPT_URL, $form_url);
-                    curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
                     $result = curl_exec($curl);
                     curl_close($curl);
-                   // echo $result;
+                  //  echo $result;
                   // die();
                 // update last login time 
                 if($EmployeeLog['type'] == '2')
@@ -106,7 +103,10 @@ $avayaClass=new avayaClass();
                         $updateData['last_login']=date('Y-m-d H:i:s');
                         $updateData['is_login']='0';
                         $db->query_update('sp_employees', $updateData, "employee_id='".$EmployeeLog['employee_id']."'");
-                        echo "success";
+                       // echo "success";
+                        $data['msg']="success";
+                        $data['form_url']=$form_url;
+                        echo json_encode($data);
                         exit;
                    // }
                     //else

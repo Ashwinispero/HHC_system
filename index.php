@@ -33,10 +33,15 @@
                 $("#frm_login").ajaxForm({ 
                 success: function (html)
                 {
-                    var result = html.trim();
-                    //alert(result);
-                   
-                    if(result=='incorrect')
+                  //  alert('hi');
+                    var result1 = JSON.parse(html);
+                   // var result = result1.split(" ");
+                    var url = result1.form_url;
+                    var res = result1.msg;
+                    console.log(url);
+                    console.log(res);
+
+                    if(res=='incorrect')
                     {
                         $("#password").val("");
                         $("#password").focus();
@@ -44,7 +49,7 @@
                         $("#error").text("The email or password you entered is incorrect."); 
                         $('#error').delay(15000).fadeOut('slow');
                     }
-                    else if(result=='inactive')
+                    else if(res=='inactive')
                     {
                        $("#password").val("");
                         $("#password").focus();
@@ -60,9 +65,13 @@
                        $("#error").text("Access restricted! Contact with admin.");
                        $('#error').delay(15000).fadeOut('slow');
                     }*/
-                    else if(result=='success')
+                    else if(res=='success')
                     {
+                        var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
                         window.location="<?php echo $siteURL; ?>event-log.php";
+                        sleep(10000);
+                        //document.getElementById("phone_no123").value = 'hiii';
+                        var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
                     }
                     else 
                     {
@@ -104,6 +113,9 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div id="in1">
+        <iframe></iframe>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
