@@ -568,11 +568,12 @@ $avayaClass=new avayaClass();
         // Get hospital details
         $arr['hospitalId'] = '';
         $arr['branchName'] = '';
-        $getHospitalDtlsSql = "SELECT h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
+        $getHospitalDtlsSql = "SELECT e.event_id,eprof.professional_vender_id,h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
             FROM sp_events AS e
             INNER JOIN sp_hospitals h ON e.hospital_id = h.hospital_id
             INNER JOIN sp_patients p ON e.patient_id = p.patient_id
-            WHERE event_id = '" . $arr['eventId'] . "'";
+            INNER JOIN sp_event_professional eprof ON eprof.event_id = e.event_id
+            WHERE e.event_id = '" . $arr['eventId'] . "'";
 
         //echo '<pre>$getHospitalDtlsSql ----<br/>';
         //print_r($getHospitalDtlsSql);
@@ -641,7 +642,26 @@ $avayaClass=new avayaClass();
                                     'msg' => $txtMsg1,
                                     'mob_no' => $mobile_no
                                 );
-                    $sms_data =$commonClass->sms_send($args);
+                    //$sms_data =$commonClass->sms_send($args);
+                    //Professional SMS after payment
+                    /*  
+                    $prof = array(
+                        'service_professional_id'=>  $hospitalDtls['professional_vender_id']
+                    );
+                    $professionalDtls=$professionalsClass->GetProfessionalById($prof);
+                    $profmob = $professionalDtls['mobile_no'];
+                    $txtMsg .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
+                    $txtMsg .= ",Patient : ".$first_name." ".$name;
+                    $txtMsg .= ",Event No : ".$event_code;
+                    $txtMsg .= ".";
+                   // var_dump($hospitalDtls['professional_vender_id']);die();
+                    $args1 = array(
+                            'event_code'=> $event_code,
+							'msg' => $txtMsg,
+							'mob_no' => $profmob
+						);  
+                        $sms_data =$commonClass->sms_send_prof($args1); 
+                    */
                     if (empty($tallyStatus)) {
                         echo "errorInUpdateTallyStatus";
                         exit; 

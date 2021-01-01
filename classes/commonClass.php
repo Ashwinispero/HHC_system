@@ -143,12 +143,13 @@ class commonClass extends AbstractDB
            return 0;
 	   }
     }
-    public function sms_send_prof(){
+    public function sms_send_prof($args){
       $text_msg = $args['msg'];
       $mobile_no=$args['mob_no'];
       $event_code=$args['event_code'];
       $mobile_no =  "8551995260";
       $curl = curl_init();
+      var_dump($text_msg);die();
       $message = rawurlencode($text_msg);
       curl_setopt_array($curl, array(
       CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=4197-35YW4IZVOETDQT0MDI&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",

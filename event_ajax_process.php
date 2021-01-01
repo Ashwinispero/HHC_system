@@ -1082,15 +1082,15 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                           
 
                                                             $profmob = $professionalDtls['mobile_no'];
-                                                            $txtMsg1 .= "Dear ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
-                                                            $txtMsg1 .= ",Patient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
-                                                            $txtMsg1 .= ",Caller No : ".$phone_no;
-                                                            $txtMsg1 .= " ,Mob No : ".$PatientDtls['mobile_no'];
-                                                            $txtMsg1 .= ",Address : ".$PatientDtls['residential_address'];
-                                                            $txtMsg1 .= ",Service : ".$GetService['service_title']." Sub-Service : ".$recommomded_service;
-                                                            $txtMsg1 .= ",".$dateofServicenew;//$dateofService;
-                                                            $txtMsg1 .= ",Msg:".$reporting_instructionNew;
-                                                            $txtMsg1 .= ".";
+                                                            $txtMsg1 .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
+                                                            $txtMsg1 .= "\n\nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
+                                                            $txtMsg1 .= "\n\nCaller No : ".$phone_no;
+                                                            $txtMsg1 .= " \nMob No : ".$PatientDtls['mobile_no'];
+                                                            $txtMsg1 .= "\n\nAddress : ".$PatientDtls['residential_address'];
+                                                            $txtMsg1 .= "\n\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
+                                                            $txtMsg1 .= "".$dateofServicenew;//$dateofService;
+                                                            $txtMsg1 .= "\n\nMessage:".$reporting_instructionNew;
+                                                            $txtMsg1 .= "\n\nSpero";
                                     //var_dump($txtMsg1);die();
                        // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
