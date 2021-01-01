@@ -988,6 +988,8 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                                                            .'</tr>';
                                                             $dateofService .= " Date".$msgtimecount." : ".$service_date1." Reporting time : ".$serviceTime;
                                                             //$timeofService .= ;
+                                                            $sub_service=$recommomded_service;
+                                                            $sub_service_detail = $sub_service_detail.",".sub_service;
                                                             unset($service_name);
                                                             unset($recommomded_service);
                                                             unset($service_date);
@@ -1043,7 +1045,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                 $serviceTimenew=$valDatData['start_date'].' to '.$valDatData['end_date'];
                                 $serviceTime=$valDatData['start_date'];
                                 
-                                $dateofServicenew .= "Dt:".$service_datenew1."Rp tm:".$serviceTimenew;
+                                $dateofServicenew .= "Date : ".$service_datenew1."Reporting time : ".$serviceTimenew;
                                 $dateofServicepatient .= " Date:".$service_datenew1." Reporting time : ".$serviceTime;
                                // $dateofServicenew .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTimenew;
                                 $dateofServicepatient .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTime;
@@ -1085,6 +1087,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                                             $txtMsg1 .= ",Caller No : ".$phone_no;
                                                             $txtMsg1 .= " ,Mob No : ".$PatientDtls['mobile_no'];
                                                             $txtMsg1 .= ",Address : ".$PatientDtls['residential_address'];
+                                                            $txtMsg1 .= ",Service : ".$GetService['service_title']." Sub-Service : ".$recommomded_service;
                                                             $txtMsg1 .= ",".$dateofServicenew;//$dateofService;
                                                             $txtMsg1 .= ",Msg:".$reporting_instructionNew;
                                                             $txtMsg1 .= ".";
