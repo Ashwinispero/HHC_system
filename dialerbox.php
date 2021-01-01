@@ -432,7 +432,37 @@ elseif($_REQUEST['action']=='check_missed_call'){
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   $result = curl_exec($curl);
   curl_close($curl);
-  echo $result;
 
- }
+  $result = json_decode($result, TRUE);
+  //var_dump($result); die;
+  echo '<table id="logTable" class="table table-hover table-bordered" style="margin-left:2%;width:95%;background-color:white" cellspacing="0">
+        <thead>
+        <tr>
+			  <th width="2%">Sr. No</th>
+        <th width="5%">Call Date</th>
+        <th width="8%">Phone No.</th>
+        <th width="8%">Unique ID</th>
+        <th width="4%">Status</th>
+        </tr>
+        </thead>
+        <tbody>';
+        $count=0;
+        //var_dump($result);die();
+  foreach($result['result'] as $data) {
+    //var_dump($value['calldate']);
+   $count++;
+    echo '<tr>
+					<td align="center">'.$count.'</td>
+					<td align="center">'.$data['calldate'].'</td>
+					<td align="center">'.$data['phonenumber'].'</td>
+					<td align="center">'.$data['uniqueid'].'</td>
+					<td align="center">'.$data['status'].'</td>';
+  				echo '</tr>';
+  
+ 
+  }
+  
+}
 ?>
+
+
