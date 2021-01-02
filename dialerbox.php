@@ -280,6 +280,66 @@ elseif($_REQUEST['action']=='vw_hang_mode')
   curl_close($curl);
   echo $result;
 }
+elseif($_REQUEST['action']=='WhatsAppSMS'){ ?>
+  <style>
+  #Whats_App_No {
+  font-family: "Exo";
+  font-size: 2rem;
+  height: 60px;
+  font-weight: bold;
+  color: #45B39D ;
+}
+#Whats_App_Msg {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #45B39D ;
+}
+  </style>
+
+  <div style="background-color: #76D7C4  ">
+        <div class="modal-header">
+        <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" align="center">Whats APP SMS</span></h3>	
+        </div>
+        </div>
+        <br>
+        
+        <div  align="center">
+        <select style="width:100%" class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional_whatsapp();">
+                                 <option value="">Search Professional</option>
+                                 <?php
+                                    $recArgs['pageIndex']='1';
+                                    $recArgs['pageSize']='all';
+                                    $recArgs['isActiveOnly'] = '1';
+                                    $recListResponse = $professionalsClass->ProfessionalsList_Active_Inactive($recArgs);
+                                    $recList=$recListResponse['data'];
+                                    foreach($recList as $key=>$valProfessional)
+                                    {
+                                      if($_POST['search_professional_id'] == $valProfessional['service_professional_id'])
+                                          echo '<option value="'.$valProfessional['mobile_no'].'" selected="selected">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                      else
+                                          echo '<option value="'.$valProfessional['mobile_no'].'">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                    }
+
+                                 ?>
+        </select>
+        </div>
+        <br>
+        <div align="center" >
+        <input id="Whats_App_No"  onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
+        </div><br>
+        <div align="center">
+        <textarea id="Whats_App_Msg" name="Whats_App_Msg" rows="8" cols="30">
+        </textarea>
+        </div>
+        <br>
+        <div align="center " id="btn_incoming">
+        
+        <button type="button" class="btn-lg btn-success" onclick="return whats_app_sms();"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Send SMS</button>
+        </div>
+        <br>
+  <?php
+}
 elseif($_REQUEST['action']=='vw_conf')
 { 
   //$status=$_REQUEST['status'];
@@ -462,6 +522,38 @@ elseif($_REQUEST['action']=='check_missed_call'){
  
   }
   
+}
+elseif($_REQUEST['action']=='whats_App_Sms'){
+  $Whats_App_No=$_REQUEST['Whats_App_No'];
+  $Whats_App_Msg=$_REQUEST['Whats_App_Msg'];
+ 
+      $text_msg = $Whats_App_Msg;
+      $mobile_no=$Whats_App_No;
+      $mobile_no =  "8551995260";
+      $curl = curl_init();
+      //var_dump($text_msg);die();
+      $message = rawurlencode($text_msg);
+      curl_setopt_array($curl, array(
+      CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=54844-82ef58263a584c2484363dff71736359&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_POSTFIELDS => "",
+      ));
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      echo $response;
+      curl_close($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+      echo $response;
+      }
 }
 ?>
 

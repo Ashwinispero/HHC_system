@@ -31,6 +31,9 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
         <a href="javascript:void(0);" data-placement="top" title="View Dialer Box" onclick="softdial()"; data-toggle="tooltip" class="clearSessioncls"> <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a>
         </li>-->
         <li>
+        <a href="javascript:void(0);"  title="View Whats App Box" onclick="Whats_App_SMS()"; > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> WhatsApp SMS</a>
+        </li>
+        <li>
         <a href="javascript:void(0);"  title="View Dialer Box" onclick="softdial()"; > <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Soft Dial</a>
         </li>
         <li>

@@ -5252,6 +5252,29 @@ function softdial(){
                     }
              }); 
     }
+    function whats_app_sms(){
+        var status='1'
+        var Whats_App_No=document.getElementById('Whats_App_No').value;
+        var Whats_App_Msg=document.getElementById('Whats_App_Msg').value
+        
+        var data1="Whats_App_Msg="+Whats_App_Msg+"&Whats_App_No="+Whats_App_No+"&action=whats_App_Sms";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       
+                        
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                });
+    }
     function add_call(){
         var status='1'
         var confer_no=document.getElementById('conf_no').value
@@ -5321,11 +5344,45 @@ function softdial(){
                     }
                 });
     }
+    function Whats_App_SMS(){
+      //  $("#ready_mode").show();
+       // $("#pause_mode").hide();
+        var status='1'
+        var data1="status="+status+"&action=WhatsAppSMS";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        //bootbox.alert("<div class='msg-success'>Call disconnected..Now you are in Ready mode</div>");
+                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                       setHeight:100,
+                                    
+                                });
+                    },
+                    complete : function()
+                    {
+                        Hide_Load();
+                    }
+                });
+    }
     function search_professional(){
         
         var search_professionalid = document.getElementById('search_professionalid').value;
         //alert(search_professionalid);
         document.getElementById("conf_no").value = search_professionalid;
+        
+    }
+    function search_professional_whatsapp(){
+        
+        var search_professionalid = document.getElementById('search_professionalid').value;
+        //alert(search_professionalid);
+        document.getElementById("Whats_App_No").value = search_professionalid;
         
     }
     function professional_remainder(){
