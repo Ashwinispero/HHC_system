@@ -197,6 +197,7 @@ class professionalsClass extends AbstractDB
 		$row1 = mysql_fetch_array($payments_event_code) or die(mysql_error());
 		$patient_id=$row1['patient_id'];
 		$event_code=$row1['event_code'];
+		$final_cost=$row1['final_cost'];
 
 		$payments_deatils = mysql_query("SELECT * FROM sp_payments  where event_id='$event_id'");
 		$row_count = mysql_num_rows($payments_deatils);
@@ -208,10 +209,15 @@ class professionalsClass extends AbstractDB
 				$amount=$payment_rows['amount'];
 				$amt=$amount+$amt;
 			}
-			$payment_status ='Rs.'.$amt.'Received';
+			if($final_cost == $amt){
+			           $payment_status ='Received';
+			}elseif($final_cost > $amt){
+				$payment_status ='Partial Payment';
+			}
+			
 		}
 		else{
-		$payment_status='NOT Complete';
+		$payment_status='Pending';
 		}	
 							
 		$payments_event_code = mysql_query("SELECT * FROM sp_patients  where patient_id='$patient_id'");

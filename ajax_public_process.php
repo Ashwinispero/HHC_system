@@ -561,18 +561,15 @@ $avayaClass=new avayaClass();
         $arr['transId']        = $_REQUEST['Transaction_ID'];
 
 
-        // echo '<pre>$arr ----<br/>';
-        // print_r($arr);
-        // echo '</pre>';
-
-        // Get hospital details
+       // Get hospital details
         $arr['hospitalId'] = '';
         $arr['branchName'] = '';
-        $getHospitalDtlsSql = "SELECT e.event_id,eprof.professional_vender_id,h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no
+        $getHospitalDtlsSql = "SELECT call_id.phone_no,e.event_id,eprof.professional_vender_id,h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no,p.residential_address
             FROM sp_events AS e
             INNER JOIN sp_hospitals h ON e.hospital_id = h.hospital_id
             INNER JOIN sp_patients p ON e.patient_id = p.patient_id
             INNER JOIN sp_event_professional eprof ON eprof.event_id = e.event_id
+            INNER JOIN sp_callers call_id ON call_id.caller_id = e.caller_id
             WHERE e.event_id = '" . $arr['eventId'] . "'";
 
         //echo '<pre>$getHospitalDtlsSql ----<br/>';
@@ -583,12 +580,15 @@ $avayaClass=new avayaClass();
             $hospitalDtls = $db->fetch_array($db->query($getHospitalDtlsSql));
             $arr['hospitalId'] = $hospitalDtls['hospital_id'];
             $arr['branchName'] = $hospitalDtls['branch'];
-            $finalCost         = $hospitalDtls['finalcost'];
+            $finalcost         = $hospitalDtls['finalcost'];
             $first_name         = $hospitalDtls['first_name'];
             $name         = $hospitalDtls['name'];
             $hhc_code         = $hospitalDtls['hhc_code'];
             $mobile_no         = $hospitalDtls['mobile_no'];
             $event_code         = $hospitalDtls['event_code'];
+            $phone_no =  $hospitalDtls['phone_no'];
+            $residential_address = $hospitalDtls['residential_address'];
+            $event_id = $hospitalDtls['event_id'];
         }
 
         // Generate receipt number
@@ -644,24 +644,130 @@ $avayaClass=new avayaClass();
                                 );
                     //$sms_data =$commonClass->sms_send($args);
                     //Professional SMS after payment
-                    /*  
-                    $prof = array(
-                        'service_professional_id'=>  $hospitalDtls['professional_vender_id']
-                    );
-                    $professionalDtls=$professionalsClass->GetProfessionalById($prof);
+                     
+                    
+                    $GetEventReqSql="SELECT event_requirement_id,event_id,service_id FROM sp_event_requirements WHERE event_id='".$arr['eventId']."'";
+                    $EventRequirement=$db->fetch_all_array($GetEventReqSql);
+                    if(!empty($EventRequirement))
+                    {
+                        $msgtimecount = '1';
+                        foreach ($EventRequirement as $key=>$ValRequirement)
+                        {
+                            $GetServiceSql="SELECT service_title FROM sp_services WHERE service_id='".$ValRequirement['service_id']."'";
+                            $GetService=$db->fetch_array($db->query($GetServiceSql));
+                            if(!empty($GetService))
+                                $service_name=$GetService['service_title'];
+                            $selected_Services = "SELECT er.event_requirement_id,er.sub_service_id,poc.service_date,poc.service_date_to,poc.start_date,poc.end_date FROM "
+                                . " sp_event_requirements as er LEFT JOIN sp_event_plan_of_care as poc ON er.event_requirement_id = poc.event_requirement_id "
+                                . " where er.service_id = '".$ValRequirement['service_id']."' and er.event_id = '".$ValRequirement['event_id']."' and er.status='1' and er.event_requirement_id='".$ValRequirement['event_requirement_id']."' ";
+                            $ptr_selSertvices = $db->fetch_all_array($selected_Services);
+                            foreach($ptr_selSertvices as $key=>$valSelcServ)
+                            {
+                                $selectTitle = "select recommomded_service from sp_sub_services where sub_service_id = '".$valSelcServ['sub_service_id']."'";
+                                $valRecService = $db->fetch_array($db->query($selectTitle));
+                                $recommomded_service=$valRecService['recommomded_service'];
+
+                                $service_date = '';
+                                $serviceTime='';
+                                if(date('d-m-Y',strtotime($valSelcServ['service_date']))==date('d-m-Y',strtotime($valSelcServ['service_date_to'])))
+                                    $service_date= date('d-m-Y',strtotime($valSelcServ['service_date']));
+                                else 
+                                    $service_date=date('d-m-Y',strtotime($valSelcServ['service_date'])).' to '.date('d-m-Y',strtotime($valSelcServ['service_date_to']));
+                                
+                                $service_date1 = date('d-m-Y',strtotime($valSelcServ['service_date'])).' to '.date('d-m-Y',strtotime($valSelcServ['service_date_to']));
+                                $serviceTime=$valSelcServ['start_date'].' to '.$valSelcServ['end_date'];
+
+                                $dateofService .= " Date".$msgtimecount." : ".$service_date1." Reporting time : ".$serviceTime;
+                                //$timeofService .= ;
+                                $sub_service=$recommomded_service;
+                                $sub_service_detail = $sub_service_detail.",".sub_service;
+                               // unset($service_name);
+                                unset($recommomded_service);
+                                unset($service_date);
+                                unset($serviceTime); 
+                                //unset($serviceTime); 
+                                $msgtimecount++;
+                                                            
+                            }
+                            
+                        }  
+                    }
+                    unset($args);
+                    $msgtcount = 1;
+                        $select_jobsummarydiv = "select service_id,event_professional_id,event_id,reporting_instruction from sp_event_job_summary where event_id = '".$_REQUEST['event_id']."' and service_id= '".$service_pass_ids."'";
+                        $val_job_summarys = $db->fetch_all_array($select_jobsummarydiv);
+                        foreach($val_job_summarys as $key=>$allRecJobSum)
+                        {
+                            $service_id = $allRecJobSum['service_id'];
+                            $event_professional_id = $allRecJobSum['event_professional_id'];
+                            $select_event_req = "select event_requirement_id from sp_event_professional where event_professional_id = '".$event_professional_id."' ";
+                            $valReqr = $db->fetch_array($db->query($select_event_req));
+                            $selectPlanofCsare = "select service_date,service_date_to,start_date,end_date from sp_event_plan_of_care where event_requirement_id = '".$valReqr['event_requirement_id']."'";
+                            $valPlanofcare = $db->fetch_all_array($selectPlanofCsare);
+                            foreach($valPlanofcare as $key=>$valDatData)
+                            {
+                                $valDatData['service_date'];
+                                if(date('d-m-Y',strtotime($valDatData['service_date']))==date('d-m-Y',strtotime($valDatData['service_date_to'])))
+                                    $service_date= date('d-m-Y',strtotime($valDatData['service_date']));
+                                else 
+                                    $service_date=date('d-m-Y',strtotime($valDatData['service_date'])).' to '.date('d-m-Y',strtotime($valDatData['service_date_to']));
+
+                                $service_datenew1 = date('d-m-Y',strtotime($valDatData['service_date'])).' to '.date('d-m-Y',strtotime($valDatData['service_date_to']));
+                                $serviceTimenew=$valDatData['start_date'].' to '.$valDatData['end_date'];
+                                $serviceTime=$valDatData['start_date'];
+                                
+                                $dateofServicenew .= "Date : ".$service_datenew1."Reporting time : ".$serviceTimenew;
+                                $dateofServicepatient .= " Date:".$service_datenew1." Reporting time : ".$serviceTime;
+                               // $dateofServicenew .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTimenew;
+                                $dateofServicepatient .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTime;
+                                
+                                $msgtcount++;
+                            }
+                            
+                        }
+                        $payments_deatils = mysql_query("SELECT * FROM sp_payments  where event_id='$event_id'");
+                        $row_count = mysql_num_rows($payments_deatils);
+                        if($row_count > 0)
+                        {
+                            $amt = 0;
+                            while ($payment_rows = mysql_fetch_array($payments_deatils))
+                            {	
+                                $amt=$payment_rows['amount']+$amt;
+                            }
+                            if($finalcost == $amt){
+                                    $payment_status ='Received';
+                            }elseif($finalcost > $amt){
+                                $payment_status ='Partial Payment';
+                            }
+                            
+                        }
+                        else{
+                        $payment_status='Pending';
+                        }
+                        $txtMsg1='';
+                        $prof = array(
+                            'service_professional_id'=>  $hospitalDtls['professional_vender_id']
+                        );
+                        $professionalDtls=$professionalsClass->GetProfessionalById($prof);
                     $profmob = $professionalDtls['mobile_no'];
-                    $txtMsg .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
-                    $txtMsg .= ",Patient : ".$first_name." ".$name;
-                    $txtMsg .= ",Event No : ".$event_code;
-                    $txtMsg .= ".";
-                   // var_dump($hospitalDtls['professional_vender_id']);die();
+                    $txtMsg1 .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
+                    $txtMsg1 .= "\n\nPatient : ".$first_name." ".$name." [".$hhc_code."] ";
+                    $txtMsg1 .= "\n\nCaller No : ".$phone_no;
+                    $txtMsg1 .= " \nMob No : ".$mobile_no;
+                    $txtMsg1 .= "\n\nAddress : ".$residential_address;
+                    $txtMsg1 .= "\n\nEvent No : ".$event_code;
+                    $txtMsg1 .= "\nService : ".$service_name."\nSub-Service : ".$sub_service;
+                    $txtMsg1 .= "".$dateofServicenew;//$dateofService;
+                    $txtMsg1 .= "\n\nPayment Status:".$payment_status;
+                    $txtMsg1 .= "\n\nSpero";
+
                     $args1 = array(
                             'event_code'=> $event_code,
 							'msg' => $txtMsg,
 							'mob_no' => $profmob
 						);  
-                        $sms_data =$commonClass->sms_send_prof($args1); 
-                    */
+                   // sms_data =$commonClass->sms_send_prof($args1); 
+                    
                     if (empty($tallyStatus)) {
                         echo "errorInUpdateTallyStatus";
                         exit; 
