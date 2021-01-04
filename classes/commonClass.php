@@ -245,6 +245,65 @@ public function GetTodayEnquiryCall()
        else 
            return 0; 
 }
+public function Republic_day_sms($args){
+   $text_msg = $args['msg'];
+      $mobile_no=$args['mob_no'];
+      $mobile_no = '8551995260';
+      $curl = curl_init();
+      //var_dump($text_msg);
+      $message = rawurlencode($text_msg);
+      curl_setopt_array($curl, array(
+      CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=54844-82ef58263a584c2484363dff71736359&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_POSTFIELDS => "",
+      ));
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      echo $response;
+      curl_close($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+      echo $response;
+      }
+}
+public function birthday_sms($args){
+   $text_msg = $args['msg'];
+   $mobile_no = $args['mob_no'];
+   //$fName = $args['fName'];
+   //$birth_date = $args['birth_date'];
+   $curl = curl_init();
+   //var_dump($mobile_no);
+   $message = rawurlencode($text_msg);
+   curl_setopt_array($curl, array(
+   CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=54844-82ef58263a584c2484363dff71736359&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+   CURLOPT_RETURNTRANSFER => true,
+   CURLOPT_ENCODING => "",
+   CURLOPT_MAXREDIRS => 10,
+   CURLOPT_TIMEOUT => 30,
+   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+   CURLOPT_CUSTOMREQUEST => "GET",
+   CURLOPT_POSTFIELDS => "",
+   ));
+
+   $response = curl_exec($curl);
+   $err = curl_error($curl);
+   echo $response;
+   curl_close($curl);
+
+   if ($err) {
+   echo "cURL Error #:" . $err;
+   } else {
+   echo $response;
+   }
+}
 }
 //END
 ?>

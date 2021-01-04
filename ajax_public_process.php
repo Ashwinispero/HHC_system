@@ -741,4 +741,50 @@ $avayaClass=new avayaClass();
         {}
         
     }
+    else if($_REQUEST['action'] == 'Republic_day')
+    {
+        $sql = "SELECT * FROM sp_emp_spero WHERE Status = 1 ";
+        if ($db->num_of_rows($db->query($sql))) {
+            $sql_query = $db->fetch_all_array($sql);
+            $totalRecords = count($sql_query);
+            $upcomingEventCount = 0;
+            foreach ($sql_query AS $key => $val) {
+                $txtMsg1 .= "Spero";
+                
+                $args = array(
+                        'msg' => $txtMsg1,
+                        'mob_no' => $val['mobile_no']
+                       );  
+                $recListResponse = $commonClass->Republic_day_sms($args);
+                $txtMsg1='';
+            }
+        }
+        
+    }
+    else if($_REQUEST['action'] == 'birth_day')
+    {
+        $sql = "SELECT * FROM sp_emp_spero WHERE Status = 1 ";
+        if ($db->num_of_rows($db->query($sql))) {
+            $sql_query = $db->fetch_all_array($sql);
+            $totalRecords = count($sql_query);
+            $upcomingEventCount = 0;
+            foreach ($sql_query AS $key => $val) {
+                $month = date('d-m');
+                $birth_date = $val['birth_date'];
+                $fName = $val['fname'];
+               $birth_date_today = date("d-m", strtotime($birth_date));
+                if($month==$birth_date_today){
+                    $txtMsg1 .= "Spero Happy bday";
+                    $args = array(
+                            'msg' => $txtMsg1,
+                            'mob_no' => $val['mobile_no']
+                            );  
+                $recListResponse = $commonClass->birthday_sms($args);
+                $txtMsg1='';
+                }
+                
+            }
+        }
+        
+    }
 ?> 
