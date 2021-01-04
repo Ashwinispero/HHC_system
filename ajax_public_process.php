@@ -749,7 +749,8 @@ $avayaClass=new avayaClass();
             $totalRecords = count($sql_query);
             $upcomingEventCount = 0;
             foreach ($sql_query AS $key => $val) {
-                $txtMsg1 .= "Spero";
+                $txtMsg1 .= "Spero\nNo nation is perfect, it is us who can make it a prosperous one.\n
+                Happy Republic Day!";
                 
                 $args = array(
                         'msg' => $txtMsg1,
@@ -774,7 +775,9 @@ $avayaClass=new avayaClass();
                 $fName = $val['fname'];
                $birth_date_today = date("d-m", strtotime($birth_date));
                 if($month==$birth_date_today){
-                    $txtMsg1 .= "Spero Happy bday";
+                    $txtMsg1 .= "Spero,\nMay God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.
+                    we wish you a great success and well-being. 
+                    \nHappy Birthday";
                     $args = array(
                             'msg' => $txtMsg1,
                             'mob_no' => $val['mobile_no']
@@ -783,6 +786,26 @@ $avayaClass=new avayaClass();
                 $txtMsg1='';
                 }
                 
+            }
+        }
+        
+    }
+    else if($_REQUEST['action'] == 'Makar_Sankrant')
+    {
+        $sql = "SELECT * FROM sp_emp_spero WHERE Status = 1 ";
+        if ($db->num_of_rows($db->query($sql))) {
+            $sql_query = $db->fetch_all_array($sql);
+            $totalRecords = count($sql_query);
+            $upcomingEventCount = 0;
+            foreach ($sql_query AS $key => $val) {
+                $txtMsg1 .= "Spero\nAs the sun starts its journey towards the north,\nhe makes all happy moments of this year come to life.\nI wish you and your family a very Happy Makar Sankranti.";
+                
+                $args = array(
+                        'msg' => $txtMsg1,
+                        'mob_no' => $val['mobile_no']
+                       );  
+                $recListResponse = $commonClass->Makar_Sankrant_sms($args);
+                $txtMsg1='';
             }
         }
         
