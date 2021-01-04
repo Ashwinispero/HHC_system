@@ -749,8 +749,7 @@ $avayaClass=new avayaClass();
             $totalRecords = count($sql_query);
             $upcomingEventCount = 0;
             foreach ($sql_query AS $key => $val) {
-                $txtMsg1 .= "Spero\nNo nation is perfect, it is us who can make it a prosperous one.\n
-                Happy Republic Day!";
+                $txtMsg1 .= "Spero\nNo nation is perfect, it is us who can make it a prosperous one.\nHappy Republic Day!";
                 
                 $args = array(
                         'msg' => $txtMsg1,
@@ -775,9 +774,7 @@ $avayaClass=new avayaClass();
                 $fName = $val['fname'];
                $birth_date_today = date("d-m", strtotime($birth_date));
                 if($month==$birth_date_today){
-                    $txtMsg1 .= "Spero,\nMay God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.
-                    we wish you a great success and well-being. 
-                    \nHappy Birthday";
+                    $txtMsg1 .= "Spero,\nMay God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.\nwe wish you a great success and well-being.\nHappy Birthday";
                     $args = array(
                             'msg' => $txtMsg1,
                             'mob_no' => $val['mobile_no']

@@ -1073,7 +1073,8 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         //.............. send msg to professional .......//
 						$query=mysql_query("SELECT * FROM sp_events where event_id='".$ValRequirement['event_id']."'") or die(mysql_error());
 															$row = mysql_fetch_array($query) or die(mysql_error());
-															$caller_id=$row['caller_id'];
+                                                            $caller_id=$row['caller_id'];
+                                                            $Event_Code=$row['event_code'];
 															$caller_detail=mysql_query("SELECT * FROM sp_callers where caller_id='".$caller_id."'") or die(mysql_error());
 															$row1 = mysql_fetch_array($caller_detail) or die(mysql_error());
                                                             $phone_no=$row1['phone_no'];
@@ -1083,11 +1084,12 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 
                                                             $profmob = $professionalDtls['mobile_no'];
                                                             $txtMsg1 .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
-                                                            $txtMsg1 .= "\n\nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name'];
+                                                            $txtMsg1 .= "\n\nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name']." [".$PatientDtls['hhc_code']."] ";
                                                             $txtMsg1 .= "\n\nCaller No : ".$phone_no;
                                                             $txtMsg1 .= " \nMob No : ".$PatientDtls['mobile_no'];
                                                             $txtMsg1 .= "\n\nAddress : ".$PatientDtls['residential_address'];
-                                                            $txtMsg1 .= "\n\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
+                                                            $txtMsg1 .= "\n\nEvent No : ".$Event_Code;
+                                                            $txtMsg1 .= "\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
                                                             $txtMsg1 .= "".$dateofServicenew;//$dateofService;
                                                             $txtMsg1 .= "\n\nMessage:".$reporting_instructionNew;
                                                             $txtMsg1 .= "\n\nSpero";
