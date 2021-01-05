@@ -33,15 +33,15 @@
                 $("#frm_login").ajaxForm({ 
                 success: function (html)
                 {
-                  //  alert('hi');
-                    var result1 = JSON.parse(html);
+                    var result = html.trim();
+                    /*var result1 = JSON.parse(html);
                    // var result = result1.split(" ");
                     var url = result1.form_url;
                     var res = result1.msg;
                     console.log(url);
                     console.log(res);
-
-                    if(res=='incorrect')
+                    */
+                    if(result=='incorrect')
                     {
                         $("#password").val("");
                         $("#password").focus();
@@ -49,7 +49,7 @@
                         $("#error").text("The email or password you entered is incorrect."); 
                         $('#error').delay(15000).fadeOut('slow');
                     }
-                    else if(res=='inactive')
+                    else if(result=='inactive')
                     {
                        $("#password").val("");
                         $("#password").focus();
@@ -65,13 +65,13 @@
                        $("#error").text("Access restricted! Contact with admin.");
                        $('#error').delay(15000).fadeOut('slow');
                     }*/
-                    else if(res=='success')
+                    else if(result=='success')
                     {
-                        var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
+                       // var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
                         window.location="<?php echo $siteURL; ?>event-log.php";
-                        sleep(10000);
+                      //  sleep(10000);
                         //document.getElementById("phone_no123").value = 'hiii';
-                        var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
+                        //var abc = document.getElementById("in1").innerHTML = '<iframe src=\"'+url+'" style=\"background-color:transparent\"; scrolling=\"auto\" frameborder=\"false\" allowtransparency=\"true\" id=\"popupFrame\" name=\"popupFrame\"  width=\"1300\" height=\"1050\" STYLE=\"z-index:17\"></iframe>';
                     }
                     else 
                     {

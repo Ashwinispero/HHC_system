@@ -292,9 +292,7 @@ if($_REQUEST['EID'])
             <div class="eventLogListing">
                 <?php  include "include_event_log.php"; ?> 
             </div>
-            <div id="in1">
-            <iframe></iframe>
-            </div>
+           
             </div>
             <!-- ---------------- Event Log End ----------- -->
             
