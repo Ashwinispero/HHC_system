@@ -162,16 +162,22 @@ class professionalsClass extends AbstractDB
         $filterWhere="";
         $join="";
         $today = date("Y-m-d"); 
-        $preWhere=" AND (Actual_Service_date BETWEEN '$today 00:00:00' AND '$today 23:59:59' )"; 
+        //$preWhere=" AND (Actual_Service_date BETWEEN '$today 00:00:00' AND '$today 23:59:59' )"; 
+        $preWhere=" AND service_date = '".$today."' "; 
         $ProfessionalsSql=mysql_query("SELECT t1.* FROM sp_detailed_event_plan_of_care as t1 WHERE 1 ".$preWhere." ");
         if($this->num_of_rows($ProfessionalsSql))
         { 
 	//var_dump(mysql_fetch_array($ProfessionalsSql));
 	while ($val_records=mysql_fetch_array($ProfessionalsSql)) 
 	{    
+		
 		$Actual_Service_date=$val_records['Actual_Service_date'];
 		$start_date=$val_records['start_date'];
 		$end_date=$val_records['end_date'];
+		$service_date=$val_records['service_date'];
+		$service_date_to=$val_records['service_date_to'];
+		
+		
 		$event_requirement_id=$val_records['event_requirement_id'];
 		$event_id=$val_records['event_id'];
 		$professional_vender_id=$val_records['professional_vender_id'];
@@ -193,33 +199,8 @@ class professionalsClass extends AbstractDB
 		$middle_name=$professional_name_abc['middle_name'];
 		}
 		
-		$payments_event_code = mysql_query("SELECT * FROM sp_events  where event_id='$event_id'");
-		$row1 = mysql_fetch_array($payments_event_code) or die(mysql_error());
-		$patient_id=$row1['patient_id'];
-		$event_code=$row1['event_code'];
-		$final_cost=$row1['final_cost'];
-
-		$payments_deatils = mysql_query("SELECT * FROM sp_payments  where event_id='$event_id'");
-		$row_count = mysql_num_rows($payments_deatils);
-		if($row_count > 0)
-		{
-			$amt = 0;
-			while ($payment_rows = mysql_fetch_array($payments_deatils))
-			{	
-				$amount=$payment_rows['amount'];
-				$amt=$amount+$amt;
-			}
-			if($final_cost == $amt){
-			           $payment_status ='Received';
-			}elseif($final_cost > $amt){
-				$payment_status ='Partial Payment';
-			}
 			
-		}
-		else{
-		$payment_status='Pending';
-		}	
-							
+						
 		$payments_event_code = mysql_query("SELECT * FROM sp_patients  where patient_id='$patient_id'");
 		$row2 = mysql_fetch_array($payments_event_code) or die(mysql_error());
 		$first_name=$row2['first_name'];
@@ -227,15 +208,22 @@ class professionalsClass extends AbstractDB
 		$name=$row2['name'];
 		$hhc_code=$row2['hhc_code'];
 		$Patinet_name = $first_name." ".$name;
+		
 
 		$txtMsg = '';
-                    	$txtMsg1 .= "Spero,";
+                    	
 		$txtMsg1 .= "\nDear ".$title." ".$first_name.",";
-		$txtMsg1 .= "\nThis is reminder for your today service on ".$Actual_Service_date.",";
-		$txtMsg1 .= "\nPatient Name: ".$Patinet_name." [".$event_code." ],";
-		$txtMsg1 .= "\nPayment Status: ".$payment_status." ";
-                    	$txtMsg1.= "\nIf you have any query please call on 7620400100.";
-		$txtMsg1 .= "\nThank You.";
+		$txtMsg1 .= "\nThis is reminder for your  service on ".$service_date." To ".$service_date_to." \n\n";
+		$txtMsg1 .= "\nPatient Name: ".$Patinet_name." [".$hhc_code." ],";
+		$txtMsg1 .= "\nEvent No: ".$event_code." ";
+		$txtMsg1 .= "\n\nAddress : ".$residential_address.",";
+		$txtMsg1 .= "\n\nService Name: ".$service_name." ";
+		//$txtMsg1 .= "\nSub-Service Name: ".$sub_service_detail." ";
+		//$txtMsg1 .= "\n".$sub_service_detail." ";
+		$txtMsg1 .= "\n\nPayment Status: ".$payment_status." ";
+                    	$txtMsg1.= "\n\nIf you have any query please call on 7620400100.";
+		$txtMsg1 .= "\n\nThank You.";
+		$txtMsg1 .= "\nSpero";
 		var_dump($txtMsg1);die();
 		
 		$mobile_no =  "8551995260";

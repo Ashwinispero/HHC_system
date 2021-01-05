@@ -734,7 +734,7 @@ $avayaClass=new avayaClass();
                             {	
                                 $amt=$payment_rows['amount']+$amt;
                             }
-                            if($finalcost == $amt){
+                            if($finalcost == $amt || $finalcost <= $amt){
                                     $payment_status ='Received';
                             }elseif($finalcost > $amt){
                                 $payment_status ='Partial Payment';
