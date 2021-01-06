@@ -73,8 +73,14 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
 	   <div>
             <!--<iframe 
             src="https://www.google.com/webhp?igu=1"></iframe>-->
+            <?php echo $_SESSION['avaya_agentid'];
+                ?>
+                <br>
+            <?php
+                  echo $_SESSION['first_name'];
+            ?>
 			<iframe 
-            src="http://3.7.107.126/API/Signon.php?user=<?php echo $_SESSION['first_name']="6666" ;?>&exten=<?php echo $_SESSION['avaya_agentid']="100" ;?>&campaign=RevolTel " width="200" height="50"></iframe>
+            src="http://192.168.0.131/API/Signon.php?user=<?php echo $_SESSION['first_name'];?>&exten=<?php echo $_SESSION['avaya_agentid'] ;?>&campaign=RevolTel " width="200" height="50"></iframe>
         <ul class="nav navbar-nav navbar-right">
         <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang Up Mode</button>
         <?php 
