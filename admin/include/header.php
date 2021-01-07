@@ -426,9 +426,18 @@ $(document).ready(function()  {
                                 </li> 
                             <?php } ?>
                             <!-- manage adio call report outgoing section start here -->
+                            <!-- manage monthly report outgoing section start here -->
+                            <?php if (in_array("50", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'Manage_Monthly_Report.php') echo 'active'; ?>">
+                                    <a href="Manage_Monthly_Report.php"><i><img src="images/manage_locations.png"></i>Monthly Report</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- Revoltel monthly report section ends here -->
                         </ul>
                     </li>
                     <!-- Revoltel Report section ends here -->
+
+                    
 
                     <!-- Set cookies section start here -->
                     <?php if (in_array("15", $moduleids)) { ?>
@@ -437,6 +446,8 @@ $(document).ready(function()  {
                         </li>
                     <?php } ?>
                     <!-- My cookies section ends here -->
+
+                    
                 </ul>
             </div>
         </div>
