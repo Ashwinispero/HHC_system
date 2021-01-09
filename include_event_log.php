@@ -72,6 +72,7 @@ else
     $recArgs['SearchfromDate_service']=$search_fromDate_service;
     $recArgs['SearchToDate_service']=$search_todate_service;
     $recArgs['SearchByPatients']=$SearchByPatients;
+    $recArgs['listPageDefaultFilter'] = 1;
     $recArgs['employee_id']=$_SESSION['employee_id'];
     $recArgs['employee_type']=$_SESSION['employee_type'];
     $recArgs['hospital_id']=$_SESSION['employee_hospital_id'];
