@@ -5403,8 +5403,10 @@ function softdial(){
                     }
                 });
     }
+   
 </script>
 <?php
+$_SESSION['flag'] = '2';
 $db->close(); 
 ?>
 </html>

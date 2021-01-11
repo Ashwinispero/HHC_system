@@ -71,17 +71,19 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
       <!--/.nav-collapse --> 
       <div class="navbar-collapse collapse" id="navbar">
 	   <div>
-            <!--<iframe 
-            src="https://www.google.com/webhp?igu=1"></iframe>-->
-            <?php echo $_SESSION['avaya_agentid'];
-                ?>
-                <br>
-            <?php
-                  echo $_SESSION['first_name'];
-            ?>
-			<iframe 
-            src="http://192.168.0.131/API/Signon.php?user=<?php echo $_SESSION['first_name'];?>&exten=<?php echo $_SESSION['avaya_agentid'] ;?>&campaign=RevolTel " width="200" height="50"></iframe>
-        <ul class="nav navbar-nav navbar-right">
+        <?php 
+       echo $_SESSION['flag'];
+        if($_SESSION['flag'] == '1'){ ?>
+          <iframe 
+          src="http://192.168.0.131/API/Signon.php?user=<?php echo $_SESSION['first_name'];?>&exten=<?php echo $_SESSION['avaya_agentid'] ;?>&campaign=RevolTel " width="200" height="50">
+        </iframe>
+      <?php
+        }else if($_SESSION['flag'] == '2'){
+         
+        }
+        ?>
+
+			<ul class="nav navbar-nav navbar-right">
         <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang Up Mode</button>
         <?php 
          if($RequestedStatus['mode_status']=='1'){ ?>
@@ -104,4 +106,5 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
     </div>
     <!--/.container-fluid --> 
   </nav>
+ 
 </header>

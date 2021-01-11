@@ -44,7 +44,7 @@ $avayaClass=new avayaClass();
                 $_SESSION['emp_nm']               = $EmployeeLog['employee_name'];
                 $_SESSION['first_name']           = $EmployeeLog['first_name'];
                 $_SESSION['avaya_agentid']        = $EmployeeLog['avaya_agentid'];
-
+                $_SESSION['flag']        = '1';
                 //After login user bydefault in pause mode
                 $_SESSION['mode_status']          = '1';
                 $unique_id = time();
