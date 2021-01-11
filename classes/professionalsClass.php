@@ -950,7 +950,16 @@ class professionalsClass extends AbstractDB
         }
       }    
     }
+    public function Add_emp_Spero($arr_new)
+    {
+         $insertData['mobile_no']=$this->escape($arr_new['mobile_no']);
+         $insertData['DOJ']=$this->escape($arr_new['DOJ']);
+         $insertData['status']=$this->escape($arr_new['status']);
+         $insertData['fname']=$this->escape($arr_new['fname']);
+         $insertData['birth_date']=$this->escape($arr_new['birth_date']);
+         $RecordId=$this->query_insert('sp_emp_spero',$insertData);
     
+    }
     public function GetAssignServicesByProfessional($arg)
     {
         $service_professional_id=$this->escape($arg['service_professional_id']);
@@ -1041,7 +1050,7 @@ class professionalsClass extends AbstractDB
 		if ($serviceType != 'Service') {
 			if (!empty($arg['sub_service_id']) && !empty($arg['service_id'])  && !empty($arg['professional_id'])) {
 				//Check is it any sub service data present in table
-				$checkSubServiceExist = "SELECT professional_sub_services_id FROM sp_professional_sub_services WHERE service_professional_id = '" . $arg['professional_id'] . "'";
+				$checkSubServiceExist = "SELECT professional_services_subservices_id FROM sp_professional_sub_services WHERE service_professional_id = '" . $arg['professional_id'] . "'";
 				if (mysql_num_rows($this->query($checkSubServiceExist))) {
 					// First delete all data from sub service table w.r.t professional
 					$deleteSubServiceRecords = "DELETE FROM sp_professional_sub_services WHERE service_professional_id ='" . $arg['professional_id'] . "'";

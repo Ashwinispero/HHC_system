@@ -695,6 +695,13 @@ else if($_REQUEST['action']=='add_professional')
 
             if(!empty($InsertRecord))
             {
+                //Add employee Spero
+                $arr_new['birth_date']=$dob;
+                $arr_new['fname']=$title.' '.ucwords($first_name).' '.ucwords($name);
+                $arr_new['mobile_no']=$mobile_no;
+                $arr_new['DOJ']=date('Y-m-d H:i:s');
+                $arr_new['status']='1';
+                $InsertRecord = $professionalsClass->Add_emp_Spero($arr_new); 
                 // Insert Professional Other Details
                 if(!empty($service_professional_id))
                     $arg['service_professional_id']=$service_professional_id;

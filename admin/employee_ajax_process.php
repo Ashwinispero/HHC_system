@@ -8,6 +8,9 @@ require_once "../classes/thumbnail_images.class.php";
 require_once "../classes/SimpleImage.php";
 require_once "../classes/config.php";
 require_once "../classes/functions.php";
+require_once '../classes/professionalsClass.php';
+$professionalsClass=new professionalsClass();
+$commonClass=new commonClass();
 if($_REQUEST['action']=='vw_add_employee')
 {
     // Getting Employee Details
@@ -395,6 +398,13 @@ else if($_REQUEST['action']=='add_employee')
                $arr['added_date']=date('Y-m-d H:i:s');
             }
             $InsertRecord=$employeesClass->AddEmployee($arr); 
+            //Add employee Spero
+            $arr_new['birth_date']=$dob;
+            $arr_new['fname']=ucwords($first_name).' '.ucwords($name);
+            $arr_new['mobile_no']=$mobile_no;
+            $arr_new['DOJ']=date('Y-m-d H:i:s');
+            $arr_new['status']='1';
+            $InsertRecord = $professionalsClass->Add_emp_Spero($arr_new); 
             if(!empty($InsertRecord))
             {
                 if($employee_id)
