@@ -851,7 +851,7 @@ $avayaClass=new avayaClass();
                         'msg' => $txtMsg1,
                         'mob_no' => $val['mobile_no']
                        );  
-                $recListResponse = $commonClass->Republic_day_sms($args);
+                $recListResponse = $commonClass->days_sms($args);
                 $txtMsg1='';
             }
         }
@@ -875,7 +875,33 @@ $avayaClass=new avayaClass();
                             'msg' => $txtMsg1,
                             'mob_no' => $val['mobile_no']
                             );  
-                $recListResponse = $commonClass->birthday_sms($args);
+                $recListResponse = $commonClass->days_sms($args);
+                $txtMsg1='';
+                }
+                
+            }
+        }
+        
+    }
+    else if($_REQUEST['action'] == 'JoinAnniversary_day')
+    {
+        $sql = "SELECT * FROM sp_emp_spero WHERE Status = 1 ";
+        if ($db->num_of_rows($db->query($sql))) {
+            $sql_query = $db->fetch_all_array($sql);
+            $totalRecords = count($sql_query);
+            $upcomingEventCount = 0;
+            foreach ($sql_query AS $key => $val) {
+                $month = date('d-m');
+                $DOJ = $val['DOJ'];
+                $fName = $val['fname'];
+               $DOJ_today = date("d-m", strtotime($DOJ));
+                if($month==$DOJ_today){
+                    $txtMsg1 .= "\nSpero\n";
+                    $args = array(
+                            'msg' => $txtMsg1,
+                            'mob_no' => $val['mobile_no']
+                            );  
+                $recListResponse = $commonClass->days_sms($args);
                 $txtMsg1='';
                 }
                 
@@ -897,7 +923,7 @@ $avayaClass=new avayaClass();
                         'msg' => $txtMsg1,
                         'mob_no' => $val['mobile_no']
                        );  
-                $recListResponse = $commonClass->Makar_Sankrant_sms($args);
+                $recListResponse = $commonClass->days_sms($args);
                 $txtMsg1='';
             }
         }
