@@ -863,11 +863,11 @@ $avayaClass=new avayaClass();
         if ($db->num_of_rows($db->query($sql))) {
             $sql_query = $db->fetch_all_array($sql);
             $totalRecords = count($sql_query);
-            $upcomingEventCount = 0;
             foreach ($sql_query AS $key => $val) {
                 $month = date('d-m');
                 $birth_date = $val['birth_date'];
                 $fName = $val['fname'];
+                $designation = $val['designation'];
                $birth_date_today = date("d-m", strtotime($birth_date));
                 if($month==$birth_date_today){
                     $txtMsg1 .= "May God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.\nwe wish you a great success and well-being.\nHappy Birthday\nSpero\n";
@@ -876,7 +876,23 @@ $avayaClass=new avayaClass();
                             'mob_no' => $val['mobile_no']
                             );  
                 $recListResponse = $commonClass->days_sms($args);
+                //var_dump($txtMsg1);die();
                 $txtMsg1='';
+
+                $sql_manager = "SELECT * FROM sp_manager_spero WHERE Status = 1 ";
+                if ($db->num_of_rows($db->query($sql_manager))) {
+                    $sql_manager_query = $db->fetch_all_array($sql_manager);
+                    foreach ($sql_manager_query AS $key => $val_rec) {
+                        $mob = $val_rec['mob'];
+                        $txtMsg_man .= "Hi\nIt's Birthday of ".$fName.", [".$designation."] today.\n Pls extend the wishes\nSpero\n";
+                        $args_man = array(
+                            'msg' => $txtMsg_man,
+                            'mob_no' => $val_rec['mob']
+                            );  
+                        $recListResponse = $commonClass->days_sms($args_man);
+                        $txtMsg_man='';
+                    }
+                }
                 }
                 
             }
@@ -896,14 +912,29 @@ $avayaClass=new avayaClass();
                 $fName = $val['fname'];
                $DOJ_today = date("d-m", strtotime($DOJ));
                 if($month==$DOJ_today){
-                    $txtMsg1 .= "\nSpero\n";
+                    $txtMsg1 .= "Thank you for being an essential part of SPERO’s success.\nCongratulations on your work anniversary.\nYour contributions to the company are greatly appreciated.\nWishing you all the best in the years ahead.\nHappy anniversary\nSpero\n";
                     $args = array(
                             'msg' => $txtMsg1,
                             'mob_no' => $val['mobile_no']
                             );  
                 $recListResponse = $commonClass->days_sms($args);
                 $txtMsg1='';
+                $sql_manager = "SELECT * FROM sp_manager_spero WHERE Status = 1 ";
+                if ($db->num_of_rows($db->query($sql_manager))) {
+                    $sql_manager_query = $db->fetch_all_array($sql_manager);
+                    foreach ($sql_manager_query AS $key => $val_rec) {
+                        $mob = $val_rec['mob'];
+                        $txtMsg_man .= "Hi\nIt's Joining Anniversary of ".$fName.", [".$designation."] today.\n Pls extend the wishes\nSpero\n";
+                        $args_man = array(
+                            'msg' => $txtMsg_man,
+                            'mob_no' => $val['mob']
+                            );  
+                        $recListResponse = $commonClass->days_sms($args_man);
+                        $txtMsg_man='';
+                    }
                 }
+                }
+                
                 
             }
         }
