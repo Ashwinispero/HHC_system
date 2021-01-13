@@ -48,13 +48,15 @@ if($formDate!='' and $toDate!='')
 			<th width="2%">Event Date</th>
 			<th width="2%">Event code</th>
 			<th width="2%">Patient Name</th>
-            <th width="2%">Professional Name</th>
+            		<th width="2%">Professional Name</th>
 			<th width="2%">Patient Address</th>
-            <th width="2%">Professional Address</th>
-            <th width="2%">Service Date</th>
+			<th width="2%">Professional Address</th>
+			<th width="2%">Service</th>
+			<th width="2%">Sub-Service</th>
+			<th width="2%">Service Date</th>
 			<th width="2%">Sessions</th>
-            <th width="2%">Distance KM</th>
-            <th width="2%">Total KM</th>
+			<th width="2%">Distance KM</th>
+			<th width="2%">Total KM</th>
 		</tr>';
 		
 		for($i=1; $i<=$row_count;)
@@ -95,8 +97,16 @@ if($formDate!='' and $toDate!='')
 						while($row1=mysql_fetch_array($requirement_id))
 						{
 						$event_requirement_id=$row1['event_requirement_id'];
-						
-					
+						$service_id=$row1['service_id'];
+						$sub_service_id=$row1['sub_service_id'];
+
+						$service= mysql_query("SELECT * FROM sp_services  where service_id='$service_id'");
+						$service_name = mysql_fetch_array($service) or die(mysql_error());
+						$service_title=$service_name['service_title'];
+
+						$sub_service= mysql_query("SELECT * FROM sp_sub_services  where sub_service_id='$sub_service_id'");
+						$row3 = mysql_fetch_array($sub_service) or die(mysql_error());
+						$recommomded_service=$row3['recommomded_service'];
 						
 					//echo $sub_service_id;
 					//Professional Name
@@ -206,6 +216,8 @@ if($formDate!='' and $toDate!='')
                              <td>'.$professional_name.'</td>
 							<td>'.$google_location.'</td>
 							<td>'.$google_location_prof.'</td>
+							<td>'.$service_title.'</td>
+							<td>'.$recommomded_service.'</td>
 							<td>'.$service_date.' To '.$service_date_to.'</td>
 							<td>'.$numberDays_qty.'</td>
 							<td>'.$total.' '.'KM'.'</td>
