@@ -368,6 +368,14 @@ $(document).ready(function()  {
                                 </li>
                             <?php } ?>
                             <!-- manage day print BHV section ends here -->
+
+                            <!-- manage Pending Payment section start here -->
+                            <?php if (in_array("51", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'Manage_Pending_Payment.php') echo 'active'; ?>">
+                                    <a href="Manage_Pending_Payment.php"><i><img src="images/manage_locations.png"></i>Pending Payment</a>
+                                </li>
+                            <?php } ?>
+                            <!-- manage Pending Payment ends here -->
                         </ul>
                     </li>
                     <!-- Account section ends here -->

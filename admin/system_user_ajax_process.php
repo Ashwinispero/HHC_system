@@ -70,12 +70,12 @@ if($_REQUEST['action']=='vw_add_system_user')
                         <input type="text" name="email_id" id="email_id" value="<?php if(!empty($_POST['email_id'])) { echo $_POST['email_id']; } else if(!empty($UserDtls['email_id'])) { echo $UserDtls['email_id']; } else { echo ""; } ?>" class="validate[required,custom[email]] form-control" maxlength="70" style="width:100% !important;" />
                     </div>
                 </div>
-                <div class="editform">
+               <!-- <div class="editform">
                     <label>Birth Date</label>
                     <div class="value">
                         <input type="text" name="dob" id="dob" value="<?php if(!empty($_POST['dob'])) { echo date('d-m-Y',strtotime($_POST['dob'])); } if(!empty($EmpDtls['dob']) && $EmpDtls['dob'] !='0000-00-00') { echo date('d-m-Y',strtotime($EmpDtls['dob'])); }  else { echo ""; } ?>" class="form-control datepicker" style="width:100% !important;"  />
                     </div>
-                </div>
+                </div>-->
                 <?php if(empty($UserDtls)) { ?>
                 <div class="editform">
                     <label>Password <span class="required">*</span></label>
@@ -215,7 +215,7 @@ else if($_REQUEST['action']=='add_system_user')
         $middle_name=strip_tags($_POST['middle_name']);
         $email_id=strip_tags($_POST['email_id']);
         $password=strip_tags($_POST['password']);
-        $dob=strip_tags($_POST['dob']);
+       // $dob=strip_tags($_POST['dob']);
         $confirm_password=strip_tags($_POST['confirm_password']);
         $landline_no=strip_tags($_POST['landline_no']);
         $mobile_no=strip_tags($_POST['mobile_no']);
@@ -293,7 +293,7 @@ else if($_REQUEST['action']=='add_system_user')
             $arr['middle_name']=ucwords(strtolower($middle_name));
             $arr['email_id']=strtolower($email_id);
             $arr['password']=$password;
-            $arr['dob']=$dob;
+           // $arr['dob']=$dob;
             $arr['landline_no']=$landline_no;
             $arr['mobile_no']=$mobile_no;
             $arr['alternate_email_id']=$alternate_email_id;
@@ -307,13 +307,13 @@ else if($_REQUEST['action']=='add_system_user')
                $arr['added_date']=date('Y-m-d H:i:s');
             }
             $InsertRecord = $adminuserClass->AddAdminUser($arr); 
-                //Add employee Spero
+              /*  //Add employee Spero
                 $arr_new['birth_date']=$dob;
                 $arr_new['fname']=ucwords($first_name).' '.ucwords($name);
                 $arr_new['mobile_no']=$mobile_no;
                 $arr_new['DOJ']=date('Y-m-d H:i:s');
                 $arr_new['status']='1';
-                $InsertRecord = $professionalsClass->Add_emp_Spero($arr_new); 
+                $InsertRecord = $professionalsClass->Add_emp_Spero($arr_new); */
             if(!empty($InsertRecord))
             {
                 $assignedHospitalarr = array();
