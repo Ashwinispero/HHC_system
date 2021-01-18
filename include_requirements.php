@@ -381,13 +381,14 @@ else
                 ?>
             </div>
             
-            <?php $show = 'yes';
+            <?php 
+         /*   $show = 'yes';
             if($EditedResponseArr['event_status'] == '3' || $EditedResponseArr['event_status'] == '4')
             {
                 $show = 'No';
             }
             if($show == 'yes')
-            {
+            { */
 ?>				<div class="form-group">
               <div class="col-sm-12">
                 <textarea class="form-control"  id="notes" name="notes" placeholder="Notes"></textarea>
@@ -403,7 +404,7 @@ else
                     <!--<button type="submit" class="btn btn-primary" data-toggle="button"> SHARE WITH HCM</button>-->
                 </div>
             </div>
-            <?php } ?>
+            <?php //} ?>
         </form>
 <?php
 }?>
