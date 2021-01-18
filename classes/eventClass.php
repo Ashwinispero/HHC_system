@@ -844,7 +844,7 @@ class eventClass extends AbstractDB
         $temp_event_id                    = $arg['temp_event_id'];
         $updateData['patient_id']         = $RecordId;
         $updateData['purpose_id']         = $purpose_id;
-        $updateData['event_status']       = 2;
+      //  $updateData['event_status']       = 2;
         $updateData['last_modified_by']   = $employee_id;
         $updateData['ref_hos_id']         = $ref_hos_id;
        $updateData['ref_hos_nm']         = $arg['ref_hos_nm'];
