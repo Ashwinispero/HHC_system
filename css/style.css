@@ -33,7 +33,16 @@ a,a.status{outline:0}.edit-details,a.status:hover{text-decoration:none}@font-fac
 	margin: 0 auto;
 }
 }
-
+.div_header{
+font-size:23px;
+color:#00cfcb;
+margin:0 0 15px;
+}
+.label_style{
+	font-size:18px;
+	color :#000 black ;
+	margin:0 0 15px;	
+}
 
 #subServiceData .dropdown>.btn-default,.dropdown>.btn-default,.multiselect,.select_requirnment .dropdown>.btn-default{width:100%!important;text-align:left}
 

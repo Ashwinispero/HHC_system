@@ -161,6 +161,7 @@ if($_REQUEST['EID'])
                         <!--</label>-->
             </div>
 			<div align="right" class="row">
+            <a target = '_blank'  href='ambulance_dashbaord.php' style="margin-right:5%">Ambulance Dispatch</a>
 			<!--<a target = '_blank'  href='Assisted_Living_Avaibality.php' style="margin-right:5%">Assisted Living Avaibility</a>-->
 			<a target = '_blank'  href='schedule_display_new.php' style="margin-right:5%">Professional Schedule</a>
 			<!--<a target = '_blank'  href='schedule_display.php' style="margin-right:5%">Professional Schedule</a>-->
