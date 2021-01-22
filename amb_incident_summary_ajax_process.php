@@ -13,7 +13,76 @@
         require_once 'classes/config.php'; 
 ?>
 <?php
-if($_REQUEST['action']=="vw_ambulance_list"){
+if($_REQUEST['action']=="SubmitDropCall"){
+    var_dump('hello_hh');
+    $success=0;  $errors=array();  $i=0;
+    if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
+    {
+       
+        //Purpose of Call
+        $CallType=$_POST['CallType'];
+        var_dump($CallType);
+        //CAllerDetails
+        $name=strip_tags($_POST['name']);
+        $caller_first_name=strip_tags($_POST['caller_first_name']);
+        $relation=strip_tags($_POST['relation']);
+        $phone_no=strip_tags($_POST['phone_no']);
+        //Incident Details
+        $No_of_Patient=strip_tags($_POST['No_of_Patient']);
+        $Complaint_type=strip_tags($_POST['Complaint_type']);
+        //Patient Details
+        $Patient_first_name=strip_tags($_POST['Patient_first_name']);
+        $Patient_name=strip_tags($_POST['Patient_name']);
+        $Patient_phone_no=strip_tags($_POST['Patient_phone_no']);
+        $Age=strip_tags($_POST['Age']);
+        $google_location=strip_tags($_POST['google_location']);
+        //Ambulance
+        $google_pickup_location=strip_tags($_POST['google_pickup_location']);
+        $google_drop_location=strip_tags($_POST['google_drop_location']);
+        $selected_amb=strip_tags($_POST['selected_amb']);
+        
+        $amb_no=strip_tags($_POST['amb_no']);
+        //Ambulance Schedule Details
+        $date=strip_tags($_POST['date']);
+        $time=strip_tags($_POST['time']);
+        //Other Details
+        $notes=strip_tags($_POST['notes']);
+
+
+
+        $success=1;
+        $arr['CallType']=$CallType;
+        $arr['name']=ucwords(strtolower($name));
+        $arr['caller_first_name']=ucwords(strtolower($caller_first_name));
+        $arr['relation']=$relation;
+        $arr['phone_no']=$phone_no;
+
+        $arr['No_of_Patient']=$No_of_Patient;
+        $arr['Complaint_type']=$Complaint_type;
+
+        
+        $arr['Patient_first_name']=ucwords(strtolower($Patient_first_name));
+        $arr['Patient_name']=ucwords(strtolower($Patient_name));
+        $arr['Patient_phone_no']=$Patient_phone_no;
+        $arr['Age']=$Age;
+        $arr['google_location']=$_POST['google_location'];
+        
+        $arr['google_pickup_location']=$google_pickup_location;
+        $arr['google_drop_location']=$google_drop_location;
+        $arr['amb_no']=$amb_no;
+        $arr['manual_pickup_location']=$manual_pickup_location;
+        $arr['manual_drop_location']=$manual_drop_location;
+
+        $arr['date']=$date;
+		$arr['time']=$time;
+        $arr['notes']=$notes;
+        $arr['hospital_id'] = $_SESSION['hospital_id'];
+        $arr['employee_id']=$_SESSION['employee_id'];
+        var_dump($arr);
+
+    }
+}
+else if($_REQUEST['action']=="vw_ambulance_list"){
     $amb_no=$db->escape($_REQUEST['amb_no']);
  
    ?>
@@ -44,7 +113,7 @@ if($_REQUEST['action']=="vw_ambulance_list"){
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 
-                <input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="return checkAddress();" >
+                <input type="checkbox" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';

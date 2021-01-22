@@ -73,230 +73,8 @@
 </div>-->
 <h2 class="page-title">Ambulance Dispatch Form</h2>
 <div class="modal-body">
-<div class="mCustomScrollbar">
-
-<div id="Block1">
-<h1 class="div_header">Caller Details</h1>
-<form class="row" style="padding-left:5px;">
-<label class="col-sm-1 label_style">Contact :</label>
-<div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-</div>
-<label for="inputPassword3" class="col-lg-2 label_style">Last Name : <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerNameText" value="<?php if($EditedResponseArr['caller_last_name']) echo $EditedResponseArr['caller_last_name']; else echo $_POST['caller_last_name'];  ?>" id="name" name="name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />
-</div>
-<label for="inputPassword3" class="col-lg-2 label_style">First Name : <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerFNameText" value="<?php if($EditedResponseArr['caller_first_name']) echo $EditedResponseArr['caller_first_name']; else echo $_POST['caller_first_name'];  ?>" id="caller_first_name" name="caller_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" /></div>
-<label for="inputPassword3" class="col-lg-1 label_style">Relation :</label>
-                      <div class="col-lg-2 input_box_first">
-                          <!--<input type="text" class="form-control" id="relation" name="relation" maxlength="30" >-->
-                          <!--<label class="select-box-lbl">-->
-                              <select class="chosen-select form-control"  name="relation" id="relation" onchange="return changeRelation(this.value);">
-                                <option value="">Relation</option>
-                                <?php
-                                    $selectRecord = "SELECT relation_id,relation FROM sp_caller_relation WHERE status='1' ORDER BY relation ASC";
-                                    $AllRrecord = $db->fetch_all_array($selectRecord);
-                                    foreach($AllRrecord as $key=>$valRecords)
-                                    {
-                                        if($EditedResponseArr['relation'] == $valRecords['relation'])
-                                            echo '<option value="'.$valRecords['relation'].'" selected="selected" >'.$valRecords['relation'].'</option>';
-                                        else
-                                            echo '<option value="'.$valRecords['relation'].'">'.$valRecords['relation'].'</option>';
-                                    }
-                                ?>
-                            </select>
-                          <!--</label>-->
-                      </div>
-                      </form>
-</div>
-<div class="line-seprator"></div>
-<div id="Block4">
-<h5  class="div_header" >Incident Details</h5>
-<form class="row" style="padding-left:5px;">
-<label class="col-sm-2 label_style">No Of Patient :</label>
-<div class="col-lg-3  ">
-<input type="text" class="validate[required,custom[phone],minSize[1],maxSize[2]] form-control" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="2" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-</div>
-<label for="inputPassword3" class="col-lg-2 label_style">Chief Complaint :</label>
-                      <div class="col-lg-3">
-                          <!--<input type="text" class="form-control" id="relation" name="relation" maxlength="30" >-->
-                          <!--<label class="select-box-lbl">-->
-                              <select class="chosen-select form-control"  name="relation" id="relation" onchange="return changeRelation(this.value);">
-                                <option value="">Chief Complaint</option>
-                                <?php
-                                    $selectRecord = "SELECT * FROM sp_ems_complaint_types WHERE ct_status='1' ORDER BY ct_type ASC";
-                                    $AllRrecord = $db->fetch_all_array($selectRecord);
-                                    foreach($AllRrecord as $key=>$valRecords)
-                                    {
-                                        echo '<option value="'.$valRecords['ct_id'].'">'.$valRecords['ct_type'].'</option>';
-                                    }
-                                ?>
-                            </select>
-                          <!--</label>-->
-                      </div>
-                      </form>
-</div>
-<div class="line-seprator"></div>
-<div id="Block2">
-<h5 class="div_header">Patient Details</h5>
-<form style="padding-left:5px;">
-<div class="row">
-<label for="inputPassword3" class="col-lg-2 label_style">First Name : <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerFNameText" value="<?php if($EditedResponseArr['caller_first_name']) echo $EditedResponseArr['caller_first_name']; else echo $_POST['caller_first_name'];  ?>" id="caller_first_name" name="caller_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" /></div>
-<label for="inputPassword3" class="col-lg-2 label_style">Last Name : <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerNameText" value="<?php if($EditedResponseArr['caller_last_name']) echo $EditedResponseArr['caller_last_name']; else echo $_POST['caller_last_name'];  ?>" id="name" name="name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />
-</div>
-<label class="col-sm-1">Contact :</label>
-<div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-</div>
-<label for="inputPassword3" class="col-lg-1 label_style">Age:</label>
-<div class="col-lg-2 input_box_first">
-<input type="text" maxlength="30" style="text-transform: capitalize;" class="form-control" id="Age" name="Age" value="<?php if($recListResponse['Age']) echo $recListResponse['Age']; else echo $_POST['Age']; ?>" />
-</div>
-</div><br>
-<div class="row">
-<label for="inputPassword3" class="col-lg-2 label_style">Address : <span style="color:red;">*</span></label>
-<div class="col-lg-4 input_box">
-        <input maxlength="100" id="google_location_new" name="google_location_new" type="text" value="<?php if($recListResponse['locationNm']) echo $recListResponse['locationNm']; else echo $_POST['locationNm']; ?>" class="validate[required] form-control"  />   
-        <input id="selcGog_Location" name="selcGog_Location" type="hidden" value="" /> 
-</div>
-
-</div>
-</form>
-</div>
-<div class="line-seprator"></div>
-
-<div id="Block3">
-<h5 class="div_header">Ambulance Details</h5>
-<form style="padding-left:5px;">
-<div class="col-lg-12">
-<div role="tabpanel" id="Patienttabs"> 
-                    <!-- Nav tabs -->
-                    <ul id="MainTabs" class="nav nav-tabs" role="tablist">
-                      <li role="presentation" class="active" id="google_search"><a href="#google" aria-controls="home" role="tab" data-toggle="tab" id="google_search">Google Search</a></li>
-                      <li role="presentation" id="manual_search"><a href="#manual" aria-controls="profile" role="tab" data-toggle="tab" id="manual_serach">Manual Search</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="google">
-                            <div class="exPatientListing">
-                            <label for="inputPassword3" class="col-lg-2 label_style">Pickup Location : <span style="color:red;">*</span></label>
-                          <div class="col-lg-4">
-                                  <input maxlength="100" id="google_location_new" name="google_location_new" type="text" value="<?php if($recListResponse['locationNm']) echo $recListResponse['locationNm']; else echo $_POST['locationNm']; ?>" class="validate[required] form-control"  />   
-                                  <input id="selcGog_Location" name="selcGog_Location" type="hidden" value="" /> 
-                          </div>    
-                            </div>
-                            <br><br>
-                            <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th>Ambulance No</th>
-                <th>base Location</th>
-                <th>Mobile No</th>
-                <th>Ambulance Type</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php 
-             $selectRecord = "SELECT amb.*,base_loc.id,base_loc.base_name FROM sp_ems_ambulance as amb
-                              LEFT JOIN sp_ems_base_location as base_loc ON amb.base_loc = base_loc.id
-                              WHERE amb.status='1'  ORDER BY amb.id ASC";
-             $AllRrecord = $db->fetch_all_array($selectRecord);
-             foreach($AllRrecord as $key=>$valRecords)
-             {
-              echo '<tr style = "' . $complimentaryVisitStyle .'">
-                <td>'.$valRecords['amb_no'].'</td>
-                <td>'.$valRecords['base_name'].'</td>
-                <td>'.$valRecords['mob_no'].'</td>
-                <td>'.$valRecords['amb_type'].'</td>
-                <td>'.$valRecords['amb_status'].'</td>
-                <td>'; 
-                ?> 
-                <input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="return checkAddress();" >
-                <?php 
-                echo '</td>
-                </tr>';
-                } 
-            ?>
-            </tbody>
-            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane " id="manual" style="hight:50%;">
-                            <div class="newPatientListing" >
-                            <div class="row">
-                                  <label for="inputPassword3" class="col-lg-3 label_style">Select Ambulance :</label>
-                                  <div class="col-lg-3 input_box">
-                                      <select class="chosen-select form-control"  name="amb_no" id="amb_no" onchange="return changeambulance(this.value);">
-                                      <option value="">Ambulance</option>
-                                      <?php
-                                          $selectRecord = "SELECT id,amb_no FROM sp_ems_ambulance WHERE status='1' ORDER BY id ASC";
-                                          $AllRrecord = $db->fetch_all_array($selectRecord);
-                                          foreach($AllRrecord as $key=>$valRecords)
-                                          {
-                                            echo '<option value="'.$valRecords['amb_no'].'">'.$valRecords['amb_no'].'</option>';
-                                          }
-                                      ?>
-                                      </select>
-                                  </div><br><br>
-                                  <br><br><br><br>
-                                  </div>
-                                  <div class="row" id="ambulance_list"></div>
-                                 
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div></div>
-
-</form>
-</div>
-<div class="line-seprator"></div>
-<div id="Block5">
-<h5 class="div_header">Ambulance Schedule Details</h5>
-<form class="row" style="padding-left:5px;">
-
-<label for="inputPassword3" class="col-lg-2 label_style">Purpose Of Call :</label>
-                      <div class="col-lg-2 input_box_first">
-                          <!--<input type="text" class="form-control" id="relation" name="relation" maxlength="30" >-->
-                          <!--<label class="select-box-lbl">-->
-                              <select class="chosen-select form-control"  name="relation" id="relation" onchange="return changeRelation(this.value);">
-                                <option value="">Purpose Of Call</option>
-                                <option>Drop Call</option>
-                                <option>Hospital Transfer Call</option>
-                            </select>
-                          <!--</label>-->
-                      </div>
-                      <label class="col-sm-1 label_style">Date :</label>
-<div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[1],maxSize[2]] form-control" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="2" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-</div>
-<label class="col-sm-1 label_style">Time :</label>
-<div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[1],maxSize[2]] form-control" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="2" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-</div>
-                      </form>
-</div>
-<div class="line-seprator"></div>
-<div id="Block6">
-<h1 class="div_header">Other Details</h1>
-<form class="row" style="padding-left:5px;">
-
-<label for="inputPassword3" class="col-lg-2 label_style">Notes: <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<textarea id="w3review" name="w3review" rows="4" cols="80"></textarea>
-
-</div>
-
-
-                      </form>
-</div>
+<div  id="Drop_call_view" >
+<?php include "amb_drop_call_view.php"; ?>
 </div>
 <!--<a href="javascript:void(0);" title="Dispatch_form" onclick="Dispatch_form()"; data-toggle="tooltip" data-placement="top" title="View Log">
 <span aria-hidden="true">Ambulance Dispatch Form</span></a>  -->   
@@ -307,6 +85,7 @@
 <?php include "include/scripts.php"; ?>
 <?php include "include/eventLogscripts.php"; ?>
 <script>
+
       $(document).ready(function () 
       {
         $location_input = $("#google_location");
@@ -318,6 +97,34 @@
         autocomplete = new google.maps.places.Autocomplete($location_input.get(0), options);    
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             var data = $("#google_location").val();
+            //console.log('blah')
+            show_submit_data(data);
+            return false;
+        });
+
+        $location_input = $("#google_pickup_location");
+        
+        var options = {
+            //types: ['(postal_town)'],
+            componentRestrictions: {country: 'in'}
+        };
+        autocomplete = new google.maps.places.Autocomplete($location_input.get(0), options);    
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var data = $("#google_pickup_location").val();
+            //console.log('blah')
+            show_submit_data(data);
+            return false;
+        });
+
+        $location_input = $("#google_drop_location");
+        
+        var options = {
+            //types: ['(postal_town)'],
+            componentRestrictions: {country: 'in'}
+        };
+        autocomplete = new google.maps.places.Autocomplete($location_input.get(0), options);    
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var data = $("#google_drop_location").val();
             //console.log('blah')
             show_submit_data(data);
             return false;
@@ -358,8 +165,67 @@
     function show_submit_data(data) {
         $("#selcGog_Location").val(data);
     }
+    
+    $(document).ready(function() 
+    {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var firstDayPrevMonth = new Date(y,m-1,1);
+        $('.datepicker_from').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        minDate:firstDayPrevMonth,
+        maxDate:lastDay,
+        onSelect: function(selected)
+        {
+           $(".datepicker_to").datepicker("option","minDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus();
+        }
+
+    });
+
+     $(".datepicker_from").keypress(function(event) {event.preventDefault();});
+
+        $('.datepicker_to').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        maxDate:$(".datepicker_from").val()+'1 m',
+        onClose: function() 
+        { 
+            this.focus(); 
+            var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus();
+        }
+        }); 
+        $(".datepicker_to").keypress(function(event) {event.preventDefault();});
+    });
 </script>
 <script type="text/javascript"> 
+function SubmitDropCall(){
+ //Display_Load();
+ $("#DropForm").ajaxForm({
+                beforeSend: function() 
+                {
+                     Popup_Display_Load();
+                }, 
+               success: function (html)
+               {
+                    var htmls=html.trim();
+                    alert(htmls);
+                    
+               },
+                complete : function()
+                {
+                   Popup_Hide_Load();
+                }
+           }).submit();   
+}
+
 function changeambulance(amb_no){
   var data1="amb_no="+amb_no+"&action=vw_ambulance_list";
             $.ajax({
@@ -378,6 +244,17 @@ function changeambulance(amb_no){
                        Hide_Load();
                     }
              }); 
+}
+function ChangeCallType(CallType){
+  alert('hi');
+  if(CallType == 1 )
+  {
+   $("#Drop_call_view").show();
+  }
+  else if(CallType == 2 )
+  {
+    $("#Drop_call_view").hide();
+  }
 }
 function Dispatch_form()
 {
