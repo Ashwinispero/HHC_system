@@ -1,14 +1,9 @@
 <?php   require_once 'inc_classes.php';        
         require_once "classes/thumbnail_images.class.php";
         require_once "classes/SimpleImage.php";        
-        include "classes/eventClass.php";
-        $eventClass = new eventClass();
-        include "classes/employeesClass.php";
-        $employeesClass = new employeesClass();
-	include "classes/professionalsClass.php";
-        $professionalsClass = new professionalsClass();
-        include "classes/commonClass.php";
-        $commonClass= new commonClass();
+        include "classes/AmbulanceClass.php";
+        $AmbulanceClass = new AmbulanceClass();
+        
         require_once 'classes/functions.php'; 
         require_once 'classes/config.php'; 
 ?>
@@ -78,7 +73,17 @@ if($_REQUEST['action']=="SubmitDropCall"){
         $arr['notes']=$notes;
         $arr['hospital_id'] = $_SESSION['hospital_id'];
         $arr['employee_id']=$_SESSION['employee_id'];
-        var_dump($arr);
+        $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
+        if($InsertRecord)
+                {
+                    echo $InsertRecord; // Insert Record
+                    exit;
+                }
+                else
+                {
+                   echo 'RecordExist';
+                   exit;
+                }
 
     }
 }
