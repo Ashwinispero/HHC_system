@@ -4,6 +4,7 @@ if(!$_SESSION['employee_id'])
     echo 'notLoggedIn';
 else
 { ?>
+
 <form class="form-horizontal" name="DropForm" id="DropForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitDropCall">
 <div id="Block9">
 <h1 class="div_header">Call Type</h1>
@@ -24,15 +25,15 @@ else
 <div class="row" style="padding-left:5px;">
 <label class="col-sm-1 label_style">Contact :<span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone"  id="phone_no" name="phone_no" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="phone_no" name="phone_no" maxlength="10" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <label for="inputPassword3" class="col-lg-2 label_style">Last Name : <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerNameText"  id="name" name="name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />
+<input type="text" style="text-transform: capitalize;" class="validate[required] form-control"  id="name" name="name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />
 </div>
 <label for="inputPassword3" class="col-lg-2 label_style">First Name : <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box">
-<input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerFNameText"  id="caller_first_name" name="caller_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" /></div>
+<input type="text" style="text-transform: capitalize;" class="validate[required] form-control"  id="caller_first_name" name="caller_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" /></div>
 <label for="inputPassword3" class="col-lg-1 label_style">Relation :</label>
                       <div class="col-lg-2 input_box_first">
                           <!--<input type="text" class="form-control" id="relation" name="relation" maxlength="30" >-->
@@ -58,7 +59,7 @@ else
 <div class="row" style="padding-left:5px;">
 <label class="col-sm-2 label_style">No Of Patient :<span style="color:red;">*</span></label>
 <div class="col-lg-3  ">
-<input type="text" class="validate[required,minSize[1],maxSize[2]] form-control"  id="No_of_Patient" name="No_of_Patient" maxlength="2" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" value="1" id="No_of_Patient" name="No_of_Patient" maxlength="1" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <label for="inputPassword3" class="col-lg-2 label_style">Chief Complaint :<span style="color:red;">*</span></label>
                       <div class="col-lg-3">
@@ -83,24 +84,24 @@ else
 <div id="Block2">
 <h5 class="div_header">Patient Details</h5>
 <div class="row" style="padding-left:5px;">
-<label for="inputPassword3" class="col-lg-2 label_style">First Name : <span style="color:red;">*</span></label>
+<label for="inputPassword3" class="col-lg-2 label_style callerNameText">First Name : <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box">
 <input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerFNameText" id="Patient_first_name" name="Patient_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" /></div>
 <label for="inputPassword3" class="col-lg-2 label_style">Last Name : <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box">
 <input type="text" style="text-transform: capitalize;" class="validate[required] form-control callerNameText"  id="Patient_name" name="Patient_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />
 </div>
-<label class="col-sm-1">Contact :</label>
+<label class="col-sm-1">Contact : <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone"  id="Patient_phone_no" name="Patient_phone_no" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control callerPhone"  id="Patient_phone_no" name="Patient_phone_no" maxlength="10" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<label for="inputPassword3" class="col-lg-1 label_style">Age:</label>
+<label for="inputPassword3" class="col-lg-1 label_style">Age: <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
-<input type="text" maxlength="30" style="text-transform: capitalize;" class="form-control" id="Age" name="Age"  />
+<input type="text"  style="text-transform: capitalize;" maxlength="2" class="form-control" id="Age" name="Age" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div><br>
 <div class="row">
-<label for="inputPassword3" class="col-lg-1 label_style">Gender:</label>
+<label for="inputPassword3" class="col-lg-1 label_style">Gender: <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
 <select class="validate[required] chosen-select form-control"  name="Gender" id="Gender" >
         <option value="">Gender</option>

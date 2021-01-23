@@ -48,6 +48,55 @@ class AmbulanceClass extends AbstractDB
         $patData['status']  =   '1';
         $patData['added_by'] = $arg['employee_id'];
         $patData['added_date'] = date('Y-m-d H:i:s');
+
+        if($arg['google_location'] != '')
+        {
+       $address = str_replace(" ", "+", $arg['google_location']);
+       $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&address=$address&sensor=false&region=$region");
+       $json1 = json_decode($json);
+       
+        $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+        $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+        $patData['pat_lattitude']=$lat;
+        $patData['pat_langitude']=$long;
+        }
+        die();
+        if($arg['google_pickup_location'] != '')
+        {
+        $address = str_replace(" ", "+", $arg['google_location']);
+           //  $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyD3wZTkqi05uBxq-6ef7NvnxiSWI1Jixls&address=$address&sensor=false&region=$region");
+       $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&address=$address&sensor=false&region=$region");
+       // $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region");
+        $json = json_decode($json);
+
+        $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+        $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+        $google_pickup_location_lat=$lat;
+        $google_pickup_location_long=$long;
+        }
+
+        if($arg['google_drop_location'] != '')
+        {
+        $address = str_replace(" ", "+", $arg['google_location']);
+           //  $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyD3wZTkqi05uBxq-6ef7NvnxiSWI1Jixls&address=$address&sensor=false&region=$region");
+       $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&address=$address&sensor=false&region=$region");
+       // $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region");
+        $json = json_decode($json);
+
+        $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+        $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+        $google_drop_location_lat=$lat;
+        $google_drop_location_long=$long;
+        }
+        $patData['google_pickup_location_lat']=$google_pickup_location_lat;
+        $patData['google_pickup_location_long']=$google_pickup_location_long;
+        $patData['google_drop_location_lat']=$google_drop_location_lat;
+        $patData['google_drop_location_long']=$google_drop_location_long;
+
+
         $RecordId_pat = $this->query_insert('sp_amb_patients',$patData);
         
       
@@ -87,7 +136,10 @@ class AmbulanceClass extends AbstractDB
       $createEvent['date']  =   date("Y-m-d", strtotime($arg['date']));
       $createEvent['time']  =   $arg['time'];
       $createEvent['note']  =   $arg['notes'];
-     
+      $createEvent['google_pickup_location_lat']=$google_pickup_location_lat;
+      $createEvent['google_pickup_location_long']=$google_pickup_location_long;
+      $createEvent['google_drop_location_lat']=$google_drop_location_lat;
+      $createEvent['google_drop_location_long']=$google_drop_location_long;
        $Invoice_narration='';
       $employee_record_query="SELECT hospital_id FROM sp_employees WHERE employee_id='".$arg['employee_id']."' ";
       $employeee_record = $this->fetch_array($this->query($employee_record_query));

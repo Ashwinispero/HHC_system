@@ -17,10 +17,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php include "include/scripts.php"; ?>
+<?php include "include/eventLogscripts.php"; ?>
 <link rel="stylesheet" type="text/css" href="css/pinterest-style.css" />
 <link rel="stylesheet" href="dropdown/docsupport/prism.css">
 <link rel="stylesheet" href="dropdown/chosen.css">  
 <link rel="stylesheet" href="js/jRange-master/jquery.range.css">
+
+
 <style type="text/css" media="all">
     /* fix rtl for demo */
     .chosen-rtl .chosen-drop { left: -9000px; }
@@ -56,6 +60,7 @@
   margin-left:-2%
 }
 </style>  
+
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Welcome to SPERO</title>
 </head>
@@ -82,8 +87,7 @@
 </div>
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&libraries=places"></script>
-<?php include "include/scripts.php"; ?>
-<?php include "include/eventLogscripts.php"; ?>
+
 <script>
 
       $(document).ready(function () 
@@ -208,6 +212,122 @@
 <script type="text/javascript"> 
 function SubmitDropCall(){
  //Display_Load();
+ var purpose_id = $("#CallType").val();
+ var submit = 'yes';
+ if(purpose_id==''){
+      submit = 'no';
+      bootbox.alert("<div class='msg-error'>Please select purpose of call</div>");
+      //alert('Please enter caller details.');
+      return false;
+ }
+ else if(purpose_id == '1')
+  {
+            if($("#phone_no").val() == '' )
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller phone number.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller last name.</div>");
+                return false;
+            }
+            if($("#caller_first_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller first name.</div>");
+                return false;
+            }
+            if($("#Complaint_type").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please select Chief Complaint.</div>");
+                return false;
+            }
+            if($("#Patient_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient name.</div>");
+                return false;
+            }
+            if($("#Patient_first_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient first name.</div>");
+                return false;
+            }
+            if($("#Patient_phone_no").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient phone no .</div>");
+                return false;
+            }
+            if($("#Age").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient age.</div>");
+                return false;
+            }
+            if($("#Gender").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient gender.</div>");
+                return false;
+            }
+            if($("#google_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient address.</div>");
+                return false;
+            }
+            if($("#google_pickup_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter pickup address.</div>");
+                return false;
+            }
+            if($("#google_drop_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter drop location.</div>");
+                return false;
+            }
+            if($("#selected_amb").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please select ambulance.</div>");
+                return false;
+            }
+            if($("#notes").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter notes.</div>");
+                return false;
+            }
+
+  }
+  if(submit == 'yes')
+  {
  $("#DropForm").ajaxForm({
                 beforeSend: function() 
                 {
@@ -224,6 +344,7 @@ function SubmitDropCall(){
                    Popup_Hide_Load();
                 }
            }).submit();   
+        }
 }
 
 function changeambulance(amb_no){
@@ -299,6 +420,7 @@ function Dispatch_form()
              }); 
 }  
 </script>
+
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
