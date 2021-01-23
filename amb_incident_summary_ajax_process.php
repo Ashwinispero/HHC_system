@@ -9,14 +9,12 @@
 ?>
 <?php
 if($_REQUEST['action']=="SubmitDropCall"){
-    var_dump('hello_hh');
     $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
        
         //Purpose of Call
         $CallType=$_POST['CallType'];
-        var_dump($CallType);
         //CAllerDetails
         $name=strip_tags($_POST['name']);
         $caller_first_name=strip_tags($_POST['caller_first_name']);
@@ -60,11 +58,13 @@ if($_REQUEST['action']=="SubmitDropCall"){
         $arr['Patient_name']=ucwords(strtolower($Patient_name));
         $arr['Patient_phone_no']=$Patient_phone_no;
         $arr['Age']=$Age;
+        $arr['Gender']=$Gender;
         $arr['google_location']=$_POST['google_location'];
         
         $arr['google_pickup_location']=$google_pickup_location;
         $arr['google_drop_location']=$google_drop_location;
         $arr['amb_no']=$amb_no;
+        $arr['selected_amb']=$selected_amb;
         $arr['manual_pickup_location']=$manual_pickup_location;
         $arr['manual_drop_location']=$manual_drop_location;
 

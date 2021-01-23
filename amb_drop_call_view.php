@@ -100,6 +100,15 @@ else
 </div>
 </div><br>
 <div class="row">
+<label for="inputPassword3" class="col-lg-1 label_style">Gender:</label>
+<div class="col-lg-2 input_box_first">
+<select class="validate[required] chosen-select form-control"  name="Gender" id="Gender" >
+        <option value="">Gender</option>
+        <option value='Male'>Male</option>
+        <option value='Female'>Female</option>
+        <option value='Other'>Other</option>
+    </select>
+    </div>
 <label for="inputPassword3" class="col-lg-2 label_style">Address : <span style="color:red;">*</span></label>
 <div class="col-lg-4 input_box">
         <input maxlength="100" id="google_location" name="google_location" type="text"  class="validate[required] form-control"  />   
