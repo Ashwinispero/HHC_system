@@ -31,7 +31,7 @@ $avaya_data = array(
     'call_datetime' => date('Y-m-d H:i:s'),
    'is_deleted' => '0');
    //print_r($avaya_data);
-   if($post->CallState == "R" || $post->CallState == "B"){
+   if($post->CallState == "R" || $post->CallState == "O"){
        //if($_SESSION['mode_status'] == '2'){ 
        $avaya_data['call_rinning_datetime'] = date('Y-m-d').' '.$post->CallTime;
        $avaya_data['avaya_call_time'] = $post->calltime;
