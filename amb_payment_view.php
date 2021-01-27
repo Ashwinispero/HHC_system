@@ -32,6 +32,7 @@ else
 <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
+                <th>Incident No</th>
                 <th>Call Type</th>
                 <th>Ambulance No</th>
                 <th>Patient No</th>
@@ -48,14 +49,20 @@ else
             <?php
             foreach ($recList as $recListKey => $recListValue) 
             {
-                $event_id=$recListValue['event_id']; 
+                
                 $EventIDS = base64_encode($event_id);
                 
                 echo '<tr style = "' . $complimentaryVisitStyle .'">
-                <td style = "' . $patientStyle .'">'.$event_id.' </td>
-                <td>'.$event_id.'</td>
-                <td>'.$event_id.'</td>
-                <td>'.$event_id.'</td>';
+                <td style = "' . $patientStyle .'">'.$recListValue['event_id'].' </td>
+                <td>'.$recListValue['purpose_id'].'</td>
+                <td>'.$recListValue['amb_no'].'</td>
+                <td>'.$recListValue['patient_id'].'</td>
+                <td>'.$recListValue['Complaint_type'].'</td>
+                <td>'.$recListValue['google_pickup_location'].'</td>
+                <td>'.$recListValue['google_drop_location'].'</td>
+                <td>'.$recListValue['date'].'</td>
+                <td>'.$recListValue['time'].'</td>
+                <td>'.'Action'.'</td>';
                 echo '</td>
                 </tr>';
             } 
