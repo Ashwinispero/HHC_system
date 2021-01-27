@@ -174,4 +174,14 @@ class AmbulanceClass extends AbstractDB
 
        return $EventId.'>>'.$RecordId;
     }
+    public function amb_EventList()
+    { 
+        $RecordSql="SELECT se.*,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location FROM sp_amb_events as se 
+                    LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id
+                    WHERE 1  GROUP BY se.event_id";
+       $AllRrecord = $this->fetch_all_array($RecordSql);
+            
+       return $AllRrecord;
+       
+    }
 }

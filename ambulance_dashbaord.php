@@ -1,4 +1,5 @@
-<?php   require_once 'inc_classes.php';
+<?php   
+require_once 'inc_classes.php';
         require_once "emp_authentication.php";
         require_once "classes/thumbnail_images.class.php";
         require_once "classes/SimpleImage.php";
@@ -11,6 +12,8 @@
         $employeesClass=new employeesClass();
         require_once 'classes/professionalsClass.php';
         $professionalsClass=new professionalsClass();  
+
+    
 ?>
 <html lang="en">
 <head>
@@ -80,6 +83,9 @@
 <div class="modal-body">
 <div  id="Drop_call_view" >
 <?php include "amb_drop_call_view.php"; ?>
+</div>
+<div  id="amb_payment_view" >
+<?php include "amb_payment_view.php"; ?>
 </div>
 <!--<a href="javascript:void(0);" title="Dispatch_form" onclick="Dispatch_form()"; data-toggle="tooltip" data-placement="top" title="View Log">
 <span aria-hidden="true">Ambulance Dispatch Form</span></a>  -->   
@@ -371,10 +377,13 @@ function ChangeCallType(CallType){
   if(CallType == 1 )
   {
    $("#Drop_call_view").show();
+   $("#amb_payment_view").hide();
+   
   }
   else if(CallType == 2 )
   {
     $("#Drop_call_view").hide();
+    $("#amb_payment_view").show();
   }
 }
 function Dispatch_form()

@@ -14,7 +14,7 @@ else
     <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
         <option value="">Purpose Of Call</option>
         <option value='1'>Drop Call</option>
-        <option value='2'>Hospital Transfer Call</option>
+        <option value='2'>Payment</option>
     </select>
   </div>
   </div>
