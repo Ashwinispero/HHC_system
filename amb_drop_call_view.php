@@ -217,6 +217,19 @@ else
                 </div></div>
 </div>
 <div class="line-seprator"></div>
+<div id="Block9">
+<h5 class="div_header">Payment Details</h5>
+<div class="row" style="padding-left:5px;">
+<label class="col-sm-1 label_style">View :</label>
+<div class="col-lg-2 input_box_first">
+<input type="button" class="btn btn-primary" id="submit" value="SUBMIT" onclick="return ViewPaymentDetails();">
+</div>
+<div id='payment_details' class="row">
+
+</div>
+</div>
+</div>
+<div class="line-seprator"></div>
 <div id="Block5">
 <h5 class="div_header">Ambulance Schedule Details</h5>
 <div class="row" style="padding-left:5px;">

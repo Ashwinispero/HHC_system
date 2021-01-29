@@ -84,7 +84,7 @@ require_once 'inc_classes.php';
 <div  id="Drop_call_view" >
 <?php include "amb_drop_call_view.php"; ?>
 </div>
-<div  id="amb_payment_view" >
+<div  id="amb_payment_view" style="display:none">
 <?php include "amb_payment_view.php"; ?>
 </div>
 <!--<a href="javascript:void(0);" title="Dispatch_form" onclick="Dispatch_form()"; data-toggle="tooltip" data-placement="top" title="View Log">
@@ -352,7 +352,49 @@ function SubmitDropCall(){
            }).submit();   
         }
 }
-
+function ViewPaymentDetails(){
+    var selected_amb = $("#selected_amb").val();
+    var google_pickup_location = $("#google_pickup_location").val();
+    var google_drop_location = $("#google_drop_location").val();
+    var submit = 'yes';
+    if($("#selected_amb").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select ambulance number.</div>");
+        return false;
+    }
+    if($("#google_pickup_location").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please enter pickup address.</div>");
+        return false;
+    }
+    if($("#google_drop_location").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please enter drop address.</div>");
+        return false;
+    }
+    if(submit = 'yes'){
+        var data1="selected_amb="+selected_amb+"google_pickup_location="+google_pickup_location+"google_drop_location="+google_drop_location+"selected_amb="+selected_amb+"&action=vw_payment";
+            $.ajax({
+                    url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                      $("#payment_details").html(html);
+                       
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+    }
+}
 function changeambulance(amb_no){
   var data1="amb_no="+amb_no+"&action=vw_ambulance_list";
             $.ajax({
@@ -373,7 +415,6 @@ function changeambulance(amb_no){
              }); 
 }
 function ChangeCallType(CallType){
-  alert('hi');
   if(CallType == 1 )
   {
    $("#Drop_call_view").show();
@@ -386,10 +427,9 @@ function ChangeCallType(CallType){
     $("#amb_payment_view").show();
   }
 }
-function Dispatch_form()
+function SubmitPayment(event_id)
 {
-        var status='1';
-            var data1="event_id="+status+"&action=vw_dispatch_form";
+    var data1="event_id="+event_id+"&action=vw_payment_form";
             $.ajax({
                     url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
@@ -398,29 +438,11 @@ function Dispatch_form()
                     },
                     success: function (html)
                     {
-                        alert(html);
-                        $('#vw_dispatch_form').modal({backdrop: 'static',keyboard: false}); 
+                       // alert(html);
+                        $('#vw_payment_form').modal({backdrop: 'static',keyboard: false}); 
                         $("#AllAjaxData").html(html);
                         // start work on google location on modal - 
-                        $location_input_home = $("#google_home_location");
                        
-                    var options = {
-                        //types: ['(postal_town)'],
-                        componentRestrictions: {country: 'in'}
-                    };
-                    autocomplete_home = new google.maps.places.Autocomplete($location_input_home.get(0), options);    
-                    google.maps.event.addListener(autocomplete_home, 'place_changed', function() {
-                        var datas = $("#google_home_location").val();
-                        console.log('blah');
-                      //  show_submit_data(data);
-                        return false;
-                    });
-                    
-                    // complete google location
-                        $("#viewEventDetails .modal-body").mCustomScrollbar({
-                                        setHeight:500,
-                                        //theme:"minimal-dark"
-                                });
                     },
                     complete : function()
                     {
@@ -445,7 +467,7 @@ function Dispatch_form()
     }
     </script>
   <!-- Modal Popup code start ---> 
-  <div class="modal fade" id="vw_dispatch_form"> 
+  <div class="modal fade" id="vw_payment_form"> 
         <div class="modal-dialog" style="width:1200px !important;">
           <div class="modal-content" id="AllAjaxData">
           </div><!-- /.modal-content -->

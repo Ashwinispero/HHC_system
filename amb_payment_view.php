@@ -32,16 +32,16 @@ else
 <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>Incident No</th>
-                <th>Call Type</th>
-                <th>Ambulance No</th>
-                <th>Patient No</th>
-                <th>Cief Complaint</th>
-                <th>Pickup Address</th>
-                <th>Drop Adress</th>
-                <th>Schedule Datetime</th>
-                <th>Dispatch Datetime</th>
-                <th>Action</th>
+                <th width="8%">Incident ID</th>
+                <th width="8%">Call Type</th>
+                <th width="8%">Ambulance No</th>
+                <th width="8%">Patient No</th>
+                <th width="8%">Cief Complaint</th>
+                <th width="8%">Pickup Address</th>
+                <th width="8%">Drop Adress</th>
+                <th width="8%">Schedule Datetime</th>
+                <th width="8%">Dispatch Datetime</th>
+                <th width="8%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -61,8 +61,14 @@ else
                 <td>'.$recListValue['google_pickup_location'].'</td>
                 <td>'.$recListValue['google_drop_location'].'</td>
                 <td>'.$recListValue['date'].'</td>
-                <td>'.$recListValue['time'].'</td>
-                <td>'.'Action'.'</td>';
+                <td>'.$recListValue['time'].'</td>';
+                ?>
+                <td>
+                <div class="col-sm-9 text-center">
+<input type="button" class="btn btn-primary" id="submit" value="Payment" onclick="return SubmitPayment(<?php echo $recListValue['event_id'] ; ?> );">
+</div>
+                </td>
+                <?php
                 echo '</td>
                 </tr>';
             } 
