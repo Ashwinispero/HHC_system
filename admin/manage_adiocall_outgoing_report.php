@@ -42,22 +42,22 @@
                             <input class="data-entry-search datepicker_to" placeholder="To Date" type="text" name="toDate" id="toDate_audio" value="" >                           
                         </div>
                     </div>   
-<div class="col-lg-3 marginB20 paddingl0">
+<!--<div class="col-lg-3 marginB20 paddingl0">
                         <div class="searchBox" style="width:96%;">                            
                             <select  name="hospital_name" id="hospital_id" onchange="Hospital_List();" >
                             <?php
-								$Query=mysql_query("select * from sp_hospitals ORDER BY hospital_id ASC");
-								while($row=mysql_fetch_array($Query))
-								{
+								//$Query=mysql_query("select * from sp_hospitals ORDER BY hospital_id ASC");
+								//while($row=mysql_fetch_array($Query))
+							//	{
 							?>
 							<option value="<?php echo $row['hospital_id'] ;?>" ><?php echo $row['hospital_name'];?> </option>
 							<?php
-								}
+							//	}
 							?>
 							
 							</select>
                         </div>
-                    </div>					
+                    </div>	-->				
                    
 				    <div class="col-lg-3 marginB20 paddingl0">
                              <input type="button" onclick="return search_audio_record();" value="View List" name="btn-view-schedule" class="btn btn-download">
@@ -207,7 +207,7 @@
 			
 			 var formDate_audio=document.getElementById('formDate_audio').value;
 			 var toDate_audio=document.getElementById('toDate_audio').value;
-			 var hospital_id=document.getElementById('hospital_id').value;
+			// var hospital_id=document.getElementById('hospital_id').value;
 			// var type_of_payment=document.getElementById('type_of_payment').value;
 			 
 			// var event_code=document.getElementById('event_code').value;
@@ -230,7 +230,7 @@
                    	                            document.getElementById("Audio_Report").innerHTML=xmlhttp.responseText;
 				}
 			}
-			xmlhttp.open("POST","include_audio_report.php?formDate_audio="+formDate_audio+"&toDate_audio="+toDate_audio+"&hospital_id="+hospital_id,true);
+			xmlhttp.open("POST","include_audio_in_out_report.php?formDate_audio="+formDate_audio+"&toDate_audio="+toDate_audio,true);
 			xmlhttp.send();
         }
         function vw_add_location(value)
