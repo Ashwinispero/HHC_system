@@ -194,4 +194,16 @@ class AmbulanceClass extends AbstractDB
        return $AllRrecord;
        
     }
+    public function event_payment_details($event)
+    { 
+    
+        $RecordSql="SELECT se.*,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
+                    LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
+                    LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
+                    WHERE 1 AND se.event_id = '".$event."' GROUP BY se.event_id";
+       $AllRrecord = $this->fetch_all_array($RecordSql);
+            
+       return $AllRrecord;
+       
+    }
 }

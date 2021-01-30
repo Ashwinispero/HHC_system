@@ -201,28 +201,54 @@ else if($_REQUEST['action']=='vw_terminate_form'){
 }
 else if($_REQUEST['action']=='vw_payment_form'){
     $event_id=$db->escape($_REQUEST['event_id']);
-
+    $recList= $AmbulanceClass->event_payment_details($event_id);
+    //var_dump($recList[0]['event_id']);die();
 ?>
           <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <h4 class="page-title">Payment From</h4>
+  <h4 class="page-title">Payment For <?php echo $recList[0]['event_code'] ?></h4>
   
 </div>
-
 <div class="modal-body">
 <div class="mCustomScrollbar">
 <div id="Block1">
-<h5 class="page-title">Payment Details</h5>
-<form class="row" style="padding-left:5px;">
-<label class="col-sm-1">Event ID :</label>
+<div class="row">
+<label class="col-sm-2 label_style">Total KM :<span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php if($EditedResponseArr['phone_no']) echo $EditedResponseArr['phone_no']; else echo $_POST['phone_no'];  ?>" id="phone_no" name="phone_no" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" value="<?php echo $recList[0]['total_km'] ?>" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  disabled maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<label for="inputPassword3" class="col-lg-2">Date : <span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box">
-<input type="text" id="payment_date" name="payment_date" class="form-control datepicker_from">
+<label class="col-sm-2 label_style">Total Amount :<span style="color:red;">*</span></label>
+<div class="col-lg-2 input_box_first">
+<input type="text" value="<?php echo $recList[0]['finalcost'] ?>" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  disabled maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-</form>
+</div>
+<br><br>
+<div class="row" style="padding-left:5px;">
+<label class="col-sm-1">Date  :<span style="color:red;">*</span></label>
+<div class="col-lg-2 input_box_first">
+<input type="date" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control "  />
+</div>
+<label for="inputPassword3" class="col-lg-2 label_style">Payment Type :<span style="color:red;">*</span></label>
+  <div class="col-lg-2 input_box_first">
+    <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
+        <option value="">Payment Type</option>
+        <option value='Cash'>Cash</option>
+        <option value='Cheque'>Cheque</option>
+        <option value='NEFT'>NEFT</option>
+        <option value='Card'>Card</option>
+    </select>
+  </div>
+  <label class="col-sm-2 label_style">Amount :<span style="color:red;">*</span></label>
+<div class="col-lg-2 input_box_first">
+<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-sm-12 text-center">
+<input type="button" class="btn btn-primary" id="submit" value="Submit Payment" onclick="return Submitpayment();">
+</div>
+</div>
 </div>
 
 
