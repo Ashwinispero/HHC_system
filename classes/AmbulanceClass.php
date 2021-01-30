@@ -22,7 +22,6 @@ class AmbulanceClass extends AbstractDB
     public function InsertAmbCallers($arg)
     {
         
-
       //Caller Details
         $insertData['purpose_id']  =   $arg['CallType'];
         $insertData['name']  =   $arg['name'];
@@ -34,7 +33,7 @@ class AmbulanceClass extends AbstractDB
         $insertData['status'] = '1';
          $RecordId = $this->query_insert('sp_amb_callers',$insertData);
        
-        
+       
        //Patient Details
         
         $patData['first_name']  =   $arg['Patient_first_name'];
@@ -61,7 +60,6 @@ class AmbulanceClass extends AbstractDB
         $patData['pat_lattitude']=$lat;
         $patData['pat_langitude']=$long;
         }
-        die();
         if($arg['google_pickup_location'] != '')
         {
         $address = str_replace(" ", "+", $arg['google_location']);
@@ -121,7 +119,7 @@ class AmbulanceClass extends AbstractDB
           $inc_ref_no = str_pad(date('Ymd'), 4, "0", STR_PAD_LEFT) . str_pad(($no+1), 4, "0", STR_PAD_LEFT);
       }
 
-      $createEvent['total_cost']  =   $arg['total_cost'];
+      $createEvent['finalcost']  =   $arg['finalcost'];
       $createEvent['total_km']  =   $arg['total_km'];
       $createEvent['purpose_id']  =   $arg['CallType'];
       $createEvent['event_code']  =   $inc_ref_no;

@@ -354,7 +354,25 @@ function SubmitDropCall(){
                success: function (html)
                {
                     var htmls=html.trim();
-                    alert(htmls);
+                    if (html.indexOf('SessionExpired') > -1) 
+                    {
+                        bootbox.alert("<div class='msg-error'>Your Session has been expired please try again !</div>",function()
+                        {
+                            window.location='index.php';
+                        });
+                    }
+                    else 
+                    {
+                        var values = htmls.split(">>"); 
+                        var result = values[0];
+                        var callerID = values[1];
+                       // bootbox.alert("<div class='msg-success'>Details added successfully..</div>");
+                        //window.location='ambulance_dashbaord.php';
+                        bootbox.alert('<div class="msg-success">Details added successfully..</div>', function() 
+                        {
+                            window.location='ambulance_dashbaord.php';
+                        });
+                    }
                     
                },
                 complete : function()

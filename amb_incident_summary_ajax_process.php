@@ -42,6 +42,7 @@ if($_REQUEST['action']=="SubmitDropCall"){
         $notes=strip_tags($_POST['notes']);
 
         //Payment details
+        
         $total_cost = strip_tags($_POST['total_cost']);
         $total_km = strip_tags($_POST['total_km']);
 
@@ -78,7 +79,7 @@ if($_REQUEST['action']=="SubmitDropCall"){
         $arr['hospital_id'] = $_SESSION['hospital_id'];
         $arr['employee_id']=$_SESSION['employee_id'];
 
-        $arr['total_cost'] = $total_cost;
+        $arr['finalcost'] = $total_cost;
         $arr['total_km'] = $total_km; 
 
         $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
@@ -198,10 +199,15 @@ else if($_REQUEST['action']=='vw_payment')
      }
      
      // Get latitude and longitude from the geodata
-     echo $latitudeFrom    = $outputFrom->results[0]->geometry->location->lat;
-     echo $longitudeFrom    = $outputFrom->results[0]->geometry->location->lng;
-     echo $latitudeTo        = $outputTo->results[0]->geometry->location->lat;
-     echo $longitudeTo    = $outputTo->results[0]->geometry->location->lng;
+     // $latitudeFrom    = $outputFrom->results[0]->geometry->location->lat;
+     // $longitudeFrom    = $outputFrom->results[0]->geometry->location->lng;
+     // $latitudeTo        = $outputTo->results[0]->geometry->location->lat;
+     // $longitudeTo    = $outputTo->results[0]->geometry->location->lng;
+     
+      $latitudeFrom    = 18.453038019232814;
+      $longitudeFrom    = 73.86473972256739;
+      $latitudeTo        = 18.511087639053997;
+      $longitudeTo    = 73.93255149226636;
      
      // Calculate distance between latitude and longitude
      $theta    = $longitudeFrom - $longitudeTo;
@@ -225,11 +231,10 @@ else if($_REQUEST['action']=='vw_payment')
      // ************Distance Calculation base location to pickup Start**********
     $amb_details= mysql_query("SELECT * FROM sp_ems_ambulance  where amb_no='$selected_ambumance'");
     $amb_details_row = mysql_fetch_array($amb_details) or die(mysql_error());
-    
-	 $base_latfrom=$amb_details_row['lat'];  
-	 $base_longfrom=$amb_details_row['long'];
-     $pickup_latitudeFrom = latitudeFrom;
-     $pickup_longitudeFrom = longitudeFrom;
+    $base_latfrom=$amb_details_row['lat'];  
+    $base_longfrom=$amb_details_row['long'];
+    $pickup_latitudeFrom = $latitudeFrom;
+    $pickup_longitudeFrom = $longitudeFrom;
 
      // Calculate distance between latitude and longitude
      $theta    = $base_longfrom - $pickup_longitudeFrom;
@@ -252,8 +257,8 @@ else if($_REQUEST['action']=='vw_payment')
         // ************Distance Calculation drop to base location start **********
       $base_latto=$amb_details_row['lat'];
       $base_longto=$amb_details_row['long'];
-      $drop_latitudeFrom = latitudeFrom;
-     $drop_longitudeFrom = longitudeFrom;
+      $drop_latitudeFrom = $latitudeFrom;
+      $drop_longitudeFrom = $longitudeFrom;
 
      // Calculate distance between latitude and longitude
      $theta    = $base_longto - $drop_longitudeFrom;
@@ -274,6 +279,7 @@ else if($_REQUEST['action']=='vw_payment')
      }
 // ************Distance Calculation drop to base location end **********
 $total_KM = $total + $total_1 + total_2;
+$total_cost = $total_KM * 10 ;
 
      ?>
 <div id="Block1">
@@ -296,7 +302,7 @@ $total_KM = $total + $total_1 + total_2;
 </div>
 <label  class="col-lg-3">Total KM : <span style="color:red;">*</span></label>
 <div class="col-lg-3 input_box_first">
-<input disabled type="text" id="total_km" name="total_km" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
+<input  type="text" id="total_km" name="total_km" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
 </div>
 </div>
 <br>
@@ -304,7 +310,7 @@ $total_KM = $total + $total_1 + total_2;
 
 <label  class="col-lg-3">Total Cost : <span style="color:red;">*</span></label>
 <div class="col-lg-3 input_box_first">
-<input disabled type="text" id="total_cost" name="total_cost" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
+<input  type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
 </div>
 </div>
 </form>
