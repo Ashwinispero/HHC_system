@@ -121,7 +121,8 @@ class AmbulanceClass extends AbstractDB
           $inc_ref_no = str_pad(date('Ymd'), 4, "0", STR_PAD_LEFT) . str_pad(($no+1), 4, "0", STR_PAD_LEFT);
       }
 
-
+      $createEvent['total_cost']  =   $arg['total_cost'];
+      $createEvent['total_km']  =   $arg['total_km'];
       $createEvent['purpose_id']  =   $arg['CallType'];
       $createEvent['event_code']  =   $inc_ref_no;
       $createEvent['caller_id'] = $RecordId;

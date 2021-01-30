@@ -330,6 +330,18 @@ function SubmitDropCall(){
                 bootbox.alert("<div class='msg-error'>Please enter notes.</div>");
                 return false;
             }
+            if($("#total_km").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Total KM Feild Blank.</div>");
+                return false;
+            }
+            if($("#total_cost").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Total Cost Feild Blank.</div>");
+                return false;
+            }
 
   }
   if(submit == 'yes')
@@ -376,7 +388,7 @@ function ViewPaymentDetails(){
         return false;
     }
     if(submit = 'yes'){
-        var data1="selected_amb="+selected_amb+"google_pickup_location="+google_pickup_location+"google_drop_location="+google_drop_location+"selected_amb="+selected_amb+"&action=vw_payment";
+        var data1="&selected_amb="+selected_amb+"&google_pickup_location="+google_pickup_location+"&google_drop_location="+google_drop_location+"&action=vw_payment";
             $.ajax({
                     url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 

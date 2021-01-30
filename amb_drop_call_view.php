@@ -224,10 +224,12 @@ else
 <div class="col-lg-2 input_box_first">
 <input type="button" class="btn btn-primary" id="submit" value="SUBMIT" onclick="return ViewPaymentDetails();">
 </div>
+
+</div>
 <div id='payment_details' class="row">
 
 </div>
-</div>
+
 </div>
 <div class="line-seprator"></div>
 <div id="Block5">

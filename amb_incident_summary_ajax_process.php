@@ -41,6 +41,10 @@ if($_REQUEST['action']=="SubmitDropCall"){
         //Other Details
         $notes=strip_tags($_POST['notes']);
 
+        //Payment details
+        $total_cost = strip_tags($_POST['total_cost']);
+        $total_km = strip_tags($_POST['total_km']);
+
 
 
         $success=1;
@@ -73,6 +77,10 @@ if($_REQUEST['action']=="SubmitDropCall"){
         $arr['notes']=$notes;
         $arr['hospital_id'] = $_SESSION['hospital_id'];
         $arr['employee_id']=$_SESSION['employee_id'];
+
+        $arr['total_cost'] = $total_cost;
+        $arr['total_km'] = $total_km; 
+
         $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
         if($InsertRecord)
                 {
@@ -163,9 +171,146 @@ else if($_REQUEST['action']=='vw_payment_form'){
 }
 else if($_REQUEST['action']=='vw_payment')
 {
-     $selected_amb=$db->escape($_REQUEST['selected_amb']);
-     $google_pickup_location=$db->escape($_REQUEST['google_pickup_location']);
-     $google_drop_location=$db->escape($_REQUEST['google_drop_location']);
+     
+     $google_pickup_location = $_REQUEST['google_pickup_location'];
+     $selected_ambumance = $_REQUEST['selected_amb'];
+      $google_drop_location = $_REQUEST['google_drop_location'];
+    
+     // ************Distance Calculation pickup to Drop Start**********
+     $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
+		
+     // Change address format
+     $formattedAddrFrom    = str_replace(' ', '+', $google_pickup_location);
+     $formattedAddrTo     = str_replace(' ', '+', $google_drop_location);
+     
+     // Geocoding API request with start address
+     $geocodeFrom = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrFrom.'&sensor=false&key='.$apiKey);
+     $outputFrom = json_decode($geocodeFrom);
+     if(!empty($outputFrom->error_message)){
+         return $outputFrom->error_message;
+     }
+     
+     // Geocoding API request with end address
+     $geocodeTo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddrTo.'&sensor=false&key='.$apiKey);
+     $outputTo = json_decode($geocodeTo);
+     if(!empty($outputTo->error_message)){
+         return $outputTo->error_message;
+     }
+     
+     // Get latitude and longitude from the geodata
+     echo $latitudeFrom    = $outputFrom->results[0]->geometry->location->lat;
+     echo $longitudeFrom    = $outputFrom->results[0]->geometry->location->lng;
+     echo $latitudeTo        = $outputTo->results[0]->geometry->location->lat;
+     echo $longitudeTo    = $outputTo->results[0]->geometry->location->lng;
+     
+     // Calculate distance between latitude and longitude
+     $theta    = $longitudeFrom - $longitudeTo;
+     $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+     $dist    = acos($dist);
+     $dist    = rad2deg($dist);
+     $miles    = $dist * 60 * 1.1515;
+     
+     // Convert unit and return distance
+     $unit = 'K';
+     $unit = strtoupper($unit);
+     if($unit == "K"){
+             $total = round($miles * 1.609344, 2);
+     }elseif($unit == "M"){
+             $total =  round($miles * 1609.344, 2).' meters';
+     }else{
+             $total =  round($miles, 2).' miles';
+     }
+    // ***********Distance Calculation pickup to Drop END***************
+  
+     // ************Distance Calculation base location to pickup Start**********
+    $amb_details= mysql_query("SELECT * FROM sp_ems_ambulance  where amb_no='$selected_ambumance'");
+    $amb_details_row = mysql_fetch_array($amb_details) or die(mysql_error());
+    
+	 $base_latfrom=$amb_details_row['lat'];  
+	 $base_longfrom=$amb_details_row['long'];
+     $pickup_latitudeFrom = latitudeFrom;
+     $pickup_longitudeFrom = longitudeFrom;
+
+     // Calculate distance between latitude and longitude
+     $theta    = $base_longfrom - $pickup_longitudeFrom;
+     $dist    = sin(deg2rad($base_latfrom)) * sin(deg2rad($pickup_latitudeFrom)) +  cos(deg2rad($base_latfrom)) * cos(deg2rad($pickup_latitudeFrom)) * cos(deg2rad($theta));
+     $dist    = acos($dist);
+     $dist    = rad2deg($dist);
+     $miles    = $dist * 60 * 1.1515;
+     
+     // Convert unit and return distance
+     $unit = 'K';
+     $unit = strtoupper($unit);
+     if($unit == "K"){
+             $total_1 = round($miles * 1.609344, 2);
+     }elseif($unit == "M"){
+             $total_1 =  round($miles * 1609.344, 2).' meters';
+     }else{
+             $total_1 =  round($miles, 2).' miles';
+     }
+     // ************Distance Calculation  base location to pickup  END************
+        // ************Distance Calculation drop to base location start **********
+      $base_latto=$amb_details_row['lat'];
+      $base_longto=$amb_details_row['long'];
+      $drop_latitudeFrom = latitudeFrom;
+     $drop_longitudeFrom = longitudeFrom;
+
+     // Calculate distance between latitude and longitude
+     $theta    = $base_longto - $drop_longitudeFrom;
+     $dist    = sin(deg2rad($base_latto)) * sin(deg2rad($drop_latitudeFrom)) +  cos(deg2rad($base_latto)) * cos(deg2rad($drop_latitudeFrom)) * cos(deg2rad($theta));
+     $dist    = acos($dist);
+     $dist    = rad2deg($dist);
+     $miles    = $dist * 60 * 1.1515;
+     
+     // Convert unit and return distance
+     $unit = 'K';
+     $unit = strtoupper($unit);
+     if($unit == "K"){
+             $total_2 = round($miles * 1.609344, 2);
+     }elseif($unit == "M"){
+             $total_2 =  round($miles * 1609.344, 2).' meters';
+     }else{
+             $total_2 =  round($miles, 2).' miles';
+     }
+// ************Distance Calculation drop to base location end **********
+$total_KM = $total + $total_1 + total_2;
+
+     ?>
+<div id="Block1">
+<form  style="padding-left:5px;">
+<div class="row">
+<label class="col-sm-3 ">Pickup Location to Drop Location:</label>
+<div class="col-lg-3 input_box_first">
+<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total; ?> " />
+</div>
+<label class="col-sm-3">Base locatin  to Pickup Location:</label>
+<div class="col-lg-3 input_box_first">
+<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_1; ?> " />
+</div>
+</div>
+<br>
+<div class="row">
+<label class="col-sm-3">Drop Location to base Location:</label>
+<div class="col-lg-3 input_box_first">
+<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_2; ?> " />
+</div>
+<label  class="col-lg-3">Total KM : <span style="color:red;">*</span></label>
+<div class="col-lg-3 input_box_first">
+<input disabled type="text" id="total_km" name="total_km" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
+</div>
+</div>
+<br>
+<div class="row">
+
+<label  class="col-lg-3">Total Cost : <span style="color:red;">*</span></label>
+<div class="col-lg-3 input_box_first">
+<input disabled type="text" id="total_cost" name="total_cost" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
+</div>
+</div>
+</form>
+</div>
+
+     <?php
 }
 else if($_REQUEST['action']=='vw_dispatch_form')
     {
