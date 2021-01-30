@@ -29,19 +29,19 @@ else
   </div>
 </div>
 <div class="line-seprator"></div>
-<table id="logTable" class="table table-striped" cellspacing="0" width="100%">
+<table border="1" id="logTable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th width="8%">Incident ID</th>
-                <th width="8%">Call Type</th>
-                <th width="8%">Ambulance No</th>
-                <th width="8%">Patient No</th>
-                <th width="8%">Cief Complaint</th>
-                <th width="8%">Pickup Address</th>
-                <th width="8%">Drop Adress</th>
-                <th width="8%">Schedule Datetime</th>
-                <th width="8%">Dispatch Datetime</th>
-                <th width="8%">Action</th>
+                <th style="text-align: center;" width="8%">Incident ID</th>
+                <th style="text-align: center;" width="5%">Call Type</th>
+                <th style="text-align: center;" width="8%">Ambulance No</th>
+                <th style="text-align: center;" width="8%">Patient No</th>
+                <th style="text-align: center;" width="8%">Cief Complaint</th>
+                <th  style="text-align: center;" width="8%">Pickup Address</th>
+                <th style="text-align: center;" width="8%">Drop Adress</th>
+                <th style="text-align: center;" width="8%">Schedule Date </th>
+                <th style="text-align: center;" width="5%">Datetime</th>
+                <th style="text-align: center;" width="3%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -49,15 +49,17 @@ else
             <?php
             foreach ($recList as $recListKey => $recListValue) 
             {
-                
-                $EventIDS = base64_encode($event_id);
-                
+                if($recListValue['purpose_id'] == '1'){
+                  $purpose = 'Drop Call';
+                }else if($recListValue['purpose_id'] == '2'){
+                  $purpose = 'Payment Call';
+                }
                 echo '<tr style = "' . $complimentaryVisitStyle .'">
-                <td style = "' . $patientStyle .'">'.$recListValue['event_id'].' </td>
-                <td>'.$recListValue['purpose_id'].'</td>
-                <td>'.$recListValue['amb_no'].'</td>
-                <td>'.$recListValue['patient_id'].'</td>
-                <td>'.$recListValue['Complaint_type'].'</td>
+                <td style = "' . $patientStyle .'">'.$recListValue['event_code'].' </td>
+                <td>'.$purpose.'</td>
+                <td>'.$recListValue['selected_amb'].'</td>
+                <td>'.$recListValue['first_name'].' '.$recListValue['name'].'</td>
+                <td>'.$recListValue['ct_type'].'</td>
                 <td>'.$recListValue['google_pickup_location'].'</td>
                 <td>'.$recListValue['google_drop_location'].'</td>
                 <td>'.$recListValue['date'].'</td>
