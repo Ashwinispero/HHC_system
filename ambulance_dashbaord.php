@@ -219,6 +219,15 @@ require_once 'inc_classes.php';
 function SubmitDropCall(){
  //Display_Load();
  var purpose_id = $("#CallType").val();
+
+ var terminatevalue = $("#terminatevalue_old").val();
+ //alert(terminatevalue);
+ if(terminatevalue == 'yes'){
+    document.getElementById("terminate_reason_id").value = $("#terminate_reason_id_old").val();
+    document.getElementById("notes_terminate").value = $("#notes_terminate_old").val();
+    document.getElementById("terminatevalue").value = $("#terminatevalue_old").val();
+ }
+ 
  var submit = 'yes';
  if(purpose_id==''){
       submit = 'no';
@@ -343,7 +352,7 @@ function SubmitDropCall(){
                 return false;
             }
 
-  }
+  } 
   if(submit == 'yes')
   {
  $("#DropForm").ajaxForm({
@@ -456,6 +465,159 @@ function ChangeCallType(CallType){
     $("#Drop_call_view").hide();
     $("#amb_payment_view").show();
   }
+}
+function Terminatecall(){
+    var purpose_id = $("#CallType").val();
+ var submit = 'yes'; 
+ if(purpose_id==''){
+      submit = 'no';
+      bootbox.alert("<div class='msg-error'>Please select purpose of call</div>");
+      //alert('Please enter caller details.');
+      return false;
+ }
+ else if(purpose_id == '1')
+  {
+            if($("#phone_no").val() == '' )
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller phone number.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller name.</div>");
+                return false;
+            }
+            if($("#name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller last name.</div>");
+                return false;
+            }
+            if($("#caller_first_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter caller first name.</div>");
+                return false;
+            }
+            if($("#Complaint_type").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please select Chief Complaint.</div>");
+                return false;
+            }
+            if($("#Patient_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient name.</div>");
+                return false;
+            }
+            if($("#Patient_first_name").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient first name.</div>");
+                return false;
+            }
+            if($("#Patient_phone_no").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient phone no .</div>");
+                return false;
+            }
+            if($("#Age").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient age.</div>");
+                return false;
+            }
+            if($("#Gender").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient gender.</div>");
+                return false;
+            }
+            if($("#google_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter patient address.</div>");
+                return false;
+            }
+            if($("#google_pickup_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter pickup address.</div>");
+                return false;
+            }
+            if($("#google_drop_location").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter drop location.</div>");
+                return false;
+            }
+            if($("#selected_amb").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please select ambulance.</div>");
+                return false;
+            }
+            if($("#notes").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Please enter notes.</div>");
+                return false;
+            }
+            if($("#total_km").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Total KM Feild Blank.</div>");
+                return false;
+            }
+            if($("#total_cost").val() == '')
+            {
+                submit = 'no';
+                bootbox.alert("<div class='msg-error'>Total Cost Feild Blank.</div>");
+                return false;
+            }
+
+  } 
+  if(submit == 'yes'){
+
+  
+    var status = 2 ;
+    var data1="status="+status+"&action=vw_terminate_form";
+            $.ajax({
+                    url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       // alert(html);
+                        $('#vw_payment_form').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData").html(html);
+                        // start work on google location on modal - 
+                       
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+}
 }
 function SubmitPayment(event_id)
 {

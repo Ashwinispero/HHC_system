@@ -12,7 +12,12 @@ if($_REQUEST['action']=="SubmitDropCall"){
     $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
-       
+        //terminate call
+        $terminatevalue=$_POST['terminatevalue'];
+        $notes_terminate = $_POST['notes_terminate'];
+        $terminate_reason_id =  $_POST['terminate_reason_id'];
+        
+        
         //Purpose of Call
         $CallType=$_POST['CallType'];
         //CAllerDetails
@@ -49,6 +54,10 @@ if($_REQUEST['action']=="SubmitDropCall"){
 
 
         $success=1;
+        $arr['terminatevalue'] = $terminatevalue;
+        $arr['notes_terminate'] = $notes_terminate ;
+        $arr['terminate_reason_id'] = $terminate_reason_id;
+
         $arr['CallType']=$CallType;
         $arr['name']=ucwords(strtolower($name));
         $arr['caller_first_name']=ucwords(strtolower($caller_first_name));
@@ -136,6 +145,59 @@ else if($_REQUEST['action']=="vw_ambulance_list"){
             </tbody>
             </table>
 <?php
+}
+else if($_REQUEST['action']=='vw_terminate_form'){
+    $status=$db->escape($_REQUEST['status']);
+    ?>
+    <form class="form-horizontal" name="DropForm" id="DropForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitDropCall">
+            <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4 class="page-title" style="align:center">Terminate From</h4>
+  
+</div>
+<div class="modal-body">
+<div class="mCustomScrollbar">
+<div class="row" style="padding-left:5px;">
+<label for="inputPassword3" class="col-lg-3 label_style">Termination Reason :<span style="color:red;">*</span></label>
+<div class="col-lg-4 input_box_first">
+                          <!--<input type="text" class="form-control" id="relation" name="relation" maxlength="30" >-->
+                          <!--<label class="select-box-lbl">-->
+                              <select class="chosen-select form-control"  name="terminate_reason_id_old" id="terminate_reason_id_old" >
+                                <option value="">Termination Reason</option>
+                                <?php
+                                    $selectRecord = "SELECT reason,id FROM sp_amb_termination_reason WHERE status='1' ORDER BY reason ASC";
+                                    $AllRrecord = $db->fetch_all_array($selectRecord);
+                                    foreach($AllRrecord as $key=>$valRecords)
+                                    {
+                                        echo '<option value="'.$valRecords['id'].'">'.$valRecords['reason'].'</option>';
+                                    }
+                                ?>
+                            </select>
+                          <!--</label>-->
+                      </div>
+  </div>
+  <input type="hidden"  class="validate[required,minSize[1],maxSize[1]] form-control" value="yes" id="terminatevalue_old" name="terminatevalue_old" />
+  <br>
+  <div class="row" style="padding-left:5px;">
+
+<label for="inputPassword3" class="col-lg-3 label_style">Other Notes: <span style="color:red;">*</span></label>
+<div class="col-lg-2 input_box">
+<textarea id="notes_terminate_old" name="notes_terminate_old" rows="4" cols="80"></textarea>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-sm-12 text-center">
+<input type="button" class="btn btn-primary" id="submit" value="Terminate Call" onclick="return SubmitDropCall();">
+</div>
+</div>
+
+
+
+</div>
+</div>
+</div>
+    <?php
 }
 else if($_REQUEST['action']=='vw_payment_form'){
     $event_id=$db->escape($_REQUEST['event_id']);

@@ -118,7 +118,17 @@ class AmbulanceClass extends AbstractDB
           $no = '0000';
           $inc_ref_no = str_pad(date('Ymd'), 4, "0", STR_PAD_LEFT) . str_pad(($no+1), 4, "0", STR_PAD_LEFT);
       }
+      
 
+       if( $arg['terminatevalue'] == 'yes' ){
+          $createEvent['event_status']  = '2';
+          $createEvent['notes_terminate']  =   $arg['notes_terminate']  ;
+         $createEvent['terminate_reason_id']  =   $arg['terminate_reason_id'] ;
+      } else{
+        $createEvent['event_status'] = '1';  
+        $createEvent['notes_terminate']  =   '' ;
+         $createEvent['terminate_reason_id']  =   '' ;
+      }
       $createEvent['finalcost']  =   $arg['finalcost'];
       $createEvent['total_km']  =   $arg['total_km'];
       $createEvent['purpose_id']  =   $arg['CallType'];

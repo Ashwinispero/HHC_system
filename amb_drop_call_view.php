@@ -6,6 +6,10 @@ else
 { ?>
 
 <form class="form-horizontal" name="DropForm" id="DropForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitDropCall">
+<input type="hidden"  class="form-control"  id="notes_terminate" name="notes_terminate" />
+<input type="hidden"   class="form-control"  id="terminate_reason_id" name="terminate_reason_id" />
+<input type="hidden"   class="form-control"  id="terminatevalue" name="terminatevalue" />
+
 <div id="Block9">
 <h1 class="div_header">Call Type</h1>
 <div class="row" style="padding-left:5px;">
@@ -247,16 +251,20 @@ else
 </div>
 <div class="line-seprator"></div>
 <div id="col-lg-12 Block6">
+<div class="row">
 <h1 class="div_header">Other Details</h1>
 <label for="inputPassword3" class="col-lg-2 label_style">Notes: <span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box">
 <textarea id="notes" name="notes" rows="4" cols="80"></textarea>
 </div>
 </div>
+<br>
+</div>
 <div id="col-lg-12 Block8">
 <div class="row">
-<div class="col-sm-9 text-center">
-<input type="button" class="btn btn-primary" id="submit" value="SUBMIT" onclick="return SubmitDropCall();">
+<div class="col-sm-12 text-center">
+<input type="button" class="btn btn-primary" id="submit" value="Dispatch Call" onclick="return SubmitDropCall();">
+<input type="button" class="btn btn-primary" id="submit" value="Terminate Call" onclick="return Terminatecall();">
 </div>
 </div>
 </div>
