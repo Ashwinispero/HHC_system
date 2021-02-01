@@ -702,6 +702,31 @@ function Terminatecall(){
              }); 
 }
 }
+function Submitpayment_details(event_id){
+    var submit = 'yes'; 
+    if($("#payment_date").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select Date.</div>");
+         return false;
+    }
+    else if($("#PaymentType").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select Payment Type</div>");
+        return false;
+    }
+    else if($("#amount").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Enter Amount</div>");
+        return false;
+    }
+    if(submit == 'yes'){
+
+    }
+ 
+}
 function SubmitPayment(event_id)
 {
     var data1="event_id="+event_id+"&action=vw_payment_form";
