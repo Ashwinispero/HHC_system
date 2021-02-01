@@ -422,8 +422,14 @@ function ChangepaymentType(){
        $("#card").hide();
     }
 }
-function ViewPaymentDetails(){
-    var selected_amb = $("#selected_amb").val();
+function cbChange(obj) {
+    var cbs = document.getElementsByClassName("check_class");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+
+    var selected_amb =$('.check_class:checked').val();
     var google_pickup_location = $("#google_pickup_location").val();
     var google_drop_location = $("#google_drop_location").val();
     var submit = 'yes';
@@ -465,6 +471,52 @@ function ViewPaymentDetails(){
              }); 
     }
 }
+/*
+function ViewPaymentDetails(){
+    //var selected_amb = $(".check_class").val();
+    
+    var selected_amb =$('.check_class:checked').val();
+    var google_pickup_location = $("#google_pickup_location").val();
+    var google_drop_location = $("#google_drop_location").val();
+    var submit = 'yes';
+    if($("#selected_amb").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select ambulance number.</div>");
+        return false;
+    }
+    if($("#google_pickup_location").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please enter pickup address.</div>");
+        return false;
+    }
+    if($("#google_drop_location").val() == '' )
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please enter drop address.</div>");
+        return false;
+    }
+    if(submit = 'yes'){
+        var data1="&selected_amb="+selected_amb+"&google_pickup_location="+google_pickup_location+"&google_drop_location="+google_drop_location+"&action=vw_payment";
+            $.ajax({
+                    url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                      $("#payment_details").html(html);
+                       
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+    }
+}*/
 function changeambulance(amb_no){
   var data1="amb_no="+amb_no+"&action=vw_ambulance_list";
             $.ajax({

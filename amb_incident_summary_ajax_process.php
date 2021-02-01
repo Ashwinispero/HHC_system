@@ -310,7 +310,7 @@ else if($_REQUEST['action']=='vw_payment')
      
      $google_pickup_location = $_REQUEST['google_pickup_location'];
      $selected_ambumance = $_REQUEST['selected_amb'];
-      $google_drop_location = $_REQUEST['google_drop_location'];
+     $google_drop_location = $_REQUEST['google_drop_location'];
     
      // ************Distance Calculation pickup to Drop Start**********
      $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
@@ -368,6 +368,8 @@ else if($_REQUEST['action']=='vw_payment')
     $amb_details_row = mysql_fetch_array($amb_details) or die(mysql_error());
     $base_latfrom=$amb_details_row['lat'];  
     $base_longfrom=$amb_details_row['long'];
+    $cost_per_km=$amb_details_row['cost_per_km'];
+
     $pickup_latitudeFrom = $latitudeFrom;
     $pickup_longitudeFrom = $longitudeFrom;
 
@@ -388,12 +390,12 @@ else if($_REQUEST['action']=='vw_payment')
      }else{
              $total_1 =  round($miles, 2).' miles';
      }
-     // ************Distance Calculation  base location to pickup  END************
+    // ************Distance Calculation  base location to pickup  END************
         // ************Distance Calculation drop to base location start **********
       $base_latto=$amb_details_row['lat'];
       $base_longto=$amb_details_row['long'];
-      $drop_latitudeFrom = $latitudeFrom;
-      $drop_longitudeFrom = $longitudeFrom;
+      $drop_latitudeFrom = $latitudeTo;
+      $drop_longitudeFrom = $longitudeTo;
 
      // Calculate distance between latitude and longitude
      $theta    = $base_longto - $drop_longitudeFrom;
@@ -413,11 +415,16 @@ else if($_REQUEST['action']=='vw_payment')
              $total_2 =  round($miles, 2).' miles';
      }
 // ************Distance Calculation drop to base location end **********
-$total_KM = $total + $total_1 + total_2;
-$total_cost = $total_KM * 10 ;
+$total_KM = $total + $total_1 + $total_2;
+
+$total_cost = $total_KM * $cost_per_km ;
 
      ?>
+     <div class="line-seprator"></div>
 <div id="Block1">
+<div class="row" style="padding-left:5px;">
+<h5 class="div_header">Payment Details</h5>
+<div>
 <form  style="padding-left:5px;">
 <div class="row">
 <label class="col-sm-3 ">Pickup Location to Drop Location:</label>
@@ -437,7 +444,7 @@ $total_cost = $total_KM * 10 ;
 </div>
 <label  class="col-lg-3">Total KM : <span style="color:red;">*</span></label>
 <div class="col-lg-3 input_box_first">
-<input  type="text" id="total_km" name="total_km" value="<?php echo $total_KM; ?>" class="form-control datepicker_from">
+<input  type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
 </div>
 </div>
 <br>

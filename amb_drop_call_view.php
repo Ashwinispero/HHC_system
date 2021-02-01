@@ -183,7 +183,7 @@ else
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 
-                <input type="checkbox" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+                <input type="checkbox" class="check_class" name="selected_amb" onchange="cbChange(this)" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';
@@ -221,16 +221,16 @@ else
                 </div></div>
 </div>
 <div class="line-seprator"></div>
-<div id="Block9">
-<h5 class="div_header">Payment Details</h5>
-<div class="row" style="padding-left:5px;">
+<div id="Block9" >
+
+<!--<div class="row" style="padding-left:5px;">
 <label class="col-sm-1 label_style">View :</label>
 <div class="col-lg-2 input_box_first">
 <input type="button" class="btn btn-primary" id="submit" value="SUBMIT" onclick="return ViewPaymentDetails();">
 </div>
 
-</div>
-<div id='payment_details' class="row">
+</div>-->
+<div id='payment_details' class="row" style="padding-left:5px;">
 
 </div>
 
