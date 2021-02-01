@@ -391,6 +391,37 @@ function SubmitDropCall(){
            }).submit();   
         }
 }
+function ChangepaymentType(){
+    var PaymentType = $("#PaymentType").val();
+    if(PaymentType == 2 )
+    {
+        //Cheque
+        $("#cheque").show();
+        $("#NEFT").hide();
+       $("#card").hide();
+    }
+    else if(PaymentType == 3 )
+    {
+        //NEFT
+        $("#NEFT").show();
+        $("#cheque").hide();
+        $("#card").hide();
+    }
+    else if(PaymentType == 4 )
+    {
+        //Card
+        $("#card").show();
+        $("#cheque").hide();
+       $("#NEFT").hide();
+    }
+    else
+    {
+        //Cash
+       $("#cheque").hide();
+       $("#NEFT").hide();
+       $("#card").hide();
+    }
+}
 function ViewPaymentDetails(){
     var selected_amb = $("#selected_amb").val();
     var google_pickup_location = $("#google_pickup_location").val();

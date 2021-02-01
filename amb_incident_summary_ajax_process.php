@@ -230,19 +230,66 @@ else if($_REQUEST['action']=='vw_payment_form'){
 </div>
 <label for="inputPassword3" class="col-lg-2 label_style">Payment Type :<span style="color:red;">*</span></label>
   <div class="col-lg-2 input_box_first">
-    <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
+    <select class="validate[required] chosen-select form-control"  name="PaymentType" id="PaymentType" onchange="return ChangepaymentType(this.value);">
         <option value="">Payment Type</option>
-        <option value='Cash'>Cash</option>
-        <option value='Cheque'>Cheque</option>
-        <option value='NEFT'>NEFT</option>
-        <option value='Card'>Card</option>
+        <option value='1'>Cash</option>
+        <option value='2'>Cheque</option>
+        <option value='3'>NEFT</option>
+        <option value='4'>Card</option>
     </select>
   </div>
+ 
   <label class="col-sm-2 label_style">Amount :<span style="color:red;">*</span></label>
 <div class="col-lg-2 input_box_first">
 <input type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
+<br>
+<div  class="row" id="card" style="padding-left:25px;display:none" >
+<div class="col-lg-2 input_box_first">
+<input placeholder="Cheque/DD/NEFT NO" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first" >
+<input placeholder="date" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Party Bank Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Card No" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Transaction ID" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Narration" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+</div>
+<br>
+<div  class="row" id="cheque" style="padding-left:25px;display:none">
+<div class="col-lg-2 input_box_first">
+<input placeholder="Cheque/DD/NEFT NO" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="date" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Party Bank Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+</div>
+<br>
+<div  class="row" id="NEFT" style="padding-left:25px;display:none">
+<div class="col-lg-2 input_box_first">
+<input placeholder="Cheque/DD/NEFT NO" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="date" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2 input_box_first">
+<input placeholder="Party Bank Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+</div>
+<br><br>
 <br>
 <div class="row">
 <div class="col-sm-12 text-center">
