@@ -55,7 +55,7 @@ if($_REQUEST['action']=="SubmitPaymentCall"){
                 }
     }
 }
-if($_REQUEST['action']=="SubmitDropCall"){
+else if($_REQUEST['action']=="SubmitDropCall"){
     $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
@@ -245,6 +245,108 @@ else if($_REQUEST['action']=='vw_terminate_form'){
 </div>
 </div>
     <?php
+}
+else if($_REQUEST['action']=='vw_JobClosure_form'){
+    $event_code=$db->escape($_REQUEST['event_code']);
+    $recList= $AmbulanceClass->amb_event_details($event_code);
+    if($recList[0]['purpose_id'] == '1'){
+        $purpose = 'Drop Call';
+      }else if($recList[0]['purpose_id'] == '2'){
+        $purpose = 'Payment Call';
+      }
+    ?>
+    <form class="form-horizontal" name="PaymentForm" id="PaymentForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
+          <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4 class="page-title">Job Closure For <?php echo $event_code; ?></h4>
+  <input type="hidden"  class="form-control" value="<?php echo $event_code; ?>"; id="event_id" name="event_id" />
+</div>
+<div class="modal-body">
+<div class="mCustomScrollbar">
+<div id="Block1">
+<h3>Incident Details :</h3>
+<div class="row">
+<div class="col-lg-3">
+<label >Incident ID:  <?php  echo $recList[0]['event_code']; ?></label>
+</div>
+<div class="col-lg-3">
+<label >Date Time : <?php  echo $recList[0]['added_date']; ?></label>
+</div>
+<div class="col-lg-3">
+<label >Pupose Of Call : <?php  echo $purpose; ?></label>
+</div>
+<div class="col-lg-3">
+<label >Chief Complaint : <?php  echo $recList[0]['ct_type']; ?></label>
+</div>
+<br><br>
+</div>
+<div class="row">
+<div class="col-lg-5">
+<label > Pickup Address : <?php  echo $recList[0]['google_pickup_location']; ?></label>
+</div>
+<div class="col-lg-5">
+<label >Drop Address : <?php  echo $recList[0]['google_drop_location']; ?></label>
+</div>
+</div>
+
+</div>
+<div class="line-seprator"></div>
+<div id="Block2">
+<h3>Caller Details :</h3>
+<div class="row">
+<div class="col-lg-2">
+<label >Caller No :  <?php  echo $recList[0]['phone_no']; ?></label>
+</div>
+<div class="col-lg-2">
+<label >Caller Name : <?php  echo $recList[0]['first_name'].' '.$recList[0]['name']; ?></label>
+</div>
+</div>
+</div>
+<div class="line-seprator"></div>
+<div id="Block3">
+<h3>Patient Details :</h3>
+<div class="row">
+<div class="col-lg-2">
+<label >Patient No :  <?php  echo $recList[0]['mobile_no']; ?></label>
+</div>
+<div class="col-lg-2">
+<label >Patient Name : <?php  echo $recList[0]['first_name']. .$recList[0]['name']; ?></label>
+</div>
+<div class="col-lg-2">
+<label >Age : <?php  echo $recList[0]['Age']; ?></label>
+</div>
+<div class="col-lg-2">
+<label >Gender : <?php  echo $recList[0]['Gender']; ?></label>
+</div>
+</div>
+</div>
+<div class="line-seprator"></div>
+<div id="Block4">
+<h3>Ambulance Details :</h3>
+<div class="row">
+<div class="col-lg-2">
+<label >Ambulance No :  <?php  echo $recList[0]['selected_amb']; ?></label>
+</div>
+<div class="col-lg-2">
+<label >Ambulance type : <?php  echo $recList[0]['selected_amb']; ?></label>
+</div>
+<div class="col-lg-4">
+<label >Ambulance Location : <?php  echo $recList[0]['selected_amb']; ?></label>
+</div>
+
+</div>
+</div>
+<div class="line-seprator"></div>
+<div id="Block5">
+<h3>Job Closure Details :</h3>
+
+</div>
+</div>
+
+</div>
+</div>
+</form>
+<?php
 }
 else if($_REQUEST['action']=='vw_payment_form'){
     $event_id=$db->escape($_REQUEST['event_id']);

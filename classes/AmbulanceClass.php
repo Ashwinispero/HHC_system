@@ -212,11 +212,22 @@ class AmbulanceClass extends AbstractDB
 
        return $EventId.'>>'.$RecordId;
     }
-    public function amb_EventList()
-    { 
+    public function amb_event_details($event_code)
+    {
         $RecordSql="SELECT se.*,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
                     LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
                     LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
+                    WHERE 1 AND event_status!='3' AND event_code = '".$event_code."' GROUP BY se.event_id";
+       $AllRrecord = $this->fetch_all_array($RecordSql);
+            
+       return $AllRrecord;
+    }
+    public function amb_EventList()
+    { 
+        $RecordSql="SELECT se.*,sp.first_name,cl.phone_no,cl.first_name,cl.name,sp.name,sp.Gender,sp.Age,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
+                    LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
+                    LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
+                    LEFT JOIN sp_amb_callers as cl ON cl.caller_id = se.caller_id 
                     WHERE 1 AND event_status!='3' GROUP BY se.event_id";
        $AllRrecord = $this->fetch_all_array($RecordSql);
             

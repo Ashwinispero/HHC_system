@@ -758,6 +758,29 @@ function Submitpayment_details(event_id){
     }
  
 }
+function SubmitJobClosure(event_code)
+{
+    var data1="event_code="+event_code+"&action=vw_JobClosure_form";
+            $.ajax({
+                    url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       // alert(html);
+                        $('#vw_payment_form').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData").html(html);
+                        // start work on google location on modal - 
+                       
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+}
 function SubmitPayment(event_id)
 {
     var data1="event_id="+event_id+"&action=vw_payment_form";

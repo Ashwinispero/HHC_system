@@ -81,7 +81,7 @@ else
                   ?>
                   
                   <div class="col-sm-9 text-center">
-                  <input type="button" class="btn btn-primary" id="Job Closure" value="Job Closure" onclick="return SubmitPayment(<?php echo $recListValue['event_id'] ; ?> );">
+                  <input type="button" class="btn btn-primary" id="Job_Closure" value="Job Closure" onclick="return SubmitJobClosure(<?php echo $recListValue['event_code'] ; ?> );">
                   </div>
                   
                   <?php
