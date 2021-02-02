@@ -23,7 +23,7 @@ else
     <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
         <option value="">Purpose Of Call</option>
         <option value='1'>Drop Call</option>
-        <option value='2'>Payment</option>
+        <option value='2'>Payment & Job Closure</option>
     </select>
   </div>
   </div>
@@ -66,10 +66,29 @@ else
                 <td>'.$recListValue['time'].'</td>';
                 ?>
                 <td>
-                <div class="col-sm-9 text-center">
-<input type="button" class="btn btn-primary" id="submit" value="Payment" onclick="return SubmitPayment(<?php echo $recListValue['event_id'] ; ?> );">
-</div>
+                <?php 
+                if($recListValue['event_status']=='1')
+                {
+                  ?>
+                  
+                  <div class="col-sm-9 text-center">
+                  <input type="button" class="btn btn-primary" id="submit" value="Payment" onclick="return SubmitPayment(<?php echo $recListValue['event_id'] ; ?> );">
+                  </div>
+                  
+                  <?php
+                }
+                else if($recListValue['event_status']=='2'){
+                  ?>
+                  
+                  <div class="col-sm-9 text-center">
+                  <input type="button" class="btn btn-primary" id="Job Closure" value="Job Closure" onclick="return SubmitPayment(<?php echo $recListValue['event_id'] ; ?> );">
+                  </div>
+                  
+                  <?php
+                }
+                ?>
                 </td>
+                
                 <?php
                 echo '</td>
                 </tr>';

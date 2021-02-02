@@ -38,7 +38,15 @@ class AmbulanceClass extends AbstractDB
         $insertData['added_by']  =   $arg['employee_id'];
         $insertData['status'] = '1';
         $insertData['added_date'] = date('Y-m-d H:i:s');
+
+
+        $updateData['event_status'] = '2';
+        $where = "event_code ='".$arg['event_id']."' ";
+        $this->query_update('sp_amb_events',$updateData,$where);
+
         $RecordId = $this->query_insert('sp_amb_payment',$insertData);
+
+        
     }
     public function InsertAmbCallers($arg)
     {
@@ -209,7 +217,7 @@ class AmbulanceClass extends AbstractDB
         $RecordSql="SELECT se.*,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
                     LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
                     LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
-                    WHERE 1  GROUP BY se.event_id";
+                    WHERE 1 AND event_status!='3' GROUP BY se.event_id";
        $AllRrecord = $this->fetch_all_array($RecordSql);
             
        return $AllRrecord;
