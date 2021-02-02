@@ -19,6 +19,27 @@ class AmbulanceClass extends AbstractDB
     {
         parent::close();
     }
+    public function InsertPayment($arg)
+    {
+       
+        $insertData['event_code']  =   $arg['event_id'];
+        $insertData['payment_date']  =   $arg['payment_date'];
+        $insertData['PaymentType']  =   $arg['PaymentType'];
+        $insertData['amount']  =   $arg['amount'];
+
+        $insertData['Cheque_DD_NEFTNO']  =   $arg['Cheque_DD_NEFTNO'];
+        $insertData['Party_Bank_Name']  =   $arg['Party_Bank_Name'] ;
+        $insertData['card_no']  =   $arg['card_no'];
+
+        $insertData['Transaction_ID']  =   $arg['Transaction_ID'];
+        $insertData['narration']  =   $arg['narration'];
+        
+        $insertData['hospital_id']  =   $arg['hospital_id'];
+        $insertData['added_by']  =   $arg['employee_id'];
+        $insertData['status'] = '1';
+        $insertData['added_date'] = date('Y-m-d H:i:s');
+        $RecordId = $this->query_insert('sp_amb_payment',$insertData);
+    }
     public function InsertAmbCallers($arg)
     {
         

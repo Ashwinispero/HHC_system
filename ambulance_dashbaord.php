@@ -723,7 +723,38 @@ function Submitpayment_details(event_id){
         return false;
     }
     if(submit == 'yes'){
-
+        $("#PaymentForm").ajaxForm({
+                beforeSend: function() 
+                {
+                     Popup_Display_Load();
+                }, 
+               success: function (html)
+               {
+                    var htmls=html.trim();
+                    if (html.indexOf('SessionExpired') > -1) 
+                    {
+                        bootbox.alert("<div class='msg-error'>Your Session has been expired please try again !</div>",function()
+                        {
+                            window.location='index.php';
+                        });
+                    }
+                    else 
+                    {
+                        var values = htmls.split(">>"); 
+                        var result = values[0];
+                        var callerID = values[1];
+                        bootbox.alert('<div class="msg-success">Payment Details added successfully..</div>', function() 
+                        {
+                            window.location='ambulance_dashbaord.php';
+                        });
+                    }
+                    
+               },
+                complete : function()
+                {
+                   Popup_Hide_Load();
+                }
+           }).submit();  
     }
  
 }
