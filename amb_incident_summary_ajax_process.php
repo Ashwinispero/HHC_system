@@ -266,26 +266,47 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <div id="Block1">
 <h3>Incident Details :</h3>
 <div class="row">
-<div class="col-lg-3">
-<label >Incident ID:  <?php  echo $recList[0]['event_code']; ?></label>
+<div class="col-lg-4">
+<label class="col-lg-4">Incident ID:</label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
 </div>
-<div class="col-lg-3">
-<label >Date Time : <?php  echo $recList[0]['added_date']; ?></label>
 </div>
-<div class="col-lg-3">
-<label >Pupose Of Call : <?php  echo $purpose; ?></label>
+<div class="col-lg-4">
+<label  class="col-lg-4" >Date Time : </label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
 </div>
-<div class="col-lg-3">
-<label >Chief Complaint : <?php  echo $recList[0]['ct_type']; ?></label>
 </div>
-<br><br>
+<div class="col-lg-4">
+<label  class="col-lg-4" >Pupose Of Call : </label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $purpose; ?>" />
 </div>
+</div>
+</div>
+<br>
 <div class="row">
-<div class="col-lg-5">
-<label > Pickup Address : <?php  echo $recList[0]['google_pickup_location']; ?></label>
+<div class="col-lg-4">
+<label  class="col-lg-4">Chief Complaint : </label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['ct_type']; ?>" />
 </div>
-<div class="col-lg-5">
-<label >Drop Address : <?php  echo $recList[0]['google_drop_location']; ?></label>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-lg-6">
+<label  class="col-lg-4"> Pickup Address :</label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php  echo $recList[0]['google_pickup_location']; ?>" />
+</div>
+</div>
+<div class="col-lg-6">
+<label class="col-lg-4">Drop Address : </label>
+<div class="col-lg-8">
+<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['google_drop_location']; ?>" />
+</div>
 </div>
 </div>
 
@@ -310,7 +331,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <label >Patient No :  <?php  echo $recList[0]['mobile_no']; ?></label>
 </div>
 <div class="col-lg-2">
-<label >Patient Name : <?php  echo $recList[0]['first_name']. .$recList[0]['name']; ?></label>
+<label >Patient Name : <?php  echo $recList[0]['first_name'].' '.$recList[0]['name']; ?></label>
 </div>
 <div class="col-lg-2">
 <label >Age : <?php  echo $recList[0]['Age']; ?></label>
