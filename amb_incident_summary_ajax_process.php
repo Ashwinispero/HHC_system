@@ -474,13 +474,13 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">From Base:<span style="color:red;">*</span></label>
     <div class="col-lg-8">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    <input type="text" class="datepicker_from_base form-control"  id="Start_odo" name="Start_odo" />
     </div>
     </div>
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Pickup Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8  ">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    <input type="text" class="datepicker_from_pickup form-control" id="End_odo" name="End_odo" />
     </div>
     </div>
     </div><br>
@@ -488,13 +488,13 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Drop Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8  ">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    <input type="text" class="datepicker_to_drop form-control" id="End_odo" name="End_odo"  />
     </div>
     </div>
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Base Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    <input type="text" class="datepicker_to_base form-control"  id="Start_odo" name="Start_odo"  />
     </div>
     </div>
   </div>
@@ -524,6 +524,114 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <input type="button" class="btn btn-primary" id="submit" value="Submit JobClosure" onclick="return SubmitJobClosure();">
 </div>
 </div>
+<script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
+    <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    var config = {
+      '.chosen-select'           : {width:"99%"},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+
+    $(document).ready(function() 
+    {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var firstDayPrevMonth = new Date(y,m-1,1);
+        $('.datepicker_from_base').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        minDate:firstDayPrevMonth,
+        maxDate:lastDay,
+        onSelect: function(selected)
+        {
+           $(".datepicker_from_base").datepicker("option","minDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus();
+        }
+
+    });
+    $('.datepicker_from_pickup').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        minDate:firstDayPrevMonth,
+        maxDate:lastDay,
+        onSelect: function(selected)
+        {
+           $(".datepicker_from_pickup").datepicker("option","minDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus();
+        }
+
+    });
+
+    $('.datepicker_to_drop').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        minDate:firstDayPrevMonth,
+        maxDate:lastDay,
+        onSelect: function(selected)
+        {
+           $(".datepicker_to_drop").datepicker("option","minDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus();
+        }
+
+    });
+    $('.datepicker_to_base').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        minDate:firstDayPrevMonth,
+        maxDate:lastDay,
+        onSelect: function(selected)
+        {
+           $(".datepicker_to_base").datepicker("option","minDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus();
+        }
+
+    });
+    
+    /* $(".datepicker_from").keypress(function(event) {event.preventDefault();});
+
+        $('.datepicker_to').datepicker({ 
+        changeMonth: true,
+        changeYear: true, 
+        dateFormat: 'dd-mm-yy',
+        maxDate:$(".datepicker_from").val()+'1 m',
+        onSelect: function(selected)
+        {
+           $(".datepicker_to").datepicker("option","maxDate", selected);     
+        },
+        onClose: function() 
+        { 
+            this.focus(); 
+          //  var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus();
+        }
+        }); */
+        //$(".datepicker_to").keypress(function(event) {event.preventDefault();});
+    });
+    
+    
+    </script>
 </form>
 <?php
 }
@@ -617,9 +725,6 @@ else if($_REQUEST['action']=='vw_payment_form'){
 </div>
 </div>
 </div>
-
-
-
 </div>
 </div>
 </form>
