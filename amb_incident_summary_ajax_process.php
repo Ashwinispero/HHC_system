@@ -310,6 +310,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </div>
     </div>
 </div>
+<!--
 <div class="line-seprator"></div>
 <div id="Block2">
     <h4>Caller Details :</h4>
@@ -389,20 +390,140 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </div>
 
     </div>
-</div>
+</div>-->
 <div class="line-seprator"></div>
 <div id="Block5">
 <h4>Job Closure Details :</h4>
 <div class="row" style="padding-left:5px;">
-<label class="col-sm-1">Provider Impression  :<span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box_first">
-<input type="date" id="payment_date"  name="payment_date" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control "  />
+<div class="col-lg-6">
+<label class="col-sm-4">Provider Impression  :<span style="color:red;">*</span></label>
+<div class="col-lg-8">
+    <select class="validate[required]  chosen-select form-control"  name="pro_id" id="pro_id">
+        <option value="">Provider Immpression</option>
+        <?php
+            $selectRecord = "SELECT * FROM sp_amb_provider_imp WHERE pro_status='1' ORDER BY pro_name ASC";
+            $AllRrecord = $db->fetch_all_array($selectRecord);
+            foreach($AllRrecord as $key=>$valRecords)
+            {
+                echo '<option value="'.$valRecords['pro_id'].'">'.$valRecords['pro_name'].'</option>';
+            }
+        ?>
+    </select>
+</div>
+</div>
+<div class="col-lg-6">
+<label class="col-sm-4">LOC :<span style="color:red;">*</span></label>
+<div class="col-lg-8">
+    <select class="validate[required] chosen-select form-control"  name="level_id" id="level_id">
+        <option value="">LOC Lavel</option>
+        <?php
+            $selectRecord = "SELECT * FROM sp_amb_loc_level  ORDER BY level_type ASC";
+            $AllRrecord = $db->fetch_all_array($selectRecord);
+            foreach($AllRrecord as $key=>$valRecords)
+            {
+                echo '<option value="'.$valRecords['level_id'].'">'.$valRecords['level_type'].'</option>';
+            }
+        ?>
+    </select>
+</div>
+<div>
+</div>
+</div>
+</div><br>
+<div class="row" style="padding-left:5px;">
+<div class="col-lg-6">
+<label class="col-sm-4"> Medicine :<span style="color:red;">*</span></label>
+<div class="col-lg-8">
+    <select class="validate[required]  chosen-select form-control"  name="med_id" id="med_id">
+        <option value="">Medicine</option>
+        <?php
+            $selectRecord = "SELECT * FROM sp_amb_inventory_medicine WHERE med_status='1' ORDER BY med_title ASC";
+            $AllRrecord = $db->fetch_all_array($selectRecord);
+            foreach($AllRrecord as $key=>$valRecords)
+            {
+                echo '<option value="'.$valRecords['med_id'].'">'.$valRecords['med_title'].'</option>';
+            }
+        ?>
+    </select>
+</div>
+</div>
+<div class="col-lg-6">
+<label class="col-sm-4">Unit & Non-Unit :<span style="color:red;">*</span></label>
+<div class="col-lg-8">
+    <select class="validate[required] chosen-select form-control"  name="inv_id" id="inv_id">
+        <option value="">Consumable & Non consumable</option>
+        <?php
+            $selectRecord = "SELECT * FROM sp_amb_inventory where inv_status='1'  ORDER BY inv_title ASC";
+            $AllRrecord = $db->fetch_all_array($selectRecord);
+            foreach($AllRrecord as $key=>$valRecords)
+            {
+                echo '<option value="'.$valRecords['inv_id'].'">'.$valRecords['inv_title'].'</option>';
+            }
+        ?>
+    </select>
+</div>
+<div>
 </div>
 </div>
 </div>
 </div>
+<div class="line-seprator"></div>
+<div id="Block6">
+<h4>Driver Parameter :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">From Base:<span style="color:red;">*</span></label>
+    <div class="col-lg-8">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">At Pickup Location:<span style="color:red;">*</span></label>
+    <div class="col-lg-8  ">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">At Drop Location:<span style="color:red;">*</span></label>
+    <div class="col-lg-8  ">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">At Base Location:<span style="color:red;">*</span></label>
+    <div class="col-lg-8">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+  </div>
+  
 </div>
-
+<div class="line-seprator"></div>
+<div id="Block7">
+<h4>Odometer Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">Start Odometer :<span style="color:red;">*</span></label>
+    <div class="col-lg-8">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">End Odometer :<span style="color:red;">*</span></label>
+    <div class="col-lg-8  ">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+    </div>
+    </div>
+    </div>
+</div>
+<br>
+<div class="row">
+<div class="col-sm-12 text-center">
+<input type="button" class="btn btn-primary" id="submit" value="Submit JobClosure" onclick="return SubmitJobClosure();">
+</div>
+</div>
 </form>
 <?php
 }
