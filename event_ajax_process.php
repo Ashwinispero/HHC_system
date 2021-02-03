@@ -33,6 +33,19 @@ if($_REQUEST['action'] == 'updatePurposeId')
         $db->query($updateEvents);
     }
 }
+elseif($_REQUEST['action'] == 'call_forword')
+{
+    $phone_no = $_REQUEST['phone_no'];
+   // $status = $_REQUEST['status'];
+    $unic_id = $_REQUEST['unic_id'];
+    $ext_no = $_REQUEST['ext_no'];
+    $disconect_remark = $_REQUEST['disconect_remark'];
+    if($status == 1){
+        $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='CNR-A' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION["CallUniqueID"]."' AND ext_no='".$ext_no."' ";
+        $db->query($updateEvents);
+       echo 'Success';
+   }
+}
 elseif($_REQUEST['action'] == 'Checkdisconnect')
 {
     $phone_no = $_REQUEST['phone_no'];

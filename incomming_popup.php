@@ -69,13 +69,13 @@ if($_REQUEST['action']=='chk_call')
         <br>
           <?php 
         }
-        else if($status == 'D' && $cl_status == '2'){ 
+        else if($status == 'CNR'){ 
         ?>
         
        
         <div class="modal-header" style="background-color: #76D7C4  ">
         <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="modal-title" align="center">Call Disconnected</span></h3>	
+        <h3 class="modal-title" align="center">Call Forword to Next User</span></h3>	
         </div>
         
         <div>
@@ -86,7 +86,9 @@ if($_REQUEST['action']=='chk_call')
         <textarea id= "disconect_remark" rows="4" cols="50"></textarea>
         </div>
         <div align="center ">
-        <button type="button" class="btn-lg btn-success" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>);">OK</button>
+       <!-- <button type="button" class="btn-lg btn-success" onclick="return disconnect_Caller(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>,<?php $args['ext_no']; ?>);">OK</button>
+        --> <button type="button" class="btn-lg btn-success" onclick="return call_forword(<?php echo $calling_phone_no; ?>,<?php echo $CallUniqueID ;?>,<?php $args['ext_no']; ?>);">OK</button>
+        
          </div>
       
         <br>
