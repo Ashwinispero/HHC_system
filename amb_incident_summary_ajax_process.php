@@ -264,108 +264,145 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <div class="modal-body">
 <div class="mCustomScrollbar">
 <div id="Block1">
-<h3>Incident Details :</h3>
-<div class="row">
-<div class="col-lg-4">
-<label class="col-lg-4">Incident ID:</label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
-</div>
-</div>
-<div class="col-lg-4">
-<label  class="col-lg-4" >Date Time : </label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
-</div>
-</div>
-<div class="col-lg-4">
-<label  class="col-lg-4" >Pupose Of Call : </label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $purpose; ?>" />
-</div>
-</div>
-</div>
-<br>
-<div class="row">
-<div class="col-lg-4">
-<label  class="col-lg-4">Chief Complaint : </label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['ct_type']; ?>" />
-</div>
-</div>
-</div>
-<br>
-<div class="row">
-<div class="col-lg-6">
-<label  class="col-lg-4"> Pickup Address :</label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php  echo $recList[0]['google_pickup_location']; ?>" />
-</div>
-</div>
-<div class="col-lg-6">
-<label class="col-lg-4">Drop Address : </label>
-<div class="col-lg-8">
-<input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['google_drop_location']; ?>" />
-</div>
-</div>
-</div>
-
+    <h4>Incident Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Incident ID:</label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label  class="col-lg-4" >Date Time : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
+    </div>
+    </div>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-lg-6">
+    <label  class="col-lg-4">Chief Complaint : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['ct_type']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label  class="col-lg-4" >Pupose Of Call : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $purpose; ?>" />
+    </div>
+    </div>
+    </div>    
+    <br>
+    <div class="row">
+    <div class="col-lg-6">
+    <label  class="col-lg-4"> Pickup Address :</label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php  echo $recList[0]['google_pickup_location']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-lg-4">Drop Address : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['google_drop_location']; ?>" />
+    </div>
+    </div>
+    </div>
 </div>
 <div class="line-seprator"></div>
 <div id="Block2">
-<h3>Caller Details :</h3>
-<div class="row">
-<div class="col-lg-2">
-<label >Caller No :  <?php  echo $recList[0]['phone_no']; ?></label>
-</div>
-<div class="col-lg-2">
-<label >Caller Name : <?php  echo $recList[0]['first_name'].' '.$recList[0]['name']; ?></label>
-</div>
-</div>
+    <h4>Caller Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Caller No : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['phone_no']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-lg-4">Caller No : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['first_name'].' '.$recList[0]['name'] ; ?>" />
+    </div>
+    </div>
+    </div>
 </div>
 <div class="line-seprator"></div>
 <div id="Block3">
-<h3>Patient Details :</h3>
-<div class="row">
-<div class="col-lg-2">
-<label >Patient No :  <?php  echo $recList[0]['mobile_no']; ?></label>
-</div>
-<div class="col-lg-2">
-<label >Patient Name : <?php  echo $recList[0]['first_name'].' '.$recList[0]['name']; ?></label>
-</div>
-<div class="col-lg-2">
-<label >Age : <?php  echo $recList[0]['Age']; ?></label>
-</div>
-<div class="col-lg-2">
-<label >Gender : <?php  echo $recList[0]['Gender']; ?></label>
-</div>
-</div>
+    <h4>Patient Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Patient No : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['mobile_no']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-lg-4">Patient Name : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['first_name'].' '.$recList[0]['name'] ; ?>" />
+    </div>
+    </div>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Age : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['Age']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-lg-4">Patient Name : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['Gender'] ; ?>" />
+    </div>
+    </div>
+    </div>
+    <br>
 </div>
 <div class="line-seprator"></div>
 <div id="Block4">
-<h3>Ambulance Details :</h3>
-<div class="row">
-<div class="col-lg-2">
-<label >Ambulance No :  <?php  echo $recList[0]['selected_amb']; ?></label>
-</div>
-<div class="col-lg-2">
-<label >Ambulance type : <?php  echo $recList[0]['selected_amb']; ?></label>
-</div>
-<div class="col-lg-4">
-<label >Ambulance Location : <?php  echo $recList[0]['selected_amb']; ?></label>
-</div>
+    <h4>Ambulance Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Ambulance No : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['selected_amb']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <label class="col-lg-4">Ambulance Type : </label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['selected_amb'] ; ?>" />
+    </div>
+    </div>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-lg-4">Ambulance Location :</label>
+    <div class="col-lg-8">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php echo $recList[0]['selected_amb']; ?>" />
+    </div>
+    </div>
 
-</div>
+    </div>
 </div>
 <div class="line-seprator"></div>
 <div id="Block5">
-<h3>Job Closure Details :</h3>
+<h4>Job Closure Details :</h4>
+<div class="row" style="padding-left:5px;">
+<label class="col-sm-1">Provider Impression  :<span style="color:red;">*</span></label>
+<div class="col-lg-2 input_box_first">
+<input type="date" id="payment_date"  name="payment_date" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control "  />
+</div>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-
-</div>
-</div>
 </form>
 <?php
 }
