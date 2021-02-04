@@ -474,13 +474,13 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">From Base:<span style="color:red;">*</span></label>
     <div class="col-lg-8">
-    <input type="text" class="datepicker_from_base form-control"  id="Start_odo" name="Start_odo" />
+    <input type="text" class="datepicker_from_base form-control"  id="datepicker_from_base" name="datepicker_from_base" />
     </div>
     </div>
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Pickup Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8  ">
-    <input type="text" class="datepicker_from_pickup form-control" id="End_odo" name="End_odo" />
+    <input type="text" class="datepicker_from_pickup form-control" id="datepicker_from_pickup" name="datepicker_from_pickup" />
     </div>
     </div>
     </div><br>
@@ -488,13 +488,13 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Drop Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8  ">
-    <input type="text" class="datepicker_to_drop form-control" id="End_odo" name="End_odo"  />
+    <input type="text" class="datepicker_to_drop form-control" id="datepicker_to_drop" name="datepicker_to_drop"  />
     </div>
     </div>
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">At Base Location:<span style="color:red;">*</span></label>
     <div class="col-lg-8">
-    <input type="text" class="datepicker_to_base form-control"  id="Start_odo" name="Start_odo"  />
+    <input type="text" class="datepicker_to_base form-control"  id="datepicker_to_base" name="datepicker_to_base"  />
     </div>
     </div>
   </div>
