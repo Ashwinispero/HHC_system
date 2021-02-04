@@ -702,7 +702,71 @@ function Terminatecall(){
              }); 
 }
 }
+function SubmitJobClosure_form(){
+    var submit = 'yes'; 
+    if($("#pro_id").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select Provider immpression dropdwon.</div>");
+         return false;
+    }
+    if($("#level_id").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select LOC dropdwon.</div>");
+         return false;
+    }
+    if($("#med_id").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select medicine dropdwon.</div>");
+         return false;
+    }
+    if($("#inv_id").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select Consumables  dropdwon.</div>");
+         return false;
+    }
+    if($("#datepicker_from_base").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select date time ..</div>");
+         return false;
+    }
+    if($("#datepicker_from_pickup").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select date time ..</div>");
+         return false;
+    }
+    if($("#datepicker_to_drop").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select date time ..</div>");
+         return false;
+    }
+    if($("#datepicker_to_base").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Select date time .</div>");
+         return false;
+    }
+    if($("#Start_odo").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Enter start odometer.</div>");
+         return false;
+    }
+    if($("#End_odo").val() == '')
+    {
+        submit = 'no';
+        bootbox.alert("<div class='msg-error'>Please Enter end odometer.</div>");
+         return false;
+    }
+}
 function Submitpayment_details(event_id){
+    
     var submit = 'yes'; 
     if($("#payment_date").val() == '')
     {

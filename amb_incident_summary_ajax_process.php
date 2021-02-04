@@ -255,11 +255,10 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         $purpose = 'Payment Call';
       }
     ?>
-    <form class="form-horizontal" name="PaymentForm" id="PaymentForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
+    <form class="form-horizontal" name="ColsureForm" id="ColsureForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
           <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="page-title">Job Closure For <?php echo $event_code; ?></h4>
-  <input type="hidden"  class="form-control" value="<?php echo $event_code; ?>"; id="event_id" name="event_id" />
 </div>
 <div class="modal-body">
 <div class="mCustomScrollbar">
@@ -269,7 +268,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label class="col-lg-4">Incident ID:</label>
     <div class="col-lg-8">
-    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
+    <input type="text" id="incident_id" name="incident_id" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
     </div>
     </div>
     <div class="col-lg-6">
@@ -297,7 +296,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <br>
     <div class="row">
     <div class="col-lg-6">
-    <label  class="col-lg-4"> Pickup Address :</label>
+    <label  class="col-lg-4">Pickup Address :</label>
     <div class="col-lg-8">
     <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php  echo $recList[0]['google_pickup_location']; ?>" />
     </div>
@@ -521,9 +520,12 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <br>
 <div class="row">
 <div class="col-sm-12 text-center">
-<input type="button" class="btn btn-primary" id="submit" value="Submit JobClosure" onclick="return SubmitJobClosure();">
+
+<input type="button" class="btn btn-primary" id="submit" value="Submit JobClosure" onclick="return SubmitJobClosure_form(<?php echo $event_code; ?>);">
 </div>
 </div>
+
+<!--
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
@@ -537,6 +539,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     for (var selector in config) {
       $(selector).chosen(config[selector]);
     }
+
 
     $(document).ready(function() 
     {
@@ -610,7 +613,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 
     });
     
-    /* $(".datepicker_from").keypress(function(event) {event.preventDefault();});
+     $(".datepicker_from").keypress(function(event) {event.preventDefault();});
 
         $('.datepicker_to').datepicker({ 
         changeMonth: true,
@@ -631,7 +634,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     });
     
     
-    </script>
+    </script>-->
 </form>
 <?php
 }
