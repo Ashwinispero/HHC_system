@@ -19,6 +19,34 @@ class AmbulanceClass extends AbstractDB
     {
         parent::close();
     }
+    public function InsertClosure($arg){
+        $insertData['incident_id']  =   $arg['incident_id'];
+        $insertData['level_id']  =   $arg['level_id'];
+        $insertData['med_id']  =   $arg['med_id'];
+        $insertData['inv_id']  =   $arg['inv_id'];
+        $insertData['datepicker_from_base']  =   $arg['datepicker_from_base'];
+        $insertData['datepicker_from_pickup']  =   $arg['datepicker_from_pickup'];
+        $insertData['datepicker_to_drop']  =   $arg['datepicker_to_drop'];
+        $insertData['datepicker_to_base']  =   $arg['datepicker_to_base'];
+        $insertData['Start_odo']  =   $arg['Start_odo'];
+        $insertData['End_odo']  =   $arg['End_odo'];
+        $insertData['remark']  =   $arg['remark'];
+        $insertData['inc_added_date']  =   $arg['inc_added_date'];
+        $insertData['pro_id']  =   $arg['pro_id'];
+
+        $insertData['hospital_id']  =   $arg['hospital_id'];
+        $insertData['added_by']  =   $arg['employee_id'];
+        $insertData['status'] = '1';
+        $insertData['added_date'] = date('Y-m-d H:i:s');
+
+        $updateData['event_status'] = '3';
+        $where = "event_code ='".$arg['incident_id']."' ";
+        $this->query_update('sp_amb_events',$updateData,$where);
+
+        $RecordId = $this->query_insert('sp_amb_jobclosure',$insertData);
+        
+        
+    }
     public function InsertPayment($arg)
     {
        

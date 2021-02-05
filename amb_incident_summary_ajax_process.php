@@ -9,6 +9,54 @@
 ?>
 <?php
 
+if($_REQUEST['action']=="SubmitJobClosureCall"){
+    $success=0;  $errors=array();  $i=0;
+    if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
+    {
+        $incident_id=$_POST['incident_id'];
+        $level_id=$_POST['level_id'];
+        $med_id=$_POST['med_id'];
+        $inv_id=$_POST['inv_id'];
+        $datepicker_from_base=$_POST['datepicker_from_base'];
+        $datepicker_from_pickup=$_POST['datepicker_from_pickup'];
+        $datepicker_to_drop=$_POST['datepicker_to_drop'];
+        $datepicker_to_base=$_POST['datepicker_to_base'];
+        $Start_odo=$_POST['Start_odo'];
+        $End_odo=$_POST['End_odo'];
+        $remark=$_POST['remark'];
+        $added_date=$_POST['added_date'];
+        $pro_id=$_POST['pro_id'];
+
+        $success=1;
+        $arr['incident_id'] = $incident_id;
+        $arr['level_id'] = $level_id ;
+        $arr['med_id'] = $med_id;
+        $arr['inv_id'] = $inv_id;
+        $arr['datepicker_from_base'] = $datepicker_from_base;
+        $arr['datepicker_from_pickup'] = $datepicker_from_pickup ;
+        $arr['datepicker_to_drop'] = $datepicker_to_drop;
+        $arr['datepicker_to_base'] = $datepicker_to_base;
+        $arr['Start_odo'] = $Start_odo;
+        $arr['End_odo'] = $End_odo ;
+        $arr['remark'] = $remark;
+        $arr['inc_added_date'] = $added_date;
+        $arr['pro_id'] = $pro_id;
+       
+        $arr['hospital_id'] = $_SESSION['hospital_id'];
+        $arr['employee_id']=$_SESSION['employee_id'];
+        $InsertRecord=$AmbulanceClass->InsertClosure($arr); 
+        if($InsertRecord)
+        {
+            echo $InsertRecord; // Insert Record
+            exit;
+        }
+        else
+        {
+            echo 'RecordExist';
+            exit;
+        }
+    }
+}
 if($_REQUEST['action']=="SubmitPaymentCall"){
     $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
@@ -255,7 +303,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         $purpose = 'Payment Call';
       }
     ?>
-    <form class="form-horizontal" name="ColsureForm" id="ColsureForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
+    <form class="form-horizontal" name="ColsureForm" id="ColsureForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitJobClosureCall">
           <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="page-title">Job Closure For <?php echo $event_code; ?></h4>
@@ -274,7 +322,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     <div class="col-lg-6">
     <label  class="col-lg-4" >Date Time : </label>
     <div class="col-lg-8">
-    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
+    <input type="text" id="added_date" name="added_date" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
     </div>
     </div>
     </div>
@@ -517,6 +565,18 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </div>
     </div>
 </div>
+<div class="line-seprator"></div>
+<div id="Block8">
+<h4>Other Details :</h4>
+    <div class="row">
+    <div class="col-lg-6">
+    <label class="col-sm-4 label_style">Remark  :<span style="color:red;">*</span></label>
+    <div class="col-lg-8">
+    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="remark" name="remark"  />
+    </div>
+    </div>
+    </div>
+</div>
 <br>
 <div class="row">
 <div class="col-sm-12 text-center">
@@ -525,7 +585,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 </div>
 </div>
 
-<!--
+
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
@@ -629,12 +689,12 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
             this.focus(); 
           //  var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus();
         }
-        }); */
+        }); 
         //$(".datepicker_to").keypress(function(event) {event.preventDefault();});
     });
     
     
-    </script>-->
+    </script>
 </form>
 <?php
 }
