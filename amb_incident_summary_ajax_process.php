@@ -599,101 +599,12 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     for (var selector in config) {
       $(selector).chosen(config[selector]);
     }
-
-
-    $(document).ready(function() 
-    {
-        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-        var firstDay = new Date(y, m, 1);
-        var lastDay = new Date(y, m + 1, 0);
-        var firstDayPrevMonth = new Date(y,m-1,1);
-        $('.datepicker_from_base').datepicker({ 
-        changeMonth: true,
-        changeYear: true, 
-        dateFormat: 'dd-mm-yy',
-        minDate:firstDayPrevMonth,
-        maxDate:lastDay,
-        onSelect: function(selected)
-        {
-           $(".datepicker_from_base").datepicker("option","minDate", selected);     
-        },
-        onClose: function() 
-        { 
-            this.focus();
-        }
-
-    });
-    $('.datepicker_from_pickup').datepicker({ 
-        changeMonth: true,
-        changeYear: true, 
-        dateFormat: 'dd-mm-yy',
-        minDate:firstDayPrevMonth,
-        maxDate:lastDay,
-        onSelect: function(selected)
-        {
-           $(".datepicker_from_pickup").datepicker("option","minDate", selected);     
-        },
-        onClose: function() 
-        { 
-            this.focus();
-        }
-
-    });
-
-    $('.datepicker_to_drop').datepicker({ 
-        changeMonth: true,
-        changeYear: true, 
-        dateFormat: 'dd-mm-yy',
-        minDate:firstDayPrevMonth,
-        maxDate:lastDay,
-        onSelect: function(selected)
-        {
-           $(".datepicker_to_drop").datepicker("option","minDate", selected);     
-        },
-        onClose: function() 
-        { 
-            this.focus();
-        }
-
-    });
-    $('.datepicker_to_base').datepicker({ 
-        changeMonth: true,
-        changeYear: true, 
-        dateFormat: 'dd-mm-yy',
-        minDate:firstDayPrevMonth,
-        maxDate:lastDay,
-        onSelect: function(selected)
-        {
-           $(".datepicker_to_base").datepicker("option","minDate", selected);     
-        },
-        onClose: function() 
-        { 
-            this.focus();
-        }
-
-    });
-    
-     $(".datepicker_from").keypress(function(event) {event.preventDefault();});
-
-        $('.datepicker_to').datepicker({ 
-        changeMonth: true,
-        changeYear: true, 
-        dateFormat: 'dd-mm-yy',
-        maxDate:$(".datepicker_from").val()+'1 m',
-        onSelect: function(selected)
-        {
-           $(".datepicker_to").datepicker("option","maxDate", selected);     
-        },
-        onClose: function() 
-        { 
-            this.focus(); 
-          //  var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus();
-        }
-        }); 
-        //$(".datepicker_to").keypress(function(event) {event.preventDefault();});
-    });
-    
-    
+</script>
+<script>
+        $('#datepicker_from_base').datetimepicker({ footer: true, modal: true });
+        $('#datepicker_from_pickup').datetimepicker({ footer: true, modal: true });
+        $('#datepicker_to_drop').datetimepicker({ footer: true, modal: true });
+        $('#datepicker_to_base').datetimepicker({ footer: true, modal: true });
     </script>
 </form>
 <?php

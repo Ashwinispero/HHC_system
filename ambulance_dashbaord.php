@@ -27,8 +27,17 @@ require_once 'inc_classes.php';
 <link rel="stylesheet" href="dropdown/chosen.css">  
 <link rel="stylesheet" href="js/jRange-master/jquery.range.css">
 
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css" media="all">
+.gj-modal .gj-picker-md {
+    border: 0;
+    top: 20% !important;
+}
+.gj-picker-md [role=header] {
+    background: #00cfcb !important;
+}
     /* fix rtl for demo */
     .chosen-rtl .chosen-drop { left: -9000px; }
     #calendar { max-width: 900px; margin: 0 auto; }
@@ -903,7 +912,9 @@ function SubmitPayment(event_id)
              }); 
 }  
 </script>
-
+<script>
+        $('#time').timepicker();
+    </script>
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
