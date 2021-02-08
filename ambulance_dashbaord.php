@@ -38,6 +38,9 @@ require_once 'inc_classes.php';
 .gj-picker-md [role=header] {
     background: #00cfcb !important;
 }
+.gj-picker-md [role=switch] {
+    background: #00cfcb !important;
+    }
     /* fix rtl for demo */
     .chosen-rtl .chosen-drop { left: -9000px; }
     #calendar { max-width: 900px; margin: 0 auto; }
