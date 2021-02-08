@@ -607,7 +607,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
         var firstDayPrevMonth = new Date(y,m-1,1);
-        $('.datepicker_from_base').datetimepicker({ 
+        $('.datepicker_from_base').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -615,7 +615,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         maxDate:lastDay,
         onSelect: function(selected)
         {
-           $(".datepicker_from_base").datetimepicker("option","minDate", selected);     
+           $(".datepicker_from_base").datepicker("option","minDate", selected);     
         },
         onClose: function() 
         { 
@@ -623,7 +623,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         }
 
     });
-    $('.datepicker_from_pickup').datetimepicker({ 
+    $('.datepicker_from_pickup').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -631,7 +631,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         maxDate:lastDay,
         onSelect: function(selected)
         {
-           $(".datepicker_from_pickup").datetimepicker("option","minDate", selected);     
+           $(".datepicker_from_pickup").datepicker("option","minDate", selected);     
         },
         onClose: function() 
         { 
@@ -640,7 +640,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 
     });
 
-    $('.datepicker_to_drop').datetimepicker({ 
+    $('.datepicker_to_drop').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -648,7 +648,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         maxDate:lastDay,
         onSelect: function(selected)
         {
-           $(".datepicker_to_drop").datetimepicker("option","minDate", selected);     
+           $(".datepicker_to_drop").datepicker("option","minDate", selected);     
         },
         onClose: function() 
         { 
@@ -656,7 +656,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         }
 
     });
-    $('.datepicker_to_base').datetimepicker({ 
+    $('.datepicker_to_base').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -664,7 +664,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         maxDate:lastDay,
         onSelect: function(selected)
         {
-           $(".datepicker_to_base").datetimepicker("option","minDate", selected);     
+           $(".datepicker_to_base").datepicker("option","minDate", selected);     
         },
         onClose: function() 
         { 
@@ -673,9 +673,9 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 
     });
     
-    // $(".datepicker_from").keypress(function(event) {event.preventDefault();});
+     $(".datepicker_from").keypress(function(event) {event.preventDefault();});
 
-      /*  $('.datepicker_to').datepicker({ 
+        $('.datepicker_to').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -689,7 +689,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
             this.focus(); 
           //  var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus();
         }
-        }); */
+        }); 
         //$(".datepicker_to").keypress(function(event) {event.preventDefault();});
     });
     

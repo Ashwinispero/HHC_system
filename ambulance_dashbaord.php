@@ -27,16 +27,7 @@ require_once 'inc_classes.php';
 <link rel="stylesheet" href="dropdown/chosen.css">  
 <link rel="stylesheet" href="js/jRange-master/jquery.range.css">
 
-<script type="text/javascript" src="js/jquery-ui.min.js"  crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js" ></script>
-<script type="text/javascript" src="js/jquery-ui-timepicker-addon-i18n.min.js" ></script>
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-  
 <style type="text/css" media="all">
     /* fix rtl for demo */
     .chosen-rtl .chosen-drop { left: -9000px; }
@@ -91,7 +82,6 @@ require_once 'inc_classes.php';
 <h2 class="page-title">Ambulance Dispatch Form</h2>
 <div class="modal-body">
 <div  id="Drop_call_view" >
-<input type="text" id="to_date"></input>
 <?php include "amb_drop_call_view.php"; ?>
 </div>
 <div  id="amb_payment_view" style="display:none">
@@ -192,7 +182,7 @@ require_once 'inc_classes.php';
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
         var firstDayPrevMonth = new Date(y,m-1,1);
-       $('.datepicker_from').datepicker({ 
+        $('.datepicker_from').datepicker({ 
         changeMonth: true,
         changeYear: true, 
         dateFormat: 'dd-mm-yy',
@@ -913,9 +903,7 @@ function SubmitPayment(event_id)
              }); 
 }  
 </script>
-<script>
-        $('#time').timepicker();
-    </script>
+
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>
     <script src="dropdown/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
