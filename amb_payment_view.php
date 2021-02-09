@@ -73,7 +73,7 @@ $recList= $AmbulanceClass->amb_EventList();
                   ?>
                   
                   <div class="col-sm-9 text-center">
-                  <input type="button" class="btn btn-primary" id="Job_Closure" value="Job Closure" onclick="return SubmitJobClosure(<?php echo $recListValue['event_code'] ; ?> );">
+                  <input type="button" class="btn btn-primary" id="Job_Closure" value="Closure" onclick="return SubmitJobClosure(<?php echo $recListValue['event_code'] ; ?> );">
                   </div>
                   
                   <?php

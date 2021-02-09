@@ -622,25 +622,24 @@ else if($_REQUEST['action']=='vw_payment_form'){
 </div>
 <div class="modal-body">
 <div class="mCustomScrollbar">
-<div id="Block1">
 <div class="row">
-<label class="col-sm-2 label_style">Total KM :<span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box_first">
+<label class="col-lg-1">Total KM :<span style="color:red;">*</span></label>
+<div class="col-lg-2">
 <input type="text" value="<?php echo $recList[0]['total_km'] ?>" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  disabled maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<label class="col-sm-2 label_style">Total Amount :<span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box_first">
+<label class="col-lg-2">Total Amount :<span style="color:red;">*</span></label>
+<div class="col-lg-2">
 <input type="text" value="<?php echo $recList[0]['finalcost'] ?>" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  disabled maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
-<br><br>
-<div class="row" style="padding-left:5px;">
-<label class="col-sm-1">Date  :<span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box_first">
+<br>
+<div class="row">
+<label class="col-lg-1">Date  :<span style="color:red;">*</span></label>
+<div class="col-lg-2">
 <input type="date" id="payment_date"  name="payment_date" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control "  />
 </div>
-<label for="inputPassword3" class="col-lg-2 label_style">Payment Type :<span style="color:red;">*</span></label>
-  <div class="col-lg-2 input_box_first">
+<label for="inputPassword3" class="col-lg-2">Payment Type :<span style="color:red;">*</span></label>
+  <div class="col-lg-2">
     <select class="validate[required] chosen-select form-control"  name="PaymentType" id="PaymentType" onchange="return ChangepaymentType(this.value);">
         <option value="">Payment Type</option>
         <option value='1'>Cash</option>
@@ -650,55 +649,53 @@ else if($_REQUEST['action']=='vw_payment_form'){
     </select>
   </div>
  
-  <label class="col-sm-2 label_style">Amount :<span style="color:red;">*</span></label>
-<div class="col-lg-2 input_box_first">
-<input type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+  <label class="col-sm-1">Amount :<span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input type="text" placeholder="Enter Amount" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="amount" name="amount" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
 <br>
 <div  class="row" id="card" style="padding-left:25px;display:none" >
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2">
 <input placeholder="Cheque/DD/NEFT NO" id="Cheque_DD_NEFTNO" name="Cheque_DD_NEFTNO" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2">
 <input placeholder="Party Bank Name" id="Party_Bank_Name" name="Party_Bank_Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2">
 <input placeholder="Card No" id="card_no" name="card_no" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2">
 <input placeholder="Transaction ID" id="Transaction_ID" name="Transaction_ID" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"   maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2">
 <input placeholder="Narration" id="narration" name="narration" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
-<br>
+
 <div  class="row" id="cheque" style="padding-left:25px;display:none">
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2 ">
 <input placeholder="Cheque/DD/NEFT NO" id="Cheque_DD_NEFTNO" name="Cheque_DD_NEFTNO" vtype="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"   maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2 ">
 <input placeholder="Party Bank Name" id="Party_Bank_Name" name="Party_Bank_Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"   maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
-<br>
+
 <div  class="row" id="NEFT" style="padding-left:25px;display:none">
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2 ">
 <input placeholder="Cheque/DD/NEFT NO" id="Cheque_DD_NEFTNO" name="Cheque_DD_NEFTNO" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"   maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-<div class="col-lg-2 input_box_first">
+<div class="col-lg-2 ">
 <input placeholder="Party Bank Name" id="Party_Bank_Name" name="Party_Bank_Name" type="text" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"   maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
-</div>
-<br><br>
-<br>
+</div><br>
 <div class="row">
 <div class="col-sm-12 text-center">
 <input type="button" class="btn btn-primary" id="submit" value="Submit Payment" onclick="return Submitpayment_details(<?php echo $event_id; ?>);">
 </div>
 </div>
-</div>
+
 </div>
 </div>
 </form>
