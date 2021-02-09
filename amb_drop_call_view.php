@@ -133,11 +133,11 @@ else
       <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
-          <th>Ambulance No</th>
+          <th>Amb No</th>
           <th>base Location</th>
           <th>Mobile No</th>
-          <th>Ambulance Type</th>
-          <th>Distance</th>
+          <th>Amb Type</th>
+          <th>ETA</th>
           <th>Status</th>
           <th>Action</th>
           </tr>
@@ -150,13 +150,33 @@ else
              $AllRrecord = $db->fetch_all_array($selectRecord);
              foreach($AllRrecord as $key=>$valRecords)
              {
+              if($valRecords['amb_type']==1)
+              {
+                $type = 'Two Wheeler';
+              }else if($valRecords['amb_type']==2)
+              {
+                $type = 'PTA';
+              }else if($valRecords['amb_type']==3)
+              {
+                $type = 'BLS';
+              }else if($valRecords['amb_type']==4)
+              {
+                $type = 'ALS';
+              }
+              if($valRecords['amb_status']==1)
+              {
+                $status = 'Available';
+              }else if($valRecords['amb_status']==2)
+              {
+                $status = 'Busy';
+              }
               echo '<tr style = "' . $complimentaryVisitStyle .'">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['base_name'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
+                <td>'.$type.'</td>
                 <td>'.$valRecords['amb_type'].'</td>
-                <td>'.$valRecords['amb_type'].'</td>
-                <td>'.$valRecords['amb_status'].'</td>
+                <td>'.$status.'</td>
                 <td>'; 
                 ?> 
                 <input type="checkbox" class="check_class" name="selected_amb" onchange="cbChange(this)" value="<?php echo $valRecords['amb_no']; ?> " >
