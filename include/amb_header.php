@@ -70,20 +70,10 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
       </div>
       <!--/.nav-collapse --> 
       <div class="navbar-collapse collapse" id="navbar">
-	   <div>
-        <?php 
-       echo $_SESSION['flag'];
-        if($_SESSION['flag'] == '1'){ ?>
-          <iframe 
-          src="http://192.168.0.131/API/Signon.php?user=<?php echo $_SESSION['first_name'];?>&exten=<?php echo $_SESSION['avaya_agentid'] ;?>&campaign=RevolTel " width="200" height="50">
-        </iframe>
-      <?php
-        }else if($_SESSION['flag'] == '2'){
-         
-        }
-        ?>
+      <h2 class="page-title">Ambulance Dispatch Form</h2>
 
-			<ul class="nav navbar-nav navbar-right">
+	  <!-- <div>
+      <ul class="nav navbar-nav navbar-right">
         <button type="button" id="hang_mode" class="btn-lg btn-danger" style="display:none" onclick="return hang_mode();"> Hang Up Mode</button>
         <?php 
          if($RequestedStatus['mode_status']=='1'){ ?>
@@ -102,7 +92,7 @@ $RequestedStatus = $employeesClass->get_emp_status($arr);
         <button type="button" id="merge_mode" class="btn-lg btn-info" style="display:none"  onclick="return merge_mode();"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Mearge call</button>
         
         </ul>
-      </div>
+      </div>-->
     </div>
     <!--/.container-fluid --> 
   </nav>

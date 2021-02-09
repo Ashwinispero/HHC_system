@@ -83,25 +83,20 @@ require_once 'inc_classes.php';
 <?php include "include/amb_header.php"; ?>
 <section>
 <div id="DispatchdDiv" style="background-color:white;">
-<div class="container-fluid" style="margin-left:2%;margin-right:2%;border: 2px solid #E8E8E8;border-radius: 8px;">
+<div class="container-fluid" style="margin-left:2%;margin-right:2%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:-1%">
 <div class="row">
-<div class="col-lg-12" style="margin-top:2%;">
+<div class="col-lg-12">
 <!--<label for="inputPassword3" class="col-lg-1 control-label">Location : <span style="color:red;">*</span></label>
 <div class="col-lg-3">
         <input maxlength="100" id="google_location" name="google_location" type="text" value="<?php if($recListResponse['locationNm']) echo $recListResponse['locationNm']; else echo $_POST['locationNm']; ?>" class="validate[required] form-control"  />   
         <input id="selcGog_Location" name="selcGog_Location" type="hidden" value="" /> 
 </div>-->
-<h2 class="page-title">Ambulance Dispatch Form</h2>
 <div class="modal-body">
 <div  id="Drop_call_view" >
 <?php include "amb_drop_call_view.php"; ?>
 </div>
 <div  id="amb_payment_view" style="display:none">
 <?php include "amb_payment_view.php"; ?>
-</div>
-<!--<a href="javascript:void(0);" title="Dispatch_form" onclick="Dispatch_form()"; data-toggle="tooltip" data-placement="top" title="View Log">
-<span aria-hidden="true">Ambulance Dispatch Form</span></a>  -->   
-<div>
 </div>
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&libraries=places"></script>

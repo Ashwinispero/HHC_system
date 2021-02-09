@@ -819,45 +819,47 @@ $total_KM = $total + $total_1 + $total_2;
 $total_cost = $total_KM * $cost_per_km ;
 
      ?>
-     <div class="line-seprator"></div>
-<div id="Block1">
-<div class="row" style="padding-left:5px;">
-<h5 class="div_header">Payment Details</h5>
-<div>
-<form  style="padding-left:5px;">
+<div class="line-seprator"></div>
 <div class="row">
-<label class="col-sm-3 ">Pickup Location to Drop Location:</label>
-<div class="col-lg-3 input_box_first">
+<div class="col-lg-2">
+<h4>Estimate Cost</h4>
+</div>
+<div class="col-lg-10">
+<label class="col-lg-2">Pickup to Drop :</label>
+<div class="col-lg-2">
 <input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total; ?> " />
 </div>
-<label class="col-sm-3">Base locatin  to Pickup Location:</label>
-<div class="col-lg-3 input_box_first">
+<label class="col-lg-2">Base to Pickup :</label>
+<div class="col-lg-2">
 <input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_1; ?> " />
 </div>
-</div>
-<br>
-<div class="row">
-<label class="col-sm-3">Drop Location to base Location:</label>
-<div class="col-lg-3 input_box_first">
+<label class="col-lg-2">Drop to base:</label>
+<div class="col-lg-2">
 <input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_2; ?> " />
 </div>
-<label  class="col-lg-3">Total KM : <span style="color:red;">*</span></label>
-<div class="col-lg-3 input_box_first">
-<input  type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
 </div>
 </div>
 <br>
 <div class="row">
-
-<label  class="col-lg-3">Total Cost : <span style="color:red;">*</span></label>
-<div class="col-lg-3 input_box_first">
+<div class="col-lg-2">
+</div>
+<div class="col-lg-10">
+<label  class="col-lg-2">Total KM : <span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input  type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
+</div>
+<label  class="col-lg-2">Total KM/per : <span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input  type="text" id="total_km_per" name="total_km_per" value="<?php echo $cost_per_km; ?>" class="form-control datepicker_from">
+</div>
+<label  class="col-lg-2">Total Cost : <span style="color:red;">*</span></label>
+<div class="col-lg-2 ">
 <input  type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
 </div>
 </div>
-</form>
 </div>
 
-     <?php
+ <?php
 }
 else if($_REQUEST['action']=='vw_dispatch_form')
     {
