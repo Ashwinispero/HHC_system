@@ -310,53 +310,51 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 </div>
 <div class="modal-body">
 <div class="mCustomScrollbar">
-<div id="Block1">
-    <h4>Incident Details :</h4>
+<h4>Incident Details :</h4>
     <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
     <label class="col-lg-4">Incident ID:</label>
     <div class="col-lg-8">
     <input type="text" id="incident_id" name="incident_id" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['event_code']; ?>" />
     </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+    <label  class="col-lg-5">Chief Complaint : </label>
+    <div class="col-lg-7">
+    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['ct_type']; ?>" />
+    </div>
+    </div>
+    <div class="col-lg-4">
     <label  class="col-lg-4" >Date Time : </label>
     <div class="col-lg-8">
     <input type="text" id="added_date" name="added_date" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['added_date']; ?>" />
     </div>
     </div>
+    
     </div>
+        
     <br>
     <div class="row">
-    <div class="col-lg-6">
-    <label  class="col-lg-4">Chief Complaint : </label>
-    <div class="col-lg-8">
-    <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['ct_type']; ?>" />
-    </div>
-    </div>
-    <div class="col-lg-6">
-    <label  class="col-lg-4" >Pupose Of Call : </label>
+    <div class="col-lg-4">
+    <label  class="col-lg-4" >Pupose Of Call</label>
     <div class="col-lg-8">
     <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $purpose; ?>" />
     </div>
     </div>
-    </div>    
-    <br>
-    <div class="row">
-    <div class="col-lg-6">
-    <label  class="col-lg-4">Pickup Address :</label>
+    <div class="col-lg-4">
+    <label  class="col-lg-4">Pickup Address</label>
     <div class="col-lg-8">
     <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value=" <?php  echo $recList[0]['google_pickup_location']; ?>" />
     </div>
     </div>
-    <div class="col-lg-6">
-    <label class="col-lg-4">Drop Address : </label>
+    <div class="col-lg-4">
+    <label class="col-lg-4">Drop Address</label>
     <div class="col-lg-8">
     <input type="text" readonly class="validate[required,minSize[1],maxSize[1]] form-control" value="<?php  echo $recList[0]['google_drop_location']; ?>" />
     </div>
     </div>
     </div>
-</div>
+
 <!--
 <div class="line-seprator"></div>
 <div id="Block2">
@@ -439,12 +437,9 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </div>
 </div>-->
 <div class="line-seprator"></div>
-<div id="Block5">
 <h4>Job Closure Details :</h4>
 <div class="row" style="padding-left:5px;">
-<div class="col-lg-6">
-<label class="col-sm-4">Provider Impression  :<span style="color:red;">*</span></label>
-<div class="col-lg-8">
+<div class="col-lg-3">
     <select class="validate[required]  chosen-select form-control"  name="pro_id" id="pro_id">
         <option value="">Provider Immpression</option>
         <?php
@@ -457,10 +452,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         ?>
     </select>
 </div>
-</div>
-<div class="col-lg-6">
-<label class="col-sm-4">LOC :<span style="color:red;">*</span></label>
-<div class="col-lg-8">
+<div class="col-lg-3">
     <select class="validate[required] chosen-select form-control"  name="level_id" id="level_id">
         <option value="">LOC Lavel</option>
         <?php
@@ -473,15 +465,8 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         ?>
     </select>
 </div>
-<div>
-</div>
-</div>
-</div><br>
-<div class="row" style="padding-left:5px;">
-<div class="col-lg-6">
-<label class="col-sm-4"> Medicine :<span style="color:red;">*</span></label>
-<div class="col-lg-8">
-    <select class="validate[required]  chosen-select form-control"  name="med_id" id="med_id">
+<div class="col-lg-3">
+<select class="validate[required]  chosen-select form-control"  name="med_id" id="med_id">
         <option value="">Medicine</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory_medicine WHERE med_status='1' ORDER BY med_title ASC";
@@ -491,13 +476,11 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
                 echo '<option value="'.$valRecords['med_id'].'">'.$valRecords['med_title'].'</option>';
             }
         ?>
-    </select>
+</select>
 </div>
-</div>
-<div class="col-lg-6">
-<label class="col-sm-4">Unit & Non-Unit :<span style="color:red;">*</span></label>
-<div class="col-lg-8">
-    <select class="validate[required] chosen-select form-control"  name="inv_id" id="inv_id">
+
+<div class="col-lg-3">
+<select class="validate[required] chosen-select form-control"  name="inv_id" id="inv_id">
         <option value="">Consumable & Non consumable</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory where inv_status='1'  ORDER BY inv_title ASC";
@@ -507,67 +490,44 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
                 echo '<option value="'.$valRecords['inv_id'].'">'.$valRecords['inv_title'].'</option>';
             }
         ?>
-    </select>
-</div>
+</select>
 <div>
 </div>
 </div>
 </div>
-</div>
+
 <div class="line-seprator"></div>
 <div id="Block6">
 <h4>Driver Parameter :</h4>
     <div class="row">
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">From Base:<span style="color:red;">*</span></label>
-    <div class="col-lg-8">
-    <input type="text" class="datepicker_from_base form-control"  id="datepicker_from_base" name="datepicker_from_base" />
+    <div class="col-lg-3">
+    <input type="text" placeholder="From base location" class="datepicker_from_base form-control"  id="datepicker_from_base" name="datepicker_from_base" />
     </div>
+    <div class="col-lg-3">
+    <input type="text" placeholder="From pick location" class="datepicker_from_pickup form-control" id="datepicker_from_pickup" name="datepicker_from_pickup" />
     </div>
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">At Pickup Location:<span style="color:red;">*</span></label>
-    <div class="col-lg-8  ">
-    <input type="text" class="datepicker_from_pickup form-control" id="datepicker_from_pickup" name="datepicker_from_pickup" />
+    <div class="col-lg-3">
+    <input type="text" placeholder="From drop location" class="datepicker_to_drop form-control" id="datepicker_to_drop" name="datepicker_to_drop"  />
     </div>
-    </div>
-    </div><br>
-    <div class="row">
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">At Drop Location:<span style="color:red;">*</span></label>
-    <div class="col-lg-8  ">
-    <input type="text" class="datepicker_to_drop form-control" id="datepicker_to_drop" name="datepicker_to_drop"  />
-    </div>
-    </div>
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">At Base Location:<span style="color:red;">*</span></label>
-    <div class="col-lg-8">
-    <input type="text" class="datepicker_to_base form-control"  id="datepicker_to_base" name="datepicker_to_base"  />
-    </div>
-    </div>
-  </div>
-  
-</div>
-<div class="line-seprator"></div>
-<div id="Block7">
-<h4>Odometer Details :</h4>
-    <div class="row">
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">Start Odometer :<span style="color:red;">*</span></label>
-    <div class="col-lg-8">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-    </div>
-    </div>
-    <div class="col-lg-6">
-    <label class="col-sm-4 label_style">End Odometer :<span style="color:red;">*</span></label>
-    <div class="col-lg-8  ">
-    <input type="text" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
-    </div>
+    <div class="col-lg-3">
+    <input type="text" placeholder="At base location" class="datepicker_to_base form-control"  id="datepicker_to_base" name="datepicker_to_base"  />
     </div>
     </div>
 </div>
 <div class="line-seprator"></div>
-<div id="Block8">
-<h4>Other Details :</h4>
+<div class="row">
+<div class="col-lg-2">
+<h4>Odometer Details </h4>
+</div>
+<div class="col-lg-2">
+<input type="text" placeholder="Enter Start Odometer" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+<div class="col-lg-2">
+<input type="text" placeholder="Enter end Odometer" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
+</div>
+<div class="line-seprator"></div>
+
     <div class="row">
     <div class="col-lg-6">
     <label class="col-sm-4 label_style">Remark  :<span style="color:red;">*</span></label>
@@ -576,7 +536,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </div>
     </div>
     </div>
-</div>
+
 <br>
 <div class="row">
 <div class="col-sm-12 text-center">
