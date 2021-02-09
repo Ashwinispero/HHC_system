@@ -214,7 +214,7 @@ else
       </div>
 </div>
 </div>
-<div class="col-lg-6">
+<div class="col-lg-6" id="INCIDENT_MAP" style="height:400px;">
 </div>
 </div>
 <div id='payment_details' class="row">

@@ -8,8 +8,70 @@
         require_once 'classes/config.php'; 
 ?>
 <?php
+if($_REQUEST['action']=='view_amb_list')
+{
+    $lng=$_POST['long'];
+    $lat=$_POST['lat'];
+    
 
-if($_REQUEST['action']=="SubmitJobClosureCall"){
+    if ($lat != '' && $lng != '') {
+        $radius = ", ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( amb.lat ) ) * cos( radians( amb.long ) - radians(".$lng.") ) + sin( radians(".$lat.") ) * sin( radians( amb.lat ) ) ) ) AS distance";
+        $orderby = "HAVING distance < 100 ORDER BY distance ";  
+    }else{
+        $radius= "";
+        $having_distance = "";
+        $orderby = "";     
+    }
+    /* if($amb_type == ''){
+        $amb =  " AND amb.amb_type IN ('1','2','3','4','5') ";
+    }else{
+       // if($amb_type)
+        $amb =  " AND amb.amb_type IN (" . implode( ',', $amb_type ) . ") ";
+    }
+*/
+ 
+?>
+        <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Ambulance No</th>
+                <th>base Location</th>
+                <th>Mobile No</th>
+                <th>Ambulance Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php 
+
+$sql ="SELECT amb.*" 
+. "$radius FROM sp_ems_ambulance AS amb"
+. " WHERE 1=1 "
+. " GROUP BY amb.amb_no $orderby LIMIT 5";
+$AllRrecord = $db->fetch_all_array($sql);
+foreach($AllRrecord as $key=>$valRecords)
+{
+    echo '<tr style = "' . $complimentaryVisitStyle .'">
+                <td>'.$valRecords['amb_no'].'</td>
+                <td>'.$valRecords['base_name'].'</td>
+                <td>'.$valRecords['mob_no'].'</td>
+                <td>'.$valRecords['amb_type'].'</td>
+                <td>'.$valRecords['amb_status'].'</td>
+                <td>'; 
+                ?> 
+                <input type="checkbox" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+                <?php 
+                echo '</td>
+                </tr>';
+
+}
+?>
+            </tbody>
+            </table>
+            <?php
+}
+else if($_REQUEST['action']=="SubmitJobClosureCall"){
     $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {

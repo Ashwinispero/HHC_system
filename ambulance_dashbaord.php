@@ -22,13 +22,23 @@ require_once 'inc_classes.php';
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php include "include/scripts.php"; ?>
 <?php include "include/eventLogscripts.php"; ?>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 <link rel="stylesheet" type="text/css" href="css/pinterest-style.css" />
 <link rel="stylesheet" href="dropdown/docsupport/prism.css">
 <link rel="stylesheet" href="dropdown/chosen.css">  
 <link rel="stylesheet" href="js/jRange-master/jquery.range.css">
-
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+<script type="text/javascript"> var base_url = 'http://localhost/HHC_system/';</script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<!----Map JS--->
+<script type="text/javascript" src="js/inc_map_here.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 
 <style type="text/css" media="all">
 .gj-modal .gj-picker-md {
@@ -119,6 +129,7 @@ require_once 'inc_classes.php';
             return false;
         });
 
+        /*
         $location_input = $("#google_pickup_location");
         
         var options = {
@@ -131,8 +142,8 @@ require_once 'inc_classes.php';
             //console.log('blah')
             show_submit_data(data);
             return false;
-        });
-
+        }); 
+        */
         $location_input = $("#google_drop_location");
         
         var options = {
@@ -185,6 +196,7 @@ require_once 'inc_classes.php';
     
     $(document).ready(function() 
     {
+        initIncidentMap();
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
