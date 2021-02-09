@@ -7,36 +7,28 @@ if(!$_SESSION['employee_id'])
     echo 'notLoggedIn';
 else
 { 
-
-
-     $recList= $AmbulanceClass->amb_EventList();
-     //$recList=$recListResponse['data'];
-    // var_dump($recList)
-
+$recList= $AmbulanceClass->amb_EventList();
 ?>
-<form class="form-horizontal" name="DropForm" id="DropForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitDropCall">
-<div id="Block9">
-<h1 class="div_header">Call Type</h1>
-<div class="row" style="padding-left:5px;">
-<label for="inputPassword3" class="col-lg-2 label_style">Purpose Of Call :<span style="color:red;">*</span></label>
-  <div class="col-lg-2 input_box_first">
-    <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
-        <option value="">Purpose Of Call</option>
-        <option value='1'>Drop Call</option>
-        <option value='2'>Payment & Job Closure</option>
-    </select>
+<div class="row">
+  <div class="col-lg-1">
+  <h4>Call Type</h4>
   </div>
+  <div class="col-lg-2">
+      <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
+          <option value="">Purpose Of Call</option>
+          <option value='1'>Drop Call</option>
+          <option value='2'>Payment & Job Closure</option>
+      </select>
   </div>
 </div>
-<div class="line-seprator"></div>
-<table border="1" id="logTable" class="table table-striped" cellspacing="0" width="100%">
+<table border="1" bordercolor="#ddd" id="logTable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
                 <th style="text-align: center;" width="8%">Incident ID</th>
                 <th style="text-align: center;" width="5%">Call Type</th>
                 <th style="text-align: center;" width="8%">Ambulance No</th>
-                <th style="text-align: center;" width="8%">Patient No</th>
-                <th style="text-align: center;" width="8%">Cief Complaint</th>
+                <th style="text-align: center;" width="8%">Patient Name</th>
+                <th style="text-align: center;" width="8%">Chief Complaint</th>
                 <th  style="text-align: center;" width="8%">Pickup Address</th>
                 <th style="text-align: center;" width="8%">Drop Adress</th>
                 <th style="text-align: center;" width="8%">Schedule Date </th>
@@ -96,5 +88,5 @@ else
             ?>
             </tbody>
   </table>
-</form>
+
 <?php } ?>
