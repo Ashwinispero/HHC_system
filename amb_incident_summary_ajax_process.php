@@ -16,7 +16,7 @@ if($_REQUEST['action']=='view_amb_list')
 
     if ($lat != '' && $lng != '') {
         $radius = ", ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( amb.lat ) ) * cos( radians( amb.long ) - radians(".$lng.") ) + sin( radians(".$lat.") ) * sin( radians( amb.lat ) ) ) ) AS distance";
-        $orderby = "HAVING distance < 100 ORDER BY distance ";  
+        $orderby = "HAVING distance < 1000 ORDER BY distance ";  
     }else{
         $radius= "";
         $having_distance = "";
@@ -38,6 +38,7 @@ if($_REQUEST['action']=='view_amb_list')
                 <th>base Location</th>
                 <th>Mobile No</th>
                 <th>Ambulance Type</th>
+                <th>Distance </th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -49,14 +50,17 @@ $sql ="SELECT amb.*"
 . "$radius FROM sp_ems_ambulance AS amb"
 . " WHERE 1=1 "
 . " GROUP BY amb.amb_no $orderby LIMIT 5";
+
 $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
 {
+    $dist = round($valRecords['distance']);
     echo '<tr style = "' . $complimentaryVisitStyle .'">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['base_name'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
                 <td>'.$valRecords['amb_type'].'</td>
+                <td>'.$dist.' '.'KM'.'</td>
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 

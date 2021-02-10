@@ -125,12 +125,12 @@ else
 <div class="col-lg-6">
 <div role="tabpanel" id="Patienttabs"> 
   <ul id="MainTabs" class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active" id="google_search"><a href="#google" aria-controls="home" role="tab" data-toggle="tab" id="google_search">Google Search</a></li>
+    <li role="presentation" class="active" id="google_search"><a href="#logTable" aria-controls="home" role="tab" data-toggle="tab" id="google_search">Here Map Search</a></li>
     <li role="presentation" id="manual_search"><a href="#manual" aria-controls="profile" role="tab" data-toggle="tab" id="manual_serach">Manual Search</a></li>
   </ul>
   <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="google">
-      <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
+      <div role="tabpanel" class="tab-pane active" id="logTable">
+      <!--<table id="logTable" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
           <th>Amb No</th>
@@ -144,7 +144,7 @@ else
         </thead>
         <tbody>
             <?php 
-             $selectRecord = "SELECT amb.*,base_loc.id,base_loc.base_name FROM sp_ems_ambulance as amb
+          /*   $selectRecord = "SELECT amb.*,base_loc.id,base_loc.base_name FROM sp_ems_ambulance as amb
                               LEFT JOIN sp_ems_base_location as base_loc ON amb.base_loc = base_loc.id
                               WHERE amb.status='1'  ORDER BY amb.id ASC Limit 10";
              $AllRrecord = $db->fetch_all_array($selectRecord);
@@ -183,10 +183,10 @@ else
                 <?php 
                 echo '</td>
                 </tr>';
-                } 
+                } */
             ?>
         </tbody>
-      </table>
+      </table>-->
       </div>
       <div role="tabpanel" class="tab-pane " id="manual" style="hight:50%;">
         <div class="newPatientListing" >
