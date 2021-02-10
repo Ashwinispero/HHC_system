@@ -55,7 +55,7 @@ $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
 {
     $dist = round($valRecords['distance']);
-    echo '<tr class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['amb_status'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
+    echo '<tr  id="Search_Amb_"'.$valRecords['amb_no'].'"" class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['amb_status'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['base_name'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
@@ -64,7 +64,7 @@ foreach($AllRrecord as $key=>$valRecords)
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 
-                <input type="checkbox" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+                <input class="check_class amb_check_box" type="checkbox" onchange="cbChange(this)" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';

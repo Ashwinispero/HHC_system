@@ -753,8 +753,8 @@ function update_ambulance_inc_map(){
         var amb_status = $(this).attr('data-amb_status');
      //   var amb_details = $(this).find('.ambu_pin_info').html();
 
-        console.log(amb_status);
-        console.log($MapPins[amb_status]);
+      //  console.log(amb_status);
+        //console.log($MapPins[amb_status]);
         
         var markerLatLng = {lat: parseFloat(amb_lat), lng: parseFloat(amb_lng) };
         var $amb_icon = new H.map.Icon($MapPins[amb_status], {size: {w: 21, h: 21}});
@@ -776,12 +776,12 @@ function update_ambulance_inc_map(){
         
         
         $marker.addEventListener('tap', function(evt){
-            $('.searched_ambu_item#Search_Amb_'+amb_id+' .amb_check_box').click();
+            $('.ambulance_item_list#Search_Amb_'+amb_id+' .amb_check_box').click();
             return false;
         });
         
         $marker.addEventListener('dbltap', function(evt){
-            $('.searched_ambu_item#Search_Amb_'+amb_id+' .amb_stand_check_box').click();
+            $('.ambulance_item_list#Search_Amb_'+amb_id+' .amb_stand_check_box').click();
             return false;
         });
         

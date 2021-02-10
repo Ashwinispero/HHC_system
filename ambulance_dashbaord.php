@@ -458,18 +458,21 @@ function cbChange(obj) {
     {
         submit = 'no';
         bootbox.alert("<div class='msg-error'>Please Select ambulance number.</div>");
+        obj.checked = false;
         return false;
     }
     if($("#google_pickup_location").val() == '' )
     {
         submit = 'no';
         bootbox.alert("<div class='msg-error'>Please enter pickup address.</div>");
+        obj.checked = false;
         return false;
     }
     if($("#google_drop_location").val() == '' )
     {
         submit = 'no';
         bootbox.alert("<div class='msg-error'>Please enter drop address.</div>");
+        obj.checked = false;
         return false;
     }
     if(submit = 'yes'){
@@ -482,7 +485,7 @@ function cbChange(obj) {
                     },
                     success: function (html)
                     {
-                      $("#payment_details").html(html);
+                        $("#payment_details").html(html);
                        
                     },
                     complete : function()
