@@ -57,13 +57,14 @@ var $MapPins = {
     22:base_url+'themes/backend/images/amb_busy_102.png',
     26:base_url+'themes/backend/images/yellow_amb_pin.png',
     27:base_url+'themes/backend/images/blue_map_pin.png',
-    1:base_url+'themes/backend/images/select_icon_pin.png',
-    2:base_url+'themes/backend/images/red_map_pin.png',
+    1:'http://localhost/HHC_system//images/amb_green.png',
+    2:'http://localhost/HHC_system//images/amb_red.png',
     6:base_url+'themes/backend/images/yellow_amb_pin.png',
     7:base_url+'themes/backend/images/blue_map_pin.png',
 };
 var $MapPins = {
-    11:base_url+'themes/backend/images/select_bike_icon.png',
+    1:'http://localhost/HHC_system//images/amb_green.png',
+    2:'http://localhost/HHC_system//images/amb_red.png',
     12: base_url+'themes/backend/images/red_bike_icon.png',
     16:base_url+'themes/backend/images/yellow_bike_icon.png',
     17:base_url+'themes/backend/images/blue_bike_icon.png',
@@ -385,7 +386,7 @@ function get_inc_ambu(places){
         {
           //  alert(html);
           $("#logTable").html(html);
-           
+          update_ambulance_inc_map();
         },
         complete : function()
         {
@@ -740,19 +741,20 @@ function update_ambulance_inc_map(){
 
     //$markerBounds.extend({lat: parseFloat(inc_lat), lng: parseFloat(inc_lng) });
 
-    $('.inc_ambu_list .searched_ambu_item').each( function() {
+    $('#logTable .ambulance_item_list').each( function() {
         
         
         var amb_obj = this;
         var amb_id = $(this).attr('data-amb_id');
         var amb_lat = $(this).attr('data-lat');
         var amb_lng = $(this).attr('data-lng');
-        var amb_title = $(this).attr('data-title');
-        var amb_rto_no = $(this).attr('data-rto-no');
+     //   var amb_title = $(this).attr('data-title');
+      //  var amb_rto_no = $(this).attr('data-rto-no');
         var amb_status = $(this).attr('data-amb_status');
-        var amb_details = $(this).find('.ambu_pin_info').html();
+     //   var amb_details = $(this).find('.ambu_pin_info').html();
 
-       // console.log(amb_details);
+        console.log(amb_status);
+        console.log($MapPins[amb_status]);
         
         var markerLatLng = {lat: parseFloat(amb_lat), lng: parseFloat(amb_lng) };
         var $amb_icon = new H.map.Icon($MapPins[amb_status], {size: {w: 21, h: 21}});
@@ -788,7 +790,7 @@ function update_ambulance_inc_map(){
     });
     
     //$callIncidentMap.fitBounds($markerBounds);
-    $callIncidentMap.setCenter({lat: parseFloat(inc_lat), lng: parseFloat(inc_lng) });
+//    $callIncidentMap.setCenter({lat: parseFloat(inc_lat), lng: parseFloat(inc_lng) });
     //console.log('123');
     
 

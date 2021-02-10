@@ -33,7 +33,7 @@ if($_REQUEST['action']=='view_amb_list')
 ?>
         <table id="logTable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
-              <tr>
+              <tr >
                 <th>Ambulance No</th>
                 <th>base Location</th>
                 <th>Mobile No</th>
@@ -55,7 +55,7 @@ $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
 {
     $dist = round($valRecords['distance']);
-    echo '<tr style = "' . $complimentaryVisitStyle .'">
+    echo '<tr class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['amb_status'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['base_name'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
