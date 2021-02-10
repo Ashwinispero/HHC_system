@@ -156,7 +156,97 @@ function initIncidentMap() {
 //     trafficLayer.setMap($callIncidentMap);
     
 }
+function map_autocomplete_patient(){
+    $("#google_location").autocomplete({
+        select: function( event, ui ) {
+          
+            $.get(ui.item.href,function($data){
+                
+                var $place_details = $data.location;
+                console.log($place_details);
+                //auto_complete_place_changed($place_details);
+                
+                //set_inc_main_pin($place_details);
+                //set_inc_add_details($place_details);
+            });
 
+       // console.log(  ui.item );
+        },
+         source: function (request, response) {
+             //console.log(response);
+             $.ajax({
+               // url: "https://places.ls.hereapi.com/places/v1/autosuggest?in=34.083813%2C74.809463%3Br%3D5000000&size=1000&tf=plain&addressFilter=stateCode%3DMH&X-Mobility-Mode=drive&Accept-Language=en&app_id=hSm0zJfek39BQxeXGRYZ&app_code=46aPkrbrHTb7tEdxSzLMiA&apiKey=yrjPrIYd0xU9KJpe1xlaR1_K1wFrwc9U-_-99n040JQ",
+                
+                 url: "https://places.ls.hereapi.com/places/v1/discover/search?in=19.0760%2C72.8777%3Br%3D4717093&recd=false&size=100&tf=html&X-Mobility-Mode=drive&Accept-Language=en&app_id=hSm0zJfek39BQxeXGRYZ&app_code=46aPkrbrHTb7tEdxSzLMiA",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: function ($data) {
+
+                    var $items = $data.results.items;
+                    $.each($items,function(){
+                        
+                        this.title = this.title.replace('<br/>',' ');
+                        this.vicinity = this.vicinity.replace('<br/>',' ');
+                        this.label = this.title+' '+this.vicinity;
+                    });
+                   // console.log($data);
+                    response($items);
+                    //return $items;
+                    
+                 },
+                 error: function () {
+                     response([]);
+                 }
+             });
+         }
+    }); 
+}
+function map_autocomplete_drop(){
+    
+    $("#google_drop_location").autocomplete({
+        select: function( event, ui ) {
+          
+            $.get(ui.item.href,function($data){
+                
+                var $place_details = $data.location;
+                console.log($place_details);
+                //auto_complete_place_changed($place_details);
+                
+                //set_inc_main_pin($place_details);
+                //set_inc_add_details($place_details);
+            });
+
+       // console.log(  ui.item );
+        },
+         source: function (request, response) {
+             //console.log(response);
+             $.ajax({
+               // url: "https://places.ls.hereapi.com/places/v1/autosuggest?in=34.083813%2C74.809463%3Br%3D5000000&size=1000&tf=plain&addressFilter=stateCode%3DMH&X-Mobility-Mode=drive&Accept-Language=en&app_id=hSm0zJfek39BQxeXGRYZ&app_code=46aPkrbrHTb7tEdxSzLMiA&apiKey=yrjPrIYd0xU9KJpe1xlaR1_K1wFrwc9U-_-99n040JQ",
+                
+                 url: "https://places.ls.hereapi.com/places/v1/discover/search?in=19.0760%2C72.8777%3Br%3D4717093&recd=false&size=100&tf=html&X-Mobility-Mode=drive&Accept-Language=en&app_id=hSm0zJfek39BQxeXGRYZ&app_code=46aPkrbrHTb7tEdxSzLMiA",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: function ($data) {
+
+                    var $items = $data.results.items;
+                    $.each($items,function(){
+                        
+                        this.title = this.title.replace('<br/>',' ');
+                        this.vicinity = this.vicinity.replace('<br/>',' ');
+                        this.label = this.title+' '+this.vicinity;
+                    });
+                   // console.log($data);
+                    response($items);
+                    //return $items;
+                    
+                 },
+                 error: function () {
+                     response([]);
+                 }
+             });
+         }
+    });            
+}
 
 function map_autocomplete(){
     

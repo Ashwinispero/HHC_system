@@ -115,7 +115,7 @@ require_once 'inc_classes.php';
 
       $(document).ready(function () 
       {
-        $location_input = $("#google_location");
+        /*$location_input = $("#google_location");
         
         var options = {
             //types: ['(postal_town)'],
@@ -128,7 +128,7 @@ require_once 'inc_classes.php';
             show_submit_data(data);
             return false;
         });
-
+*/
         /*
         $location_input = $("#google_pickup_location");
         
@@ -144,7 +144,7 @@ require_once 'inc_classes.php';
             return false;
         }); 
         */
-        $location_input = $("#google_drop_location");
+       /* $location_input = $("#google_drop_location");
         
         var options = {
             //types: ['(postal_town)'],
@@ -157,7 +157,7 @@ require_once 'inc_classes.php';
             show_submit_data(data);
             return false;
         });
-        
+        */
          $(".number").keydown(function (e) 
          {
             // Allow: backspace, delete, tab, escape, enter and .
@@ -197,6 +197,8 @@ require_once 'inc_classes.php';
     $(document).ready(function() 
     {
         initIncidentMap();
+        map_autocomplete_drop();
+        map_autocomplete_patient();
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
