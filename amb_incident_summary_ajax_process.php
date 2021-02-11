@@ -747,7 +747,13 @@ else if($_REQUEST['action']=='vw_payment')
      $google_pickup_location = $_REQUEST['google_pickup_location'];
      $selected_ambumance = $_REQUEST['selected_amb'];
      $google_drop_location = $_REQUEST['google_drop_location'];
+     $latitudeFrom = $_REQUEST['lat_pick'];
+     $longitudeFrom = $_REQUEST['lng_pick'];
+     $latitudeTo = $_REQUEST['lat_drp'];
+     $longitudeTo = $_REQUEST['lng_drp'];
+     
     
+/*
      // ************Distance Calculation pickup to Drop Start**********
      $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
 		
@@ -779,6 +785,7 @@ else if($_REQUEST['action']=='vw_payment')
       $longitudeFrom    = 73.86473972256739;
       $latitudeTo        = 18.511087639053997;
       $longitudeTo    = 73.93255149226636;
+      */
      
      // Calculate distance between latitude and longitude
      $theta    = $longitudeFrom - $longitudeTo;

@@ -16,8 +16,8 @@ else
 <input type="hidden"   class="form-control"  id="lat_pick" name="lat_pick" />
 <input type="hidden"   class="form-control"  id="lng_pick" name="lng_pick" />
 
-<input   class="form-control"  id="lat_drp" name="lat_drp" />
-<input   class="form-control"  id="lng_drp" name="lng_drp" />
+<input  type="hidden"  class="form-control"  id="lat_drp" name="lat_drp" />
+<input  type="hidden"  class="form-control"  id="lng_drp" name="lng_drp" />
 
 <div class="row">
 <div class="col-lg-2">

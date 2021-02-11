@@ -453,6 +453,13 @@ function cbChange(obj) {
     var selected_amb =$('.check_class:checked').val();
     var google_pickup_location = $("#google_pickup_location").val();
     var google_drop_location = $("#google_drop_location").val();
+
+    var lat_pick = $("#lat_pick").val();
+    var lng_pick = $("#lng_pick").val();
+
+    var lat_drp = $("#lat_drp").val();
+    var lng_drp = $("#lng_drp").val();
+
     var submit = 'yes';
     if($("#selected_amb").val() == '' )
     {
@@ -476,7 +483,7 @@ function cbChange(obj) {
         return false;
     }
     if(submit = 'yes'){
-        var data1="&selected_amb="+selected_amb+"&google_pickup_location="+google_pickup_location+"&google_drop_location="+google_drop_location+"&action=vw_payment";
+        var data1="&selected_amb="+selected_amb+"&google_pickup_location="+google_pickup_location+"&google_drop_location="+google_drop_location+"&lat_pick="+lat_pick+"&lng_pick="+lng_pick+"&lat_drp="+lat_drp+"&lng_drp="+lng_drp+"&action=vw_payment";
             $.ajax({
                     url: "amb_incident_summary_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
