@@ -76,13 +76,24 @@ foreach($AllRrecord as $key=>$valRecords)
             <?php
 }
 else if($_REQUEST['action']=="SubmitJobClosureCall"){
-    $success=0;  $errors=array();  $i=0;
+   $success=0;  $errors=array();  $i=0;
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
+        foreach ($_POST['med_id'] as $med)
+        {
+            $medList .= $prefix . '"' . $med . '"';
+            $prefix = ', ';
+        }
+        foreach ($_POST['inv_id'] as $inv)
+        {
+            $invList .= $prefix1 . '"' . $inv . '"';
+            $prefix1 = ', ';
+        }
+        //var_dump($medList);die();
         $incident_id=$_POST['incident_id'];
         $level_id=$_POST['level_id'];
-        $med_id=$_POST['med_id'];
-        $inv_id=$_POST['inv_id'];
+        $med_id=$medList;
+        $inv_id=$invList;
         $datepicker_from_base=$_POST['datepicker_from_base'];
         $datepicker_from_pickup=$_POST['datepicker_from_pickup'];
         $datepicker_to_drop=$_POST['datepicker_to_drop'];
@@ -550,7 +561,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </select>
 </div>
 <div class="col-lg-3">
-<select   data-placeholder="Select Medicine" class="validate[required] chosen-select form-control" multiple name="med_id" id="med_id">
+<select   data-placeholder="Select Medicine" class="validate[required] chosen-select form-control" multiple name="med_id[]" id="med_id">
         <option value="">Medicine</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory_medicine WHERE med_status='1' ORDER BY med_title ASC";
@@ -565,7 +576,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 
 <div class="col-lg-3">
                            
-<select  data-placeholder="Select Consumable & Non consumable" class="validate[required] chosen-select form-control" multiple name="inv_id" id="inv_id">
+<select  data-placeholder="Select Consumable & Non consumable" class="validate[required] chosen-select form-control" multiple name="inv_id[]" id="inv_id">
       <option value="">Consumable & Non consumable</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory where inv_status='1'  ORDER BY inv_title ASC";
