@@ -935,6 +935,7 @@ function SubmitPayment(event_id)
 }  
 </script>
 <script>
+
         $('#time').timepicker();
     </script>
 <script src="dropdown/chosen.jquery.js" type="text/javascript"></script>

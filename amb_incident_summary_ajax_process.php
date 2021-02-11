@@ -550,7 +550,7 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
     </select>
 </div>
 <div class="col-lg-3">
-<select class="validate[required]  chosen-select form-control"  name="med_id" id="med_id">
+<select   data-placeholder="Select Medicine" class="validate[required] chosen-select form-control" multiple name="med_id" id="med_id">
         <option value="">Medicine</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory_medicine WHERE med_status='1' ORDER BY med_title ASC";
@@ -564,8 +564,9 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 </div>
 
 <div class="col-lg-3">
-<select class="validate[required] chosen-select form-control"  name="inv_id" id="inv_id">
-        <option value="">Consumable & Non consumable</option>
+                           
+<select  data-placeholder="Select Consumable & Non consumable" class="validate[required] chosen-select form-control" multiple name="inv_id" id="inv_id">
+      <option value="">Consumable & Non consumable</option>
         <?php
             $selectRecord = "SELECT * FROM sp_amb_inventory where inv_status='1'  ORDER BY inv_title ASC";
             $AllRrecord = $db->fetch_all_array($selectRecord);
