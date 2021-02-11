@@ -104,7 +104,21 @@ class AmbulanceClass extends AbstractDB
         $patData['status']  =   '1';
         $patData['added_by'] = $arg['employee_id'];
         $patData['added_date'] = date('Y-m-d H:i:s');
-
+        $patData['pat_lattitude']=$arg['Lat_pat'];
+        $patData['pat_langitude']=$arg['lng_pat'];
+        $patData['google_pickup_location_lat']=$arg['lat_pick'];
+        $patData['google_pickup_location_long']=$arg['lng_pick'];
+        $patData['google_drop_location_lat']=$arg['lat_drp'];
+        $patData['google_drop_location_long']=$arg['lng_drp'];
+        /*
+        $arr['Lat_pat']=$_POST['Lat_pat'];
+        $arr['lng_pat']=$_POST['lng_pat'];
+        $arr['lat_pick']=$_POST['lat_pick'];
+        $arr['lng_pick']=$_POST['lng_pick'];
+        $arr['lat_drp']=$_POST['lat_drp'];
+        $arr['lng_drp']=$_POST['lng_drp'];
+        */
+        /*
         if($arg['google_location'] != '')
         {
        $address = str_replace(" ", "+", $arg['google_location']);
@@ -145,13 +159,7 @@ class AmbulanceClass extends AbstractDB
 
         $google_drop_location_lat=$lat;
         $google_drop_location_long=$long;
-        }
-        $patData['google_pickup_location_lat']=$google_pickup_location_lat;
-        $patData['google_pickup_location_long']=$google_pickup_location_long;
-        $patData['google_drop_location_lat']=$google_drop_location_lat;
-        $patData['google_drop_location_long']=$google_drop_location_long;
-
-
+        } */
         $RecordId_pat = $this->query_insert('sp_amb_patients',$patData);
         
       
@@ -202,10 +210,10 @@ class AmbulanceClass extends AbstractDB
       $createEvent['date']  =   date("Y-m-d", strtotime($arg['date']));
       $createEvent['time']  =   $arg['time'];
       $createEvent['note']  =   $arg['notes'];
-      $createEvent['google_pickup_location_lat']=$google_pickup_location_lat;
-      $createEvent['google_pickup_location_long']=$google_pickup_location_long;
-      $createEvent['google_drop_location_lat']=$google_drop_location_lat;
-      $createEvent['google_drop_location_long']=$google_drop_location_long;
+      $createEvent['google_pickup_location_lat']=$arg['lat_pick'];
+      $createEvent['google_pickup_location_long']=$arg['lng_pick'];
+      $createEvent['google_drop_location_lat']=$arg['lat_drp'];
+      $createEvent['google_drop_location_long']=$arg['lng_drp'];
        $Invoice_narration='';
       $employee_record_query="SELECT hospital_id FROM sp_employees WHERE employee_id='".$arg['employee_id']."' ";
       $employeee_record = $this->fetch_array($this->query($employee_record_query));

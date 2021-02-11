@@ -41,45 +41,14 @@ var $directionsDisplay;
 //    7:base_url+'themes/backend/images/blue_bike_icon.png'
 //};
 var $MapPins = {
-    11:base_url+'themes/backend/images/select_bike_icon.png',
-    12:base_url+'themes/backend/images/red_bike_icon.png',
-    16:base_url+'themes/backend/images/yellow_bike_icon.png',
-    17:base_url+'themes/backend/images/blue_bike_icon.png',
-    41:base_url+'themes/backend/images/select_icon_pin.png',
-    42:base_url+'themes/backend/images/red_map_pin.png',
-    46:base_url+'themes/backend/images/yellow_amb_pin.png',
-    47:base_url+'themes/backend/images/blue_map_pin.png',
-    31:base_url+'themes/backend/images/select_icon_pin.png',
-    32:base_url+'themes/backend/images/red_map_pin.png',
-    36:base_url+'themes/backend/images/yellow_amb_pin.png',
-    37:base_url+'themes/backend/images/blue_map_pin.png',
-    21:base_url+'themes/backend/images/amb-green_102.png',
-    22:base_url+'themes/backend/images/amb_busy_102.png',
-    26:base_url+'themes/backend/images/yellow_amb_pin.png',
-    27:base_url+'themes/backend/images/blue_map_pin.png',
+    
     1:'http://localhost/HHC_system//images/amb_green.png',
-    2:'http://localhost/HHC_system//images/amb_red.png',
-    6:base_url+'themes/backend/images/yellow_amb_pin.png',
-    7:base_url+'themes/backend/images/blue_map_pin.png',
+    2:'http://localhost/HHC_system//images/amb_red.png'
+    
 };
 var $MapPins = {
     1:'http://localhost/HHC_system//images/amb_green.png',
-    2:'http://localhost/HHC_system//images/amb_red.png',
-    12: base_url+'themes/backend/images/red_bike_icon.png',
-    16:base_url+'themes/backend/images/yellow_bike_icon.png',
-    17:base_url+'themes/backend/images/blue_bike_icon.png',
-    41:base_url+'themes/backend/images/select_icon_pin.png',
-    42: base_url+'themes/backend/images/red_map_pin.png',
-    46:base_url+'themes/backend/images/yellow_amb_pin.png',
-    47:base_url+'themes/backend/images/blue_map_pin.png',
-    31:base_url+'themes/backend/images/select_icon_pin.png',
-    32: base_url+'themes/backend/images/red_map_pin.png',
-    36:base_url+'themes/backend/images/yellow_amb_pin.png',
-    37:base_url+'themes/backend/images/blue_map_pin.png',
-    21:base_url+'themes/backend/images/select_icon_pin.png',
-    22: base_url+'themes/backend/images/red_map_pin.png',
-    26:base_url+'themes/backend/images/yellow_amb_pin.png',
-    27:base_url+'themes/backend/images/blue_map_pin.png'
+    2:'http://localhost/HHC_system//images/amb_red.png'
 };
 
 function initIncidentMap() {
@@ -163,12 +132,11 @@ function map_autocomplete_patient(){
           
             $.get(ui.item.href,function($data){
                 
-                var $place_details = $data.location;
-                console.log($place_details);
-                //auto_complete_place_changed($place_details);
-                
-                //set_inc_main_pin($place_details);
-                //set_inc_add_details($place_details);
+                var places = $data.location;
+              // alert(places.position[0]);
+               $("#Lat_pat").val(places.position[0]);
+               $("#lng_pat").val(places.position[1]);
+               
             });
 
        // console.log(  ui.item );
@@ -209,8 +177,9 @@ function map_autocomplete_drop(){
           
             $.get(ui.item.href,function($data){
                 
-                var $place_details = $data.location;
-                console.log($place_details);
+                var place_details = $data.location;
+                $("#lat_drp").val(place_details.position[0]);
+               $("#lng_drp").val(place_details.position[1]);
                 //auto_complete_place_changed($place_details);
                 
                 //set_inc_main_pin($place_details);
@@ -256,10 +225,12 @@ function map_autocomplete(){
           
             $.get(ui.item.href,function($data){
                 
-                var $place_details = $data.location;
-                console.log($place_details);
-                auto_complete_place_changed($place_details);
+                var place_details = $data.location;
+                console.log(place_details);
                 
+                auto_complete_place_changed(place_details);
+                $("#lat_pick").val(place_details.position[0]);
+                $("#lng_pick").val(place_details.position[1]);
                 //set_inc_main_pin($place_details);
                 //set_inc_add_details($place_details);
             });

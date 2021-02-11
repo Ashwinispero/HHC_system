@@ -10,6 +10,15 @@ else
 <input type="hidden"   class="form-control"  id="terminate_reason_id" name="terminate_reason_id" />
 <input type="hidden"   class="form-control"  id="terminatevalue" name="terminatevalue" />
 
+<input type="hidden"   class="form-control"  id="Lat_pat" name="Lat_pat" />
+<input type="hidden"   class="form-control"  id="lng_pat" name="lng_pat" />
+
+<input type="hidden"   class="form-control"  id="lat_pick" name="lat_pick" />
+<input type="hidden"   class="form-control"  id="lng_pick" name="lng_pick" />
+
+<input   class="form-control"  id="lat_drp" name="lat_drp" />
+<input   class="form-control"  id="lng_drp" name="lng_drp" />
+
 <div class="row">
 <div class="col-lg-2">
 <h4>Call Type & caller Details: </h4>

@@ -195,10 +195,17 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         $Patient_phone_no=strip_tags($_POST['Patient_phone_no']);
         $Age=strip_tags($_POST['Age']);
         $google_location=strip_tags($_POST['google_location']);
+        $Lat_pat=strip_tags($_POST['Lat_pat']);
+        $lng_pat=strip_tags($_POST['lng_pat']);
         //Ambulance
         $google_pickup_location=strip_tags($_POST['google_pickup_location']);
         $google_drop_location=strip_tags($_POST['google_drop_location']);
         $selected_amb=strip_tags($_POST['selected_amb']);
+
+        $lat_pick=strip_tags($_POST['lat_pick']);
+        $lng_pick=strip_tags($_POST['lng_pick']);
+        $lat_drp=strip_tags($_POST['lat_drp']);
+        $lng_drp=strip_tags($_POST['lng_drp']);
         
         $amb_no=strip_tags($_POST['amb_no']);
         //Ambulance Schedule Details
@@ -235,6 +242,13 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         $arr['Age']=$Age;
         $arr['Gender']=$Gender;
         $arr['google_location']=$_POST['google_location'];
+
+        $arr['Lat_pat']=$Lat_pat;
+        $arr['lng_pat']=$lng_pat;
+        $arr['lat_pick']=$lat_pick;
+        $arr['lng_pick']=$lng_pick;
+        $arr['lat_drp']=$lat_drp;
+        $arr['lng_drp']=$lng_drp;
         
         $arr['google_pickup_location']=$google_pickup_location;
         $arr['google_drop_location']=$google_drop_location;
@@ -251,7 +265,7 @@ else if($_REQUEST['action']=="SubmitDropCall"){
 
         $arr['finalcost'] = $total_cost;
         $arr['total_km'] = $total_km; 
-
+        //var_dump($arr);die();
         $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
         if($InsertRecord)
                 {
