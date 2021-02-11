@@ -196,6 +196,7 @@ class AmbulanceClass extends AbstractDB
       }
       $createEvent['finalcost']  =   $arg['finalcost'];
       $createEvent['total_km']  =   $arg['total_km'];
+      $createEvent['total_km_per'] = $arg['total_km_per'];
       $createEvent['purpose_id']  =   $arg['CallType'];
       $createEvent['event_code']  =   $inc_ref_no;
       $createEvent['caller_id'] = $RecordId;

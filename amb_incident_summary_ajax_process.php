@@ -218,6 +218,8 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         
         $total_cost = strip_tags($_POST['total_cost']);
         $total_km = strip_tags($_POST['total_km']);
+        $total_km_per = strip_tags($_POST['total_km_per']);
+        
 
 
 
@@ -265,6 +267,7 @@ else if($_REQUEST['action']=="SubmitDropCall"){
 
         $arr['finalcost'] = $total_cost;
         $arr['total_km'] = $total_km; 
+        $arr['total_km_per'] = $total_km_per;
         //var_dump($arr);die();
         $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
         if($InsertRecord)
@@ -311,7 +314,8 @@ else if($_REQUEST['action']=="vw_ambulance_list"){
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 
-                <input type="checkbox" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+               
+                <input class="check_class amb_check_box" type="checkbox" onchange="cbChange(this)" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';
