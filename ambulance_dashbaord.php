@@ -443,6 +443,34 @@ function ChangepaymentType(){
        $("#card").hide();
     }
 }
+function Start_odo_validation(){
+    var pre_odo = parseInt(document.getElementById('pre_odo').value);
+    var Start_odo = parseInt(document.getElementById('Start_odo').value);
+    if(Start_odo > pre_odo)
+    {
+        bootbox.alert("<div class='msg-error'>Please Enter less than Previous odometer</div>");
+         document.getElementById('Start_odo').value='';
+         document.getElementById("Start_odo").focus();
+    }
+    else if(Start_odo < pre_odo)
+    {
+        bootbox.alert("<div class='msg-error'>Please Enter greater than Previous odometer</div>");
+        document.getElementById('Start_odo').value='';
+        document.getElementById("Start_odo").focus();
+    }
+}
+function end_odo_validation()
+{
+    var End_odo = parseInt(document.getElementById('End_odo').value);
+    var Start_odo = parseInt(document.getElementById('Start_odo').value);
+    if(Start_odo > End_odo)
+    {
+        bootbox.alert("<div class='msg-error'>Please Enter less than start odometer</div>");
+         document.getElementById('End_odo').value='';
+         document.getElementById("End_odo").focus();
+    }
+    
+}
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("check_class");
     for (var i = 0; i < cbs.length; i++) {

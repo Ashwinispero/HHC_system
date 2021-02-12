@@ -624,13 +624,13 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <h4>Odometer Details </h4>
 </div>
 <div class="col-lg-2">
-<input class="form-control" disabled type="text" placeholder="Previous Odometer" value="<?php echo $recList[0]['End_odo']; ?>"  id="pre_odo" name="pre_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input class="form-control" readonly type="text" placeholder="Previous Odometer" value="<?php echo $recList[0]['End_odo']; ?>"  id="pre_odo" name="pre_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <div class="col-lg-2">
-<input type="text" placeholder="Enter Start Odometer" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" onblur="Start_odo_validation()" placeholder="Enter Start Odometer" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <div class="col-lg-2">
-<input type="text" placeholder="Enter end Odometer" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" onblur="end_odo_validation()" placeholder="Enter end Odometer" class="validate[required,minSize[1],maxSize[1]] form-control" id="End_odo" name="End_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 </div>
 <div class="line-seprator"></div>
