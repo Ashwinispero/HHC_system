@@ -20,6 +20,9 @@ class AmbulanceClass extends AbstractDB
         parent::close();
     }
     public function InsertClosure($arg){
+
+        $insertData['amb_id'] = $arg['amb_id'] ;
+        $insertData['amb_no'] = $arg['selected_amb'] ;
         $insertData['incident_id']  =   $arg['incident_id'];
         $insertData['level_id']  =   $arg['level_id'];
         $insertData['med_id']  =   $arg['med_id'];
@@ -194,6 +197,12 @@ class AmbulanceClass extends AbstractDB
         $createEvent['notes_terminate']  =   '' ;
          $createEvent['terminate_reason_id']  =   '' ;
       }
+      $payments_event_code = mysql_query("SELECT * FROM sp_ems_ambulance  where amb_no='".$arg['selected_amb']."' ");
+	    $row2 = mysql_fetch_array($payments_event_code) or die(mysql_error());
+		$amb_id=$row2['id'];
+		
+      
+
       $createEvent['finalcost']  =   $arg['finalcost'];
       $createEvent['total_km']  =   $arg['total_km'];
       $createEvent['total_km_per'] = $arg['total_km_per'];
@@ -208,6 +217,7 @@ class AmbulanceClass extends AbstractDB
       $createEvent['google_drop_location']  =   $arg['google_drop_location'];
       $createEvent['amb_no']  =   $arg['amb_no'];
       $createEvent['selected_amb']  =   $arg['selected_amb'];
+      $createEvent['amb_id'] = $amb_id;
       $createEvent['date']  =   date("Y-m-d", strtotime($arg['date']));
       $createEvent['time']  =   $arg['time'];
       $createEvent['note']  =   $arg['notes'];
@@ -244,16 +254,17 @@ class AmbulanceClass extends AbstractDB
         $branch_code=$row_Hospital_branch['branch'];
         $createEvent['branch_code'] = $branch_code;	
         $createEvent['hospital_id'] = $hospital_id;	
-        
+        //var_dump($createEvent);die();
         $EventId=$this->query_insert('sp_amb_events',$createEvent);
 
        return $EventId.'>>'.$RecordId;
     }
     public function amb_event_details($event_code)
     {
-        $RecordSql="SELECT se.*,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
+        $RecordSql="SELECT se.*,jc.End_odo,sp.first_name,sp.name,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
                     LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
                     LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
+                    LEFT JOIN sp_amb_jobclosure as jc ON jc.amb_id = se.amb_id 
                     WHERE 1 AND event_status!='3' AND event_code = '".$event_code."' GROUP BY se.event_id";
        $AllRrecord = $this->fetch_all_array($RecordSql);
             

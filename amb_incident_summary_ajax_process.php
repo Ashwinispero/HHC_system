@@ -91,6 +91,12 @@ else if($_REQUEST['action']=="SubmitJobClosureCall"){
         }
         //var_dump($medList);die();
         $incident_id=$_POST['incident_id'];
+
+        $payments_event_code = mysql_query("SELECT * FROM sp_amb_events  where event_code='$incident_id'");
+		$row2 = mysql_fetch_array($payments_event_code) or die(mysql_error());
+		$selected_amb=$row2['selected_amb'];
+		$amb_id=$row2['amb_id'];
+
         $level_id=$_POST['level_id'];
         $med_id=$medList;
         $inv_id=$invList;
@@ -106,6 +112,8 @@ else if($_REQUEST['action']=="SubmitJobClosureCall"){
 
         $success=1;
         $arr['incident_id'] = $incident_id;
+        $arr['amb_id'] = $amb_id ;
+        $arr['amb_no'] = $selected_amb ;
         $arr['level_id'] = $level_id ;
         $arr['med_id'] = $med_id;
         $arr['inv_id'] = $inv_id;
@@ -614,6 +622,9 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
 <div class="row">
 <div class="col-lg-2">
 <h4>Odometer Details </h4>
+</div>
+<div class="col-lg-2">
+<input class="form-control" disabled type="text" placeholder="Previous Odometer" value="<?php echo $recList[0]['End_odo']; ?>"  id="pre_odo" name="pre_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <div class="col-lg-2">
 <input type="text" placeholder="Enter Start Odometer" class="validate[required,minSize[1],maxSize[1]] form-control"  id="Start_odo" name="Start_odo" maxlength="5" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
