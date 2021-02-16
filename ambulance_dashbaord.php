@@ -521,7 +521,7 @@ function cbChange(obj) {
                     success: function (html)
                     {
                         $("#payment_details").html(html);
-                       
+                        update_ambulance_inc_map();
                     },
                     complete : function()
                     {

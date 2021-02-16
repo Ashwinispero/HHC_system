@@ -64,7 +64,7 @@ foreach($AllRrecord as $key=>$valRecords)
                 <td>'.$valRecords['amb_status'].'</td>
                 <td>'; 
                 ?> 
-                <input class="check_class amb_check_box" type="checkbox" onchange="cbChange(this)" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+                <input class="check_class amb_check_box" onchange="cbChange(this)" type="checkbox" name="selected_amb" id="selected_amb_<?php echo $valRecords['amb_no']; ?>" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';
@@ -334,7 +334,7 @@ else if($_REQUEST['action']=="vw_ambulance_list"){
                 <td>'; 
                 ?> 
                
-                <input class="check_class amb_check_box" type="checkbox" onchange="cbChange(this)" name="selected_amb" id="selected_amb" value="<?php echo $valRecords['amb_no']; ?> " >
+                <input class="check_class amb_check_box" type="checkbox" onchange="cbChange(this)" name="selected_amb" id="selected_amb1" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
                 echo '</td>
                 </tr>';
