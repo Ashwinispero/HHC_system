@@ -76,14 +76,7 @@ require_once 'inc_classes.php';
   color: white;
   background-color: red;
 }
-.input_box
-{
-  margin-left:-10%
-}
-.input_box_first
-{
-  margin-left:-2%
-}
+
 </style>  
 
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -92,15 +85,9 @@ require_once 'inc_classes.php';
 <body>
 <?php include "include/amb_header.php"; ?>
 <section>
-<div id="DispatchdDiv" style="background-color:white;">
-<div class="container-fluid" style="margin-left:2%;margin-right:2%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:-1%">
+
+<div id="DispatchdDiv" class="container-fluid" style="background-color:white;margin-left:1%;margin-right:1%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:-1.5%">
 <div class="row">
-<div class="col-lg-12">
-<!--<label for="inputPassword3" class="col-lg-1 control-label">Location : <span style="color:red;">*</span></label>
-<div class="col-lg-3">
-        <input maxlength="100" id="google_location" name="google_location" type="text" value="<?php if($recListResponse['locationNm']) echo $recListResponse['locationNm']; else echo $_POST['locationNm']; ?>" class="validate[required] form-control"  />   
-        <input id="selcGog_Location" name="selcGog_Location" type="hidden" value="" /> 
-</div>-->
 <div class="modal-body">
 <div  id="Drop_call_view" >
 <?php include "amb_drop_call_view.php"; ?>
@@ -991,7 +978,34 @@ function SubmitPayment(event_id)
 
 </div>
 </div>
-</div>
+<style>
+h4{
+    font-size: 15px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+.col-lg-2{
+    
+    position: relative;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
+
+}
+.line-seprator {
+    background: #e4e1e1;
+    height: 1px;
+    margin: 10px 0;
+}
+.col-lg-4{
+    
+    position: relative;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
+
+}
+</style>
 </section>
 </body>
 </html>

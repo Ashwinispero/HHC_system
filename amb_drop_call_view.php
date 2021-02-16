@@ -21,7 +21,7 @@ else
 
 <div class="row">
 <div class="col-lg-2">
-<h4>Call Type & caller Details: </h4>
+<h4>Call Type & caller Detail</h4>
 </div>
 <div class="col-lg-2">
     <select class="validate[required] chosen-select form-control"  name="CallType" id="CallType" onchange="return ChangeCallType(this.value);">
@@ -102,7 +102,7 @@ else
         <option value='Other'>Other</option>
 </select>
 </div>
-</div><br>
+</div>
 <div class="row">
 <div class="col-lg-2">
 </div>
@@ -114,7 +114,7 @@ else
 <div class="line-seprator"></div>
 <div class="row">
 <div class="col-lg-2">
-<h4>Ambulance Details</h4>
+<h4>Address Details</h4>
 </div>
 <div class="exPatientListing">
     <div class="col-lg-4">
@@ -223,7 +223,7 @@ else
       </div>
 </div>
 </div>
-<div class="col-lg-6" id="INCIDENT_MAP" style="height:400px;">
+<div class="col-lg-6" id="INCIDENT_MAP" style="height:250px;">
 </div>
 </div>
 <div id='payment_details' class="row">
