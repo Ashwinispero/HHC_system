@@ -445,7 +445,21 @@ $(document).ready(function()  {
                     </li>
                     <!-- Revoltel Report section ends here -->
 
-                    
+                    <!-- Ambulance Agreegation section start here -->
+                    <li class="navbar_child_li" id="Ambulance_Agreegation">
+                        <a href="javacript:void(0);">
+                            <i><img src="images/my-profile.png"></i>  Ambulance Agreegation
+                        </a>
+                        <ul>
+                        <?php if (in_array("52", $moduleids)) { ?>
+                                <li class="<?php if($page_name == 'manage_ambulance.php') echo 'active'; ?>">
+                                    <a href="manage_ambulance.php"><i><img src="images/manage_professionals.png"></i>Manage Ambulance</a>
+                                </li> 
+                            <?php } ?>
+                            <!-- manage adio call report outgoing section start here -->
+                         </ul>
+                    </li>
+                    <!-- Ambulance Agreegation section ends here -->
 
                     <!-- Set cookies section start here -->
                     <?php if (in_array("15", $moduleids)) { ?>

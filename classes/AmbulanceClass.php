@@ -1,9 +1,10 @@
 <?php
-    if(!class_exists('AbstractDB'))
-        require_once dirname(__FILE__) . '/AbstractDB.php';
-    if(!class_exists('PS_Pagination'))
-        require_once dirname(__FILE__) . '/PS_Pagination.php';
-    require_once dirname(__FILE__) . '/functions.php';
+   if(!class_exists('AbstractDB'))
+   require_once dirname(__FILE__) . '/AbstractDB.php';
+if(!class_exists('PS_Pagination'))
+   require_once dirname(__FILE__) . '/PS_Pagination.php';
+require_once dirname(__FILE__) . '/functions.php';
+
     
 class AmbulanceClass extends AbstractDB 
 {
@@ -293,5 +294,32 @@ class AmbulanceClass extends AbstractDB
             
        return $AllRrecord;
        
+    }
+    public function AmbulanceList($arg)
+    {
+        $RecordSql="SELECT amb.* FROM sp_ems_ambulance as amb 
+                    WHERE 1 AND amb.is_deleted = '1'";
+        $EmployeesSql="SELECT amb.* FROM sp_ems_ambulance as amb WHERE 1 AND amb.is_deleted = '1'";
+        $this->result = $this->query($EmployeesSql);
+        if ($this->num_of_rows($this->result))
+        {
+            $pager = new PS_Pagination($EmployeesSql,$arg['pageSize'],$arg['pageIndex'],'');
+            $all_records= $pager->paginate();
+            while($val_records=$this->fetch_array($all_records))
+            {
+                // Getting Record Detail
+                $RecordSql="SELECT * FROM sp_ems_ambulance WHERE id='".$val_records['id']."'";
+                $RecordResult=$this->fetch_array($this->query($RecordSql));
+                $this->resultEmployees[]=$RecordResult;
+            }
+            $resultArray['count'] = $pager->total_rows;
+        }
+        if(count($this->resultEmployees))
+        {
+            $resultArray['data']=$this->resultEmployees;
+            return $resultArray;
+        }
+        else
+            return array('data' => array(), 'count' => 0); 
     }
 }
