@@ -110,100 +110,46 @@ else
     {      
         echo '<table class="table table-hover table-bordered">
                 <tr> 
-                    <th width="10%"><a href="javascript:void(0);" onclick="changePagination(\'ProfessionalsListing\',\'include_professionals.php\',\'\',\'\',\''.$order.'\',\'t1.professional_code\');" style="color:#00cfcb;">Prof Id '.' '.$img1.'</a></th>
-                    <th><a href="javascript:void(0);" onclick="changePagination(\'ProfessionalsListing\',\'include_professionals.php\',\'\',\'\',\''.$order.'\',\'t1.name\');" style="color:#00cfcb;">Name '.' '.$img2.'</a></th>
-                    <th width="11%"><a href="javascript:void(0);" onclick="changePagination(\'ProfessionalsListing\',\'include_professionals.php\',\'\',\'\',\''.$order.'\',\'t1.mobile_no\');" style="color:#00cfcb;">Mobile No '.' '.$img3.'</a></th>
-                    <th>Services</th> 
-                    <th width="18%">Location</th>                    
-                    <th class="'.$col_class.'">Action</th>
+                    <th width="15%">Ambulance No</th>
+                    <th width="12%">Mobile No</th>
+                    <th width="20%">Base Location </th>
+                    <th width="15%">Ambulance Type</th>
+                    <th width="12%">Status</th>
+                   
+                    <th width="20%">Action</th>
                 </tr>';   //<th width="9%">Type</th>
         foreach ($recList as $recListKey => $recListValue) 
         { 
-            $locationNm = 'NA';
-            $service_professional_id=$recListValue['service_professional_id']; 
-            $PRID = base64_encode($service_professional_id);
-            if($recListValue['set_location'] == '1')
+            if($recListValue['amb_type']==1)
             {
-                $locations = $recListValue['location_id_home'];
-                $google_location = $recListValue['google_home_location'];
-            }
-            else
+                $type='PTA';
+            }else if($recListValue['amb_type']==2)
             {
-                $locations = $recListValue['location_id'];
-                $google_location = $recListValue['google_work_location'];
-            }
-            if($google_location == '')
+                $type='BLS';
+            }else if($recListValue['amb_type']==3)
             {
-                $LocationSql="SELECT location_id,location,pin_code FROM sp_locations WHERE location_id='".$locations."'";
-                $LocationDtls=$db->fetch_array($db->query($LocationSql));
-                if($LocationDtls['location'])
-                    $locationNm=$LocationDtls['location']; 
+                $type='ALS';
             }
-            else
-                $locationNm = $google_location;
-			
-			// check is it professional really using app
-			$appUserSql = "SELECT status FROM sp_session WHERE service_professional_id = '" . $service_professional_id . "'";
-			// professional don't have mobile app yet.
-			$mobileAppFlag = 0;
-			if(mysql_num_rows($db->query($appUserSql))) {
-				$appUser = $db->fetch_all_array($appUserSql);
-				if (!empty($appUser)) {
-					$mobileAppFlag  = 1;
-					$activeAppUser = 0;
-					foreach ($appUser AS $key => $valUser) {
-						if ($valUser['status'] == '1') {
-							$activeAppUser = 1;
-							break;
-						}
-					}
-				}
+            if($recListValue['amb_status']==1)
+            {
+                $status='Available';
+            }else if($recListValue['amb_status']==2)
+            {
+                $status='Busy';
+            }else if($recListValue['amb_status']==3)
+            {
+                $status='Maintance';
             }
-            
-            // Check is it professional having document
-
-
-            echo '<tr id="ProfessionalRecord_'.$service_professional_id.'">
-                    <td>'.$recListValue['professional_code'].'</td>
-                    <td>';
-                        if(!empty($recListValue['name'])) { echo $recListValue['name']." ";}
-                        if(!empty($recListValue['first_name'])) { echo $recListValue['first_name']." ";}
-                        if(!empty($recListValue['middle_name'])) { echo $recListValue['middle_name']." ";}
-              echo '</td>
-                    <td>'.$recListValue['mobile_no'].'</td>
-                    <td>'.$recListValue['Services'].'</td>
-                    <td>'.$locationNm.'</td>
-                    '; //<td>'.$recListValue['typeVal'].'</td>
+            echo '<tr id="ProfessionalRecord_'.$recListValue['id'].'">
+                    <td>'.$recListValue['amb_no'].'</td>
+                    <td>'.$recListValue['mob_no'].'</td>
+                    <td>'.$recListValue['base_name'].'</td>
+                    <td>'.$type.'</td>
+                    <td>'.$status.'</td>
+                     ';
                     echo '<td>
                               <ul class="actionlist">
                                     <li><a href="javascript:void(0);" onclick="return view_professional('.$service_professional_id.');" data-toggle="tooltip" title="View Professional"><img src="images/icon-view.png" alt="View Professional"></a></li>';
-                                    echo '<li><a href="javascript:void(0);" onclick="return vw_add_document(' . $service_professional_id . ');" data-toggle="tooltip" title="Add Documents"><img src="images/icon-add.png" alt="Add Documents"></a></li>';
-                                    if (!empty($mobileAppFlag)) {
-										
-										if (!empty($activeAppUser)) {
-											echo '<li>
-												<a href="javascript:void(0);" data-toggle="tooltip" title="Source">
-													<img src="images/icon-app.png" alt="Source" height="24px" width="24px">
-												</a>
-											</li>';
-										} else {
-											echo '<li>
-												<a href="javascript:void(0);" data-toggle="tooltip" title="Source">
-													<img src="images/icon-app-inactive.png" alt="Source" height="24px" width="24px">
-												</a>
-											</li>';
-										}
-                                    }
-
-                                    if($recListValue['status']=='1')
-                                        echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$service_professional_id.','.$recListValue['status'].',\'Inactive\');" title="Active"><img src="images/icon-active.png" alt="Active"></a></li>';
-                                    if($recListValue['status']=='2')
-                                        echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$service_professional_id.','.$recListValue['status'].',\'Active\');" title="Inactive"><img src="images/icon-inactive.png" alt="Inactive"></a></li>'; 
-
-                                    echo '<li><a href="add_availability.php?prID='.$PRID.'" data-toggle="tooltip" title="Add Availability"><img src="images/grey-add-availability.png" alt="Add Availability"></a></li>';
-
-                                    echo '<li><a href="add_scheduled.php?prID='.$PRID.'" data-toggle="tooltip" title="Add Scheduled"><img src="images/grey-add-schedule.png" alt="Add Scheduled"></a></li>';
-                                    echo '<li><a href="javascript:void(0);" onclick="return viewScheduled('.$service_professional_id.');"  data-toggle="tooltip" title="View Scheduled"><img src="images/grey-view-schedule.png" alt="View Scheduled"></a></li>';
                                     echo '<li><a href="javascript:void(0);" onclick="return vw_add_professional('.$service_professional_id.');" data-toggle="tooltip" title="Edit"><img src="images/icon-edit.png" alt="Edit"></a></li>';
                                     // if($del_visible=='Y'){ echo '<li><a href="javascript:void(0);" onclick="return change_status('.$service_professional_id.','.$recListValue['status'].',\'Delete\');" data-toggle="tooltip" title="Delete"><img src="images/icon-delete.png" alt="Delete"></a></li>'; }
                                     // else { echo '<li><a href="javascript:void(0);"></a></li>'; } 
