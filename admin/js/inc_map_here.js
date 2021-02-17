@@ -128,7 +128,7 @@ function initIncidentMap() {
 }
 
 function map_autocomplete_amb(){
-    alert();
+    //alert();
     $("#base_location").autocomplete({
         select: function( event, ui ) {
           

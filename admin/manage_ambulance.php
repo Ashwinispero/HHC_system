@@ -137,10 +137,10 @@
             }
         });
     }
-    function add_professional_submit()
+    function add_ambulance_submit()
     {
       // check is it atleast one checkbox selected
-      if($('#frm_add_professional input[type="checkbox"]').is(':checked') && $("#frm_add_professional").validationEngine('validate'))
+      if($('#frm_add_ambulance input[type="checkbox"]').is(':checked') && $("#frm_add_ambulance").validationEngine('validate'))
       {  
                 var addressField = document.getElementById('google_home_location');
                 var geocoder = new google.maps.Geocoder();
