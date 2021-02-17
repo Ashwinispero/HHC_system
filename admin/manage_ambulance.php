@@ -15,16 +15,6 @@
     <meta name="author" content="">
     <title>Manage Ambulances </title>
     <?php include "include/css-includes.php";?>
-    <style>.scrollbars{height:400px}
-    
-/* pac container class is for google locaion display on modal.. do not change it  */
-.pac-container {
-    z-index: 1051 !important;
-}
-.ui-autocomplete {
-    z-index: 1051 !important;
-}
-    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -37,60 +27,22 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             <img src="images/professionals_big.png" alt="Manage Professionals"> Manage Ambulances                   
-                            <a href="javascript:void(0);" onclick="return vw_add_professional(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD Ambulance</a>                            
+                            <a href="javascript:void(0);" onclick="return vw_add_ambulance(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD AMBULANCE</a>                            
                         </h1>
                     </div>
                 </div>
                 <div class="col-lg-12 whiteBg">
                 <div class="col-lg-12 paddingLR20 paddingt20">
-                    <div class="col-lg-3 marginB20 paddingl0">
-                        <div class="searchBox" ><input type="text" name="SearchKeyword" id="SearchKeyword" class="data-entry-search" placeholder="Search Professional"/> 
+                    <div class="col-lg-4 marginB20 paddingl0">
+                        <div class="searchBox" ><input type="text" name="SearchKeyword" id="SearchKeyword" class="data-entry-search" placeholder="Search Ambulance / mobile no"/> 
                             <a href="javascript:void(0);" class="pull-right"><img onclick="searchRecords();" src="images/icon-search.png" width="24" height="24" alt="Search"></a>
                         </div>
                     </div>
                     <div class="col-lg-2 paddingR0 inline_dp pull-left dropdown">
                         <div class="dd">
                             <select class="dp_country" name="reference_type" id="reference_type" onchange="searchRecords();">
-                                <option value=""<?php if($_REQUEST['reference_type']=='') { echo 'selected="selected"'; } ?>>Search By Profession</option>
-                                 <option value="1"<?php if($_REQUEST['reference_type']=='1') { echo 'selected="selected"'; } ?>>Professional</option>
-                                 <option value="2"<?php if($_REQUEST['reference_type']=='2') { echo 'selected="selected"'; } ?>>Vender</option>
-                            </select>
-                        </div>
-                    </div>
-<!--                    <div class="col-lg-2 paddingR0 inline_dp pull-left dropdown">
-                        <div class="dd">
-                            <select class="dp_country" name="location_id" id="location_id" onchange="searchRecords();">
-                                <option value="">Search By Location</option>
-                                <?php
-                                    // Getting All Locations
-                                    /*$recList=$commonClass->GetAllLocations($arr);
-                                    foreach($recList as $recListKey => $valLocations)
-                                    {
-                                        if($_REQUEST['location_id']==$valLocations['location_id'])
-                                            echo '<option value="'.$valLocations['location_id'].'" selected="selected">'.$valLocations['location'].'</option>';
-                                        else
-                                            echo '<option value="'.$valLocations['location_id'].'">'.$valLocations['location'].'</option>';
-                                    }*/
-                                ?>
-                            </select>
-                        </div>
-                    </div>-->
-                    <div class="col-lg-2 paddingR0 inline_dp pull-left dropdown">
-                        <div class="dd">
-                            <select class="dp_country" name="Prof_service_id" id="Prof_service_id" onchange="searchRecords();">
-                                <option value="">Search By Services</option>
-                                <?php
-                                    // Getting All Locations
-                                    $ServiceList=$commonClass->GetAllServices();  
-                                    foreach($ServiceList as $recListKey => $servicesAll)
-                                    {
-                                        if($_REQUEST['Prof_service_id']==$servicesAll['service_id'])
-                                            echo '<option value="'.$servicesAll['service_id'].'" selected="selected">'.$servicesAll['service_title'].'</option>';
-                                        else
-                                            echo '<option value="'.$servicesAll['service_id'].'">'.$servicesAll['service_title'].'</option>';
-                                    }
-                                ?>
-                            </select>
+                                <option value=""<?php if($_REQUEST['reference_type']=='') { echo 'selected="selected"'; } ?>>Search By Ambulance</option>
+                                </select>
                         </div>
                     </div>
                     <div class="col-lg-2 paddingR0 pull-right text-right dropdown">
@@ -121,6 +73,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+   
    <?php  include "include/scripts.php"; ?>
     <link href="css/validationEngine.jquery.css" rel="stylesheet" />
     <script src="js/jquery.validationEngine.js"></script>
@@ -138,11 +91,10 @@
     <link rel="stylesheet" type="text/css" href="../js/jquery-timepicker-master/jquery.timepicker.css" />
     <script type="text/javascript" src="../js/jquery-timepicker-master/datepair.js"></script>
     <script type="text/javascript" src="../js/jquery-timepicker-master/jquery.datepair.js"></script>
-    
-    
 <script type="text/javascript">
     $(document).ready(function() 
     {
+        map_autocomplete_amb();
         textboxes = $("input.data-entry-search");
         $(textboxes).keydown (checkForEnterSearch);
         $.datepicker._generateHTML_Old = $.datepicker._generateHTML; $.datepicker._generateHTML = function(inst)
@@ -150,6 +102,7 @@
            res = this._generateHTML_Old(inst); res = res.replace("_hideDatepicker()","_clearDate('#"+inst.id+"')"); return res;
         }
     });
+   
     function checkForEnterSearch (event) 
     {
         if (event.keyCode == 13) 
@@ -161,113 +114,22 @@
     {
         changePagination('ProfessionalsListing','include_professionals.php','','','','');
     }
-    function vw_add_professional(value)
+    function vw_add_ambulance(value)
     {
         //alert(value);
-        var data1="service_professional_id="+value+"&action=vw_add_professional";
+        var data1="service_professional_id="+value+"&action=vw_add_ambulance";
         $.ajax({
-            url: "professional_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+            url: "ambulance_ajax_process.php", type: "post", data: data1, cache: false,async: false,
             beforeSend: function() 
             {
                Popup_Display_Load();
             },
             success: function (html)
             {
-               // alert(html);
-               if(value)
-               {
-                   var ref_type= $(html).find('#detail_id').val();
-                   if(ref_type=='1')
-                   {
-                       $(".cls_prof").show();
-                   }
-                   else 
-                   {
-                       $(".cls_prof").hide();
-                   }
-                   $(".ProfOtherContent").show();
-               }
-               else 
-               {
-                   $(".cls_prof").hide();
-                   $(".ProfOtherContent").hide();
-               }               
-               
-               $('#edit_professional').modal({backdrop: 'static',keyboard: false});  
-               $("#AllAjaxData").html(html);                       
-                    // start work on google location on modal - 
-                    $location_input = $("#google_work_location");
-                    var options = {
-                        //types: ['(postal_town)'],
-                        componentRestrictions: {country: 'in'}
-                    };
-                    autocomplete = new google.maps.places.Autocomplete($location_input.get(0), options);    
-                    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                        var data = $("#google_work_location").val();
-                        console.log('blah');
-                      //  show_submit_data(data);
-                        return false;
-                    });
-                    
-                    $location_input_home = $("#google_home_location");
-                    var options = {
-                        //types: ['(postal_town)'],
-                        componentRestrictions: {country: 'in'}
-                    };
-                    autocomplete_home = new google.maps.places.Autocomplete($location_input_home.get(0), options);    
-                    google.maps.event.addListener(autocomplete_home, 'place_changed', function() {
-                        var datas = $("#google_home_location").val();
-                        console.log('blah');
-                      //  show_submit_data(data);
-                        return false;
-                    });
-                    
-                    // complete google location
-        
-               setTimeout("$('.scrollbars').ClassyScroll();",100);
-			   
-             //  $("#dob").attr( 'readOnly' , 'true' );
-
-               $("#frm_add_professional").validationEngine('attach',{promptPosition : "bottomLeft"}); 
-               $('.datepicker').datepicker({changeMonth: true,changeYear: true,dateFormat: 'dd-mm-yy',yearRange: "-60:-20",onClose: function() { this.focus(); var inputs = $(this).closest('form').find(':input'); inputs.eq( inputs.index(this)+ 1 ).focus(); }});
-               $("#dob").keypress(function(event) {event.preventDefault();});
-               
-                $('#name,#first_name,#middle_name').keyup(function(event) 
-                {
-                    var textBox = event.target;
-                    var start = textBox.selectionStart;
-                    var end = textBox.selectionEnd;
-                    textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1);
-                    textBox.setSelectionRange(start, end);
-                });
-				
-				// Initialize service dropdown
-				$('#service_id').multiselect({
-					enableCaseInsensitiveFiltering: true,
-					enableFiltering: true,
-					nonSelectedText:'Assign Service',
-					maxHeight: 250,
-					buttonWidth:'auto!important'
-				});
-				
-
-				// Initialize sub service dropdown
-				$('#sub_service_id').multiselect({
-					enableCaseInsensitiveFiltering: true,
-					enableFiltering: true,
-					nonSelectedText: 'Select Sub Service',
-					maxHeight: 250,
-					buttonWidth:'auto!important',
-					includeSelectAllOption: true
-				});
-				
-				$(".multiselect-search").keydown(function(event) 
-				{
-					if (event.keyCode == 13) 
-					{
-						return false;
-					}
-				});
+              
+                $('#edit_professional').modal({backdrop: 'static',keyboard: false});  
+                $("#AllAjaxData").html(html);                       
+                
             },
             complete : function()
             {
@@ -846,19 +708,11 @@
         }));
      }
 </script>
-
-<script>
-    function show_submit_data(data) {
-        $("#selcGog_Location").val(data);
-    }    
-</script>
-<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8lSxG4pg8hWyd52oqUQJKWnjQSe20dvc&libraries=places"></script>OLD Key used for the Mobile App-->
-
-<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3wZTkqi05uBxq-6ef7NvnxiSWI1Jixls&libraries=places"></script>OLD KEY
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8lSxG4pg8hWyd52oqUQJKWnjQSe20dvc&libraries=places"></script>BVG KEY-->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&libraries=places"></script>
-
+<!----Map JS--->
+<script type="text/javascript" src="js/inc_map_here.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 </body>
 </html>
