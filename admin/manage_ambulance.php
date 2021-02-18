@@ -55,7 +55,7 @@
                         <?php // if(isset($_SESSION['admin_user_type']) && $_SESSION['admin_user_type']=='1') {  echo '<a href="manage_professionals_trash.php" data-toggle="tooltip" title="Trash" style="margin-left:10px;display: inline-block;"><img src="images/trash.png" alt="trash"></a>'; }  ?>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="ProfessionalsListing">
+                    <div class="AmbulancesListing">
                         <?php include "include_ambulance.php";?>
                     </div>
                 </div>   
@@ -139,38 +139,84 @@
     }
     function add_ambulance_submit()
     {
-      // check is it atleast one checkbox selected
-      if($('#frm_add_ambulance input[type="checkbox"]').is(':checked') && $("#frm_add_ambulance").validationEngine('validate'))
-      {  
-                var addressField = document.getElementById('google_home_location');
-                var geocoder = new google.maps.Geocoder();
-               geocoder.geocode(
-                {'address': addressField.value}, 
-                function(results, status) { 
-                   // alert(status);
-                    if (status == google.maps.GeocoderStatus.OK) 
+        $('#submitForm').prop('disabled', true);
+            $("#frm_add_ambulance").ajaxForm({
+                beforeSend: function() 
+                {
+                   Display_Load();
+                },
+                success: function (html)
+                {
+                    var result=html.trim();
+                    if(result=='ValidationError')
                     {
-                        var loc = results[0].geometry.location;
-                        console.log(addressField.value+" found on Google");
-                        checkworklocation();
-                        //var datas = valid_google_location('yes');
-                    } else {
-                        console.log(addressField.value+" not found on Google");
-                        alert('Please select valid home location.');
-                        //var datas = valid_google_location('no');
-                        return false;
-                    } 
+                       bootbox.alert("<div class='msg-error'>There is some validation error please check all fields are proper.</div>"); 
+                    }
+                    if(result=='Ambulanceexists')
+                    {
+                       bootbox.alert("<div class='msg-error'>Ambulance details already exists, it may be on trash list, so please try another one.</div>"); 
+                    }
+                    else 
+                    {
+                         $('#edit_professional').modal('hide'); 
+                         if(result=='InsertSuccess')
+                         {
+                              bootbox.alert("<div class='msg-success'>Ambulance details added successfully.</div>",function()
+                              {
+                                  changePagination('AmbulancesListing','include_ambulance.php','','','','');
+                              });
+                          }
+
+                         else if(result=='Not_Insert')
+                         {
+                              bootbox.alert("<div class='msg-success'>Ambulance details updated successfully.</div>",function()
+                              {
+                                  changePagination('AmbulancesListing','include_ambulance.php','','','','');
+                              });
+                          }
+                    }
+
+                    $('#submitForm').prop('disabled', false);
+                },
+                complete : function()
+                {
+                   Hide_Load();
                 }
-                );
-      }
-      else 
-      {
-            $('#submitForm').prop('disabled', false);
-            bootbox.alert("<div class='msg-error'>Please fill the required fields.</div>", function() 
-            {
-               $("#reference_type").focus();
-            }); 
-      }  
+         }).submit();
+        /*$("#frm_add_ambulance").ajaxForm({
+                beforeSend: function() 
+                {
+                     Popup_Display_Load();
+                }, 
+               success: function (html)
+               {
+                   alert(html);
+                    var htmls=html.trim();
+                    if (html.indexOf('SessionExpired') > -1) 
+                    {
+                        bootbox.alert("<div class='msg-error'>Your Session has been expired please try again !</div>",function()
+                        {
+                            window.location='index.php';
+                        });
+                    }
+                    else 
+                    {
+                        alert('hi');
+                        var values = htmls.split(">>"); 
+                        var result = values[0];
+                        var callerID = values[1];
+                       //bootbox.alert('<div class="msg-success">Details added successfully..</div>', function() 
+                       // {
+                        //    window.location='ambulance_dashbaord.php';
+                       // });
+                    }
+                    
+               },
+                complete : function()
+                {
+                   Popup_Hide_Load();
+                }
+           }).submit(); */
     }
     function checkworklocation()
     {

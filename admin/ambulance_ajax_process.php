@@ -1,8 +1,8 @@
 <?php
 require_once 'inc_classes.php';
-require_once '../classes/professionalsClass.php';
+require_once '../classes/AmbulanceClass.php';
 require_once '../classes/commonClass.php';
-$professionalsClass=new professionalsClass();
+$AmbulanceClass=new AmbulanceClass();
 $commonClass=new commonClass();
 require_once "../classes/thumbnail_images.class.php";
 require_once "../classes/SimpleImage.php";
@@ -18,7 +18,7 @@ if(!class_exists('AbstractDB'))
         require_once '../classes/AbstractDB.php';
 if($_REQUEST['action']=='vw_add_ambulance')
 {
-    
+  /*  
     // Getting Professional Details
     $arr = array();
     $arr['id'] = $_REQUEST['id'];
@@ -43,13 +43,14 @@ if($_REQUEST['action']=='vw_add_ambulance')
     $subServiceList = (!empty($ProfDtls) ? $commonClass->getAllSubServices($param) : $commonClass->getAllSubServices());
     
     unset($arr['serviceType'], $arr['service_id'], $param);
+    */
  ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title"><?php if(!empty($ProfDtls)) { echo "Edit"; } else { echo "Add"; } ?> Ambulance </h4>
     </div>
     <div class="modal-body">
-        <form class="form-inline" name="frm_add_ambulance" id="frm_add_ambulance" method="post" action ="ambulance_ajax_process.php?action=add_ambulance" autocomplete="off">
+     <form class="form-horizontal" name="frm_add_ambulance" id="frm_add_ambulance" method="post" action ="ambulance_ajax_process.php?action=add_ambulance" >
             <div class="scrollbars">
                 
                 <div class="editform">
@@ -109,9 +110,8 @@ else if($_REQUEST['action']=='add_ambulance')
         $mobile_no=strip_tags($_POST['mobile_no']);
         $amb_type=strip_tags($_POST['amb_type']);
         $amb_status=strip_tags($_POST['amb_status']);
-        $base_location=strip_tags($_POST['base_location']);
+        $base_location=strip_tags($_POST['base_location1']);
         $address=strip_tags($_POST['address']);
-
         if($amb_no=='')
         {
             $success=0;
@@ -135,7 +135,7 @@ else if($_REQUEST['action']=='add_ambulance')
         if($base_location=='')
         {
             $success=0;
-            $errors[$i++]="Please enter Ambualnce No";
+            $errors[$i++]="Please enter base location";
         }
         if($address=='')
         {
@@ -143,7 +143,7 @@ else if($_REQUEST['action']=='add_ambulance')
             $errors[$i++]="Please enter address";
         }
         // Check Record Exists 
-        $chk_professional_sql="SELECT service_professional_id FROM sp_service_professionals WHERE mobile_no='".$mobile_no."'"; 
+        $chk_professional_sql="SELECT id FROM sp_ems_ambulance WHERE mob_no='".$mobile_no."'"; 
         
         if(mysql_num_rows($db->query($chk_professional_sql)))
         {
@@ -162,22 +162,23 @@ else if($_REQUEST['action']=='add_ambulance')
             $arr['amb_no']=$amb_no;
             $arr['mobile_no']=$mobile_no;
             $arr['amb_status']=$amb_status;
+            $arr['amb_type']=$amb_type;
             $arr['base_location']=$base_location;
             $arr['address']=$address;
-            $arr['lng']='';
+            $arr['lat']='';
             $arr['long']='';
             $arr['status']='1';
             $arr['added_by']=strip_tags($_SESSION['admin_user_id']);
             $arr['added_date']=date('Y-m-d H:i:s');
-            $InsertRecord = $professionalsClass->AddProfessional($arr); 
+            $InsertRecord = $AmbulanceClass->AddAmbulance($arr); 
             if($InsertRecord)
                 {
-                    echo 'Insert Success'; // Update Record
+                    echo 'InsertSuccess'; // Update Record
                     exit;
                 }
                 else 
                 {
-                    echo 'Not Insert'; // Insert Record
+                    echo 'Not_Insert'; // Insert Record
                     exit;
                 }
         }

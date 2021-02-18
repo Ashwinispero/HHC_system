@@ -322,4 +322,26 @@ class AmbulanceClass extends AbstractDB
         else
             return array('data' => array(), 'count' => 0); 
     }
+    public function AddAmbulance($arg){
+        $insertData['amb_no']       = $this->escape($arg['amb_no']);
+        $insertData['mob_no']       = $this->escape($arg['mobile_no']);
+        $insertData['amb_status']       = $this->escape($arg['amb_status']);
+        $insertData['amb_type']       = $this->escape($arg['amb_type']);
+        $insertData['base_name']       = $this->escape($arg['base_location']);
+        $insertData['address']       = $this->escape($arg['address']);
+        $insertData['lat']       = $this->escape($arg['lat']);
+        $insertData['long']       = $this->escape($arg['long']);
+        $insertData['status']       = $this->escape($arg['status']);
+        $insertData['added_by']       = $this->escape($arg['added_by']);
+        $insertData['added_date']       = $this->escape($arg['added_date']);
+        $RecordId=$this->query_insert('sp_ems_ambulance', $insertData);
+        if($RecordId)
+        {
+            return $RecordId;
+        }else{
+            return 0;
+        }
+		 
+
+    }
 }
