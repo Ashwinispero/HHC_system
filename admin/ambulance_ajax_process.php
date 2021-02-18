@@ -222,24 +222,8 @@ else if($_REQUEST['action']=='add_ambulance')
 }
 else if($_REQUEST['action']=='vw_ambulance')
 {
-    // Getting Professional Details
     $arr['amb_id']=$_REQUEST['amb_id'];
-
-    $ProfDtls=$professionalsClass->GetProfessionalById($arr);
-    if (!empty($ProfDtls)) {
-        // Get Professional service details
-        $profServiceList = $professionalsClass->GetProfessionalServices($arr);
-        
-        // Get Professional sub service details
-        $arr['serviceType'] = 'subService';
-        $arr['service_id'] = $profServiceList['service_id'];
-        $profSubServiceList = $professionalsClass->GetProfessionalServices($arr);
-        unset($arr['serviceType']);
-    }
-    
-    // Getting Professional other details
-    $ProfOtherDtls=$professionalsClass->GetProfessionalOtherDtlsById($arr);
-    //print_r($ProfDtls);
+    $AmbDtls=$AmbulanceClass->GetambulanceById($arr);
 ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -248,197 +232,63 @@ else if($_REQUEST['action']=='vw_ambulance')
     <div class="modal-body">
         <div>
             <div class="editform">
-                <label>Professional Code</label>
+                <label>Ambulance No</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['professional_code'])) { echo $ProfDtls['professional_code']; } else {  echo "-"; } ?>
+                    <?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Type</label>
+                <label>Mobile No</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['typeVal'])) { echo $ProfDtls['typeVal']; } else {  echo "-"; } ?>
+                    <?php if(!empty($AmbDtls['mob_no'])) { echo $AmbDtls['mob_no']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Name</label>
+                <label>Address</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['name'])) { echo $ProfDtls['name']; } else {  echo "-"; } ?>
+                    <?php if(!empty($AmbDtls['address'])) { echo $AmbDtls['address']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Email Address</label>
+                <label>Lattitude </label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['email_id'])) { echo $ProfDtls['email_id']; } else {  echo "-"; } ?>
+                    <?php if(!empty($AmbDtls['lat'])) { echo $AmbDtls['lat']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Phone Number</label>
+                <label>Longitude</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['phone_no'])) { echo $ProfDtls['phone_no']; } else {  echo "Not Available"; } ?>
+                    <?php if(!empty($AmbDtls['long'])) { echo $AmbDtls['long']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Mobile Number</label>
+                <label>Cost Per Km</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['mobile_no'])) { echo $ProfDtls['mobile_no']; } else {  echo "Not Available"; } ?>
+                    <?php if(!empty($AmbDtls['cost_per_km'])) { echo $AmbDtls['cost_per_km']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Birth Date</label>
+                <label>Ambulance Type</label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['dob']) && $ProfDtls['dob']!='0000-00-00') { echo date('d M Y',strtotime($ProfDtls['dob'])); } else {  echo "Not Available"; } ?>
+                    <?php if(!empty($AmbDtls['amb_type'])) { echo $AmbDtls['amb_type']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Assigned Services</label>
+                <label>Ambulance Status</label>
                 <div class="value">
-                    <?php if(!empty($profServiceList)) {
-                            echo (!empty($profServiceList)) ? $profServiceList['service_title'] : 'Not Available';
-                        } else {  
-                            echo "Not Available"; 
-                        } 
-                    ?>
+                    <?php if(!empty($AmbDtls['amb_status'])) { echo $AmbDtls['amb_status']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Assigned Sub Services</label>
+                <label>Base Location </label>
                 <div class="value">
-                    <?php if(!empty($profSubServiceList)) {
-                            $subServiceList = '';
-                            foreach ($profSubServiceList AS $key => $valSubService) {
-                                $subServiceList .= $valSubService['recommomded_service'] . "," . "<br/>";
-                            }
-
-                            echo (!empty($subServiceList)) ? rtrim(trim($subServiceList), ",") : 'Not Available';
-                        } else {  
-                            echo "Not Available"; 
-                        } 
-                    ?>
+                    <?php if(!empty($AmbDtls['bs_nm'])) { echo $AmbDtls['bs_nm']; } else {  echo "-"; } ?>
                 </div>
             </div>
             <div class="editform">
-                <label>Home Address</label>
+                <label>Added Date  </label>
                 <div class="value">
-                    <?php if(!empty($ProfDtls['address'])) { echo $ProfDtls['address']; } else {  echo "Not Available"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Home Location</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['google_home_location'])) { echo $ProfDtls['google_home_location']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Work Address</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['work_address'])) { echo $ProfDtls['work_address']; } else {  echo "Not Available"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Work Location</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['google_work_location'])) { echo $ProfDtls['google_work_location']; } else {  echo "Not Available"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Set Address</label>
-                <div class="value">
-                    <?php if($ProfDtls['set_location'] == '1') { echo 'Home Location'; } else {  echo "Work Location"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Work Phone</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['work_phone_no'])) { echo $ProfDtls['work_phone_no']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Work Email Address</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['work_email_id'])) { echo $ProfDtls['work_email_id']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            
-<!--            <div class="editform">
-                <label>Location</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['locationNm'])) { echo $ProfDtls['locationNm']; } else {  echo "-"; } ?>
-                </div>
-            </div>-->
-            
-            <div class="editform">
-                <label>PIN Code</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['LocationPinCode'])) { echo $ProfDtls['LocationPinCode']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <?php if(!empty($ProfDtls['reference_type'])) { if($ProfDtls['reference_type']=='1') { ?>
-            <div class="editform">
-                <label>Qualification</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['qualification'])) { echo $ProfOtherDtls['qualification']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            
-            <div class="editform">
-                <label>Specialization</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['skill_set'])) { echo $ProfOtherDtls['skill_set']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Skill Sets</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['specialization'])) { echo $ProfOtherDtls['specialization']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Work Experience</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['work_experience'])) { echo $ProfOtherDtls['work_experience']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Hospital Attached To</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['hospital_attached_to'])) { echo $ProfOtherDtls['hospital_attached_to']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <?php } } ?>
-            <div class="editform">
-                <label>PAN CARD No.</label>
-                <div class="value">
-                    <?php if(!empty($ProfOtherDtls['pancard_no'])) { echo $ProfOtherDtls['pancard_no']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Status</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['statusVal'])) { echo $ProfDtls['statusVal']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Added By</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['added_by'])) { echo $ProfDtls['added_by']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Added By</label>
-                <div class="value"> 
-                    <?php if(!empty($ProfDtls['added_date']) && $ProfDtls['added_date'] !='0000-00-00 00:00:00') { echo date('jS F Y H:i:s A', strtotime($ProfDtls['added_date'])); } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Last Modified By</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['last_modified_by'])) { echo $ProfDtls['last_modified_by']; } else {  echo "-"; } ?>
-                </div>
-            </div>
-            <div class="editform">
-                <label>Last Modified Date</label>
-                <div class="value">
-                    <?php if(!empty($ProfDtls['last_modified_date']) && $ProfDtls['last_modified_date'] !='0000-00-00 00:00:00') { echo date('jS F Y H:i:s A',strtotime($ProfDtls['last_modified_date'])); } else {  echo "-"; } ?>
+                    <?php if(!empty($AmbDtls['added_date'])) { echo $AmbDtls['added_date']; } else {  echo "-"; } ?>
                 </div>
             </div>
         </div>
