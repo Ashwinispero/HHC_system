@@ -80,11 +80,11 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     <select class="chosen-select form-control"  placeholder="Select Ambulance Type"  name="amb_type" id="amb_type" >
                         <option value="">Select Ambulance Type</option>
                         <?php
-                        $selectRecord = "SELECT relation_id,relation FROM sp_caller_relation WHERE status='1' ORDER BY relation ASC";
+                        $selectRecord = "SELECT * FROM sp_ems_amb_type WHERE status='1' ORDER BY amb_type ASC";
                         $AllRrecord = $db->fetch_all_array($selectRecord);
                         foreach($AllRrecord as $key=>$valRecords)
                         {
-                            echo '<option value="'.$valRecords['relation'].'">'.$valRecords['relation'].'</option>';
+                            echo '<option value="'.$valRecords['id'].'">'.$valRecords['amb_type'].'</option>';
                         }
                         ?>
                     </select>
@@ -96,11 +96,11 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     <select class="chosen-select form-control"  placeholder="Select Ambulance status"  name="amb_status" id="amb_status" >
                         <option value="">Select Ambulance status</option>
                         <?php
-                        $selectRecord = "SELECT relation_id,relation FROM sp_caller_relation WHERE status='1' ORDER BY relation ASC";
+                        $selectRecord = "SELECT * FROM sp_ems_amb_status WHERE status='1' ORDER BY amb_status ASC";
                         $AllRrecord = $db->fetch_all_array($selectRecord);
                         foreach($AllRrecord as $key=>$valRecords)
                         {
-                            echo '<option value="'.$valRecords['relation'].'">'.$valRecords['relation'].'</option>';
+                            echo '<option value="'.$valRecords['id'].'">'.$valRecords['amb_status'].'</option>';
                         }
                         ?>
                     </select>
@@ -113,7 +113,7 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     </div>
                 </div>
                 <div class="editform">
-                    <label>Dtail Address</label>
+                    <label>Detail Address</label>
                     <div class="value">
                         <textarea name="address" id="address" class="form-control" maxlength="160" style="width: 265px; height: 100px;"><?php if(!empty($_POST['address'])) { echo $_POST['address']; } else if(!empty($ProfDtls['address'])) { echo $ProfDtls['address']; }  else { echo ""; } ?></textarea>
                     </div>

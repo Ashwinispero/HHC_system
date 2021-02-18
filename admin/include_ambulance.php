@@ -120,32 +120,13 @@ else
                 </tr>';   //<th width="9%">Type</th>
         foreach ($recList as $recListKey => $recListValue) 
         { 
-            if($recListValue['amb_type']==1)
-            {
-                $type='PTA';
-            }else if($recListValue['amb_type']==2)
-            {
-                $type='BLS';
-            }else if($recListValue['amb_type']==3)
-            {
-                $type='ALS';
-            }
-            if($recListValue['amb_status']==1)
-            {
-                $status='Available';
-            }else if($recListValue['amb_status']==2)
-            {
-                $status='Busy';
-            }else if($recListValue['amb_status']==3)
-            {
-                $status='Maintance';
-            }
+            
             echo '<tr id="ProfessionalRecord_'.$recListValue['id'].'">
                     <td>'.$recListValue['amb_no'].'</td>
                     <td>'.$recListValue['mob_no'].'</td>
-                    <td>'.$recListValue['base_name'].'</td>
-                    <td>'.$type.'</td>
-                    <td>'.$status.'</td>
+                    <td>'.$recListValue['bs_nm'].'</td>
+                    <td>'.$recListValue['amb_status'].'</td>
+                    <td>'.$recListValue['amb_type'].'</td>
                      ';
                     echo '<td>
                               <ul class="actionlist">
