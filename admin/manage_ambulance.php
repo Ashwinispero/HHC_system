@@ -15,6 +15,7 @@
     <meta name="author" content="">
     <title>Manage Ambulances </title>
     <?php include "include/css-includes.php";?>
+   
 </head>
 <body>
     <div id="wrapper">
@@ -66,6 +67,7 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
+    
     <!-- /#wrapper -->
     <div class="modal fade" id="edit_professional"> 
         <div class="modal-dialog">

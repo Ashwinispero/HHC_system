@@ -325,9 +325,10 @@ class AmbulanceClass extends AbstractDB
     public function AddAmbulance($arg){
         $insertData['amb_no']       = $this->escape($arg['amb_no']);
         $insertData['mob_no']       = $this->escape($arg['mobile_no']);
+        $insertData['cost_per_km']       = $this->escape($arg['cost_per_km']);
         $insertData['amb_status']       = $this->escape($arg['amb_status']);
         $insertData['amb_type']       = $this->escape($arg['amb_type']);
-        $insertData['base_name']       = $this->escape($arg['base_location']);
+        $insertData['base_loc']       = $this->escape($arg['base_location']);
         $insertData['address']       = $this->escape($arg['address']);
         $insertData['lat']       = $this->escape($arg['lat']);
         $insertData['long']       = $this->escape($arg['long']);
