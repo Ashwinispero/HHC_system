@@ -118,8 +118,8 @@
     }
     function vw_add_ambulance(value)
     {
-        //alert(value);
-        var data1="service_professional_id="+value+"&action=vw_add_ambulance";
+        alert(value);
+        var data1="amb_id="+value+"&action=vw_add_ambulance";
         $.ajax({
             url: "ambulance_ajax_process.php", type: "post", data: data1, cache: false,async: false,
             beforeSend: function() 
@@ -345,12 +345,12 @@
            }
        });   
     }
-    function view_professional(service_professional_id)
+    function view_ambulance(amb_id)
     {
-        var data1="service_professional_id="+service_professional_id+"&action=vw_professional";
+        var data1="amb_id="+amb_id+"&action=vw_ambulance";
         //alert(data1);
          $.ajax({
-                url: "professional_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                url: "ambulance_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                 beforeSend: function() 
                 {
                     Popup_Display_Load();

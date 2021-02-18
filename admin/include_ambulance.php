@@ -94,9 +94,9 @@ else
    //print_r($recArgs);
     $_SESSION['professional_list_args'] = $recArgs;
     $recListResponse = $AmbulanceClass->AmbulanceList($recArgs);
-    //echo '<pre>';
-    //print_r($recListResponse);
-    //echo '</pre>';
+   // echo '<pre>';
+   // print_r($recListResponse);
+   // echo '</pre>';
     //exit;
     $recList=$recListResponse['data'];
     $recListCount=$recListResponse['count']; 
@@ -121,7 +121,7 @@ else
         foreach ($recList as $recListKey => $recListValue) 
         { 
             
-            echo '<tr id="ProfessionalRecord_'.$recListValue['id'].'">
+            echo '<tr>
                     <td>'.$recListValue['amb_no'].'</td>
                     <td>'.$recListValue['mob_no'].'</td>
                     <td>'.$recListValue['bs_nm'].'</td>
@@ -129,12 +129,10 @@ else
                     <td>'.$recListValue['amb_type'].'</td>
                      ';
                     echo '<td>
-                              <ul class="actionlist">
-                                    <li><a href="javascript:void(0);" onclick="return view_professional('.$service_professional_id.');" data-toggle="tooltip" title="View Professional"><img src="images/icon-view.png" alt="View Professional"></a></li>';
-                                    echo '<li><a href="javascript:void(0);" onclick="return vw_add_professional('.$service_professional_id.');" data-toggle="tooltip" title="Edit"><img src="images/icon-edit.png" alt="Edit"></a></li>';
-                                    // if($del_visible=='Y'){ echo '<li><a href="javascript:void(0);" onclick="return change_status('.$service_professional_id.','.$recListValue['status'].',\'Delete\');" data-toggle="tooltip" title="Delete"><img src="images/icon-delete.png" alt="Delete"></a></li>'; }
-                                    // else { echo '<li><a href="javascript:void(0);"></a></li>'; } 
-                        echo '</ul></td>
+                            <ul class="actionlist">
+                            <li><a href="javascript:void(0);" onclick="return view_ambulance('.$recListValue['id'].');" data-toggle="tooltip" title="View Ambulance Detail"><img src="images/icon-view.png" alt="View Professional"></a></li>';
+                    echo '<li><a href="javascript:void(0);" onclick="return vw_add_ambulance('.$recListValue['id'].');" data-toggle="tooltip" title="Edit Ambulance Details"><img src="images/icon-edit.png" alt="Edit"></a></li>';
+                    echo '</ul></td>
                   </tr>';
         }
         echo '</table>';

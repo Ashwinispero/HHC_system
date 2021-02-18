@@ -297,11 +297,8 @@ class AmbulanceClass extends AbstractDB
     }
     public function AmbulanceList($arg)
     {
-        $EmployeesSql="SELECT amb.* ,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
+        $EmployeesSql="SELECT amb.*
                     FROM sp_ems_ambulance as amb 
-                    LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_type
-                    LEFT JOIN sp_ems_amb_type as amb_ty ON amb_ty.id = amb.amb_status
-                    LEFT JOIN sp_ems_base_location as amb_base ON amb_base.id = amb.base_loc
                     WHERE 1 AND amb.is_deleted = '1'";
                    
         $this->result = $this->query($EmployeesSql);
@@ -312,19 +309,21 @@ class AmbulanceClass extends AbstractDB
             while($val_records=$this->fetch_array($all_records))
             {
                 // Getting Record Detail
-                $RecordSql="SELECT amb.* ,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
+                $RecordSql="SELECT amb.*,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
                 FROM sp_ems_ambulance as amb 
                 LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_type
                 LEFT JOIN sp_ems_amb_type as amb_ty ON amb_ty.id = amb.amb_status
                 LEFT JOIN sp_ems_base_location as amb_base ON amb_base.id = amb.base_loc
-                WHERE 1 AND amb.is_deleted = '1'";
-                $RecordResult=$this->fetch_array($this->query($RecordSql));
+                WHERE 1 AND amb.id='".$val_records['id']."' ";
+                 $RecordResult=$this->fetch_array($this->query($RecordSql));
+               // print_r($RecordResult);
                 $this->resultEmployees[]=$RecordResult;
             }
             $resultArray['count'] = $pager->total_rows;
         }
         if(count($this->resultEmployees))
         {
+           // var_dump($this->resultEmployees);die();
             $resultArray['data']=$this->resultEmployees;
             return $resultArray;
         }
