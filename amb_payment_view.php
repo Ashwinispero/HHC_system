@@ -114,7 +114,7 @@ $recListCount=$recListResponse['count'];
                             <td style="width:10px;"></td>
                             <td class="pagination-dropdown">
                                 <label class="select-box-lbl">
-                                    <select class="form-control" name="show_records" onchange="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',this.value,\''.$order1.'\',\''.$sort_variable.'\')">';                            
+                                    <select class="form-control" name="show_records" onchange="changePagination(\'eventLogListing\',\'ambulance_dashbaord.php\',\'\',this.value,\''.$order1.'\',\''.$sort_variable.'\')">';                            
                                     for($s=0;$s<count($GLOBALS['show_records_arr']);$s++)
                                     {
                                         if($_SESSION['per_page']==$GLOBALS['show_records_arr'][$s] || $_SESSION['per_page']==$GLOBALS["records_all"])
@@ -135,7 +135,7 @@ $recListCount=$recListResponse['count'];
         {
             echo '
                 <td style="width:10px;"></td>
-                <td align="right" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\''.($pageId-1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" valign="middle"><input type="button" class="btn btn-prev" value="<"></td>';
+                <td align="right" onclick="changePagination(\'eventLogListing\',\'ambulance_dashbaord.php\',\''.($pageId-1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" valign="middle"><input type="button" class="btn btn-prev" value="<"></td>';
         }
         else
         {
@@ -147,7 +147,7 @@ $recListCount=$recListResponse['count'];
         {
             echo '
                 <td style="width:5px;"></td>
-                <td valign="middle"><input onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\''.($pageId+1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" type="button" class="btn btn-next" value=">"></td>';
+                <td valign="middle"><input onclick="changePagination(\'eventLogListing\',\'ambulance_dashbaord.php\',\''.($pageId+1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" type="button" class="btn btn-next" value=">"></td>';
         }
         else
         {

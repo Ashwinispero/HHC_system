@@ -46,10 +46,13 @@ if($_REQUEST['action']=='view_amb_list')
             <tbody>
             <?php 
 
-$sql ="SELECT amb.*" 
-. "$radius FROM sp_ems_ambulance AS amb"
-. " WHERE 1=1 "
-. " GROUP BY amb.amb_no $orderby LIMIT 5";
+$sql ="SELECT amb.*,amb.id as amb_id,amb_ty.id as ty_id,amb_st.id as st_id,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
+FROM sp_ems_ambulance as amb 
+LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_status
+LEFT JOIN sp_ems_amb_type as amb_ty  ON amb_ty.id = amb.amb_type
+LEFT JOIN sp_ems_base_location as amb_base ON amb_base.id = amb.base_loc
+WHERE 1=1 
+GROUP BY amb.amb_no $orderby LIMIT 5";
 
 $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
@@ -57,7 +60,7 @@ foreach($AllRrecord as $key=>$valRecords)
     $dist = round($valRecords['distance']);
     echo '<tr  id="Search_Amb_"'.$valRecords['amb_no'].'"" class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['amb_status'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
-                <td>'.$valRecords['base_name'].'</td>
+                <td>'.$valRecords['bs_nm'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
                 <td>'.$valRecords['amb_type'].'</td>
                 <td>'.$dist.' '.'KM'.'</td>
@@ -319,15 +322,18 @@ else if($_REQUEST['action']=="vw_ambulance_list"){
             </thead>
             <tbody>
             <?php 
-             $selectRecord = "SELECT amb.*,base_loc.id,base_loc.base_name FROM sp_ems_ambulance as amb
-                              LEFT JOIN sp_ems_base_location as base_loc ON amb.base_loc = base_loc.id
-                              WHERE amb.status='1' AND amb.amb_no='".$amb_no."' ORDER BY amb.id ASC";
+            $selectRecord = "SELECT amb.*,amb.id as amb_id,amb_ty.id as ty_id,amb_st.id as st_id,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
+            FROM sp_ems_ambulance as amb 
+            LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_status
+            LEFT JOIN sp_ems_amb_type as amb_ty  ON amb_ty.id = amb.amb_type
+            LEFT JOIN sp_ems_base_location as amb_base ON amb_base.id = amb.base_loc
+            WHERE amb.status='1' AND amb.amb_no='".$amb_no."' ORDER BY amb.id ASC";
              $AllRrecord = $db->fetch_all_array($selectRecord);
              foreach($AllRrecord as $key=>$valRecords)
              {
               echo '<tr style = "' . $complimentaryVisitStyle .'">
                 <td>'.$valRecords['amb_no'].'</td>
-                <td>'.$valRecords['base_name'].'</td>
+                <td>'.$valRecords['bs_nm'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
                 <td>'.$valRecords['amb_type'].'</td>
                 <td>'.$valRecords['amb_status'].'</td>
@@ -406,10 +412,10 @@ else if($_REQUEST['action']=='vw_JobClosure_form'){
         $purpose = 'Payment Call';
       }
     ?>
-    <form class="form-horizontal" name="ColsureForm" id="ColsureForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitJobClosureCall">
-          <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <h4 class="page-title">Job Closure For <?php echo $event_code; ?></h4>
+    <form style="background-color:white;margin-left:1%;margin-right:1%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:1%" class="form-horizontal" name="ColsureForm" id="ColsureForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitJobClosureCall">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="page-title">Job Closure For <?php echo $event_code; ?></h4>
 </div>
 <div class="modal-body">
 <div class="mCustomScrollbar">
@@ -681,7 +687,7 @@ else if($_REQUEST['action']=='vw_payment_form'){
     $recList= $AmbulanceClass->event_payment_details($event_id);
     //var_dump($recList[0]['event_id']);die();
 ?>
-<form class="form-horizontal" name="PaymentForm" id="PaymentForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
+<form class="form-horizontal" style="background-color:white;margin-left:1%;margin-right:1%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:1%" name="PaymentForm" id="PaymentForm" method="post" action="amb_incident_summary_ajax_process.php?action=SubmitPaymentCall">
           <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class="page-title">Payment For <?php echo $recList[0]['event_code'] ?></h4>
