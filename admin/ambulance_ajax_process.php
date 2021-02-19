@@ -18,36 +18,15 @@ if(!class_exists('AbstractDB'))
         require_once '../classes/AbstractDB.php';
 if($_REQUEST['action']=='vw_add_ambulance')
 {
-  /*  
+    
     // Getting Professional Details
     $arr = array();
-    $arr['id'] = $_REQUEST['id'];
-    $ProfDtls = $professionalsClass->GetProfessionalById($arr);
-
-    if (!empty($ProfDtls)) {
-        // Get Professional service details
-        $profServiceList = $professionalsClass->GetProfessionalServices($arr);
-        
-        // Get Professional sub service details
-        $arr['serviceType'] = 'subService';
-        $arr['service_id'] =  $profServiceList['service_id'];
-        $profSubServiceList = $professionalsClass->GetProfessionalServices($arr);
-    }
-    // Getting Professional other details
-    $ProfOtherDtls=$professionalsClass->GetProfessionalOtherDtlsById($arr);
-    // Get All Location
-    $LocationList=$commonClass->GetAllLocations();
-    // Get All Services 
-    $ServiceList=$commonClass->GetAllServices();
-    $param['service_id'] =  $profServiceList['service_id'];
-    $subServiceList = (!empty($ProfDtls) ? $commonClass->getAllSubServices($param) : $commonClass->getAllSubServices());
-    
-    unset($arr['serviceType'], $arr['service_id'], $param);
-    */
- ?>
+    $arr['amb_id'] = $_REQUEST['amb_id'];
+    $AmbDtls=$AmbulanceClass->GetambulanceById($arr);
+?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title"><?php if(!empty($ProfDtls)) { echo "Edit"; } else { echo "Add"; } ?> Ambulance </h4>
+        <h4 class="modal-title"><?php if(!empty($AmbDtls)) { echo "Edit"; } else { echo "Add"; } ?> Ambulance </h4>
     </div>
     <div class="modal-body">
      <form class="form-horizontal" name="frm_add_ambulance" id="frm_add_ambulance" method="post" action ="ambulance_ajax_process.php?action=add_ambulance" >
@@ -57,35 +36,41 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     <label>Ambulance No<span class="required">*</span></label>
                     
                     <div class="value">
-                        <input type="hidden" name="service_professional_id" id="service_professional_id" value="<?php echo $arr['service_professional_id']; ?>" />
-                        <input onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($_POST['amb_no'])) { echo $_POST['amb_no']; } else if(!empty($ProfDtls['amb_no'])) { echo $ProfDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
+                        <input type="hidden" name="amb_id" id="amb_id" value="<?php echo $AmbDtls['amb_id']; ?>" />
+                        <input onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
                         <span id="errmsg"></span>
                     </div>
                 </div>
                 <div class="editform">
                     <label>Mobile <span class="required">*</span></label>
                     <div class="value">
-                        <input type="text" name="mobile_no" id="mobile_no" value="<?php if(!empty($_POST['mobile_no'])) { echo $_POST['mobile_no']; } else if(!empty($ProfDtls['mobile_no'])) { echo $ProfDtls['mobile_no']; }  else { echo ""; } ?>" class="validate[required,minSize[10],maxSize[15],custom[mobile]] form-control" onkeyup="if (/[^0-9+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9()+.]/g,'')" maxlength="10" style="width:100% !important;" />
+                        <input type="text" name="mobile_no" id="mobile_no" value="<?php if(!empty($AmbDtls['mob_no'])) { echo $AmbDtls['mob_no']; } else if(!empty($AmbDtls['mob_no'])) { echo $AmbDtls['mob_no']; }  else { echo ""; } ?>" class="validate[required,minSize[10],maxSize[15],custom[mobile]] form-control" onkeyup="if (/[^0-9+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9()+.]/g,'')" maxlength="10" style="width:100% !important;" />
                     </div>
                 </div>
                 <div class="editform">
                     <label>Cost per Km <span class="required">*</span></label>
                     <div class="value">
-                        <input type="text" name="Cost_per_km" id="Cost_per_km" value="<?php if(!empty($_POST['mobile_no'])) { echo $_POST['mobile_no']; } else if(!empty($ProfDtls['mobile_no'])) { echo $ProfDtls['mobile_no']; }  else { echo ""; } ?>" class="validate[required,minSize[10],maxSize[15],custom[mobile]] form-control" onkeyup="if (/[^0-9+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9()+.]/g,'')" maxlength="3" style="width:100% !important;" />
+                        <input type="text" name="Cost_per_km" id="Cost_per_km" value="<?php if(!empty($AmbDtls['cost_per_km'])) { echo $AmbDtls['cost_per_km']; } else if(!empty($AmbDtls['cost_per_km'])) { echo $AmbDtls['cost_per_km']; }  else { echo ""; } ?>" class="validate[required,minSize[10],maxSize[15],custom[mobile]] form-control" onkeyup="if (/[^0-9+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9()+.]/g,'')" maxlength="3" style="width:100% !important;" />
                     </div>
                 </div>
                 <div class="editform">
                     <label>Ambulance Type</label>
                     <div class="value">
-                    <select class="chosen-select form-control"  placeholder="Select Ambulance Type"  name="amb_type" id="amb_type" >
-                        <option value="">Select Ambulance Type</option>
+                    <select class="chosen-select form-control" value="<?php if(!empty($AmbDtls['amb_type'])) { echo $AmbDtls['amb_type']; } else if(!empty($AmbDtls['amb_type'])) { echo $AmbDtls['amb_type']; }  else { echo ""; } ?>" placeholder="Select Ambulance Type"  name="amb_type" id="amb_type" >
+                   
+                        <option value="<?php echo $AmbDtls['ty_id']; ?>"><?php 
+                        if(!empty($AmbDtls['amb_type'])) {
+                            echo $AmbDtls['amb_type'];
+                        }else{?>Select Ambulance Type <?php } ?></option>
                         <?php
+                        
                         $selectRecord = "SELECT * FROM sp_ems_amb_type WHERE status='1' ORDER BY amb_type ASC";
                         $AllRrecord = $db->fetch_all_array($selectRecord);
                         foreach($AllRrecord as $key=>$valRecords)
                         {
                             echo '<option value="'.$valRecords['id'].'">'.$valRecords['amb_type'].'</option>';
                         }
+                    
                         ?>
                     </select>
                     </div>
@@ -94,7 +79,10 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     <label>Ambualnce Status</label>
                     <div class="value">
                     <select class="chosen-select form-control"  placeholder="Select Ambulance status"  name="amb_status" id="amb_status" >
-                        <option value="">Select Ambulance status</option>
+                    <option value="<?php echo $AmbDtls['st_id']; ?>"><?php 
+                        if(!empty($AmbDtls['amb_status'])) {
+                            echo $AmbDtls['amb_status'];
+                        }else{?>Select Ambulance Type <?php } ?></option>
                         <?php
                         $selectRecord = "SELECT * FROM sp_ems_amb_status WHERE status='1' ORDER BY amb_status ASC";
                         $AllRrecord = $db->fetch_all_array($selectRecord);
@@ -109,13 +97,13 @@ if($_REQUEST['action']=='vw_add_ambulance')
                 <div class="editform">
                     <label>Base Location <span class="required">*</span></label>
                     <div class="value">
-                    <input maxlength="100" placeholder="Enter patient address" id="base_location1" name="base_location1" type="text"  class="validate[required] form-control"  />   
+                    <input maxlength="100" placeholder="Enter patient address" id="base_location1" value="<?php if(!empty($AmbDtls['bs_nm'])) { echo $AmbDtls['bs_nm']; } else if(!empty($AmbDtls['bs_nm'])) { echo $AmbDtls['bs_nm']; }  else { echo ""; } ?>" name="base_location1" type="text"  class="validate[required] form-control"  />   
                     </div>
                 </div>
                 <div class="editform">
                     <label>Detail Address</label>
                     <div class="value">
-                        <textarea name="address" id="address" class="form-control" maxlength="160" style="width: 265px; height: 100px;"><?php if(!empty($_POST['address'])) { echo $_POST['address']; } else if(!empty($ProfDtls['address'])) { echo $ProfDtls['address']; }  else { echo ""; } ?></textarea>
+                        <textarea name="address" id="address" class="form-control" maxlength="160" style="width: 265px; height: 100px;" value="<?php if(!empty($AmbDtls['address'])) { echo $AmbDtls['address']; } else if(!empty($AmbDtls['address'])) { echo $AmbDtls['address']; }  else { echo ""; } ?> "> </textarea>
                     </div>
                 </div>  
               </div>

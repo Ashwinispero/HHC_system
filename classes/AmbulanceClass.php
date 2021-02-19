@@ -356,12 +356,13 @@ class AmbulanceClass extends AbstractDB
     public function GetambulanceById($arg)
     {
         $amb_id=$this->escape($arg['amb_id']);
-        $GetambSql="SELECT amb.*,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
+        $GetambSql="SELECT amb.*,amb.id as amb_id,amb_ty.id as ty_id,amb_st.id as st_id,amb_base.base_name as bs_nm,amb_ty.amb_type,amb_st.amb_status 
         FROM sp_ems_ambulance as amb 
-        LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_type
-        LEFT JOIN sp_ems_amb_type as amb_ty ON amb_ty.id = amb.amb_status
+        LEFT JOIN sp_ems_amb_status as amb_st ON amb_st.id = amb.amb_status
+        LEFT JOIN sp_ems_amb_type as amb_ty  ON amb_ty.id = amb.amb_type
         LEFT JOIN sp_ems_base_location as amb_base ON amb_base.id = amb.base_loc
         WHERE amb.id='".$amb_id."'";
+        //echo $GetambSql;
         if($this->num_of_rows($this->query($GetambSql)))
         {
             $Professional=$this->fetch_array($this->query($GetambSql));

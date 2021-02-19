@@ -118,7 +118,6 @@
     }
     function vw_add_ambulance(value)
     {
-        alert(value);
         var data1="amb_id="+value+"&action=vw_add_ambulance";
         $.ajax({
             url: "ambulance_ajax_process.php", type: "post", data: data1, cache: false,async: false,
