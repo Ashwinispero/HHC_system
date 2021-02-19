@@ -110,6 +110,7 @@ else
     {      
         echo '<table class="table table-hover table-bordered">
                 <tr> 
+                <th width="10%">Amb id</th>
                     <th width="15%">Ambulance No</th>
                     <th width="12%">Mobile No</th>
                     <th width="20%">Base Location </th>
@@ -122,6 +123,7 @@ else
         { 
             
             echo '<tr>
+            <td>'.$recListValue['id'].'</td>
                     <td>'.$recListValue['amb_no'].'</td>
                     <td>'.$recListValue['mob_no'].'</td>
                     <td>'.$recListValue['bs_nm'].'</td>

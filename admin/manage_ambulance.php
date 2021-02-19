@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-lg-12 whiteBg">
                 <div class="col-lg-12 paddingLR20 paddingt20">
-                    <div class="col-lg-4 marginB20 paddingl0">
+                   <!-- <div class="col-lg-4 marginB20 paddingl0">
                         <div class="searchBox" ><input type="text" name="SearchKeyword" id="SearchKeyword" class="data-entry-search" placeholder="Search Ambulance / mobile no"/> 
                             <a href="javascript:void(0);" class="pull-right"><img onclick="searchRecords();" src="images/icon-search.png" width="24" height="24" alt="Search"></a>
                         </div>
@@ -54,7 +54,7 @@
                             <img src="images/icon-download.png" border="0" class="example-fade" >                                
                         </a>
                         <?php // if(isset($_SESSION['admin_user_type']) && $_SESSION['admin_user_type']=='1') {  echo '<a href="manage_professionals_trash.php" data-toggle="tooltip" title="Trash" style="margin-left:10px;display: inline-block;"><img src="images/trash.png" alt="trash"></a>'; }  ?>
-                    </div>
+                    </div>-->
                     <div class="clearfix"></div>
                     <div class="AmbulancesListing">
                         <?php include "include_ambulance.php";?>
@@ -168,7 +168,7 @@
                               });
                           }
 
-                         else if(result=='Not_Insert')
+                         else if(result=='UpdateSuccess')
                          {
                               bootbox.alert("<div class='msg-success'>Ambulance details updated successfully.</div>",function()
                               {

@@ -37,8 +37,7 @@ if($_REQUEST['action']=='vw_add_ambulance')
                     
                     <div class="value">
                         <input type="hidden" name="amb_id" id="amb_id" value="<?php echo $AmbDtls['amb_id']; ?>" />
-                        <input onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
-                        <span id="errmsg"></span>
+                        <input <?php if($arr['amb_id']){ ?> readonly <?php } ?>onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
                     </div>
                 </div>
                 <div class="editform">
@@ -123,6 +122,7 @@ else if($_REQUEST['action']=='add_ambulance')
     
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
+        $amb_id=strip_tags($_POST['amb_id']);
         $amb_no=strip_tags($_POST['amb_no']);
         $mobile_no=strip_tags($_POST['mobile_no']);
         $Cost_per_km=strip_tags($_POST['Cost_per_km']);
@@ -166,7 +166,11 @@ else if($_REQUEST['action']=='add_ambulance')
             $errors[$i++]="Please cost per KM";
         }
         // Check Record Exists 
-        $chk_professional_sql="SELECT id FROM sp_ems_ambulance WHERE mob_no='".$mobile_no."'"; 
+        // Check Record Exists 
+        if($amb_id)
+            $chk_professional_sql="SELECT id FROM sp_ems_ambulance WHERE mob_no='".$mobile_no."' AND id !='".$amb_id."'";
+        else 
+            $chk_professional_sql="SELECT id FROM sp_ems_ambulance WHERE mob_no='".$mobile_no."' AND amb_no='".$amb_no."' "; 
         
         if(mysql_num_rows($db->query($chk_professional_sql)))
         {
@@ -182,6 +186,7 @@ else if($_REQUEST['action']=='add_ambulance')
         else 
         {
             $success=1;
+            $arr['amb_id']=$amb_id;
             $arr['amb_no']=$amb_no;
             $arr['mobile_no']=$mobile_no;
             $arr['cost_per_km']=$Cost_per_km;
@@ -195,14 +200,14 @@ else if($_REQUEST['action']=='add_ambulance')
             $arr['added_by']=strip_tags($_SESSION['admin_user_id']);
             $arr['added_date']=date('Y-m-d H:i:s');
             $InsertRecord = $AmbulanceClass->AddAmbulance($arr); 
-            if($InsertRecord)
+            if($amb_id)
                 {
-                    echo 'InsertSuccess'; // Update Record
+                    echo 'UpdateSuccess'; // Update Record
                     exit;
                 }
                 else 
                 {
-                    echo 'Not_Insert'; // Insert Record
+                    echo 'InsertSuccess';  // Insert Record
                     exit;
                 }
         }
