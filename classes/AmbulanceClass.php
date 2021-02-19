@@ -271,16 +271,40 @@ class AmbulanceClass extends AbstractDB
             
        return $AllRrecord;
     }
-    public function amb_EventList()
+    public function amb_EventList($arg)
     { 
-        $RecordSql="SELECT se.*,sp.first_name,cl.phone_no,cl.first_name,cl.name,sp.name,sp.Gender,sp.Age,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
+        $EmployeesSql="SELECT se.event_id as event_id FROM sp_amb_events as se 
+        WHERE 1 AND event_status!='3' GROUP BY se.event_id";
+     // echo $EmployeesSql;
+        $this->result = $this->query($EmployeesSql);
+        if ($this->num_of_rows($this->result))
+        {
+             
+         // die;
+            $pager = new PS_Pagination($EmployeesSql,$arg['pageSize'],$arg['pageIndex'],'');
+            $all_records= $pager->paginate();
+            while($val_records=$this->fetch_array($all_records))
+            {
+                $event = $val_records['event_id'];
+                // Getting Record Detail
+                $RecordSql="SELECT se.*,sp.first_name,cl.phone_no,cl.first_name,cl.name,sp.name,sp.Gender,sp.Age,sp.google_pickup_location,sp.google_drop_location,chief.ct_type FROM sp_amb_events as se 
                     LEFT JOIN sp_amb_patients as sp ON se.patient_id = sp.patient_id 
                     LEFT JOIN sp_ems_complaint_types as chief ON se.Complaint_type = chief.ct_id 
                     LEFT JOIN sp_amb_callers as cl ON cl.caller_id = se.caller_id 
-                    WHERE 1 AND event_status!='3' GROUP BY se.event_id";
-       $AllRrecord = $this->fetch_all_array($RecordSql);
-            
-       return $AllRrecord;
+                    WHERE 1 AND se.event_id = '".$event."' ";
+                $RecordResult=$this->fetch_array($this->query($RecordSql));
+                
+                $this->resultEmployees[]=$RecordResult;
+            }
+            $resultArray['count'] = $pager->total_rows;
+        }
+        if(count($this->resultEmployees))
+        {
+            $resultArray['data']=$this->resultEmployees;
+            return $resultArray;
+        }
+        else
+            return array('data' => array(), 'count' => 0); 
        
     }
     public function event_payment_details($event)
@@ -304,6 +328,9 @@ class AmbulanceClass extends AbstractDB
         $this->result = $this->query($EmployeesSql);
         if ($this->num_of_rows($this->result))
         {
+           // echo $arg['pageSize'];
+           // echo $arg['pageIndex']; 
+         // die;
             $pager = new PS_Pagination($EmployeesSql,$arg['pageSize'],$arg['pageIndex'],'');
             $all_records= $pager->paginate();
             while($val_records=$this->fetch_array($all_records))

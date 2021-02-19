@@ -7,7 +7,20 @@ if(!$_SESSION['employee_id'])
     echo 'notLoggedIn';
 else
 { 
-$recList= $AmbulanceClass->amb_EventList();
+  include "pagination-include.php";
+  $recArgs['pageIndex']=$pageId;
+    $recArgs['pageSize']=PAGE_PER_NO;
+
+$recListResponse= $AmbulanceClass->amb_EventList($recArgs);
+
+$recList=$recListResponse['data'];
+$recListCount=$recListResponse['count']; 
+
+    if($recListCount > 0)
+    {
+        $paginationCount=getAjaxPagination($recListCount);
+    }
+    
 ?>
 <div class="row">
   <div class="col-lg-1">
@@ -88,5 +101,64 @@ $recList= $AmbulanceClass->amb_EventList();
             ?>
             </tbody>
   </table>
-
-<?php } ?>
+  <?php
+  // $paginationCount =1 ;
+   if($paginationCount)
+        {
+        echo '<div class="clearfix"></div>';
+        echo '<div class="col-lg-12 paddingR0 text-right">
+                <table cellspacing="0" cellpadding="0" align="right">
+                    <tbody>
+                        <tr>
+                            <td>Show</td>
+                            <td style="width:10px;"></td>
+                            <td class="pagination-dropdown">
+                                <label class="select-box-lbl">
+                                    <select class="form-control" name="show_records" onchange="changePagination(\'eventLogListing\',\'include_event_log.php\',\'\',this.value,\''.$order1.'\',\''.$sort_variable.'\')">';                            
+                                    for($s=0;$s<count($GLOBALS['show_records_arr']);$s++)
+                                    {
+                                        if($_SESSION['per_page']==$GLOBALS['show_records_arr'][$s] || $_SESSION['per_page']==$GLOBALS["records_all"])
+                                            echo '<option selected="selected" value="'.$GLOBALS['show_records_arr'][$s].'">'.$GLOBALS['show_records_arr'][$s].' Records</option>';
+                                        else
+                                            echo '<option value="'.$GLOBALS['show_records_arr'][$s].'">'.$GLOBALS['show_records_arr'][$s].' Records</option>';
+                                    }
+                                echo'</select>
+                                </label>
+                            </td>
+                            <td style="width:10px;"></td>';
+        if($recListCount<($start+PAGE_PER_NO))
+            $pagesOf=($start+1).'-'.($recListCount).' of '.$recListCount;
+        else
+            $pagesOf=($start+1).'-'.($start+PAGE_PER_NO).' of '.$recListCount;
+                        echo '<td>'.$pagesOf.'</td>';
+        if($pageId>1)
+        {
+            echo '
+                <td style="width:10px;"></td>
+                <td align="right" onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\''.($pageId-1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" valign="middle"><input type="button" class="btn btn-prev" value="<"></td>';
+        }
+        else
+        {
+            echo '
+                <td style="width:10px;"></td>
+                <td align="right" valign="middle"><input type="button" class="btn" value="<"></td>';
+        }
+        if($pageId!=($paginationCount))
+        {
+            echo '
+                <td style="width:5px;"></td>
+                <td valign="middle"><input onclick="changePagination(\'eventLogListing\',\'include_event_log.php\',\''.($pageId+1).'\',\'\',\''.$order1.'\',\''.$sort_variable.'\')" type="button" class="btn btn-next" value=">"></td>';
+        }
+        else
+        {
+            echo '
+                <td style="width:5px;"></td>
+                <td valign="middle"><input type="button" class="btn" value=">"></td>';
+        }
+        echo '          </tr>
+                    </tbody>
+                </table>
+            </div>';
+        echo '<div class="clearfix"></div>';
+    }
+ } ?>
