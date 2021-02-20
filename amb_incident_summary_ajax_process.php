@@ -65,7 +65,7 @@ $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
 {
     $dist = round($valRecords['distance']);
-    echo '<tr  id="Search_Amb_"'.$valRecords['amb_no'].'"" class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['amb_status'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
+    echo '<tr  id="Search_Amb_"'.$valRecords['amb_no'].'"" class="ambulance_item_list" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['st_id'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['bs_nm'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
