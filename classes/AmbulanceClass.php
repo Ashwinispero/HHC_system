@@ -405,4 +405,28 @@ class AmbulanceClass extends AbstractDB
         else 
             return 0;  
     }
+    public function ChangeStatus($arg)
+    {
+        $amb_id                  = $this->escape($arg['amb_id']);
+        $status                  = $this->escape($arg['status']);
+       // $pre_status              = $this->escape($arg['curr_status']);
+        //$istrashDelete           = $this->escape($arg['istrashDelete']);
+        $login_user_id           = $this->escape($arg['login_user_id']);
+
+        $ChkAmbSql = "SELECT *
+		FROM sp_ems_ambulance 
+		WHERE id = '" . $amb_id . "'";
+
+        if ($this->num_of_rows($this->query($ChkAmbSql))) {
+			$profDtls = $this->fetch_array($this->query($ChkAmbSql));
+            
+            // Update Professional Other Details
+            $UpdateProfOtherDtls = "UPDATE sp_ems_ambulance SET status = '" . $status . "', last_modified_by = '" . $login_user_id . "', last_modified_date = '" . date('Y-m-d H:i:s') . "' WHERE id = '" . $amb_id . "'";
+            $RecordId = $this->query($UpdateProfOtherDtls);
+			return $RecordId;
+        }
+        else {
+			return 0;
+		}
+    }
 }

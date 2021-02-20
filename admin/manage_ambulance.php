@@ -290,33 +290,33 @@
                 }
          }).submit();
     }
-    function change_status(service_professional_id,curr_status,actionVal)
+    function change_status(amb_id,curr_status,actionVal)
     { 
        var prompt_msg="";
        var success_msg=""; 
        if(actionVal=='Active')
        {
-           prompt_msg ="Are you sure you want to activate this professional ?"; 
+           prompt_msg ="Are you sure you want to activate this Ambulance ?"; 
            success_msg="activated";  
        }
        else if(actionVal=='Inactive')
        {
-           prompt_msg ="Are you sure you want to inactive this professional ?"; 
+           prompt_msg ="Are you sure you want to inactive this Ambulance ?"; 
            success_msg="deactivated";  
        }
        else if(actionVal=='Delete')
        {
-           prompt_msg="Are you sure you want to delete this professional ?";
+           prompt_msg="Are you sure you want to delete this Ambulance ?";
            success_msg="deleted";
        }
        bootbox.confirm(prompt_msg, function (res) 
        {
            if(res==true)
            {
-               var data1 = "login_user_id=<?php echo $_SESSION['admin_user_id']; ?>&service_professional_id="+service_professional_id+"&curr_status="+curr_status+"&actionval="+actionVal+"&action=change_status";
+               var data1 = "login_user_id=<?php echo $_SESSION['admin_user_id']; ?>&amb_id="+amb_id+"&curr_status="+curr_status+"&actionval="+actionVal+"&action=change_status";
              //  alert(data1);
                $.ajax({
-                   url: "professional_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                   url: "ambulance_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
                     {
                         Display_Load();
@@ -324,13 +324,13 @@
                    success: function (html)
                    {
                       var result=html.trim();
-                      // alert(result);
+                       //alert(result);
 
                       if(result=='success')
                       {
-                          bootbox.alert("<div class='msg-success'>Professional "+success_msg+" successfully.</div>",function()
+                          bootbox.alert("<div class='msg-success'>Ambulance "+success_msg+" successfully.</div>",function()
                           {
-                               changePagination('ProfessionalsListing','include_professionals.php','','','','');
+                               changePagination('AmbulancesListing','include_ambulance.php','','','','');
                           });  
                       }
                       else

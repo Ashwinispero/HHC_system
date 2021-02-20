@@ -134,6 +134,11 @@ else
                             <ul class="actionlist">
                             <li><a href="javascript:void(0);" onclick="return view_ambulance('.$recListValue['id'].');" data-toggle="tooltip" title="View Ambulance Detail"><img src="images/icon-view.png" alt="View Professional"></a></li>';
                     echo '<li><a href="javascript:void(0);" onclick="return vw_add_ambulance('.$recListValue['id'].');" data-toggle="tooltip" title="Edit Ambulance Details"><img src="images/icon-edit.png" alt="Edit"></a></li>';
+                    if($recListValue['status']=='1')
+                                        echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$recListValue['id'].','.$recListValue['status'].',\'Inactive\');" title="Active"><img src="images/icon-active.png"  alt="Active"></a></li>';
+                                    if($recListValue['status']=='2')
+                                        echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$recListValue['id'].','.$recListValue['status'].',\'Active\');" title="Inactive"><img src="images/icon-inactive.png"  alt="Inactive"></a></li>'; 
+                                
                     echo '</ul></td>
                   </tr>';
         }

@@ -288,5 +288,43 @@ else if($_REQUEST['action']=='vw_ambulance')
     </div>
 <?php
 }
+else if($_REQUEST['action']=='change_status')
+{
+    if(!empty($_REQUEST['amb_id']) && !empty($_REQUEST['actionval']))
+    {
+        $arr['amb_id'] =$_REQUEST['amb_id'];
+        if($_REQUEST['actionval']=='Active')
+            $arr['status']='1';
+        if($_REQUEST['actionval']=='Inactive')
+           $arr['status']='2';
+        if($_REQUEST['actionval']=='Delete')
+           $arr['status']='3';
+        if($_REQUEST['actionval']=='Revert')
+        {
+            if(!empty($_REQUEST['curr_status']))
+                $arr['status']=$_REQUEST['curr_status'];
+            else 
+                $arr['status']='1';
+        }
+        if($_REQUEST['actionval']=='CompleteDelete')
+           $arr['status']='5';
+        
+        $arr['curr_status']=$_REQUEST['curr_status'];
+        $arr['login_user_id']=$_REQUEST['login_user_id'];
+        $arr['istrashDelete']=$_REQUEST['trashDelete'];
+
+        $ChangeStatus =$AmbulanceClass->ChangeStatus($arr);
+        if(!empty($ChangeStatus))
+        {
+            echo 'success';
+            exit;
+        }
+        else
+        {
+            echo 'error';
+            exit;
+        }
+    } 
+}
     
 ?>
