@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            <img src="images/professionals_big.png" alt="Manage Professionals"> Manage Ambulances                   
+                            <img src="images/amb1.png" alt="Manage Professionals"> Manage Ambulances                   
                             <a href="javascript:void(0);" onclick="return vw_add_ambulance(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD AMBULANCE</a>                            
                         </h1>
                     </div>
