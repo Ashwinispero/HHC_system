@@ -28,39 +28,16 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             <img src="images/amb1.png" alt="Manage Professionals"> Manage Ambulances                   
-                            <a href="javascript:void(0);" onclick="return vw_add_ambulance(0);" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD AMBULANCE</a>                            
+                            <a  onclick="return vw_add_ambulance();" data-toggle="modal" class="btn btn-download pull-right font18">+ ADD AMBULANCE</a>                            
                         </h1>
                     </div>
                 </div>
-                <div class="col-lg-12 whiteBg">
-                <div class="col-lg-12 paddingLR20 paddingt20">
-                   <!-- <div class="col-lg-4 marginB20 paddingl0">
-                        <div class="searchBox" ><input type="text" name="SearchKeyword" id="SearchKeyword" class="data-entry-search" placeholder="Search Ambulance / mobile no"/> 
-                            <a href="javascript:void(0);" class="pull-right"><img onclick="searchRecords();" src="images/icon-search.png" width="24" height="24" alt="Search"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 paddingR0 inline_dp pull-left dropdown">
-                        <div class="dd">
-                            <select class="dp_country" name="reference_type" id="reference_type" onchange="searchRecords();">
-                                <option value=""<?php if($_REQUEST['reference_type']=='') { echo 'selected="selected"'; } ?>>Search By Ambulance</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 paddingR0 pull-right text-right dropdown">
-                       <a href="javascript:void(0);" data-toggle="model" title="Import" onclick="return ImportExcel();" style="margin-left:10px;display: inline-block;">
-                            <img src="images/csv.png" width="22" height="21">
-                       </a>
-                        <a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Download Report" onclick="window.open('csv_professional_list.php','_self','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=800,height=600,directories=no,location=no'); return false;" style="margin-left:10px;display: inline-block;">
-                            <img src="images/icon-download.png" border="0" class="example-fade" >                                
-                        </a>
-                        <?php // if(isset($_SESSION['admin_user_type']) && $_SESSION['admin_user_type']=='1') {  echo '<a href="manage_professionals_trash.php" data-toggle="tooltip" title="Trash" style="margin-left:10px;display: inline-block;"><img src="images/trash.png" alt="trash"></a>'; }  ?>
-                    </div>-->
-                    <div class="clearfix"></div>
+                
                     <div class="AmbulancesListing">
                         <?php include "include_ambulance.php";?>
                     </div>
-                </div>   
-              </div>
+                
+              
                <!-- Main Content End-->
             </div>
             <!-- /.container-fluid -->
@@ -755,6 +732,10 @@
         }));
      }
 </script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 <!----Map JS--->
 <script type="text/javascript" src="js/inc_map_here.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
