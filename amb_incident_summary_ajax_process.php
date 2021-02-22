@@ -1,7 +1,7 @@
 <?php   require_once 'inc_classes.php';        
         require_once "classes/thumbnail_images.class.php";
         require_once "classes/SimpleImage.php";        
-        include "classes/ambulanceClass.php";
+        include "classes/AmbulanceClass.php";
         $AmbulanceClass = new AmbulanceClass();
         
         require_once 'classes/functions.php'; 

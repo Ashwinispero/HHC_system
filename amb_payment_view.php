@@ -1,6 +1,6 @@
 <?php 
 require_once('inc_classes.php'); 
-require_once 'classes/ambulanceClass.php';
+require_once 'classes/AmbulanceClass.php';
 $AmbulanceClass=new AmbulanceClass();
  
 if(!$_SESSION['employee_id'])
