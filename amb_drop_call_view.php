@@ -75,6 +75,9 @@ else
     ?>
     </select>
 </div>
+<div class="col-lg-6">
+<input type="text" placeholder="Enter patient no" class="validate[required,minSize[1],maxSize[1]] form-control"  id="No_of_Patient" name="No_of_Patient" maxlength="1" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+</div>
 </div>
 </div>
 <div class="line-seprator"></div>

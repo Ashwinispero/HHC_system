@@ -86,7 +86,7 @@ require_once 'inc_classes.php';
 <?php include "include/amb_header.php"; ?>
 <section>
 
-<div id="DispatchdDiv" class="container-fluid" style="background-color:white;margin-left:1%;margin-right:1%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:-1.5%">
+<div id="DispatchdDiv" class="container-fluid" style="background-color:white;margin-left:1%;margin-right:1%;border: 1px solid #23131357;border-radius: 8px;margin-top:-1.5%">
 <div class="row">
 <div class="modal-body">
 <div  id="Drop_call_view" >
@@ -983,8 +983,9 @@ h4{
     font-size: 15px;
     padding-right: 3px;
     padding-left: 3px;
+    
 }
-.col-lg-2{
+.col-lg-2 .col-lg-6 .col-lg-4{
     
     position: relative;
     min-height: 1px;
@@ -996,15 +997,9 @@ h4{
     background: #e4e1e1;
     height: 1px;
     margin: 10px 0;
+    background : #23131357
 }
-.col-lg-4{
-    
-    position: relative;
-    min-height: 1px;
-    padding-right: 3px;
-    padding-left: 3px;
 
-}
 </style>
 </section>
 </body>

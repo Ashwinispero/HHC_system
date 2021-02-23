@@ -18,7 +18,7 @@ $RequestedRec = $employeesClass->GetEmployeeById($arr);
 $RequestedStatus = $employeesClass->get_emp_status($arr);
 ?>
 <header>
-  <nav class="navbar navbar-default" style="margin-left:1%;margin-right:1%;border: 2px solid #E8E8E8;border-radius: 8px;margin-top:-1%">
+  <nav class="navbar navbar-default" style="margin-left:1%;margin-right:1%;border: 1px solid #23131357;border-radius: 8px;margin-top:-1%">
     <div class="container-fluid">
       <div class="navbar-header">
         <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
