@@ -376,6 +376,7 @@ class AmbulanceClass extends AbstractDB
         $insertData['status']       = $this->escape($arg['status']);
         $insertData['added_by']       = $this->escape($arg['added_by']);
         $insertData['added_date']       = $this->escape($arg['added_date']);
+        $insertData['is_deleted']       = '1';
         $RecordId=$this->query_insert('sp_ems_ambulance', $insertData);
         }
         if($RecordId)

@@ -138,8 +138,8 @@ function map_autocomplete_amb(){
                 console.log(place_details);
                 
                // auto_complete_place_changed(place_details);
-               // $("#lat_pick").val(place_details.position[0]);
-             //   $("#lng_pick").val(place_details.position[1]);
+                $("#lat_amb").val(place_details.position[0]);
+                $("#lng_amb").val(place_details.position[1]);
                 //set_inc_main_pin($place_details);
                 //set_inc_add_details($place_details);
             });

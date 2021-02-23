@@ -32,13 +32,14 @@ if($_REQUEST['action']=='vw_add_ambulance')
     <div class="modal-body">
      <form class="form-horizontal" name="frm_add_ambulance" id="frm_add_ambulance" method="post" action ="ambulance_ajax_process.php?action=add_ambulance" >
             <div class="scrollbars">
-                
+            <input  type="hidden"  class="form-control"  id="lat_amb" name="lat_amb" />
+            <input  type="hidden"  class="form-control"  id="lng_amb" name="lng_amb" />     
                 <div class="editform">
                     <label>Ambulance No<span class="required">*</span></label>
                     
                     <div class="value">
                         <input type="hidden" name="amb_id" id="amb_id" value="<?php echo $AmbDtls['amb_id']; ?>" />
-                        <input <?php if($arr['amb_id']){ ?> readonly <?php } ?>onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
+                        <input <?php if(!$arr['amb_id']){ ?> disable <?php } ?>onblur="return valid(this.value);" type="text" name="amb_no" id="amb_no" value="<?php if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else if(!empty($AmbDtls['amb_no'])) { echo $AmbDtls['amb_no']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" maxlength="50" style="width:100% !important;" />
                     </div>
                 </div>
                 <div class="editform">
@@ -136,6 +137,8 @@ else if($_REQUEST['action']=='add_ambulance')
     if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     {
         $amb_id=strip_tags($_POST['amb_id']);
+        $lat_amb=strip_tags($_POST['lat_amb']);
+        $lng_amb=strip_tags($_POST['lng_amb']);
         $amb_no=strip_tags($_POST['amb_no']);
         $mobile_no=strip_tags($_POST['mobile_no']);
         $Cost_per_km=strip_tags($_POST['Cost_per_km']);
@@ -207,8 +210,8 @@ else if($_REQUEST['action']=='add_ambulance')
             $arr['amb_type']=$amb_type;
             $arr['base_location']=$base_location;
             $arr['address']=$address;
-            $arr['lat']='';
-            $arr['long']='';
+            $arr['lat']=$lat_amb;
+            $arr['long']=$lng_amb;
             $arr['status']='1';
             $arr['added_by']=strip_tags($_SESSION['admin_user_id']);
             $arr['added_date']=date('Y-m-d H:i:s');

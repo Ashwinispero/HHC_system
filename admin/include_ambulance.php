@@ -126,7 +126,7 @@ else
             <td>'.$recListValue['id'].'</td>
                     <td>'.$recListValue['amb_no'].'</td>
                     <td>'.$recListValue['mob_no'].'</td>
-                    <td>'.$recListValue['bs_nm'].'</td>
+                    <td>'.$recListValue['base_loc'].'</td>
                     <td>'.$recListValue['amb_status'].'</td>
                     <td>'.$recListValue['amb_type'].'</td>
                      ';
