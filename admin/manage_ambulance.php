@@ -17,6 +17,11 @@
     <?php include "include/css-includes.php";?>
    
 </head>
+<style>
+.ui-front{
+z-index:1056 !important;
+}
+</style>
 <body>
     <div id="wrapper">
         <!-- Navigation -->
@@ -70,10 +75,21 @@
     <link rel="stylesheet" type="text/css" href="../js/jquery-timepicker-master/jquery.timepicker.css" />
     <script type="text/javascript" src="../js/jquery-timepicker-master/datepair.js"></script>
     <script type="text/javascript" src="../js/jquery-timepicker-master/jquery.datepair.js"></script>
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+<!----Map JS--->
+<script type="text/javascript" src="js/inc_map_here.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        map_autocomplete_amb();
+        
         textboxes = $("input.data-entry-search");
         $(textboxes).keydown (checkForEnterSearch);
         $.datepicker._generateHTML_Old = $.datepicker._generateHTML; $.datepicker._generateHTML = function(inst)
@@ -111,6 +127,7 @@
             },
             complete : function()
             {
+                map_autocomplete_amb();
                Popup_Hide_Load();
             }
         });
@@ -732,15 +749,6 @@
         }));
      }
 </script>
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-<!----Map JS--->
-<script type="text/javascript" src="js/inc_map_here.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 </body>
 </html>

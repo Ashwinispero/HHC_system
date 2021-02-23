@@ -128,6 +128,7 @@ function initIncidentMap() {
 }
 
 function map_autocomplete_amb(){
+    console.log("hi");
     $("#base_location1").autocomplete({
         select: function( event, ui ) {
           
@@ -143,10 +144,10 @@ function map_autocomplete_amb(){
                 //set_inc_add_details($place_details);
             });
 
-       // console.log(  ui.item );
+        console.log(  ui.item );
         },
          source: function (request, response) {
-             //console.log(response);
+             console.log(response);
              $.ajax({
                // url: "https://places.ls.hereapi.com/places/v1/autosuggest?in=34.083813%2C74.809463%3Br%3D5000000&size=1000&tf=plain&addressFilter=stateCode%3DMH&X-Mobility-Mode=drive&Accept-Language=en&app_id=hSm0zJfek39BQxeXGRYZ&app_code=46aPkrbrHTb7tEdxSzLMiA&apiKey=yrjPrIYd0xU9KJpe1xlaR1_K1wFrwc9U-_-99n040JQ",
                 
@@ -162,7 +163,7 @@ function map_autocomplete_amb(){
                         this.vicinity = this.vicinity.replace('<br/>',' ');
                         this.label = this.title+' '+this.vicinity;
                     });
-                   // console.log($data);
+                    console.log($data);
                     response($items);
                     //return $items;
                  },
