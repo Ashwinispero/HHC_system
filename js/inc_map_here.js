@@ -226,7 +226,7 @@ function map_autocomplete(){
             $.get(ui.item.href,function($data){
                 
                 var place_details = $data.location;
-                console.log(place_details);
+                //console.log(place_details);
                 
                 auto_complete_place_changed(place_details);
                 $("#lat_pick").val(place_details.position[0]);
@@ -356,11 +356,14 @@ function get_inc_ambu(places){
         success: function (html)
         {
           $("#logTable").html(html);
-          //update_ambulance_inc_map();
+
+         // update_ambulance_inc_map();
         },
         complete : function()
         {
+         
            Hide_Load();
+           update_ambulance_inc_map();
         }
  }); 
 }
@@ -708,6 +711,8 @@ function update_ambulance_inc_map(){
     
     var inc_lat = $('#lat_pick').val();
     var inc_lng = $('#lng_pick').val();
+    //console.log(inc_lat);
+    //console.log(inc_lng);
 
     //$markerBounds.extend({lat: parseFloat(inc_lat), lng: parseFloat(inc_lng) });
 
@@ -762,11 +767,11 @@ function update_ambulance_inc_map(){
        var $amb_origins = {lat:  parseFloat(amb_lat), lng:  parseFloat(amb_lng)};
             $destination = inc_lat+','+inc_lng;
             $origin = amb_lat+','+amb_lng;
-            console.log($destination);
-            console.log($origin);
+            //console.log($destination);
+           // console.log($origin);
             if(typeof H != 'undefined'){
              
-               set_amb_direction($origin,$destination);
+             //  set_amb_direction($origin,$destination);
                 //addCircleToMap($amb_origins,$distance_value);
 
             }
@@ -1070,8 +1075,8 @@ function addCircleToMap($amb_origins,$distance_value){
 
 $(document).ready(function(){
     
-    $('#container').on('change', '#logTable .ambulance_item_list input[type="checkbox"].amb_check_box' , function () {
-        
+    $('#DispatchdDiv').on('change', '#logTable .ambulance_item_list input[type="checkbox"].amb_check_box' , function () {
+        //console.log("checkbox");
         var $amb_obj = $(this).parents('.searched_ambu_item');
         var amb_id = $amb_obj.attr('data-amb_id');
         var amb_status = $amb_obj.attr('data-amb_status');
@@ -1079,14 +1084,14 @@ $(document).ready(function(){
         var amb_lat = $amb_obj.attr('data-lat');
         var amb_lng = $amb_obj.attr('data-lng');
         var amb_type =  $amb_obj.attr('data-amb_type');
-        var inc_lat = $('#add_inc_details #lat').val();
-        var inc_lng = $('#add_inc_details #lng').val();
+        var inc_lat = $('#lat_pick').val();
+        var inc_lng = $('#lng_pick').val();
         var $distance_value = $amb_obj.attr('data-amb_geofence');
         
         if($distance_value == 'defult distance' || $distance_value == '' || $distance_value == 0 ){
             $distance_value = 10;
         }
-       
+        cbChange($(this));
         
         //google.maps.event.trigger($ambMapMarkers[amb_id] , 'click');
         //$ExtendMapWindow.google.maps.event.trigger($ExtendMapWindow.$ambExtMapMarkers[amb_id] , 'click');
@@ -1153,6 +1158,8 @@ $(document).ready(function(){
            var $amb_origins = {lat:  parseFloat(amb_lat), lng:  parseFloat(amb_lng)};
             $destination = inc_lat+','+inc_lng;
             $origin = amb_lat+','+amb_lng;
+           // console.log($destination);
+            //console.log($origin);
             
             if(typeof H != 'undefined'){
                 
@@ -1165,7 +1172,7 @@ $(document).ready(function(){
         
     });
     
-    $('#container').on('change', '#logTable .ambulance_item_list input[type="checkbox"].amb_stand_check_box' , function () {
+    $('#DispatchdDiv').on('change', '#logTable .ambulance_item_list input[type="checkbox"].amb_stand_check_box' , function () {
         
         
         var $amb_obj = $(this).parents('.searched_ambu_item');
@@ -1250,7 +1257,7 @@ $(document).ready(function(){
         
     });
     
-    $('#container').on('mouseover', '.inc_ambu_list .searched_ambu_item' , function () {
+    $('#DispatchdDiv').on('mouseover', '.inc_ambu_list .searched_ambu_item' , function () {
         
         var amb_lat = $(this).attr('data-lat');
         var amb_lng = $(this).attr('data-lng');
@@ -1263,7 +1270,7 @@ $(document).ready(function(){
         }
     });
     
-    $('#container').on('click', '#inc_recomended_ambu .amb_type_checkbox' , function () {
+    $('#DispatchdDiv').on('click', '#inc_recomended_ambu .amb_type_checkbox' , function () {
         var p_lat = $('#add_inc_details #lat').val();
         var p_lng = $('#add_inc_details #lng').val();
 
@@ -1398,7 +1405,7 @@ function get_new_hospital_ambulance(){
     var lat =$('#facility_details .new_hos_lat').val();
     var lng =$('#facility_details .new_hos_lng').val();
     address1 =lat+','+lng;
-    console.log($("input[name='addtess_type']:checked").val());
+   // console.log($("input[name='addtess_type']:checked").val());
 
     $('#google_pickup_location').val(address);
     address1 =lat+','+lng;
