@@ -1091,6 +1091,10 @@ $(document).ready(function(){
         if($distance_value == 'defult distance' || $distance_value == '' || $distance_value == 0 ){
             $distance_value = 10;
         }
+
+        $("#Selected_ambulance").val(amb_id);
+        //$ambulance_input = '<input type="text" name="incient[amb_id]['+amb_id+']" id="Selected_Amb_ID_'+amb_id+'" data-amb_id="'+amb_id+'" value="'+amb_rto_no+'" class="selected_ambu_input filter_required" data-errors="{filter_required:\'Please select Ambulance\'}">';
+      //  $('#SelectedAmbulance').append($ambulance_input);
         cbChange($(this));
         
         //google.maps.event.trigger($ambMapMarkers[amb_id] , 'click');
@@ -1149,8 +1153,7 @@ $(document).ready(function(){
             $amb_obj.addClass('amb_selected');
             $amb_obj.find('.amb_check_box').prop('checked', true);
 
-            $ambulance_input = '<input type="hidden" name="incient[amb_id]['+amb_id+']" id="Selected_Amb_ID_'+amb_id+'" data-amb_id="'+amb_id+'" value="'+amb_rto_no+'" class="selected_ambu_input filter_required" data-errors="{filter_required:\'Please select Ambulance\'}">';
-            $('#SelectedAmbulance').append($ambulance_input);
+            
             
              //set direction
           //  $destination = {lat: parseFloat(inc_lat), lng:  parseFloat(inc_lng)};

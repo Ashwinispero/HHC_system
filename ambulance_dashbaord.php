@@ -464,8 +464,9 @@ function cbChange(obj) {
         cbs[i].checked = false;
     }
     obj.checked = true;
-
-    var selected_amb =$('.check_class:checked').val();
+    
+    var selected_amb =$('#Selected_ambulance').val();
+    
     var google_pickup_location = $("#google_pickup_location").val();
     var google_drop_location = $("#google_drop_location").val();
 
@@ -476,7 +477,7 @@ function cbChange(obj) {
     var lng_drp = $("#lng_drp").val();
 
     var submit = 'yes';
-    if($("#selected_amb").val() == '' )
+    if($("#Selected_ambulance").val() == '' )
     {
         submit = 'no';
         bootbox.alert("<div class='msg-error'>Please Select ambulance number.</div>");

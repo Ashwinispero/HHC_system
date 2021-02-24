@@ -19,6 +19,9 @@ else
 <input  type="hidden"  class="form-control"  id="lat_drp" name="lat_drp" />
 <input  type="hidden"  class="form-control"  id="lng_drp" name="lng_drp" />
 
+<input  type="hidden"  class="form-control"  id="Selected_ambulance" name="Selected_ambulance" />
+
+
 <div class="row">
 <div class="col-lg-2">
 <h4>Call Type & caller Detail</h4>
@@ -76,7 +79,7 @@ else
     </select>
 </div>
 <div class="col-lg-6">
-<input type="text" placeholder="Enter patient no" class="validate[required,minSize[1],maxSize[1]] form-control"  id="No_of_Patient" name="No_of_Patient" maxlength="1" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" placeholder="Enter Other Details" class="validate[required,minSize[1],maxSize[1]] form-control"  id="inc_other_details" name="inc_other_details"   />
 </div>
 </div>
 </div>
