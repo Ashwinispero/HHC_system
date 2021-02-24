@@ -232,7 +232,13 @@ else
 <div class="col-lg-6" id="INCIDENT_MAP" style="height:250px;">
 </div>
 </div>
-<div id='payment_details' class="row">
+<div class="line-seprator"></div>
+<div class="row">
+<div class="col-lg-2">
+<h4>Estimate Cost</h4>
+</div>
+<div class="col-lg-10" id='payment_details'>
+</div>
 </div>
 <div class="line-seprator"></div>
 <div class="row">

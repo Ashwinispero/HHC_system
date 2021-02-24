@@ -430,6 +430,13 @@ function ChangepaymentType(){
        $("#card").hide();
     }
 }
+function payment_other(){
+    var total_cost = parseInt(document.getElementById('total_cost').value);
+    var other_cost = parseInt(document.getElementById('other_cost').value);
+    var final_cost = total_cost + other_cost;
+    document.getElementById('final_cost').value=final_cost;
+    
+}
 function Start_odo_validation(){
     var pre_odo = parseInt(document.getElementById('pre_odo').value);
     var Start_odo = parseInt(document.getElementById('Start_odo').value);
@@ -986,7 +993,7 @@ h4{
     padding-left: 3px;
     
 }
-.col-lg-2 .col-lg-6 .col-lg-4{
+.col-lg-2{
     
     position: relative;
     min-height: 1px;
@@ -1000,7 +1007,29 @@ h4{
     margin: 10px 0;
     background : #23131357
 }
+.col-lg-6{
+    
+    position: relative;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
 
+} .col-lg-4{
+    
+    position: relative;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
+
+}
+.col-lg-1{
+    
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
 </style>
 </section>
 </body>

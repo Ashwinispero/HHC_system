@@ -203,8 +203,10 @@ class AmbulanceClass extends AbstractDB
 		$amb_id=$row2['id'];
 		
       
-
-      $createEvent['finalcost']  =   $arg['finalcost'];
+      $createEvent['other_cost']  =   $arg['other_cost'];
+      $createEvent['finalcost']  =   $arg['final_cost'];
+      $createEvent['Other_Cost_Details']  =   $arg['Other_Cost_Details'];
+      $createEvent['total_cost']  =   $arg['total_cost'];
       $createEvent['total_km']  =   $arg['total_km'];
       $createEvent['total_km_per'] = $arg['total_km_per'];
       $createEvent['purpose_id']  =   $arg['CallType'];
@@ -213,6 +215,7 @@ class AmbulanceClass extends AbstractDB
       $createEvent['patient_id'] = $RecordId_pat;
       $createEvent['relation'] = $arg['relation'];
       $createEvent['No_of_Patient']  =   $arg['No_of_Patient'];
+      $createEvent['inc_other_details'] = $arg['inc_other_details'];
       $createEvent['Complaint_type']  =   $arg['Complaint_type'];
       $createEvent['google_pickup_location']  =   $arg['google_pickup_location'];
       $createEvent['google_drop_location']  =   $arg['google_drop_location'];

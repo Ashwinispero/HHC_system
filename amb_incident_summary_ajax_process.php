@@ -67,7 +67,7 @@ foreach($AllRrecord as $key=>$valRecords)
     $dist = round($valRecords['distance']);
     echo '<tr  id="Search_Amb_'.$valRecords['amb_no'].'" class="ambulance_item_list searched_ambu_item" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['st_id'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
-                <td>'.$valRecords['bs_nm'].'</td>
+                <td>'.$valRecords['base_loc'].'</td>
                 <td>'.$valRecords['mob_no'].'</td>
                 <td>'.$valRecords['amb_type'].'</td>
                 <td>'.$dist.' '.'KM'.'</td>
@@ -218,6 +218,7 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         //Incident Details
         $No_of_Patient=strip_tags($_POST['No_of_Patient']);
         $Complaint_type=strip_tags($_POST['Complaint_type']);
+        $inc_other_details=strip_tags($_POST['inc_other_details']);
         //Patient Details
         $Patient_first_name=strip_tags($_POST['Patient_first_name']);
         $Patient_name=strip_tags($_POST['Patient_name']);
@@ -248,9 +249,10 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         $total_cost = strip_tags($_POST['total_cost']);
         $total_km = strip_tags($_POST['total_km']);
         $total_km_per = strip_tags($_POST['total_km_per']);
-        
 
-
+        $other_cost = strip_tags($_POST['other_cost']);
+        $final_cost = strip_tags($_POST['final_cost']);
+        $Other_Cost_Details = strip_tags($_POST['Other_Cost_Details']);
 
         $success=1;
         $arr['terminatevalue'] = $terminatevalue;
@@ -265,6 +267,7 @@ else if($_REQUEST['action']=="SubmitDropCall"){
 
         $arr['No_of_Patient']=$No_of_Patient;
         $arr['Complaint_type']=$Complaint_type;
+        $arr['inc_other_details']=$inc_other_details;
 
         
         $arr['Patient_first_name']=ucwords(strtolower($Patient_first_name));
@@ -294,9 +297,12 @@ else if($_REQUEST['action']=="SubmitDropCall"){
         $arr['hospital_id'] = $_SESSION['hospital_id'];
         $arr['employee_id']=$_SESSION['employee_id'];
 
-        $arr['finalcost'] = $total_cost;
+        $arr['total_cost'] = $total_cost;
         $arr['total_km'] = $total_km; 
         $arr['total_km_per'] = $total_km_per;
+        $arr['final_cost'] = $final_cost;
+        $arr['other_cost'] = $other_cost;
+        $arr['Other_Cost_Details'] = $Other_Cost_Details;
         //var_dump($arr);die();
         $InsertRecord=$AmbulanceClass->InsertAmbCallers($arr); 
         if($InsertRecord)
@@ -903,12 +909,8 @@ $total_KM = $total + $total_1 + $total_2;
 $total_cost = $total_KM * $cost_per_km ;
 
      ?>
-<div class="line-seprator"></div>
+
 <div class="row">
-<div class="col-lg-2">
-<h4>Estimate Cost</h4>
-</div>
-<div class="col-lg-10">
 <label class="col-lg-2">Pickup to Drop :</label>
 <div class="col-lg-2">
 <input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total; ?> " />
@@ -922,24 +924,34 @@ $total_cost = $total_KM * $cost_per_km ;
 <input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_2; ?> " />
 </div>
 </div>
+<br>
+<div class="row">
+<label  class="col-lg-2">Total KM : <span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input  disabled type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
+</div>
+<label   class="col-lg-2">Total KM/per : <span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input  disabled type="text" id="total_km_per" name="total_km_per" value="<?php echo $cost_per_km; ?>" class="form-control datepicker_from">
+</div>
+<label  class="col-lg-2">Total Cost : <span style="color:red;">*</span></label>
+<div class="col-lg-2">
+<input  disabled type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
+</div>
 </div>
 <br>
 <div class="row">
-<div class="col-lg-2">
-</div>
-<div class="col-lg-10">
-<label  class="col-lg-2">Total KM : <span style="color:red;">*</span></label>
-<div class="col-lg-2">
-<input  type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
-</div>
-<label  class="col-lg-2">Total KM/per : <span style="color:red;">*</span></label>
-<div class="col-lg-2">
-<input  type="text" id="total_km_per" name="total_km_per" value="<?php echo $cost_per_km; ?>" class="form-control datepicker_from">
-</div>
-<label  class="col-lg-2">Total Cost : <span style="color:red;">*</span></label>
+<label  class="col-lg-2">Other Cost : <span style="color:red;">*</span></label>
 <div class="col-lg-2 ">
-<input  type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
+<input   type="text" onblur="payment_other()" id="other_cost" name="other_cost"  class="form-control">
 </div>
+<label  class="col-lg-2">Final Cost : <span style="color:red;">*</span></label>
+<div class="col-lg-2 ">
+<input  disabled  type="text"  id="final_cost" name="final_cost"  class="form-control">
+</div>
+<label  class="col-lg-2">Other Cost Details : <span style="color:red;">*</span></label>
+<div class="col-lg-2 ">
+<input  type="text" id="Other_Cost_Details" name="Other_Cost_Details"  class="form-control">
 </div>
 </div>
 
