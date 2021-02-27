@@ -34,7 +34,7 @@ else
     </select>
   </div>
   <div class="col-lg-2">
-<input type="text" placeholder="Enter Caller No" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="phone_no" name="phone_no" maxlength="10" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
+<input type="text" placeholder="Enter Caller No" class="validate[required,custom[phone],minSize[6],maxSize[10]] form-control"  id="phone_no" name="phone_no" maxlength="10"  onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" />
 </div>
 <div class="col-lg-2">
 <input type="text"  placeholder="Enter caller first Name" style="text-transform: capitalize;" class="validate[required] form-control"  id="caller_first_name" name="caller_first_name" maxlength="50" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')" />

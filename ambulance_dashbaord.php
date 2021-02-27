@@ -11,9 +11,7 @@ require_once 'inc_classes.php';
         require_once 'classes/employeesClass.php';
         $employeesClass=new employeesClass();
         require_once 'classes/professionalsClass.php';
-        $professionalsClass=new professionalsClass();  
-
-    
+        $professionalsClass=new professionalsClass();     
 ?>
 <html lang="en">
 <head>
@@ -96,7 +94,6 @@ require_once 'inc_classes.php';
 <?php include "amb_payment_view.php"; ?>
 </div>
 </div>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSFjKrqU52WGRggTJLD6QkZvOQeZp4bI&libraries=places"></script>
 
 <script>
 

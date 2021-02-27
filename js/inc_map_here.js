@@ -361,7 +361,6 @@ function get_inc_ambu(places){
         },
         complete : function()
         {
-         
            Hide_Load();
            update_ambulance_inc_map();
         }
@@ -390,7 +389,6 @@ function load_inc_address() {
 }
 function on_cluster_change_load_map($this){
     $incGeocoder = new google.maps.Geocoder();
-    
     var cluster_lat = $($this).find(':selected').attr('data-lat');
     var cluster_lng = $($this).find(':selected').attr('data-lng');
     var address = cluster_lat+','+cluster_lng;

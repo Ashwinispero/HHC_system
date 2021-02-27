@@ -1,7 +1,7 @@
 <?php   require_once 'inc_classes.php';        
         require_once "classes/thumbnail_images.class.php";
         require_once "classes/SimpleImage.php";        
-        include "classes/ambulanceClass.php";
+        include "classes/AmbulanceClass.php";
         $AmbulanceClass = new AmbulanceClass();
         
         require_once 'classes/functions.php'; 
@@ -913,30 +913,30 @@ $total_cost = $total_KM * $cost_per_km ;
 <div class="row">
 <label class="col-lg-2">Pickup to Drop :</label>
 <div class="col-lg-2">
-<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total; ?> " />
+<input readonly type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total; ?> " />
 </div>
 <label class="col-lg-2">Base to Pickup :</label>
 <div class="col-lg-2">
-<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_1; ?> " />
+<input readonly type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_1; ?> " />
 </div>
 <label class="col-lg-2">Drop to base:</label>
 <div class="col-lg-2">
-<input disabled type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_2; ?> " />
+<input readonly type="text" class="validate[required,custom[phone],minSize[6],maxSize[15]] form-control callerPhone" value="<?php echo $total_2; ?> " />
 </div>
 </div>
 <br>
 <div class="row">
 <label  class="col-lg-2">Total KM : <span style="color:red;">*</span></label>
 <div class="col-lg-2">
-<input  disabled type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
+<input  readonly type="text" id="total_km" name="total_km" value="<?php echo $total + $total_1 + $total_2; ?>" class="form-control datepicker_from">
 </div>
 <label   class="col-lg-2">Total KM/per : <span style="color:red;">*</span></label>
 <div class="col-lg-2">
-<input  disabled type="text" id="total_km_per" name="total_km_per" value="<?php echo $cost_per_km; ?>" class="form-control datepicker_from">
+<input  readonly type="text" id="total_km_per" name="total_km_per" value="<?php echo $cost_per_km; ?>" class="form-control datepicker_from">
 </div>
 <label  class="col-lg-2">Total Cost : <span style="color:red;">*</span></label>
 <div class="col-lg-2">
-<input  disabled type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
+<input  readonly type="text" id="total_cost" name="total_cost" value="<?php echo $total_cost; ?>" class="form-control datepicker_from">
 </div>
 </div>
 <br>
@@ -947,7 +947,7 @@ $total_cost = $total_KM * $cost_per_km ;
 </div>
 <label  class="col-lg-2">Final Cost : <span style="color:red;">*</span></label>
 <div class="col-lg-2 ">
-<input  disabled  type="text"  id="final_cost" name="final_cost"  class="form-control">
+<input  readonly  type="text"  id="final_cost" name="final_cost"  class="form-control">
 </div>
 <label  class="col-lg-2">Other Cost Details : <span style="color:red;">*</span></label>
 <div class="col-lg-2 ">
