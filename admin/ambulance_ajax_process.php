@@ -111,12 +111,9 @@ if($_REQUEST['action']=='vw_add_ambulance')
                 <div class="modal-footer">
                     <input type="button" name="submitForm" id="submitForm" class="btn btn-download" value="Save Changes" onclick="return add_ambulance_submit();" />
                 </div>  
-                <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+               
 <!----Map JS--->
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 <script type="text/javascript" src="js/inc_map_here.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>

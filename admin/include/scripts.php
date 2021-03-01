@@ -2,6 +2,7 @@
     <!-- jQuery Version 1.11.0 -->
     <script src="js/jquery-11.1.js"></script>
     <!-- Bootstrap Core JavaScript -->
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
     <script src="js/bootstrap.min.js"></script>
    
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>

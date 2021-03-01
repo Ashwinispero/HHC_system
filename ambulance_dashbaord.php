@@ -27,11 +27,12 @@ require_once 'inc_classes.php';
 <link rel="stylesheet" href="dropdown/docsupport/prism.css">
 <link rel="stylesheet" href="dropdown/chosen.css">  
 <link rel="stylesheet" href="js/jRange-master/jquery.range.css">
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
 <script type="text/javascript"> var base_url = 'http://localhost/HHC_system/';</script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <!----Map JS--->
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 <script type="text/javascript" src="js/inc_map_here.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
