@@ -48,7 +48,7 @@ if($formDate!='' and $toDate!='')
 			<th width="2%">Event Date</th>
 			<th width="2%">Event code</th>
 			<th width="2%">Patient Name</th>
-            		<th width="2%">Professional Name</th>
+            <th width="2%">Professional Name</th>
 			<th width="2%">Patient Address</th>
 			<th width="2%">Professional Address</th>
 			<th width="2%">Service</th>
