@@ -27,13 +27,12 @@ $toDate=$_GET['toDate_distance'];
 $date2=date_create("$toDate");
 $toDate2=date_format($date2,"Y-m-d H:i:s");
 $hospital_id=$_GET['hospital_id'];
-
-      
+     
 if($formDate!='' and $toDate!='')
 	{
 		//$events = mysql_query("SELECT * FROM sp_events ORDER BY added_date DESC");
 		$events = mysql_query("SELECT * FROM sp_events where added_date BETWEEN '$formDate1%' AND '$toDate2%' AND estimate_cost!='2' AND hospital_id='$hospital_id' AND event_status >= '3' ORDER BY added_date DESC");
-	}
+		}
 	else
 	{
 		$events = mysql_query("SELECT * FROM sp_events where estimate_cost!='2'  AND hospital_id='$hospital_id' AND event_status >= '3' ORDER BY added_date DESC");
@@ -43,20 +42,22 @@ if($formDate!='' and $toDate!='')
 	$row_count = mysql_num_rows($events);
 	if($row_count > 0)
 	{
-		echo '<div class="table-responsive" id="payment"><table class="table table-hover table-bordered">
+		echo '<div class="table-responsive" ><table class="table table-hover table-bordered">
             <tr> 
 			<th width="2%">Event Date</th>
 			<th width="2%">Event code</th>
 			<th width="2%">Patient Name</th>
             <th width="2%">Professional Name</th>
+            <td width="5%">Professional Type</td>
+			<td width="5%">Professional Service</td>
 			<th width="2%">Patient Address</th>
-			<th width="2%">Professional Address</th>
-			<th width="2%">Service</th>
+            <th width="2%">Professional Address</th>
+            <th width="2%">Service</th>
 			<th width="2%">Sub-Service</th>
-			<th width="2%">Service Date</th>
+            <th width="2%">Service Date</th>
 			<th width="2%">Sessions</th>
-			<th width="2%">Distance KM</th>
-			<th width="2%">Total KM</th>
+            <th width="2%">Distance KM</th>
+            <th width="2%">Total KM</th>
 		</tr>';
 		
 		for($i=1; $i<=$row_count;)
@@ -83,6 +84,9 @@ if($formDate!='' and $toDate!='')
 					$middle_name1=$row2['middle_name'];
 					$name1=$row2['name'];
 					$google_location=$row2['google_location'];
+					$Pt_lattitude=$row2['lattitude'];
+					$Pt_langitude=$row2['langitude'];
+					
 					}
 					
 					$requirement_id= mysql_query("SELECT * FROM sp_event_requirements  where event_id='$event_id'");
@@ -108,6 +112,8 @@ if($formDate!='' and $toDate!='')
 						$row3 = mysql_fetch_array($sub_service) or die(mysql_error());
 						$recommomded_service=$row3['recommomded_service'];
 						
+					
+						
 					//echo $sub_service_id;
 					//Professional Name
 					$professional= mysql_query("SELECT * FROM sp_event_professional  where event_requirement_id='$event_requirement_id'");
@@ -123,8 +129,13 @@ if($formDate!='' and $toDate!='')
 						$title=$professional_name_abc['title'];
 						$first_name=$professional_name_abc['first_name'];
                         $middle_name=$professional_name_abc['middle_name'];
+                        $Job_type=$professional_name_abc['Job_type'];
                         $google_location_prof=$professional_name_abc['google_work_location'];
 						$professional_name=$title.' '.$name.' '.$first_name.' '.$middle_name;
+						
+						$lattitude=$professional_name_abc['lattitude'];
+						$langitude=$professional_name_abc['langitude'];
+						
 					}
 					else
 					{
@@ -151,6 +162,7 @@ if($formDate!='' and $toDate!='')
 						$service_date=$row4['service_date'];
 						$service_date_to=$row4['service_date_to'];
 						
+						
 						$service_date_new= date('d-m-Y',strtotime($service_date));
 						$service_date_to_new = date('d-m-Y',strtotime($service_date_to));
 						
@@ -163,7 +175,8 @@ if($formDate!='' and $toDate!='')
 						$numberDays_qty = intval($numberDays1);
 						
 			
-                        $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
+                    /*   // $apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
+                         $apiKey = 'AIzaSyDCrfpYkqNLwUaG0iipCOJec5Z9hwEL-I8';
     
                         // Change address format
                         $formattedAddrFrom    = str_replace(' ', '+', $google_location);
@@ -182,14 +195,17 @@ if($formDate!='' and $toDate!='')
                         if(!empty($outputTo->error_message)){
                             return $outputTo->error_message;
                         }
-                        
+                        */
                         // Get latitude and longitude from the geodata
-                        $latitudeFrom    = $outputFrom->results[0]->geometry->location->lat;
-                        $longitudeFrom    = $outputFrom->results[0]->geometry->location->lng;
-                        $latitudeTo        = $outputTo->results[0]->geometry->location->lat;
-                        $longitudeTo    = $outputTo->results[0]->geometry->location->lng;
+                        $latitudeFrom    = $Pt_lattitude;
+                        $longitudeFrom    = $Pt_langitude;
                         
-                        // Calculate distance between latitude and longitude
+                        $latitudeTo        = $lattitude;
+                        $longitudeTo    = $langitude;
+                        
+                        
+                        
+                         // Calculate distance between latitude and longitude
                         $theta    = $longitudeFrom - $longitudeTo;
                         $dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
                         $dist    = acos($dist);
@@ -214,10 +230,13 @@ if($formDate!='' and $toDate!='')
 							<td>'.$event_code.'</td>
 							<td>'.$first_name1.' '.$middle_name1.' '.$name1.'</td>
                              <td>'.$professional_name.'</td>
+                             <td>'.$Job_type.'</td>
+                             <td>'.$service_title.'</td>
 							<td>'.$google_location.'</td>
 							<td>'.$google_location_prof.'</td>
 							<td>'.$service_title.'</td>
 							<td>'.$recommomded_service.'</td>
+							
 							<td>'.$service_date.' To '.$service_date_to.'</td>
 							<td>'.$numberDays_qty.'</td>
 							<td>'.$total.' '.'KM'.'</td>

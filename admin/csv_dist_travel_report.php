@@ -37,6 +37,8 @@
 					<td width="5%">Event code</td>
                     <td width="5%">Patient Name</td>
 					<td width="5%">Professional Name</td>
+					<td width="5%">Professional Type</td>
+					<td width="5%">Professional Service</td>
                     <td width="5%">Patient Address</td>
 					<td width="5%">Professional Address</td>
 					<th width="2%">Service</th>
@@ -69,6 +71,9 @@
 						$middle_name1=$row2['middle_name'];
 						$name1=$row2['name'];
 						$google_location=$row2['google_location'];
+						$Pt_lattitude=$row2['lattitude'];
+					    $Pt_langitude=$row2['langitude'];
+					
 						}
 						
 						$requirement_id= mysql_query("SELECT * FROM sp_event_requirements  where event_id='$event_id'");
@@ -110,8 +115,12 @@
 							$title=$professional_name_abc['title'];
 							$first_name=$professional_name_abc['first_name'];
 							$middle_name=$professional_name_abc['middle_name'];
+							$Job_type=$professional_name_abc['Job_type'];
 							$google_location_prof=$professional_name_abc['google_work_location'];
 							$professional_name=$title.' '.$name.' '.$first_name.' '.$middle_name;
+							
+							$lattitude=$professional_name_abc['lattitude'];
+						$langitude=$professional_name_abc['langitude'];
 						}
 						else
 						{
@@ -149,8 +158,8 @@
 							$numberDays1=$numberDays + 1 ;
 							$numberDays_qty = intval($numberDays1);
 							
-								
-							$apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
+				
+						/*	$apiKey = 'AIzaSyBW_HR7a125NbuIVsomf-pzKIV5JT_CXzg';
 		
 							// Change address format
 							$formattedAddrFrom    = str_replace(' ', '+', $google_location);
@@ -175,7 +184,13 @@
 							$longitudeFrom    = $outputFrom->results[0]->geometry->location->lng;
 							$latitudeTo        = $outputTo->results[0]->geometry->location->lat;
 							$longitudeTo    = $outputTo->results[0]->geometry->location->lng;
-							
+							*/
+							// Get latitude and longitude from the geodata
+                        $latitudeFrom    = $Pt_lattitude;
+                        $longitudeFrom    = $Pt_langitude;
+                        
+                        $latitudeTo        = $lattitude;
+                        $longitudeTo    = $langitude;
 							// Calculate distance between latitude and longitude
 							$theta    = $longitudeFrom - $longitudeTo;
 							$dist    = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
@@ -203,7 +218,10 @@
              $datas .= '<td>'.$event_code.'</td>';
 			$datas .= '<td>'.$first_name1.' '.$middle_name1.' '.$name1.'</td>';
 			$datas .= '<td>'.$professional_name.'</td>';
+			$datas .= '<td>'.$Job_type.'</td>';
+			$datas .= '<td>'.$service_title.'</td>';
 			$datas .= '<td>'.$google_location.'</td>';
+			
 			$datas .= '<td>'.$google_location_prof.'</td>';
 			$datas .= '<td>'.$service_title.'</td>';
 			$datas .= '<td>'.$recommomded_service.'</td>';
