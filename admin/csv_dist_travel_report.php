@@ -39,6 +39,8 @@
 					<td width="5%">Professional Name</td>
                     <td width="5%">Patient Address</td>
 					<td width="5%">Professional Address</td>
+					<th width="2%">Service</th>
+					<th width="2%">Sub-Service</th>
 					<td width="5%">Service Date</td>
                     <td width="5%">Sessions</td>
                     <td width="5%">Distance KM</td>
@@ -81,7 +83,16 @@
 							while($row1=mysql_fetch_array($requirement_id))
 							{
 							$event_requirement_id=$row1['event_requirement_id'];
-							
+							$service_id=$row1['service_id'];
+							$sub_service_id=$row1['sub_service_id'];
+
+							$service= mysql_query("SELECT * FROM sp_services  where service_id='$service_id'");
+							$service_name = mysql_fetch_array($service) or die(mysql_error());
+							$service_title=$service_name['service_title'];
+
+							$sub_service= mysql_query("SELECT * FROM sp_sub_services  where sub_service_id='$sub_service_id'");
+							$row3 = mysql_fetch_array($sub_service) or die(mysql_error());
+							$recommomded_service=$row3['recommomded_service'];
 						
 							
 						//echo $sub_service_id;
@@ -193,8 +204,9 @@
 			$datas .= '<td>'.$first_name1.' '.$middle_name1.' '.$name1.'</td>';
 			$datas .= '<td>'.$professional_name.'</td>';
 			$datas .= '<td>'.$google_location.'</td>';
-			
 			$datas .= '<td>'.$google_location_prof.'</td>';
+			$datas .= '<td>'.$service_title.'</td>';
+			$datas .= '<td>'.$recommomded_service.'</td>';
 			$datas .= '<td>'.$service_date.' To '.$service_date_to.'</td>';
 			$datas .= '<td>'.$numberDays_qty.'</td>';
 			$datas .= '<td>'.$total.' '.'KM'.'</td>';
