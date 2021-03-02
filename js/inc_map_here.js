@@ -726,8 +726,7 @@ function update_ambulance_inc_map(){
       //  var amb_rto_no = $(this).attr('data-rto-no');
         var amb_status = $(this).attr('data-amb_status');
         var amb_details = $(this).find('.ambu_pin_info').html();
-
-       // console.log(amb_status);
+        console.log(amb_details);
        // console.log($MapPins[amb_status]);
         
         var markerLatLng = {lat: parseFloat(amb_lat), lng: parseFloat(amb_lng) };

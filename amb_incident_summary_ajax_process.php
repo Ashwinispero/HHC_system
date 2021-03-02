@@ -65,6 +65,7 @@ $AllRrecord = $db->fetch_all_array($sql);
 foreach($AllRrecord as $key=>$valRecords)
 {
     $dist = round($valRecords['distance']);
+    $amb_map_box  = "";
     echo '<tr  id="Search_Amb_'.$valRecords['amb_no'].'" class="ambulance_item_list searched_ambu_item" style = "' . $complimentaryVisitStyle .'" data-amb_status="'.$valRecords['st_id'].'" data-amb_id="'.trim($valRecords['amb_no']).'" data-lat="'.trim($valRecords['lat']).'"  data-lng="'.trim($valRecords['long']).'" ">
                 <td>'.$valRecords['amb_no'].'</td>
                 <td>'.$valRecords['base_loc'].'</td>
@@ -76,10 +77,25 @@ foreach($AllRrecord as $key=>$valRecords)
                 ?> 
                 <input class="check_class amb_check_box"  type="checkbox" name="selected_amb" id="selected_amb_<?php echo $valRecords['amb_no']; ?>" value="<?php echo $valRecords['amb_no']; ?> " >
                 <?php 
-                echo '</td>
-                </tr>';
-
-}
+                echo '</td>';
+               ?>
+                <td class="ambu_pin_info" width="500%" style="display: none;">
+            
+            <?php   $amb_map_box  = "";
+                    $amb_map_box .=  '<strong>'.$valRecords['amb_no'].'</strong>'; 
+                    $amb_map_box .= '<br>';
+                    $amb_map_box .=  '<strong>Base Location: </strong>'. $valRecords['base_loc']; 
+                    $amb_map_box .= '<br>';
+                    $amb_map_box .=  '<strong>Mob No: </strong>'.$valRecords['mob_no']; 
+                    $amb_map_box .= '<br>';
+                    $amb_map_box .= '<strong>Ambulance Type: </strong>'.$valRecords['amb_type']; 
+                    $amb_map_box .= '<br>';
+               echo $amb_map_box .= '<strong>Distance: </strong>'.$dist; ?>
+            
+                </td>
+               <?php
+                echo '</tr>';
+                 }
 ?>
             </tbody>
             </table>
