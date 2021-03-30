@@ -190,8 +190,7 @@
 	{
             if(xmlhttp.readyState==4 && xmlhttp.status==200)
 	            {
-                        alert(xmlhttp.responseText);
-                   	document.getElementById("distance_Report").innerHTML=xmlhttp.responseText;
+                    	document.getElementById("distance_Report").innerHTML=xmlhttp.responseText;
 		}
 	}
 	xmlhttp.open("POST","include_dmh_nondmh_report.php?formDate_rp="+formDate_rp+"&toDate_rp="+toDate_rp,true);

@@ -798,6 +798,7 @@ class professionalsClass extends AbstractDB
 				$serArrr['professional_id'] = $service_professional_id;
 			} else {
 				$insertData['document_status'] = 1; // TODO : Need to be set 2 when we introduce add document functionality from admin side
+				$insertData['APP_password']     = 'e10adc3949ba59abbe56e057f20f883e';
 				$insertData['status']     = $this->escape($arg['status']);
 				$insertData['added_by']   = $this->escape($arg['added_by']);
 				$insertData['added_date'] = $this->escape($arg['added_date']);

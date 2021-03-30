@@ -690,7 +690,13 @@ else if($_REQUEST['action']=='add_professional')
             }
             $InsertRecord = $professionalsClass->AddProfessional($arr); 
             
-            
+            //Add employee Spero
+            $arr_new['birth_date']=$dob;
+            $arr_new['fname']=$title.' '.ucwords($first_name).' '.ucwords($name);
+            $arr_new['mobile_no']=$mobile_no;
+            $arr_new['DOJ']=date('Y-m-d H:i:s');
+            $arr_new['status']='1';
+            $InsertRecord_new = $professionalsClass->Add_emp_Spero($arr_new); 
             
 
             if(!empty($InsertRecord))
@@ -721,13 +727,7 @@ else if($_REQUEST['action']=='add_professional')
                 }
                 $InsertOtherDtlsRecord=$professionalsClass->AddProfessionalOtherDtls($arg); 
                 
-                //Add employee Spero
-                $arr_new['birth_date']=$dob;
-                $arr_new['fname']=$title.' '.ucwords($first_name).' '.ucwords($name);
-                $arr_new['mobile_no']=$mobile_no;
-                $arr_new['DOJ']=date('Y-m-d H:i:s');
-                $arr_new['status']='1';
-                $InsertRecord = $professionalsClass->Add_emp_Spero($arr_new); 
+                
                 
                 if($service_professional_id)
                 {
