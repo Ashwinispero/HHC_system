@@ -40,11 +40,11 @@ elseif($_REQUEST['action'] == 'call_forword')
     $unic_id = $_REQUEST['unic_id'];
     $ext_no = $_REQUEST['ext_no'];
     $disconect_remark = $_REQUEST['disconect_remark'];
-    if($status == 1){
+   // if($status == 1){
         $updateEvents= "update sp_incoming_call set is_deleted='1',dis_conn_massage = '".$disconect_remark."',status='CNR-A' where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION["CallUniqueID"]."' AND ext_no='".$ext_no."' ";
         $db->query($updateEvents);
        echo 'Success';
-   }
+  // }
 }
 elseif($_REQUEST['action'] == 'Checkdisconnect')
 {
@@ -57,8 +57,8 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
         
         $db->query($updateEvents);
         $user = $_SESSION['first_name'];
-       // $form_url =  "http://183.87.122.153/API/CallResponse.php?user=".$user."&value=END";
-        $form_url =  "http://183.87.122.153/API/Hangup.php?user=".$user;
+       // $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=END";
+        $form_url =  "http://183.87.122.153:8080/API/Hangup.php?user=".$user;
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -77,12 +77,12 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
     $unic_id = $_REQUEST['unic_id'];
     //var_dump($unic_id);
     if($status == 1){
-        $updateEvents= "update sp_incoming_call set status='C', call_connect_datetime='".date('Y-m-d H:i:s')."' ,message='Connect'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION['CallUniqueID']."' ";
+       // $updateEvents= "update sp_incoming_call set status='C', call_connect_datetime='".date('Y-m-d H:i:s')."' ,message='Connect'  where calling_phone_no = '".$phone_no."' AND CallUniqueID='".$_SESSION['CallUniqueID']."' ";
          //  var_dump($updateEvents);
-        $db->query($updateEvents);
+        //$db->query($updateEvents);
         
         $user = $_SESSION['first_name'];
-        $form_url =  "http://183.87.122.153/API/CallResponse.php?user=".$user."&value=ACCEPT";
+        $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=ACCEPT";
          
         $data_to_post = array();
         $curl = curl_init();
@@ -241,6 +241,7 @@ else if($_REQUEST['action'] == 'generateHHCno')
             $success=0;
             $errors[$i++]="Please enter phone number.";
         }
+
         if($ref_hos_id == '')
         {
             $success=0;
@@ -1002,7 +1003,8 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                                             $dateofService .= " Date".$msgtimecount." : ".$service_date1." Reporting time : ".$serviceTime;
                                                             //$timeofService .= ;
                                                             $sub_service=$recommomded_service;
-                                                            $sub_service_detail = $sub_service_detail.",".sub_service;
+                                                          //  $sub_service_detail = $sub_service_detail.",".$sub_service;
+                                                            
                                                             unset($service_name);
                                                             unset($recommomded_service);
                                                             unset($service_date);
@@ -1029,10 +1031,8 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 
                     // Get Patient Details 
                     $args['patient_id']=$EventDtls['patient_id'];
-                    $event_code=$EventDtls['event_code'];
-                    
                     $PatientDtls=$eventClass->GetPatientById($args);                    
-
+                    $event_code=$EventDtls['event_code'];
                     if($arr['type']=='1')
                     {
                         $msgtcount = 1;
@@ -1058,9 +1058,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                 $serviceTimenew=$valDatData['start_date'].' to '.$valDatData['end_date'];
                                 $serviceTime=$valDatData['start_date'];
                                 
-                                $dateofServicenew .= "Date : ".$service_datenew1."Reporting time : ".$serviceTimenew;
-                                $dateofServicepatient .= " Date:".$service_datenew1." Reporting time : ".$serviceTime;
-                               // $dateofServicenew .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTimenew;
+                                $dateofServicenew .= "\n\nDate : ".$service_datenew1." Reporting time : ".$serviceTimenew." " ;
                                 $dateofServicepatient .= " Date".$msgtcount." : ".$service_datenew1." Reporting time : ".$serviceTime;
                                 
                                 $msgtcount++;
@@ -1086,34 +1084,30 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         //.............. send msg to professional .......//
 						$query=mysql_query("SELECT * FROM sp_events where event_id='".$ValRequirement['event_id']."'") or die(mysql_error());
 															$row = mysql_fetch_array($query) or die(mysql_error());
-                                                            $caller_id=$row['caller_id'];
-                                                            $Event_Code=$row['event_code'];
+															$caller_id=$row['caller_id'];
+															 $Event_Code=$row['event_code'];
 															$caller_detail=mysql_query("SELECT * FROM sp_callers where caller_id='".$caller_id."'") or die(mysql_error());
 															$row1 = mysql_fetch_array($caller_detail) or die(mysql_error());
-                                                            $phone_no=$row1['phone_no'];
-                                                            
-
-                          
-
-                                                            $profmob = $professionalDtls['mobile_no'];
-                                                            $txtMsg1 .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
-                                                            $txtMsg1 .= "\n\nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name']." [".$PatientDtls['hhc_code']."] ";
-                                                            $txtMsg1 .= "\n\nCaller No : ".$phone_no;
-                                                            $txtMsg1 .= " \nMob No : ".$PatientDtls['mobile_no'];
-                                                            $txtMsg1 .= "\n\nAddress : ".$PatientDtls['residential_address'];
-                                                            $txtMsg1 .= "\n\nEvent No : ".$Event_Code;
-                                                            $txtMsg1 .= "\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
-                                                            $txtMsg1 .= "".$dateofServicenew;//$dateofService;
-                                                            $txtMsg1 .= "\n\nMessage:".$reporting_instructionNew;
-                                                            $txtMsg1 .= "\n\nSpero";
+															$phone_no=$row1['phone_no'];
+                                    $profmob = $professionalDtls['mobile_no'];
+                                    $txtMsg1 .= "Dear ".$professionalDtls['title']." ".$professionalDtls['name']." ".$professionalDtls['first_name']."";
+                                    $txtMsg1 .= "\n\nPatient : ".$PatientDtls['name']." ".$PatientDtls['first_name']." [".$PatientDtls['hhc_code']."] ";
+                                    $txtMsg1 .= "\n\nCaller No : ".$phone_no;
+                                    $txtMsg1 .= "\nMob No : ".$PatientDtls['mobile_no'];
+                                    $txtMsg1 .= "\n\nAddress : ".$PatientDtls['residential_address'];
+                                    $txtMsg1 .= "\n\nEvent No : ".$Event_Code;
+                                    $txtMsg1 .= "\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
+                                    $txtMsg1 .= "".$dateofServicenew;//$dateofService;
+                                    $txtMsg1 .= "\n\nMessage:".$reporting_instructionNew;
+                                    $txtMsg1 .= "\n\nSpero";
                                     //var_dump($txtMsg1);die();
                        // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
-                        'event_code'=> $event_code,
+                           'event_code'=> $event_code,
 							'msg' => $txtMsg1,
 							'mob_no' => $profmob
 						);  
-                        $sms_data =$commonClass->sms_send_prof($args);  
+                       $sms_data =$commonClass->sms_send_prof($args);  
                         
                        /* Dear aa bbb,
                         Patient : nn hhh,
@@ -1181,14 +1175,14 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         $txtMsg3 .= " Caller No : ".$phone_no;
 						$txtMsg3 .= $dateofServicenew;//$dateofService;
 					*/
-                    
-                    
-
-                    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
-                    $txtMsg3.= "Prof. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
-                    $txtMsg3.= "Event ID: ".$argsDoc['event_id'].",";
-                    $txtMsg3.= "In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
-                    $txtMsg3.= "For feedback, service extension or any query please call Spero on 7620400100." ;
+					
+					    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
+						$txtMsg3.= "Prof. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
+						$txtMsg3.= "Event ID: ".$argsDoc['event_id'].",";
+						$txtMsg3.= "In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
+						$txtMsg3.= "For feedback, service extension or any query please call Spero on 7620400100." ;
+						
+						
                        /*
                         $data_to_post2 = array();
                         $data_to_post2['uname'] = 'SperocHL';
@@ -1206,7 +1200,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 							'msg' => $txtMsg3,
 							'mob_no' => $patientmb
 						);
-						$sms_data =$commonClass->sms_send($args); 
+				    	$sms_data =$commonClass->sms_send($args); 
                      
                         
                   

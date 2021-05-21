@@ -181,7 +181,17 @@ elseif($_REQUEST['action']=='vw_softdial')
   );
   $avaya_data_insert =$avayaClass->insert_avaya_outgoing_call($avaya_data);
 
-  $form_url =  "http://183.87.122.153/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
+  $form_url =  "http://183.87.122.153:8080/API/ChangeState.php?user=".$user."&value=PAUSE";
+  $data_to_post = array();
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $form_url);
+  curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  
+  $form_url =  "http://183.87.122.153:8080/API/Click2call.php?user=".$user."&phoneno=".urlencode($phone_no)."";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -212,7 +222,7 @@ elseif($_REQUEST['action']=='vw_pause_mode')
     'is_deleted' => '0'
   );
   $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
-  $form_url =  "http://183.87.122.153/API/ChangeState.php?user=".$user."&value=PAUSE";
+  $form_url =  "http://183.87.122.153:8080/API/ChangeState.php?user=".$user."&value=PAUSE";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -240,7 +250,7 @@ elseif($_REQUEST['action']=='vw_ready_mode')
     'is_deleted' => '0'
   );
   $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);
-  $form_url =  "http://183.87.122.153/API/ChangeState.php?user=".$user."&value=RESUME";
+  $form_url =  "http://183.87.122.153:8080/API/ChangeState.php?user=".$user."&value=RESUME";
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -269,7 +279,7 @@ elseif($_REQUEST['action']=='vw_hang_mode')
   $_SESSION["CallUniqueID"]='';
   $_SESSION['Call_status_I_O']='';
   $_SESSION['mode_status'] ='2';
-  $form_url =  "http://183.87.122.153/API/Hangup.php?user=".$user;
+  $form_url =  "http://183.87.122.153:8080/API/Hangup.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -279,66 +289,6 @@ elseif($_REQUEST['action']=='vw_hang_mode')
   $result = curl_exec($curl);
   curl_close($curl);
   echo $result;
-}
-elseif($_REQUEST['action']=='WhatsAppSMS'){ ?>
-  <style>
-  #Whats_App_No {
-  font-family: "Exo";
-  font-size: 2rem;
-  height: 60px;
-  font-weight: bold;
-  color: #45B39D ;
-}
-#Whats_App_Msg {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #45B39D ;
-}
-  </style>
-
-  <div style="background-color: #76D7C4  ">
-        <div class="modal-header">
-        <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="modal-title" align="center">Whats APP SMS</span></h3>	
-        </div>
-        </div>
-        <br>
-        
-        <div  align="center">
-        <select style="width:100%" class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional_whatsapp();">
-                                 <option value="">Search Professional</option>
-                                 <?php
-                                    $recArgs['pageIndex']='1';
-                                    $recArgs['pageSize']='all';
-                                    $recArgs['isActiveOnly'] = '1';
-                                    $recListResponse = $professionalsClass->ProfessionalsList_Active_Inactive($recArgs);
-                                    $recList=$recListResponse['data'];
-                                    foreach($recList as $key=>$valProfessional)
-                                    {
-                                      if($_POST['search_professional_id'] == $valProfessional['service_professional_id'])
-                                          echo '<option value="'.$valProfessional['mobile_no'].'" selected="selected">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
-                                      else
-                                          echo '<option value="'.$valProfessional['mobile_no'].'">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
-                                    }
-
-                                 ?>
-        </select>
-        </div>
-        <br>
-        <div align="center" >
-        <input id="Whats_App_No"  onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
-        </div><br>
-        <div align="center">
-        <textarea id="Whats_App_Msg" name="Whats_App_Msg" rows="8" cols="30">
-        </textarea>
-        </div>
-        <br>
-        <div align="center " id="btn_incoming">
-        
-        <button type="button" class="btn-lg btn-success" onclick="return whats_app_sms();"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Send SMS</button>
-        </div>
-        <br>
-  <?php
 }
 elseif($_REQUEST['action']=='vw_conf')
 { 
@@ -418,7 +368,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
   );
   $avaya_data_insert =$avayaClass->insert_avaya_conf_call($avaya_data);
 
-  $form_url =  "http://183.87.122.153/API/ParkCall.php?user=".$user;
+  $form_url =  "http://183.87.122.153:8080/API/ParkCall.php?user=".$user;
     $data_to_post = array();
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -429,7 +379,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
     curl_close($curl);
 
   //$user = $_SESSION['first_name']; http://183.87.122.153/API/Conference.php?user=ashwini&phoneno=XXXXXX
-  $form_url =  "http://183.87.122.153/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
+  $form_url =  "http://183.87.122.153:8080/API/Conference.php?user=".$user."&phoneno=".urlencode($conf_no)."";
   //var_dump($form_url);
   $data_to_post = array();
   $curl = curl_init();
@@ -444,7 +394,7 @@ elseif($_REQUEST['action']=='vw_conf_mode'){
 elseif($_REQUEST['action']=='vw_merge_mode'){
   $status=$_REQUEST['status'];
   $user = $_SESSION['first_name'];
-  $form_url =  "http://183.87.122.153/API/GrabCall.php?user=".$user;
+  $form_url =  "http://183.87.122.153:8080/API/GrabCall.php?user=".$user;
   $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -486,14 +436,18 @@ elseif($_REQUEST['action']=='vw_MissedCall'){ ?>
 elseif($_REQUEST['action']=='check_missed_call'){ 
   $from_date=$_REQUEST['from_date'];
   $to_date=$_REQUEST['to_date'];
- $form_url =  "http://183.87.122.153/API/Dropcall.php?startdate=".$from_date."&enddate=".$to_date."";
+    $form_url = "http://183.87.122.153:8080/API/Dropcall.php?startdate=".$from_date."&enddate=".$to_date."";
+ // $form_url =  "http://183.87.122.153:8080/API/DropCall.php?startdate=".$from_date."&enddate=".$to_date." ";
+    echo $form_url;
+   // $data_to_post = array();
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $form_url);
+ // curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  //curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
   $result = curl_exec($curl);
   curl_close($curl);
-
-  $result = json_decode($result, TRUE);
+   $result = json_decode($result, TRUE);
   //var_dump($result); die;
   echo '<table id="logTable" class="table table-hover table-bordered" style="margin-left:2%;width:95%;background-color:white" cellspacing="0">
         <thead>
@@ -522,6 +476,67 @@ elseif($_REQUEST['action']=='check_missed_call'){
  
   }
   
+
+ }
+ elseif($_REQUEST['action']=='WhatsAppSMS'){ ?>
+  <style>
+  #Whats_App_No {
+  font-family: "Exo";
+  font-size: 2rem;
+  height: 60px;
+  font-weight: bold;
+  color: #45B39D ;
+}
+#Whats_App_Msg {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #45B39D ;
+}
+  </style>
+
+  <div style="background-color: #76D7C4  ">
+        <div class="modal-header">
+        <button type="button" id="avaya_close" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" align="center">Whats APP SMS</span></h3>	
+        </div>
+        </div>
+        <br>
+        
+        <div  align="center">
+        <select style="width:100%" class="chosen-select form-control" name="search_professionalid" id="search_professionalid" onChange="search_professional_whatsapp();">
+                                 <option value="">Search Professional</option>
+                                 <?php
+                                    $recArgs['pageIndex']='1';
+                                    $recArgs['pageSize']='all';
+                                    $recArgs['isActiveOnly'] = '1';
+                                    $recListResponse = $professionalsClass->ProfessionalsList_Active_Inactive($recArgs);
+                                    $recList=$recListResponse['data'];
+                                    foreach($recList as $key=>$valProfessional)
+                                    {
+                                      if($_POST['search_professional_id'] == $valProfessional['service_professional_id'])
+                                          echo '<option value="'.$valProfessional['mobile_no'].'" selected="selected">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                      else
+                                          echo '<option value="'.$valProfessional['mobile_no'].'">'.$valProfessional['name']." ".$valProfessional['first_name'].'</option>';
+                                    }
+
+                                 ?>
+        </select>
+        </div>
+        <br>
+        <div align="center" >
+        <input id="Whats_App_No"  onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11"></input>
+        </div><br>
+        <div align="center">
+        <textarea id="Whats_App_Msg" name="Whats_App_Msg" rows="8" cols="30">
+        </textarea>
+        </div>
+        <br>
+        <div align="center " id="btn_incoming">
+        
+        <button type="button" class="btn-lg btn-success" onclick="return whats_app_sms();"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Send SMS</button>
+        </div>
+        <br>
+  <?php
 }
 elseif($_REQUEST['action']=='whats_App_Sms'){
   $Whats_App_No=$_REQUEST['Whats_App_No'];
@@ -529,7 +544,7 @@ elseif($_REQUEST['action']=='whats_App_Sms'){
  
       $text_msg = $Whats_App_Msg;
       $mobile_no=$Whats_App_No;
-      $mobile_no =  "8551995260";
+     // $mobile_no =  "8551995260";
       $curl = curl_init();
       //var_dump($text_msg);die();
       $message = rawurlencode($text_msg);
@@ -556,5 +571,3 @@ elseif($_REQUEST['action']=='whats_App_Sms'){
       }
 }
 ?>
-
-

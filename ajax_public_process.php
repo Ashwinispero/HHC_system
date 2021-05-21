@@ -8,7 +8,7 @@
         include "classes/commonClass.php";
         $commonClass= new commonClass();
         require_once "classes/config.php";
-
+        
         include "classes/professionalsClass.php";
         $professionalsClass = new professionalsClass();
 
@@ -58,7 +58,20 @@ $avayaClass=new avayaClass();
                     'is_deleted' => '0'
                 );
                 $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);  
-               if($EmployeeLog['type'] == '2')
+                 $form_url =  "http://183.87.122.153:8080/API/Signon.php?user=".$_SESSION['first_name']."&exten=".$_SESSION['avaya_agentid']."&campaign=RevolTel";
+                   //echo $form_url;
+                    $data_to_post = array();
+                    $curl = curl_init();
+                    curl_setopt($curl, CURLOPT_URL, $form_url);
+                    curl_setopt($curl, CURLOPT_POST, sizeof($data_to_post));
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
+                    $result = curl_exec($curl);
+                    curl_close($curl);
+                   // echo $result;
+                  // die();
+                // update last login time 
+                if($EmployeeLog['type'] == '2')
                 {
                    
                     $remoteIP = $_SERVER['REMOTE_ADDR'];
@@ -94,9 +107,6 @@ $avayaClass=new avayaClass();
                         $updateData['is_login']='0';
                         $db->query_update('sp_employees', $updateData, "employee_id='".$EmployeeLog['employee_id']."'");
                         echo "success";
-                       // $data['msg']="success";
-                       // $data['form_url']=$form_url;
-                       // echo json_encode($data);
                         exit;
                    // }
                     //else
@@ -170,7 +180,8 @@ $avayaClass=new avayaClass();
         );
         $avaya_data_insert =$avayaClass->insert_mode_status($avaya_data);       
         $user = $_SESSION['first_name'];
-        $form_url =  "http://183.87.122.153/API/Logout.php?user=".$user;
+       // $form_url =  "http://183.87.122.153/API/Logout.php?user= '".$user."&value=LOGOUT";
+        $form_url =  "http://183.87.122.153:8080/API/Logout.php?user=".$user."&value=LOGOUT";
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -179,9 +190,8 @@ $avayaClass=new avayaClass();
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_to_post);
         $result = curl_exec($curl);
         curl_close($curl);
-       // echo $result;
-       //var_dump($result);die();
-        session_destroy();
+        //echo $result;
+       session_destroy();
             ?>
                 <script language="javascript" type="text/javascript">
                     window.location ="index.php";
@@ -551,7 +561,11 @@ $avayaClass=new avayaClass();
         $arr['transId']        = $_REQUEST['Transaction_ID'];
 
 
-       // Get hospital details
+        // echo '<pre>$arr ----<br/>';
+        // print_r($arr);
+        // echo '</pre>';
+
+        // Get hospital details
         $arr['hospitalId'] = '';
         $arr['branchName'] = '';
         $getHospitalDtlsSql = "SELECT call_id.phone_no,e.event_id,eprof.professional_vender_id,h.hospital_id,h.branch,e.event_code,e.finalcost,e.patient_id,p.first_name,p.name,p.hhc_code,p.mobile_no,p.residential_address
@@ -579,6 +593,7 @@ $avayaClass=new avayaClass();
             $phone_no =  $hospitalDtls['phone_no'];
             $residential_address = $hospitalDtls['residential_address'];
             $event_id = $hospitalDtls['event_id'];
+
         }
 
         // Generate receipt number
@@ -620,7 +635,7 @@ $avayaClass=new avayaClass();
                     // Update tally status in event table
                     $tallyStatus = $eventClass->updateTallyStatus($arr['eventId']);
 
-                    $txtMsg = '';
+                   $txtMsg = '';
                     $txtMsg1 .= "Spero Healthcare Innovation,";
                     $txtMsg1 .= "Dear ".$first_name." ".$name."[".$hhc_code."],";
                     $txtMsg1 .= "Event ID: ".$arr['eventId'];
@@ -632,10 +647,10 @@ $avayaClass=new avayaClass();
                                     'msg' => $txtMsg1,
                                     'mob_no' => $mobile_no
                                 );
-                    //$sms_data =$commonClass->sms_send($args);
-                    //Professional SMS after payment
-                     
+                    $sms_data =$commonClass->sms_send($args);
                     
+                    
+                  /*  //*****-----Ashwini-----******
                     $GetEventReqSql="SELECT event_requirement_id,event_id,service_id FROM sp_event_requirements WHERE event_id='".$arr['eventId']."'";
                     $EventRequirement=$db->fetch_all_array($GetEventReqSql);
                     if(!empty($EventRequirement))
@@ -722,7 +737,7 @@ $avayaClass=new avayaClass();
                             $amt = 0;
                             while ($payment_rows = mysql_fetch_array($payments_deatils))
                             {	
-                                $amt=$payment_rows['amount']+$amt;
+                                $amt=$payment_rows['amount']+ $amt;
                             }
                             if($finalcost == $amt || $finalcost <= $amt){
                                     $payment_status ='Received';
@@ -756,8 +771,8 @@ $avayaClass=new avayaClass();
 							'msg' => $txtMsg,
 							'mob_no' => $profmob
 						);  
-                   // sms_data =$commonClass->sms_send_prof($args1); 
-                    
+                    //$sms_data =$commonClass->sms_send_prof($args1); 
+                    //*****Ashwini***** */
                     if (empty($tallyStatus)) {
                         echo "errorInUpdateTallyStatus";
                         exit; 
@@ -824,9 +839,9 @@ $avayaClass=new avayaClass();
     else if($_REQUEST['action'] == 'professional_service_remainder')
     {
         $recListResponse = $professionalsClass->Professionals_Notifinction();
-        $recList=$recListResponse['data'];
-        foreach($recList as $key=>$valProfessional)
-        {}
+        //$recList=$recListResponse['data'];
+       // foreach($recList as $key=>$valProfessional)
+       // {}
         
     }
     else if($_REQUEST['action'] == 'daily_service_count_SMS')
@@ -863,33 +878,33 @@ $avayaClass=new avayaClass();
         if ($db->num_of_rows($db->query($sql))) {
             $sql_query = $db->fetch_all_array($sql);
             $totalRecords = count($sql_query);
+            $upcomingEventCount = 0;
             foreach ($sql_query AS $key => $val) {
                 $month = date('d-m');
                 $birth_date = $val['birth_date'];
-                $fName = $val['fname'];
                 $designation = $val['designation'];
+                $fName = $val['fname'];
                $birth_date_today = date("d-m", strtotime($birth_date));
                 if($month==$birth_date_today){
-                    $txtMsg1 .= "May God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.\nwe wish you a great success and well-being.\nHappy Birthday\nSpero\n";
+                     $txtMsg1 .= "May God bless you today with a wonderful happy birthday and years of tomorrows filled with prosperity, joy, and happiness.\nwe wish you a great success and well-being.\nHappy Birthday\nSpero\n";
                     $args = array(
                             'msg' => $txtMsg1,
                             'mob_no' => $val['mobile_no']
                             );  
-                $recListResponse = $commonClass->days_sms($args);
-                //var_dump($txtMsg1);die();
+               // $recListResponse = $commonClass->days_sms($args);
                 $txtMsg1='';
-
-                $sql_manager = "SELECT * FROM sp_manager_spero WHERE Status = 1 ";
+                 $sql_manager = "SELECT * FROM sp_manager_spero WHERE Status = 1 ";
                 if ($db->num_of_rows($db->query($sql_manager))) {
                     $sql_manager_query = $db->fetch_all_array($sql_manager);
                     foreach ($sql_manager_query AS $key => $val_rec) {
+                     //   var_dump($val_rec['mob']);die();
                         $mob = $val_rec['mob'];
                         $txtMsg_man .= "Hi\nIt's Birthday of ".$fName.", [".$designation."] today.\n Pls extend the wishes\nSpero\n";
                         $args_man = array(
                             'msg' => $txtMsg_man,
                             'mob_no' => $val_rec['mob']
                             );  
-                        $recListResponse = $commonClass->days_sms($args_man);
+                        $recListResponse_new = $commonClass->days_sms($args_man);
                         $txtMsg_man='';
                     }
                 }
@@ -910,6 +925,7 @@ $avayaClass=new avayaClass();
                 $month = date('d-m');
                 $DOJ = $val['DOJ'];
                 $fName = $val['fname'];
+                $designation = $val['designation'];
                $DOJ_today = date("d-m", strtotime($DOJ));
                 if($month==$DOJ_today){
                     $txtMsg1 .= "Thank you for being an essential part of SPERO’s success.\nCongratulations on your work anniversary.\nYour contributions to the company are greatly appreciated.\nWishing you all the best in the years ahead.\nHappy anniversary\nSpero\n";
@@ -927,9 +943,9 @@ $avayaClass=new avayaClass();
                         $txtMsg_man .= "Hi\nIt's Joining Anniversary of ".$fName.", [".$designation."] today.\n Pls extend the wishes\nSpero\n";
                         $args_man = array(
                             'msg' => $txtMsg_man,
-                            'mob_no' => $val['mob']
+                            'mob_no' => $val_rec['mob']
                             );  
-                        $recListResponse = $commonClass->days_sms($args_man);
+                        $recListResponse_new = $commonClass->days_sms($args_man);
                         $txtMsg_man='';
                     }
                 }
@@ -938,7 +954,6 @@ $avayaClass=new avayaClass();
                 
             }
         }
-        
     }
     else if($_REQUEST['action'] == 'Makar_Sankrant')
     {
@@ -948,7 +963,7 @@ $avayaClass=new avayaClass();
             $totalRecords = count($sql_query);
             $upcomingEventCount = 0;
             foreach ($sql_query AS $key => $val) {
-                $txtMsg1 .= "As the sun starts its journey towards the north,\nhe makes all happy moments of this year come to life.\nI wish you and your family a very Happy Makar Sankranti.\nSpero\n";
+                $txtMsg1 .= "As the sun starts its journey towards the north,\nHe makes all happy moments of this year come to life.\nSpero wish you and your family a very Happy Makar Sankranti.\nSpero\n";
                 
                 $args = array(
                         'msg' => $txtMsg1,
