@@ -173,6 +173,25 @@ class commonClass extends AbstractDB
       echo $response;
       }
     }
+    public function getpatifo($pt_id){
+      $RecordSql="SELECT * FROM patinet_list_enquiry as sp_pt WHERE 1  and pt_id='".$pt_id."'  ";
+      $RecordResult=$this->fetch_array($this->query($RecordSql));
+      return $RecordResult;
+      
+  }
+    public function GetTodayEnquiryCallapi()
+{
+   $today_date = date("Y-m-d");
+   
+   $EnquiryCAllSql="SELECT * from patinet_list_enquiry WHERE  status =1 and (added_date BETWEEN '$today_date 00:00:00' AND '$today_date 23:59:59') ";
+   if($this->num_of_rows($this->query($EnquiryCAllSql)))
+   {
+       $EnquiryCAll=$this->fetch_all_array($EnquiryCAllSql) ;
+       return $EnquiryCAll;
+    }
+    else 
+        return 0; 
+}
     public function sms_send($args){
       
       $text_msg = $args['msg'];

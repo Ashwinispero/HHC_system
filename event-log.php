@@ -133,8 +133,33 @@ if($_REQUEST['EID'])
         <div class="col-lg-12 paddingLR0" >            
             <!-- ---------------- Event Log start ----------- -->
             <div class="white-bg" id="RightSideDiv" style="display: n one;">
-            
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3" id="enquiry_from_nursing">
+                        <?php  $recListResponse = $commonClass->GetTodayEnquiryCallapi();  
+                       if($recListResponse)
+                       {
+                       ?>
+                        <span class="badge" style="color: white;background-color: red;top: 50px" ><?php echo count($recListResponse); ?></span>
+                                <select class="chosen-select form-control notification"  style="border-color:red" name="SearchKeyword_Api" id="SearchKeyword_api" onchange="return DiaplayPatientDetails(this.value);">
+                               <option value="">Enquiry received from Website</option>
+                                 <?php
+                                    $recListResponse = $commonClass->GetTodayEnquiryCallapi();  
+                                   // $recList=$recListResponse['data'];
+                                   
+                                    foreach($recListResponse as $key=>$valProfessional)
+                                    {
+                                      if($_POST['pt_id'] == $valProfessional['pt_id'])
+                                          echo '<option value="'.$valProfessional['pt_id'].'" selected="selected">'.$valProfessional['patient_fname'].'</option>';
+                                      else
+                                          echo '<option value="'.$valProfessional['pt_id'].'">'.$valProfessional['patient_fname'].'</option>';
+                                    }
+
+                                 ?>
+                             </select>
+                            
+                        <?php } ?>
+                        <!--</label>-->
+            </div>
+            <div class="form-group col-lg-3">
                         <?php  $recListResponse = $commonClass->GetTodayEnquiryCall();  
                        if($recListResponse)
                        {
@@ -290,10 +315,12 @@ if($_REQUEST['EID'])
                     </div>
               
                 </form>
-            <div class="eventLogListing">
+            <div class="eventLogListing" id="include_eventlog">
                 <?php  include "include_event_log.php"; ?> 
             </div>
-           
+            <div id="include_patientlist_enquiry" style="display:none">
+                <?php  include "include_patient_Log.php"; ?> 
+            </div>
             </div>
             <!-- ---------------- Event Log End ----------- -->
             
@@ -381,6 +408,12 @@ if($_REQUEST['EID'])
         </div><!-- /.modal-dialog -->
     </div>
     <!-- Modal Popup code end ---> 
+    <div class="modal fade" id="vw_enquiry_details"> 
+        <div class="modal-dialog" style="width:1500px ;">
+          <div class="modal-content" id="AllAjaxData_enquiry">
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 </section>
 <?php include "include/scripts.php"; ?>
 <?php include "include/eventLogscripts.php"; ?>
@@ -4835,6 +4868,29 @@ function soft_call_dial(no){
                     }
              });
 }
+function DiaplayPatientDetails(pt_id){
+    
+    var data1="pt_id="+pt_id+"&action=DiaplayPatientDetails";
+    $.ajax({
+            url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+            beforeSend: function() 
+            {
+               Popup_Display_Load();
+            },
+            success: function (html)
+            {
+                $("#include_eventlog").hide();
+                $("#include_patientlist_enquiry").html(html);
+                $("#include_patientlist_enquiry").show();
+                
+			},
+            complete : function()
+            {
+               Popup_Hide_Load();
+            }
+        });
+        
+   }
 function soft_call(){
     var phone_no = parseInt(document.getElementById('output').value);
     //var user = '<?php //echo $_SESSION['first_name'];?>';
@@ -5250,6 +5306,35 @@ function softdial(){
                     }
                 });
     }
+    function ViewFormDetails(pt_id){
+    if(pt_id)
+        {
+            var data1="pt_id="+pt_id+"&action=View_Form_Details";
+           // alert(data1);
+             $.ajax({
+                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        $('#vw_enquiry_details').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_enquiry").html(html);
+                        
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                        setHeight:200,
+                                     
+                                        //theme:"minimal-dark"
+                                });
+                    },
+                    complete : function()
+                    {
+                       Hide_Load();
+                    }
+             }); 
+        }
+   }
     function conf_mode()
     {
         $status='1';

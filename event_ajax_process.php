@@ -182,6 +182,84 @@ else if($_REQUEST['action']=='submitCaller')
         }
     }
 }
+else if($_REQUEST['action']=='DiaplayPatientDetails'){
+    $pt_id = $_REQUEST['pt_id'];
+    $patient_info = $commonClass->getpatifo($pt_id);
+    if($patient_info){
+        echo '<table id="logTable" class="table table-striped" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th  width="20%">Patient Name</th>
+            <th width="20%">Mobile No</a></th>
+            <th width="20%">Address</th>
+            <th width="10%">Age</th>
+            <th width="10%">Gender</th>
+            <th style="text-align: center;" width="30%">Action</th>
+          </tr>
+        </thead>
+        <tbody>';
+      echo '<tr style = "' . $complimentaryVisitStyle .'">
+            <td>'.$patient_info['patient_fname'].' </td>
+            <td>'.$patient_info['patient_contact'].' </td>
+            <td>'.$patient_info['google_location'].' </td>
+            <td>'.$patient_info['patient_age'].' </td>
+            <td>'.$patient_info['patient_gender'].' </td>
+            <td>
+            ';
+            ?>
+            <!--<input type="button" class="btn btn-primary" id="submit" value="Create Event" onclick="return SubmitEventDetails(<?php echo $pt_id; ?>);">-->
+            <input type="button" class="btn btn-primary" id="submit" value="View Details" onclick="return ViewFormDetails(<?php echo $pt_id; ?>);">
+            <?php
+        echo '</td>
+          </tr>';
+     
+     }
+     ?>
+        </tbody>
+      </table>
+     
+         <?php
+}
+else if($_REQUEST['action']=='View_Form_Details'){
+    $pt_id=$db->escape($_REQUEST['pt_id']);
+    $patient_info = $commonClass->getpatifo($pt_id);
+    ?>
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" <?php echo $onclick;?> ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">Patient Details</h4>
+    </div>
+    <br>
+    <div class="modal-body">
+    <div class="mCustomScrollbar">
+    <div class="col-lg-6">
+    <span><h4>Patient Name :<?php echo $patient_info['patient_fname'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Age :<?php echo $patient_info['patient_age'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Patient Gender : <?php echo $patient_info['patient_gender'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Address: <?php echo $patient_info['google_location'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Service : <?php echo $patient_info['mainService'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Sub Service: <?php echo $patient_info['sub_service'];?></h4></span>
+    </div> 
+    <div class="col-lg-6">
+    <span><h4>Note : <?php echo $patient_info['note'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
+    <span><h4>Added Date Time: <?php echo $patient_info['added_date'];?></h4></span>
+    </div>
+    </div>
+    </div>
+   
+    <?php
+}
 else if($_REQUEST['action'] == 'ChecklocationExist')
 {
     $pin_code = $_REQUEST['patient_pincode'];
