@@ -19,6 +19,20 @@ class commonClass extends AbstractDB
     {
         parent::close();            
     }
+    public function submit_data($args){
+      $insertData['patient_fname']=$args['patient_fname'];
+      $insertData['patient_contact']=$args['patient_contact'];
+      $insertData['patient_age']=$args['patient_age'];
+      $insertData['patient_gender']=$args['patient_gender'];
+      $insertData['google_location']=$args['google_location'];
+      $insertData['mainService']=$args['mainService'];
+      $insertData['sub_service']=$args['sub_service'];
+      $insertData['note']=$args['note'];
+      $insertData['status']='1';
+      $insertData['added_date']=$args['added_date'];
+      $RecordId=$this->query_insert('patinet_list_enquiry',$insertData);
+      return $RecordId;
+    }
     public function GetAllLocations()
     {
        $LocationsSql="SELECT location_id,location,pin_code FROM sp_locations WHERE status='1' ORDER BY location ASC";
