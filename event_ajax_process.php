@@ -232,6 +232,9 @@ else if($_REQUEST['action']=='View_Form_Details'){
     <div class="modal-body">
     <div class="mCustomScrollbar">
     <div class="col-lg-6">
+    <span><h4>Consultant Name: <?php echo $patient_info['consultat_fname'];?></h4></span>
+    </div>
+    <div class="col-lg-6">
     <span><h4>Patient Name :<?php echo $patient_info['patient_fname'];?></h4></span>
     </div>
     <div class="col-lg-6">
@@ -255,6 +258,7 @@ else if($_REQUEST['action']=='View_Form_Details'){
     <div class="col-lg-6">
     <span><h4>Added Date Time: <?php echo $patient_info['added_date'];?></h4></span>
     </div>
+    
     </div>
     </div>
    
