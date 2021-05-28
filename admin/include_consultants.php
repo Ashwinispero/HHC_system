@@ -76,7 +76,6 @@ else
    //print_r($recArgs);
     $_SESSION['consultant_list_args'] = $recArgs;
     $recListResponse= $consultantsClass->ConsultantsList($recArgs);
-    // var_dump($recListResponse);
     $recList=$recListResponse['data'];
     $recListCount=$recListResponse['count']; 
     if($recListCount > 0)
@@ -112,11 +111,11 @@ else
 			$telephonic_consultation_fees=$row['telephonic_consultation_fees'];
 			$hospital_id=$row['hospital_id'];
 			
-			$query=mysql_query("SELECT * FROM sp_hospitals where hospital_id='$hospital_id' ") or die(mysql_error());
+		/*	$query=mysql_query("SELECT * FROM sp_hospitals where hospital_id='$hospital_id' ") or die(mysql_error());
 			$row = mysql_fetch_array($query) or die(mysql_error());
 			
 			$hospital_Name=$row['hospital_name'];
-			
+		*/	
             echo '<tr id="ConsultantRecord_'.$doctors_consultants_id.'">
                     <td width="10%">';
                         if(!empty($recListValue['name'])) { echo $recListValue['name']." "; }
@@ -139,8 +138,10 @@ else
                                         echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$doctors_consultants_id.','.$recListValue['status'].',\'Inactive\');" title="Active"><img src="images/icon-active.png"  alt="Active"></a></li>';
                                     if($recListValue['status']=='2')
                                         echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return change_status('.$doctors_consultants_id.','.$recListValue['status'].',\'Active\');" title="Inactive"><img src="images/icon-inactive.png"  alt="Inactive"></a></li>'; 
-                                
-                                    echo '<li><a href="javascript:void(0);" onclick="return vw_add_consultant('.$doctors_consultants_id.');" data-toggle="tooltip" title="Edit"><img src="images/icon-edit.png" width="22" height="23" alt="Edit"></a></li>';
+                                    if($recListValue['status']=='4')
+                                        echo '<li><a href="javascript:void(0);" data-toggle="tooltip" onclick="return vw_pending_consultant('.$doctors_consultants_id.');" title="pending"><img src="images/pending.png"  alt="Inactive"></a></li>'; 
+                                          
+                                    echo '<li><a href="javascript:void(0);" onclick="return vw_add_consultant('.$doctors_consultants_id.');" data-toggle="tooltip" title="pending"><img src="images/icon-edit.png" width="22" height="23" alt="Edit"></a></li>';
                                     // if($del_visible=='Y') {  echo '<li><a href="javascript:void(0);" onclick="return change_status('.$doctors_consultants_id.','.$recListValue['status'].',\'Delete\');" data-toggle="tooltip" title="Delete"><img src="images/icon-delete.png"  alt="Delete"></a></li>';  }
                                     // else { echo '<li><a href="javascript:void(0);"></a></li>'; }
                         echo '</ul></td>

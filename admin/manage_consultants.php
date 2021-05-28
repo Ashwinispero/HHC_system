@@ -91,6 +91,38 @@
         {
             changePagination('ConsultantsListing','include_consultants.php','','','','');
         }
+        function vw_pending_consultant(value)
+        {
+            var data1="doctors_consultants_id="+value+"&action=vw_pending_consultant";
+            $.ajax({
+                url: "consultant_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+                beforeSend: function() 
+                {
+                      Popup_Display_Load();
+                },
+                success: function (html)
+                {
+                   // alert(html);
+                   $('#edit_consultant').modal('show'); 
+                   $("#AllAjaxData").html(html);
+                   setTimeout("$('.scrollbars').ClassyScroll();",100);
+                   $("#frm_add_consultant").validationEngine('attach',{promptPosition : "bottomLeft"}); 
+                   
+                    $('#name,#first_name,#middle_name').keyup(function(event) 
+                    {
+                        var textBox = event.target;
+                        var start = textBox.selectionStart;
+                        var end = textBox.selectionEnd;
+                        textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1);
+                        textBox.setSelectionRange(start, end);
+                    });
+                },
+                complete : function()
+                {
+                   Popup_Hide_Load();
+                }
+            });
+        }
         function vw_add_consultant(value)
         {
             var data1="doctors_consultants_id="+value+"&action=vw_add_consultant";
@@ -122,6 +154,64 @@
                    Popup_Hide_Load();
                 }
             });
+        }
+        function approve_consultant_submit()
+        {
+           if($("#frm_approve_consultant").validationEngine('validate'))
+           {
+               $('#submitForm').prop('disabled', true);
+               $("#frm_approve_consultant").ajaxForm({
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        var result=html.trim();
+                       // alert(result);
+
+                         if(result=='ValidationError')
+                         {
+                          bootbox.alert("<div class='msg-error'>There is some validation error please check all fields are proper.</div>"); 
+                         }
+                         if(result=='consultantexists')
+                         {
+                          bootbox.alert("<div class='msg-error'>Consultant details already exists, it may be on trash list, so please try another one.</div>"); 
+                         }
+                         else 
+                         {
+                             $('#edit_consultant').modal('hide'); 
+                             if(result=='InsertSuccess')
+                             {
+                                  bootbox.alert("<div class='msg-success'>Consultant details added successfully.</div>",function()
+                                  {
+                                      changePagination('ConsultantsListing','include_consultants.php','','','','');
+                                  });
+                             }
+                             else if(result=='UpdateSuccess')
+                             {
+                                  bootbox.alert("<div class='msg-success'>Consultant details Approved successfully.</div>",function()
+                                  {
+                                      changePagination('ConsultantsListing','include_consultants.php','','','','');
+                                  });
+                             }
+                         }
+                         $('#submitForm').prop('disabled', false);
+                    },
+                    complete : function()
+                    {
+                      Hide_Load();
+                    } 
+                }).submit();  
+           }
+            else 
+            {
+                bootbox.alert("<div class='msg-error'>Please fill the required fields.</div>", function() 
+                {
+                   $('#submitForm').prop('disabled', false);
+                   $("#type").focus();
+                }); 
+            } 
         }
         function add_consultant_submit()
         {

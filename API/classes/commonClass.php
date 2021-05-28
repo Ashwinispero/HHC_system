@@ -29,7 +29,7 @@ class commonClass extends AbstractDB
       $insertData['type']=$args['type'];
       $insertData['added_date']=$args['added_date'];
       $insertData['weblogin_password']=$args['weblogin_password'];
-
+      $insertData['status']='4';
       $RecordId=$this->query_insert('sp_doctors_consultants',$insertData);
       return $RecordId;
     }
