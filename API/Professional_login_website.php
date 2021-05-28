@@ -24,13 +24,14 @@
 	    
 		if(!empty($mobileNumber) && !empty($password))
 		{
-			$Query= mysql_query("SELECT * FROM sp_service_professionals WHERE mobile_no = '$mobileNumber' AND APP_password = '$password'  ");
+			$Query= mysql_query("SELECT * FROM sp_doctors_consultants WHERE mobile_no = '$mobileNumber' AND weblogin_password = '$password'  ");
 		//	echo "SELECT * FROM sp_service_professionals WHERE mobile_no = '$mobileNumber' AND APP_password = '$password'  ";
 				$row_count = mysql_num_rows($Query);
 				if ($row_count > 0)
 				{
 					$Query_row = mysql_fetch_array($Query);
-					$service_professional_id=$Query_row['service_professional_id'];
+					$doctors_consultants_id=$Query_row['doctors_consultants_id'];
+					$hospital_id = $Query_row['hospital_id'];
 					$name=$Query_row['name'];
 					$first_name=$Query_row['first_name'];
 					$middle_name=$Query_row['middle_name'];
@@ -38,27 +39,31 @@
 					$mobile_no=$Query_row['mobile_no'];
 					$title=$Query_row['title'];
 					
-					$status_query= mysql_query("SELECT * FROM sp_service_professionals WHERE service_professional_id = '$service_professional_id' AND (status='2' OR status='3' )");
+					$status_query= mysql_query("SELECT * FROM sp_doctors_consultants WHERE doctors_consultants_id = '$doctors_consultants_id' AND status='1'");
 					$status_query_count = mysql_num_rows($status_query);
 					if ($status_query_count > 0)
 					{
-						echo json_encode(array("data"=>null,"error"=>array("code"=>4,"message"=>"Your Account is deactivated, Contact Admin on 7620400100")));	
-					}else{
-						echo json_encode(array("service_professional_id"=>$service_professional_id,
+						echo json_encode(array("doctors_consultants_id"=>$doctors_consultants_id,
 										"name"=>$name,
 										"first_name"=>$first_name,
 										"middle_name"=>$middle_name,
 										"email_id"=>$email_id,
 										"mobile_no"=>$mobile_no,
 										"title"=>$title,
-										"error"=>array("Success")
-					));	
+										"message"=>"Success"
+										));	
+						
+					}else{
+						//echo json_encode(array("data"=>null,"message"=>"Your Account is deactivated, Contact Admin on 7620400100"));	
+						http_response_code(400); 
+				//	));	
 					}
 				}
 				else{
-					http_response_code(401); 
+					http_response_code(400); 
 				}
 		}else{
+			//echo json_encode(array("data"=>null,"message"=>"Please Check Mobile No & Password"));	
 			http_response_code(400); 
 		}
 	}
