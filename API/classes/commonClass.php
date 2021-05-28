@@ -20,6 +20,8 @@ class commonClass extends AbstractDB
         parent::close();            
     }
     public function submit_data($args){
+      $insertData['consultat_fname']=$args['consultat_fname'];
+      $insertData['consultat_id']=$args['consultat_id'];
       $insertData['patient_fname']=$args['patient_fname'];
       $insertData['patient_contact']=$args['patient_contact'];
       $insertData['patient_age']=$args['patient_age'];

@@ -10,6 +10,8 @@ date_default_timezone_set("Asia/Calcutta");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
     $insertData = array();
+	$insertData['consultat_id'] = $data->consultat_id;
+	$insertData['consultat_fname'] = $data->consultat_fname;
 	$insertData['patient_fname'] = $data->patient_fname;
 	$insertData['patient_contact'] = $data->patient_contact;
 	$insertData['patient_age'] = $data->patient_age;
