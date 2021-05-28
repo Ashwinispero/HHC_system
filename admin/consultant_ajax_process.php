@@ -27,7 +27,12 @@ if($_REQUEST['action']=='vw_pending_consultant')
                              </label>
                          </div>
                  </div>
-                 
+                 <div class="editform">
+                     <label>Hospital Name<span class="required">*</span></label>
+                     <div class="value">
+                         <input type="text" disabled value="<?php if(!empty($_POST['hos_nm'])) { echo $_POST['hos_nm']; } else if(!empty($ConsultantDtls['hos_nm'])) { echo $ConsultantDtls['hos_nm']; } else { echo ""; } ?>" class="form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
+                     </div>
+                 </div>
                  <div class="editform">
                      <label>Select Hospital <span class="required">*</span></label>
                          <div class="value dropdown">
