@@ -21,7 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $insertData['weblogin_password'] = $password;
 	
     $RecordId =$commonClass->submit_data_consultant($insertData);
-    echo $RecordId;
+	$Query= mysql_query("SELECT * FROM sp_hospitals WHERE hospital_name='".$data->hospital_id."'");
+	echo "SELECT * FROM sp_hospitals WHERE hospital_name='".$data->hospital_id."'";
+	$row_count = mysql_num_rows($Query);
+	if ($row_count > 0)
+	{
+	    
+	}
+	else{
+	    echo 'hello';
+		$arr = array();
+		$arr['hospital_name']=ucfirst(strtolower($data->hospital_id));
+		$arr['status']='1';
+		$arr['added_date']=date('Y-m-d H:i:s');
+		$InsertRecord=$commonClass->AddHospital($arr); 
+	}echo $RecordId;
 }else{
     http_response_code(401); 
 }

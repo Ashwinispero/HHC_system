@@ -61,13 +61,13 @@ if($_REQUEST['action']=='vw_pending_consultant')
                      <label>Last Name <span class="required">*</span></label>
                      <div class="value">
                          <input type="hidden" name="doctors_consultants_id" id="doctors_consultants_id" value="<?php echo $arr['doctors_consultants_id']; ?>" />
-                         <input type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
+                         <input type="text" name="name" id="name" value="<?php if(!empty($_POST['lname'])) { echo $_POST['lname']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                      </div>
                  </div>
                  <div class="editform">
                      <label>First Name <span class="required">*</span></label>
                      <div class="value">
-                         <input type="text" name="first_name" id="first_name" value="<?php if(!empty($_POST['first_name'])) { echo $_POST['first_name']; } else if(!empty($ConsultantDtls['first_name'])) { echo $ConsultantDtls['first_name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
+                         <input type="text" name="first_name" id="first_name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                      </div>
                  </div>
                  <div class="editform">
