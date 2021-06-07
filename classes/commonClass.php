@@ -174,7 +174,10 @@ class commonClass extends AbstractDB
       }
     }
     public function getpatifo($pt_id){
-      $RecordSql="SELECT * FROM patinet_list_enquiry as sp_pt WHERE 1  and pt_id='".$pt_id."'  ";
+      $RecordSql="SELECT sp_pt.*,ser.service_title,sub_ser.recommomded_service FROM patinet_list_enquiry as sp_pt 
+                  LEFT JOIN sp_services as ser ON ser.service_id = sp_pt.mainService
+                  LEFT JOIN sp_sub_services as sub_ser ON sub_ser.sub_service_id = sp_pt.sub_service
+                  WHERE 1  and pt_id='".$pt_id."'  ";
       $RecordResult=$this->fetch_array($this->query($RecordSql));
       return $RecordResult;
       

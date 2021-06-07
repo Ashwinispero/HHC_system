@@ -247,10 +247,10 @@ else if($_REQUEST['action']=='View_Form_Details'){
     <span><h4>Address: <?php echo $patient_info['google_location'];?></h4></span>
     </div>
     <div class="col-lg-6">
-    <span><h4>Service : <?php echo $patient_info['mainService'];?></h4></span>
+    <span><h4>Service : <?php echo $patient_info['service_title'];?></h4></span>
     </div>
     <div class="col-lg-6">
-    <span><h4>Sub Service: <?php echo $patient_info['sub_service'];?></h4></span>
+    <span><h4>Sub Service: <?php echo $patient_info['recommomded_service'];?></h4></span>
     </div> 
     <div class="col-lg-6">
     <span><h4>Note : <?php echo $patient_info['note'];?></h4></span>
