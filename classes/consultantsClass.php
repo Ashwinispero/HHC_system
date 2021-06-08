@@ -168,6 +168,64 @@ class consultantsClass extends AbstractDB
      * @return int $RecordId
      *
      */
+    public function RejectConsultant($arg){
+        $doctors_consultants_id = $this->escape($arg['doctors_consultants_id']);
+
+        if (!empty($doctors_consultants_id) && $doctors_consultants_id != '') {
+            // Get consultant details
+            $consultantDtls = $this->GetConsultantById($arg);
+            $ChkConsultantSql = "SELECT doctors_consultants_id FROM sp_doctors_consultants WHERE mobile_no = '" . $arg['mobile_no'] . "' AND doctors_consultants_id != '" . $doctors_consultants_id . "'";
+        } else { 
+            $ChkConsultantSql = "SELECT doctors_consultants_id FROM sp_doctors_consultants WHERE mobile_no = '" . $arg['mobile_no'] . "'";
+        }
+
+        if ($this->num_of_rows($this->query($ChkConsultantSql)) == 0) {
+            $insertData = array();
+            $insertData['hospital_id']        = $this->escape($arg['hospital_id']);
+            $insertData['type']               = $this->escape($arg['type']);
+            $insertData['telephonic_consultation_fees'] = $this->escape($arg['telephonic_consultation_fees']);
+            $insertData['name']               = $this->escape($arg['name']);
+            //$insertData['first_name']         = $this->escape($arg['first_name']);
+            //$insertData['middle_name']        = $this->escape($arg['middle_name']);
+            $insertData['email_id']           = $this->escape($arg['email_id']);
+            $insertData['phone_no']           = $this->escape($arg['phone_no']);
+            $insertData['mobile_no']          = $this->escape($arg['mobile_no']);
+            $insertData['work_email_id']      = $this->escape($arg['work_email_id']);
+            $insertData['work_phone_no']      = $this->escape($arg['work_phone_no']);
+            $insertData['work_address']       = $this->escape($arg['work_address']);
+            $insertData['speciality']         = $this->escape($arg['speciality']);
+            $insertData['last_modified_by']   = $this->escape($arg['last_modified_by']);
+            $insertData['last_modified_date'] = $this->escape($arg['last_modified_date']);
+            $insertData['reject_by'] = $this->escape($arg['reject_by']);
+            $insertData['reject_reason'] = $this->escape($arg['reject_reason']);
+            $insertData['status'] = '4';
+            if (!empty($doctors_consultants_id)) {
+                $where = "doctors_consultants_id = '" . $doctors_consultants_id . "'";
+                $RecordId = $this->query_update('sp_doctors_consultants', $insertData, $where); 
+            } else {
+                //$insertData['status']     = $this->escape($arg['status']);
+                $insertData['added_by']   = $this->escape($arg['added_by']);
+                $insertData['added_date'] = $this->escape($arg['added_date']);
+                $RecordId = $this->query_insert('sp_doctors_consultants',$insertData);
+            }
+            
+            if (!empty($RecordId)) {
+                // Add activity details while adding medicine details
+                $param = array();
+                $param['doctors_consultants_id']   = $doctors_consultants_id;
+                $param['consultant_dtls']          = $consultantDtls;
+                $param['record_data']              = $insertData;
+                $this->addActivity($param);
+                unset($param);
+                return $RecordId; 
+            } else {
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
     public function ApprovedConsultant($arg){
         $doctors_consultants_id = $this->escape($arg['doctors_consultants_id']);
 
@@ -185,8 +243,8 @@ class consultantsClass extends AbstractDB
             $insertData['type']               = $this->escape($arg['type']);
             $insertData['telephonic_consultation_fees'] = $this->escape($arg['telephonic_consultation_fees']);
             $insertData['name']               = $this->escape($arg['name']);
-            $insertData['first_name']         = $this->escape($arg['first_name']);
-            $insertData['middle_name']        = $this->escape($arg['middle_name']);
+           // $insertData['first_name']         = $this->escape($arg['first_name']);
+           // $insertData['middle_name']        = $this->escape($arg['middle_name']);
             $insertData['email_id']           = $this->escape($arg['email_id']);
             $insertData['phone_no']           = $this->escape($arg['phone_no']);
             $insertData['mobile_no']          = $this->escape($arg['mobile_no']);
@@ -196,17 +254,19 @@ class consultantsClass extends AbstractDB
             $insertData['speciality']         = $this->escape($arg['speciality']);
             $insertData['last_modified_by']   = $this->escape($arg['last_modified_by']);
             $insertData['last_modified_date'] = $this->escape($arg['last_modified_date']);
+            $insertData['approved_by'] = $this->escape($arg['approved_by']);
             $insertData['status'] = '1';
             if (!empty($doctors_consultants_id)) {
                 $where = "doctors_consultants_id = '" . $doctors_consultants_id . "'";
                 $RecordId = $this->query_update('sp_doctors_consultants', $insertData, $where); 
+            
             } else {
-                $insertData['status']     = $this->escape($arg['status']);
+                $insertData['status']     = '1';
                 $insertData['added_by']   = $this->escape($arg['added_by']);
                 $insertData['added_date'] = $this->escape($arg['added_date']);
                 $RecordId = $this->query_insert('sp_doctors_consultants',$insertData);
             }
-            
+           // echo $this->db->last_query();die();
             if (!empty($RecordId)) {
                 // Add activity details while adding medicine details
                 $param = array();

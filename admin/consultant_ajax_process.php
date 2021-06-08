@@ -68,7 +68,7 @@ if($_REQUEST['action']=='vw_pending_consultant')
                  <div class="editform">
                      <label>Consultant Name <span class="required">*</span></label>
                      <div class="value">
-                         <input type="text" name="first_name" id="first_name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
+                         <input type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                      </div>
                  </div>
                  <!--<div class="editform">
@@ -80,13 +80,13 @@ if($_REQUEST['action']=='vw_pending_consultant')
                  <div class="editform">
                      <label>Email Address</label>
                      <div class="value">
-                         <input type="text" name="email_id" id="email_id" value="<?php if(!empty($_POST['email_id'])) { echo $_POST['email_id']; } else if(!empty($ConsultantDtls['email_id'])) { echo $ConsultantDtls['email_id']; } else { echo ""; } ?>" class="validate[custom[email]] form-control" maxlength="70" style="width:100% !important;" />
+                         <input type="text" name="email_id" id="email_id" value="<?php if(!empty($_POST['email_id'])) { echo $_POST['email_id']; } else if(!empty($ConsultantDtls['email_id'])) { echo $ConsultantDtls['email_id']; } else { echo ""; } ?>" class="form-control" maxlength="70" style="width:100% !important;" />
                      </div>
                  </div>
                  <div class="editform">
                      <label>Phone</label>
                      <div class="value">
-                         <input type="text" name="phone_no" id="phone_no" value="<?php if(!empty($_POST['phone_no'])) { echo $_POST['phone_no']; } else if(!empty($ConsultantDtls['phone_no'])) { echo $ConsultantDtls['phone_no']; }  else { echo ""; } ?>" class="validate[minSize[11],maxSize[15],custom[phone]] form-control" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" style="width:100% !important;" />
+                         <input type="text" name="phone_no" id="phone_no" value="<?php if(!empty($_POST['phone_no'])) { echo $_POST['phone_no']; } else if(!empty($ConsultantDtls['phone_no'])) { echo $ConsultantDtls['phone_no']; }  else { echo ""; } ?>" class="form-control" maxlength="15" onkeyup="if (/[^0-9-()-+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9-()-+.]/g,'')" style="width:100% !important;" />
                      </div>
                  </div>
                  <div class="editform">
@@ -104,7 +104,7 @@ if($_REQUEST['action']=='vw_pending_consultant')
                  <div class="editform">
                      <label>Work Email Address</label>
                      <div class="value">
-                         <input type="text" name="work_email_id" id="work_email_id" value="<?php if(!empty($_POST['work_email_id'])) { echo $_POST['work_email_id']; } else if(!empty($ConsultantDtls['work_email_id'])) { echo $ConsultantDtls['work_email_id']; } else { echo ""; } ?>" class="validate[custom[email]] form-control" maxlength="70" style="width:100% !important;" onblur="javascript:return chkEmails();" />
+                         <input type="text" name="work_email_id" id="work_email_id" value="<?php if(!empty($_POST['work_email_id'])) { echo $_POST['work_email_id']; } else if(!empty($ConsultantDtls['work_email_id'])) { echo $ConsultantDtls['work_email_id']; } else { echo ""; } ?>" class="form-control" maxlength="70" style="width:100% !important;" onblur="javascript:return chkEmails();" />
                          <div id="form_error" class="formErrorSelf"></div>
                      </div>
                  </div>
@@ -127,11 +127,33 @@ if($_REQUEST['action']=='vw_pending_consultant')
                          <input type="text" maxlength="2" placeholder="Enter consultant cost in %" class="form-control validate[required]" name="telephonic_consultation_fees" id="telephonic_consultation_fees" value="<?php if(!empty($_POST['telephonic_consultation_fees'])) { echo $_POST['telephonic_consultation_fees'].' '."%"; } else if(!empty($ConsultantDtls['telephonic_consultation_fees'])) { echo $ConsultantDtls['telephonic_consultation_fees'].' '."%"; } else { echo ""; } ?>" class="form-control" onkeyup="if (/[^0-9+.]/g.test(this.value)) this.value = this.value.replace(/[^0-9()+.]/g,'')" maxlength="15" style="width:100% !important;" />
                      </div>
                  </div>
-                 
+                 <div id="approve_div" style="display:none">
+                 <div class="editform">
+                     <label>Approved by<span class="required">*</span></label>
+                     <div class="value">
+                         <input type="text"  class="form-control validate[required]" name="approved_by" id="approved_by" value="<?php if(!empty($_POST['approved_by'])) { echo $_POST['approved_by']; } else if(!empty($ConsultantDtls['approved_by'])) { echo $ConsultantDtls['approved_by']; } else { echo ""; } ?>" class="form-control"  maxlength="15" style="width:100% !important;" />
+                     </div>
+                 </div>
+                 </div>
+                 <div id="reject_div" style="display:none">
+                 <div class="editform">
+                     <label>Reject by<span class="required">*</span></label>
+                     <div class="value">
+                         <input type="text"   class="form-control validate[required]" name="reject_by" id="reject_by" value="<?php if(!empty($_POST['reject_reason'])) { echo $_POST['reject_reason']; } else if(!empty($ConsultantDtls['reject_reason'])) { echo $ConsultantDtls['reject_reason']; } else { echo ""; } ?>" class="form-control"  maxlength="15" style="width:100% !important;" />
+                     </div>
+                 </div>
+                 <div class="editform">
+                     <label>Reject Reason<span class="required">*</span></label>
+                     <div class="value">
+                         <input type="text"   class="form-control validate[required]" name="reject_reason" id="reject_reason" value="<?php if(!empty($_POST['reject_reason'])) { echo $_POST['reject_reason']; } else if(!empty($ConsultantDtls['reject_reason'])) { echo $ConsultantDtls['reject_reason']; } else { echo ""; } ?>" class="form-control"  maxlength="15" style="width:100% !important;" />
+                     </div>
+                 </div>
+                 </div>
               </div>
-                 <div class="modal-footer">
-                     <input type="button" name="submitForm" id="submitForm" class="btn btn-download" value="Approve" onclick="return approve_consultant_submit();" />
-                 </div>  
+                <div class="modal-footer">
+                <input type="button" name="submitForm" id="submitForm" class="btn btn-download" value="Reject" onclick="return reject_consultant_submit();" />
+                <input type="button" name="submitForm" id="submitForm" class="btn btn-download" value="Approve" onclick="return approve_consultant_submit();" />
+                </div>  
          </form>
      </div>
   <?php  
@@ -197,7 +219,7 @@ else if($_REQUEST['action']=='vw_add_consultant')
                 <div class="editform">
                     <label>Consultant Name <span class="required">*</span></label>
                     <div class="value">
-                        <input type="text" name="first_name" id="first_name" value="<?php if(!empty($_POST['first_name'])) { echo $_POST['first_name']; } else if(!empty($ConsultantDtls['first_name'])) { echo $ConsultantDtls['first_name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
+                        <input type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                     </div>
                 </div>
                 <!--<div class="editform">
@@ -277,8 +299,8 @@ else if($_REQUEST['action']=='approve_consultant')
 		$hospital_id=strip_tags($_POST['hospital_id']);
 		$type=strip_tags($_POST['type']);
         $name=strip_tags($_POST['name']);
-        $first_name=strip_tags($_POST['first_name']);
-        $middle_name=strip_tags($_POST['middle_name']);
+       // $first_name=strip_tags($_POST['first_name']);
+        //$middle_name=strip_tags($_POST['middle_name']);
         $email_id=strip_tags($_POST['email_id']);
         $phone_no=strip_tags($_POST['phone_no']);
         $mobile_no=strip_tags($_POST['mobile_no']);
@@ -287,22 +309,25 @@ else if($_REQUEST['action']=='approve_consultant')
         $work_address=$_POST['work_address'];
         $speciality=strip_tags($_POST['speciality']);
 		$telephonic_consultation_fees=strip_tags($_POST['telephonic_consultation_fees']);
+        $approved_by=$_POST['approved_by'];
+        $reject_by=$_POST['reject_by'];
+        $reject_reason=$_POST['reject_reason'];
         
         if($type=='')
         {
             $success=0;
             $errors[$i++]="Please enter type";
         }
-       /* if($name=='')
+        if($name=='')
         {
             $success=0;
             $errors[$i++]="Please enter last name";
-        }*/
-		if($first_name=='')
+        }
+		/*if($first_name=='')
         {
             $success=0;
             $errors[$i++]="Please enter first name";
-        }
+        }*/
         if($mobile_no=='')
         {
             $success=0;
@@ -368,8 +393,8 @@ else if($_REQUEST['action']=='approve_consultant')
             $success=1;
             $arr['doctors_consultants_id']=$doctors_consultants_id;
             $arr['type']=$type;
-          //  $arr['name']=ucwords(strtolower($name));
-            $arr['first_name']=ucwords(strtolower($first_name));
+            $arr['name']=ucwords(strtolower($name));
+           // $arr['first_name']=ucwords(strtolower($first_name));
           //  $arr['middle_name']=ucwords(strtolower($middle_name));
             $arr['email_id']=strtolower($email_id);
             $arr['phone_no']=$phone_no;
@@ -382,14 +407,22 @@ else if($_REQUEST['action']=='approve_consultant')
             $arr['last_modified_date']=date('Y-m-d H:i:s');
 			$arr['hospital_id']=$hospital_id;
 			$arr['telephonic_consultation_fees']=$telephonic_consultation_fees;
-            $arr['status']='1';
+            $arr['approved_by']=$approved_by;
+            $arr['reject_by']=$reject_by;
+            $arr['reject_reason']=$reject_reason;
+            //$arr['status']='1';
             if(empty($doctors_consultants_id))
             {
                $arr['status']='1';
                $arr['added_by']=strip_tags($_SESSION['admin_user_id']);
                $arr['added_date']=date('Y-m-d H:i:s');
-            }     
-            $InsertRecord=$consultantsClass->ApprovedConsultant($arr); 
+            }    
+            if($approved_by == '') {
+                $InsertRecord=$consultantsClass->RejectConsultant($arr); 
+            }
+            else if($reject_by == ''){
+                $InsertRecord=$consultantsClass->ApprovedConsultant($arr); 
+            }
             if(!empty($InsertRecord))
             {
                 if($doctors_consultants_id)
@@ -422,8 +455,8 @@ else if($_REQUEST['action']=='add_consultant')
         $doctors_consultants_id=strip_tags($_POST['doctors_consultants_id']);
 		$hospital_id=strip_tags($_POST['hospital_id']);
 		$type=strip_tags($_POST['type']);
-       // $name=strip_tags($_POST['name']);
-        $first_name=strip_tags($_POST['first_name']);
+        $name=strip_tags($_POST['name']);
+        //$first_name=strip_tags($_POST['first_name']);
        // $middle_name=strip_tags($_POST['middle_name']);
         $email_id=strip_tags($_POST['email_id']);
         $phone_no=strip_tags($_POST['phone_no']);
@@ -438,16 +471,16 @@ else if($_REQUEST['action']=='add_consultant')
             $success=0;
             $errors[$i++]="Please enter type";
         }
-       /* if($name=='')
+        if($name=='')
         {
             $success=0;
             $errors[$i++]="Please enter last name";
-        }*/
-		if($first_name=='')
+        }
+		/*if($first_name=='')
         {
             $success=0;
             $errors[$i++]="Please enter first name";
-        }
+        }*/
         if($mobile_no=='')
         {
             $success=0;
@@ -513,8 +546,8 @@ else if($_REQUEST['action']=='add_consultant')
             $success=1;
             $arr['doctors_consultants_id']=$doctors_consultants_id;
             $arr['type']=$type;
-          //  $arr['name']=ucwords(strtolower($name));
-            $arr['first_name']=ucwords(strtolower($first_name));
+            $arr['name']=ucwords(strtolower($name));
+           // $arr['first_name']=ucwords(strtolower($first_name));
            // $arr['middle_name']=ucwords(strtolower($middle_name));
             $arr['email_id']=strtolower($email_id);
             $arr['phone_no']=$phone_no;
