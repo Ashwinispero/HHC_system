@@ -266,6 +266,27 @@ class consultantsClass extends AbstractDB
                 $insertData['added_date'] = $this->escape($arg['added_date']);
                 $RecordId = $this->query_insert('sp_doctors_consultants',$insertData);
             }
+            //Whats App sms
+			 $text_msg = 'Dear '.$this->escape($arg['name']).', your registration has been approved. Your login is '.$this->escape($arg['mobile_no']).' Thanks for registering with spero healthcare innovations Pvt .ltd';
+			 $mobile_no=$this->escape($arg['mobile_no']);
+			  $curl = curl_init();
+				$message = rawurlencode($text_msg);
+				curl_setopt_array($curl, array(
+				CURLOPT_URL => "http://chat.chatmybot.in/whatsapp/api/v1/sendmessage?access-token=54844-82ef58263a584c2484363dff71736359&phone=91-".$mobile_no."&content=".$message."&fileName=test.jpg&caption=testingonol&contentType=1",
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+				CURLOPT_POSTFIELDS => "",
+				));
+
+				$response = curl_exec($curl);
+				$err = curl_error($curl);
+				curl_close($curl);
+
+				
            // echo $this->db->last_query();die();
             if (!empty($RecordId)) {
                 // Add activity details while adding medicine details

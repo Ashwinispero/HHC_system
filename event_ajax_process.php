@@ -1261,7 +1261,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
 					    $txtMsg3.= "Dear ".$PatientDtls['name']." ".$PatientDtls['first_name'].",";
 						$txtMsg3.= "Prof. Nm: ".$professionalDtls['title']." ".$professionalDtls['first_name']." ".$professionalDtls['name'].",";
 						$txtMsg3.= "Event ID: ".$argsDoc['event_id'].",";
-						$txtMsg3.= "In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532."\n;
+						$txtMsg3.= "In case of E-Payments send SMS with Patient Name, NEFT Number, Event ID on 9130031532.";
 						$txtMsg3.= "\nFor feedback, service extension or any query please call Spero on 7620400100." ;
 						
 						
