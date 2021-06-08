@@ -122,7 +122,7 @@ class consultantsClass extends AbstractDB
     public function GetConsultantById($arg)
     {
         $doctors_consultants_id=$this->escape($arg['doctors_consultants_id']);
-        $GetOneConsultantSql="SELECT hos_nm,doctors_consultants_id,name,first_name,middle_name ,email_id,phone_no,mobile_no,work_email_id,work_phone_no,work_address,speciality,type,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date FROM sp_doctors_consultants WHERE doctors_consultants_id='".$doctors_consultants_id."'";
+        $GetOneConsultantSql="SELECT telephonic_consultation_fees,hos_nm,doctors_consultants_id,name,first_name,middle_name ,email_id,phone_no,mobile_no,work_email_id,work_phone_no,work_address,speciality,type,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date FROM sp_doctors_consultants WHERE doctors_consultants_id='".$doctors_consultants_id."'";
         if($this->num_of_rows($this->query($GetOneConsultantSql)))
         {
             $Consultant=$this->fetch_array($this->query($GetOneConsultantSql));
