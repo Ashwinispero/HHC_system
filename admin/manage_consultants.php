@@ -191,7 +191,7 @@
                              }
                              else if(result=='UpdateSuccess')
                              {
-                                  bootbox.alert("<div class='msg-success'>Consultant details Approved successfully.</div>",function()
+                                  bootbox.alert("<div class='msg-success'>Consultant details updated successfully.</div>",function()
                                   {
                                       changePagination('ConsultantsListing','include_consultants.php','','','','');
                                   });

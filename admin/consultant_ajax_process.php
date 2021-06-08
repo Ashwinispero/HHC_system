@@ -68,6 +68,8 @@ if($_REQUEST['action']=='vw_pending_consultant')
                  <div class="editform">
                      <label>Consultant Name <span class="required">*</span></label>
                      <div class="value">
+                     <input type="hidden" name="doctors_consultants_id" id="doctors_consultants_id" value="<?php echo $arr['doctors_consultants_id']; ?>" />
+                         
                          <input type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                      </div>
                  </div>
@@ -219,6 +221,8 @@ else if($_REQUEST['action']=='vw_add_consultant')
                 <div class="editform">
                     <label>Consultant Name <span class="required">*</span></label>
                     <div class="value">
+                    <input type="hidden" name="doctors_consultants_id" id="doctors_consultants_id" value="<?php echo $arr['doctors_consultants_id']; ?>" />
+                        
                         <input type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) { echo $_POST['name']; } else if(!empty($ConsultantDtls['name'])) { echo $ConsultantDtls['name']; } else { echo ""; } ?>" class="validate[required,maxSize[50]] form-control" onkeyup="if (/[^A-Za-z ]/g.test(this.value)) this.value = this.value.replace(/[^A-Za-z ]/g,'')"  maxlength="50" style="width:100% !important;" />
                     </div>
                 </div>
