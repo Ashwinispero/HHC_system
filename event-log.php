@@ -1585,7 +1585,8 @@ if($_REQUEST['EID'])
                         var fromDate = $("#eve_from_date_"+ja+"_"+temp[i]).val();
                         var toDate = $("#eve_to_date_"+ja+"_"+temp[i]).val();
                         var fromTime = $("#starttime_"+ja+"_"+temp[i]).val();
-                        var toTime = $("#endtime_"+ja+"_"+temp[i]).val();      
+                        var toTime = $("#endtime_"+ja+"_"+temp[i]).val(); 
+                        var consultantCost = $("#consultantCost").val();        
                        // alert($("#hidden_costService_"+ja+"_"+temp[i]).val());
                         if($("#hidden_costService_"+ja+"_"+temp[i]).val() !='undefined' && $("#hidden_costService_"+ja+"_"+temp[i]).val() !='null' && $("#hidden_costService_"+ja+"_"+temp[i]).val()>0)
                         {
@@ -1627,11 +1628,14 @@ if($_REQUEST['EID'])
             }
           //  alert(costvalue);
            //alert(existValue);
+           var consultantCost = $("#consultantCost").val();   
            if(costvalue>=0 && existValue >=0)
            {
                 var finalcost = parseInt(costvalue)+parseInt(existValue);
-                var printFinalcost = finalcost+".00";
+                var cosul_cost = consultantCost * finalcost;
+                var printFinalcost = finalcost+cosul_cost+".00";
                 // alert(finalcost);
+                $("#TotalConCost").html(cosul_cost); 
                 $("#TotalEstCost").html(printFinalcost); 
                 $("#finalcost_eve").val(printFinalcost); 
            }

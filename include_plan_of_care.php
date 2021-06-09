@@ -174,14 +174,13 @@ else
                         }
 						if($recListValue['recommomded_service']=='Consultant Charges')	
 						{
-							 echo '<div class="main-row"> 
+							 /*echo '<div class="main-row"> 
                                     <input type="hidden" name="existIDPlan_'.$event_requirement_id.'" id="existIDPlan_'.$event_requirement_id.'" value="'.$valPlanCareMultiple['plan_of_care_id'].'" >
                                     <div style="width:13%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['service_title'].' </div>
                                     <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['recommomded_service'].'</div>
-									<div style="width:38%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;"></div>
 									
-                              <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:right">'.$telephonic_consultation_fees.'</div>
-							 </div>';
+                              <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:left" disabled>'.$telephonic_consultation_fees.'%</div>
+							 </div>';*/
 							  
 						}	
 						else{							
@@ -257,14 +256,13 @@ else
                         } 
 						if($recListValue['recommomded_service']=='Consultant Charges')	
 						{
-							 echo '<div class="main-row"> 
+							/* echo '<div class="main-row"> 
                                     <input type="hidden" name="existIDPlan_'.$event_requirement_id.'" id="existIDPlan_'.$event_requirement_id.'" value="'.$valPlanCareMultiple['plan_of_care_id'].'" >
                                     <div style="width:13%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['service_title'].' </div>
                                     <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['recommomded_service'].'</div>
-                              <div style="width:38%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;"></div>
-									
-                              <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:right">'.$telephonic_consultation_fees.'</div>
-							  </div>';
+                              	
+                              <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:left" disabled>'.$telephonic_consultation_fees.'%</div>
+							  </div>';*/
 						}	
 						else{	
                         echo '<div class="main-row" id="PlanDiv_'.$valPlanCareMultiple['plan_of_care_id'].'">
@@ -336,14 +334,13 @@ else
                  //  echo '</pre>';
 				 if($recListValue['recommomded_service']=='Consultant Charges')	
 						{
-							 echo '<div class="main-row"> 
+							/* echo '<div class="main-row"> 
                                     <input type="hidden" name="existIDPlan_'.$event_requirement_id.'" id="existIDPlan_'.$event_requirement_id.'" value="'.$valPlanCareMultiple['plan_of_care_id'].'" >
                                     <div style="width:13%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['service_title'].' </div>
                                     <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['recommomded_service'].'</div>
-									<div style="width:38%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;"></div>
-									
-                              <div style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:right">'.$telephonic_consultation_fees.'</div>
-							  </div>';
+								
+                              <div disabled style="width:24%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;text-align:left">'.$telephonic_consultation_fees.'%</div>
+							  </div>';*/
 						}	
 						else{	
                 echo '<div class="main-row"> 
@@ -454,8 +451,19 @@ else
 	   $totalTax = 0;
 		
 		//echo ' <div style="width:97%;display:inline-block;text-align:right">Consultants Charges: '.$telephonic_consultation_fees.'</div> ';
-        $finalcost = ($total_cost + $totalTax + $telephonic_consultation_fees);
+        $finalcost = ($total_cost + $totalTax);
+        $telephonic_consultation_fees1 = $telephonic_consultation_fees / 100 ;
+        $consultant_changes = $finalcost * $telephonic_consultation_fees1;
+        echo '<input type="hidden" name="consultantCost" id="consultantCost" value="' . $telephonic_consultation_fees1 . '" >';
+        $finalcost = $consultant_changes + $finalcost;
         $finalcost = round($finalcost);
+        if($telephonic_consultation_fees != 0)
+        {
+        echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
+        <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL CONSULATNT CHARGES:'.$telephonic_consultation_fees.'%</div>
+        <div id="TotalConCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($consultant_changes), 2).'</div> 
+        </div>';
+        }
         echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
 				  <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL ESTIMATED COST:</div>
 				  <div id="TotalEstCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($finalcost), 2).'</div> 
