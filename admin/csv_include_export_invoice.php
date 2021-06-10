@@ -113,6 +113,15 @@ $date2=date_create("$toDate");
 						$sub_service_id_new = mysql_fetch_array($sub_service) or die(mysql_error());
 						$sub_service_id=$sub_service_id_new['sub_service_id'];
 						$service_id=$sub_service_id_new['service_id'];
+						$Consultant=$sub_service_id_new['Consultant'];
+						
+						$Consultant= mysql_query("select doctors_consultants_id,first_name,name from sp_doctors_consultants where doctors_consultants_id='$Consultant'");
+						$Consultant_nm = mysql_num_rows($Consultant);
+						if($Consultant_nm > 0)
+						{
+							$Consultant_nm1 = mysql_fetch_array($Consultant);
+							$Consultant_name=$Consultant_nm1['name'];
+						}
 					//echo $sub_service_id;
 					//Professional Name
 					$professional= mysql_query("SELECT * FROM sp_event_professional  where event_requirement_id='$event_requirement_id'");
@@ -139,6 +148,10 @@ $date2=date_create("$toDate");
 						if($service_id=='10')
 						{
 							$professional_name='Conveyance_Cost';
+						}
+						if($service_id=='14')
+						{
+							$professional_name=$Consultant_name;
 						}
 					}
 						
