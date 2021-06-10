@@ -606,7 +606,7 @@ class eventClass extends AbstractDB
         $insertData['mobile_no']=$arg['mobile_no'];
         $insertData['phone_no']=$arg['phone_no'];
         $insertData['email_id']=$arg['email_id'];
-        
+        $insertData['patient_ref_name']=$arg['patient_ref_name'];
         if(!empty($arg['dob']))
             $insertData['dob']= date('Y-m-d',strtotime($arg['dob'])); 
         $insertData['status']=1;        

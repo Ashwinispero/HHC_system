@@ -154,7 +154,7 @@ class patientsClass extends AbstractDB
     public function GetPatientById($arg)
     {
         $patient_id=$this->escape($arg['patient_id']);
-        $GetOnePatientSql = "SELECT patient_id,hhc_code,name,location_id,sub_location,city_id,first_name,middle_name,email_id,residential_address,permanant_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date,google_location FROM sp_patients WHERE patient_id='".$patient_id."'";
+        $GetOnePatientSql = "SELECT patient_ref_name,patient_id,hhc_code,name,location_id,sub_location,city_id,first_name,middle_name,email_id,residential_address,permanant_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date,google_location FROM sp_patients WHERE patient_id='".$patient_id."'";
         if ($this->num_of_rows($this->query($GetOnePatientSql)))
         {
             $Patient = $this->fetch_array($this->query($GetOnePatientSql));

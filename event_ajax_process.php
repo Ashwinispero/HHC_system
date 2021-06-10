@@ -299,6 +299,8 @@ else if($_REQUEST['action'] == 'generateHHCno')
         $email_id=strip_tags($_POST['patient_email_id']);
         $dob=strip_tags($_POST['patientdob']);
         $doctor_id=strip_tags($_POST['doctor_id']);
+        $patient_ref_name=strip_tags($_POST['patient_ref_name']);
+        
         $ref_hos_id=strip_tags($_POST['ref_hos_id']);
         $ref_hos_nm=strip_tags($_POST['ref_hos_nm']);
         $hospital_id=strip_tags($_POST['hospital_id']);
@@ -369,6 +371,7 @@ else if($_REQUEST['action'] == 'generateHHCno')
             $arr['temp_event_id']=$temp_event_id;
             $arr['employee_id']=$_SESSION['employee_id'];
             $arr['hospital_id']=$hospital_id;
+            $arr['patient_ref_name']=$patient_ref_name;
             $arr['ref_hos_id']=$ref_hos_id;
             $arr['ref_hos_nm']=$ref_hos_nm;
             $arr['exist_hhc_code']=$exist_hhc_code;

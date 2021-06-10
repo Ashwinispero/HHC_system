@@ -254,6 +254,12 @@ else
                         <input maxlength="12" type="text" class="form-control datepicker" id="patientdob" name="patientdob" value="<?php if(!empty($recListResponse['dob']) && $recListResponse['dob'] !='0000-00-00') echo date('d-m-Y',strtotime($recListResponse['dob'])); else { echo $_POST['patientdob']; } ?>" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Ref. Name:</label>
+                    <div class="col-sm-8">
+                      <input maxlength="15" type="text" class="form-control" id="patient_ref_name" name="patient_ref_name" value="<?php if($recListResponse['patient_ref_name']) echo $recListResponse['patient_ref_name']; else echo $_POST['patient_ref_name']; ?>" />
+                    </div>
+                </div>
                 <div class="form-group margintop25">
                     <label for="inputPassword3" class="col-sm-4 control-label">Ref.Hospital Name:</label>
                     <div class="col-sm-8">
