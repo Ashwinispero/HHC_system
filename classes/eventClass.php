@@ -2735,7 +2735,7 @@ class eventClass extends AbstractDB
         /* Discount code start here */
 
         $updateEve['finalcost'] = $arg['finalcost_eve'];
-
+        
         $whereEve = "event_id ='" . $arg['event_id'] . "' ";
         $updateRecord = $this->query_update('sp_events', $updateEve, $whereEve);
 

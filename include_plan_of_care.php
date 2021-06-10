@@ -256,6 +256,7 @@ else
                         } 
 						if($recListValue['recommomded_service']=='Consultant Charges')	
 						{
+                            $total_cost1 += $valPlanCareMultiple['service_cost'];
 							/* echo '<div class="main-row"> 
                                     <input type="hidden" name="existIDPlan_'.$event_requirement_id.'" id="existIDPlan_'.$event_requirement_id.'" value="'.$valPlanCareMultiple['plan_of_care_id'].'" >
                                     <div style="width:13%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.$recListValue['service_title'].' </div>
@@ -322,7 +323,18 @@ else
                     {
                         $total_cost += $recListValue['cost']*$dateDiff;
                     }
-
+                   
+               /* $telephonic_consultation_fees1 = $telephonic_consultation_fees / 100 ;
+                $consultant_changes = $total_cost * $telephonic_consultation_fees1;
+                $finalcost = $consultant_changes + $total_cost;
+                $finalcost = round($finalcost);
+                if($telephonic_consultation_fees != 0)
+                {
+                echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
+                <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL CONSULATNT CHARGES:'.$telephonic_consultation_fees.'%</div>
+                <div id="TotalConCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($cost), 2).'</div> 
+                </div>';
+                }*/
                     $totalTax += $recListValue['tax'];  
                 }
                 echo '<input type="hidden" name="existSelRec_'.$event_requirement_id.'" id="existSelRec_'.$event_requirement_id.'" value="'.$st.'" >';
@@ -433,6 +445,17 @@ else
                     }       
                     
                 $totalTax += $recListValue['tax'];
+                $telephonic_consultation_fees1 = $telephonic_consultation_fees / 100 ;
+                $consultant_changes = $total_cost * $telephonic_consultation_fees1;
+                $finalcost = $consultant_changes + $total_cost;
+                $finalcost = round($finalcost);
+                if($telephonic_consultation_fees != 0)
+                {
+                echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
+                <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL CONSULATNT CHARGES:'.$telephonic_consultation_fees.'%</div>
+                <div id="TotalConCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($consultant_changes), 2).'</div> 
+                </div>';
+                }
             }
             echo '<input type="hidden" name="PlanCareextras_'.$event_requirement_id.'" id="PlanCareextras_'.$event_requirement_id.'" value="0" />';
             echo '<tr><td colspan="5"><div id="div_1_'.$event_requirement_id.'"><table><tr ><td colspan="5"> </td> </tr></table></div></td></tr>';
@@ -451,20 +474,17 @@ else
 	   $totalTax = 0;
 		
 		//echo ' <div style="width:97%;display:inline-block;text-align:right">Consultants Charges: '.$telephonic_consultation_fees.'</div> ';
+        
         $finalcost = ($total_cost + $totalTax);
-        $telephonic_consultation_fees1 = $telephonic_consultation_fees / 100 ;
+        //echo $total_cost;
+       /* $telephonic_consultation_fees1 = $telephonic_consultation_fees / 100 ;
         $consultant_changes = $finalcost * $telephonic_consultation_fees1;
-        echo '<input type="hidden" name="consultantCost" id="consultantCost" value="' . $telephonic_consultation_fees1 . '" >';
         $finalcost = $consultant_changes + $finalcost;
-        $finalcost = round($finalcost);
-        if($telephonic_consultation_fees != 0)
-        {
-        echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
-        <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL CONSULATNT CHARGES:'.$telephonic_consultation_fees.'%</div>
-        <div id="TotalConCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($consultant_changes), 2).'</div> 
-        </div>';
-        }
-        echo '<input type="text" name="consultantFinalCost" id="consultantFinalCost">';
+        $finalcost = round($finalcost);*/
+        echo '<input type="hidden" name="consultantCost" id="consultantCost" value="' . $telephonic_consultation_fees1 . '" >';
+        
+        
+        echo '<input type="hidden" name="consultantFinalCost" id="consultantFinalCost">';
         echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
 				  <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL ESTIMATED COST:</div>
 				  <div id="TotalEstCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($finalcost), 2).'</div> 
