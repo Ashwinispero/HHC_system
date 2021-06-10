@@ -464,6 +464,7 @@ else
         <div id="TotalConCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($consultant_changes), 2).'</div> 
         </div>';
         }
+        echo '<input type="text" name="consultantFinalCost" id="consultantFinalCost">';
         echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
 				  <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL ESTIMATED COST:</div>
 				  <div id="TotalEstCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($finalcost), 2).'</div> 

@@ -2606,9 +2606,12 @@ class eventClass extends AbstractDB
 			} else {
 				$insertData['service_date_to'] =  date('Y-m-d', strtotime($service_date_tos));
 			}
-
+            //var_dump($service_id);
+            if($service_id == 14){
+                $insertData['service_cost'] = $_REQUEST['consultantFinalCost'];
+            }else{
             $insertData['service_cost'] =  $_REQUEST['hidden_costService_' . $v . '_' . $arg['event_requirement_id']];
-            
+            }
             if ($v == 0) {
                 $existIDPlan = $_REQUEST['existIDPlan_' . $arg['event_requirement_id']];
             }

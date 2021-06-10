@@ -1636,6 +1636,7 @@ if($_REQUEST['EID'])
                 var printFinalcost = finalcost+cosul_cost+".00";
                 // alert(finalcost);
                 $("#TotalConCost").html(cosul_cost); 
+                $("#consultantFinalCost").val(cosul_cost); 
                 $("#TotalEstCost").html(printFinalcost); 
                 $("#finalcost_eve").val(printFinalcost); 
            }
