@@ -58,7 +58,7 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
         $db->query($updateEvents);
         $user = $_SESSION['first_name'];
        // $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=END";
-        $form_url =  "http://183.87.122.153:8080/API/Hangup.php?user=".$user;
+        $form_url =  "http://183.87.122.153/API/Hangup.php?user=".$user;
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -82,7 +82,7 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
         //$db->query($updateEvents);
         
         $user = $_SESSION['first_name'];
-        $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=ACCEPT";
+        $form_url =  "http://183.87.122.153/API/CallResponse.php?user=".$user."&value=ACCEPT";
          
         $data_to_post = array();
         $curl = curl_init();
@@ -232,9 +232,6 @@ else if($_REQUEST['action']=='View_Form_Details'){
     <div class="modal-body">
     <div class="mCustomScrollbar">
     <div class="col-lg-6">
-    <span><h4>Consultant Name: <?php echo $patient_info['consultat_fname'];?></h4></span>
-    </div>
-    <div class="col-lg-6">
     <span><h4>Patient Name :<?php echo $patient_info['patient_fname'];?></h4></span>
     </div>
     <div class="col-lg-6">
@@ -258,7 +255,6 @@ else if($_REQUEST['action']=='View_Form_Details'){
     <div class="col-lg-6">
     <span><h4>Added Date Time: <?php echo $patient_info['added_date'];?></h4></span>
     </div>
-    
     </div>
     </div>
    
@@ -300,7 +296,6 @@ else if($_REQUEST['action'] == 'generateHHCno')
         $dob=strip_tags($_POST['patientdob']);
         $doctor_id=strip_tags($_POST['doctor_id']);
         $patient_ref_name=strip_tags($_POST['patient_ref_name']);
-        
         $ref_hos_id=strip_tags($_POST['ref_hos_id']);
         $ref_hos_nm=strip_tags($_POST['ref_hos_nm']);
         $hospital_id=strip_tags($_POST['hospital_id']);
@@ -755,7 +750,7 @@ else if ($_REQUEST['action'] == 'submitPlanofCare')
         for($i=0;$i<count($explodeReq);$i++)
         {
             $argPass['event_requirement_id'] = $explodeReq[$i];
-            $argPass['consultantFinalCost'] = $_POST['consultantFinalCost'];
+            //$argPass['service_date'] = $_POST['eve_date_'.$explodeReq[$i]];
             //$argPass['start_date'] = $_POST['starttime_'.$explodeReq[$i]];
             //$argPass['end_date'] = $_POST['endtime_'.$explodeReq[$i]];
             $argPass['event_id'] = $_POST['event_id'];            
@@ -777,7 +772,7 @@ else if ($_REQUEST['action'] == 'submitPlanofCare')
                 $argPass['finalcost_eve']   = $_POST['finalCostWithDiscount_eve'];
             }
             /* Discount Code ends here */
-            //var_dump($argPass);die();
+            
             $InsertPlanCare = $eventClass->InsertPlanOfCare($argPass);
 
             if (!empty($InsertPlanCare)) {
@@ -1278,7 +1273,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         */
                         $patientmb=$PatientDtls['mobile_no'];
                         
-                  
+                  //$patientmb=8551995260;
                  
                             $args = array(
                                 'event_code'=> $event_code,
