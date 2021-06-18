@@ -152,14 +152,14 @@ if($_REQUEST['EID'])
                                       else
                                           echo '<option value="'.$valProfessional['pt_id'].'">'.$valProfessional['patient_fname'].'</option>';
                                     }
-                                    
+
                                  ?>
                              </select>
                             
                         <?php } ?>
-                        </label>
+                        <!--</label>-->
             </div>
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3">
                         <?php  $recListResponse = $commonClass->GetTodayEnquiryCall();  
                        if($recListResponse)
                        {
@@ -183,11 +183,10 @@ if($_REQUEST['EID'])
                              </select>
                             
                         <?php } ?>
-                        </label>
+                        <!--</label>-->
             </div>
 			<div align="right" class="row">
-			    <a target = '_blank'  href='ambulance_dashbaord.php' style="margin-right:5%">Ambulance Dispatch</a>
-			
+            <a target = '_blank'  href='ambulance_dashbaord.php' style="margin-right:5%">Ambulance Dispatch</a>
 			<!--<a target = '_blank'  href='Assisted_Living_Avaibality.php' style="margin-right:5%">Assisted Living Avaibility</a>-->
 			<a target = '_blank'  href='schedule_display_new.php' style="margin-right:5%">Professional Schedule</a>
 			<!--<a target = '_blank'  href='schedule_display.php' style="margin-right:5%">Professional Schedule</a>-->
@@ -319,7 +318,7 @@ if($_REQUEST['EID'])
             <div class="eventLogListing" id="include_eventlog">
                 <?php  include "include_event_log.php"; ?> 
             </div>
-              <div id="include_patientlist_enquiry" style="display:none">
+            <div id="include_patientlist_enquiry" style="display:none">
                 <?php  include "include_patient_Log.php"; ?> 
             </div>
             </div>
@@ -383,7 +382,7 @@ if($_REQUEST['EID'])
   </div>
     <!-- Modal Popup code start ---> 
     <div class="modal fade" id="vw_professional"> 
-        <div class="modal-dialog" style="width:900px !important;">
+        <div class="modal-dialog" style="width:950px !important;">
           <div class="modal-content" id="AllAjaxData">
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -409,7 +408,6 @@ if($_REQUEST['EID'])
         </div><!-- /.modal-dialog -->
     </div>
     <!-- Modal Popup code end ---> 
-    <!-- Modal Popup code end ---> 
     <div class="modal fade" id="vw_enquiry_details"> 
         <div class="modal-dialog" style="width:1500px ;">
           <div class="modal-content" id="AllAjaxData_enquiry">
@@ -421,58 +419,6 @@ if($_REQUEST['EID'])
 <?php include "include/eventLogscripts.php"; ?>
 
 <script type="text/javascript">    
-function DiaplayPatientDetails(pt_id){
-    
-    var data1="pt_id="+pt_id+"&action=DiaplayPatientDetails";
-    $.ajax({
-            url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
-            beforeSend: function() 
-            {
-               Popup_Display_Load();
-            },
-            success: function (html)
-            {
-                $("#include_eventlog").hide();
-                $("#include_patientlist_enquiry").html(html);
-                $("#include_patientlist_enquiry").show();
-                
-			},
-            complete : function()
-            {
-               Popup_Hide_Load();
-            }
-        });
-        
-   }
-   function ViewFormDetails(pt_id){
-    if(pt_id)
-        {
-            var data1="pt_id="+pt_id+"&action=View_Form_Details";
-           // alert(data1);
-             $.ajax({
-                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
-                    beforeSend: function() 
-                    {
-                        Display_Load();
-                    },
-                    success: function (html)
-                    {
-                        $('#vw_enquiry_details').modal({backdrop: 'static',keyboard: false}); 
-                        $("#AllAjaxData_enquiry").html(html);
-                        
-                        $("#viewEventDetails .modal-body").mCustomScrollbar({
-                                        setHeight:200,
-                                     
-                                        //theme:"minimal-dark"
-                                });
-                    },
-                    complete : function()
-                    {
-                       Hide_Load();
-                    }
-             }); 
-        }
-   }
   function ChangeAjaxJs()
   {
     $('#parentHorizontalTab').easyResponsiveTabs({
@@ -1010,8 +956,7 @@ function DiaplayPatientDetails(pt_id){
                         console.log(addressField.value+" not found on Google");
                         alert('Please select valid location.');
                         //var datas = valid_google_location('no');
-                       // return false;
-                        patient_generatehhc();
+                        return false;
                     } 
                 }
                 );
@@ -1640,7 +1585,8 @@ function DiaplayPatientDetails(pt_id){
                         var fromDate = $("#eve_from_date_"+ja+"_"+temp[i]).val();
                         var toDate = $("#eve_to_date_"+ja+"_"+temp[i]).val();
                         var fromTime = $("#starttime_"+ja+"_"+temp[i]).val();
-                        var toTime = $("#endtime_"+ja+"_"+temp[i]).val();      
+                        var toTime = $("#endtime_"+ja+"_"+temp[i]).val(); 
+                        var consultantCost = $("#consultantCost").val();        
                        // alert($("#hidden_costService_"+ja+"_"+temp[i]).val());
                         if($("#hidden_costService_"+ja+"_"+temp[i]).val() !='undefined' && $("#hidden_costService_"+ja+"_"+temp[i]).val() !='null' && $("#hidden_costService_"+ja+"_"+temp[i]).val()>0)
                         {
@@ -1682,11 +1628,15 @@ function DiaplayPatientDetails(pt_id){
             }
           //  alert(costvalue);
            //alert(existValue);
+           var consultantCost = $("#consultantCost").val();   
            if(costvalue>=0 && existValue >=0)
            {
                 var finalcost = parseInt(costvalue)+parseInt(existValue);
-                var printFinalcost = finalcost+".00";
+                var cosul_cost = consultantCost * finalcost;
+                var printFinalcost = finalcost+cosul_cost+".00";
                 // alert(finalcost);
+                $("#TotalConCost").html(cosul_cost); 
+                $("#consultantFinalCost").val(cosul_cost); 
                 $("#TotalEstCost").html(printFinalcost); 
                 $("#finalcost_eve").val(printFinalcost); 
            }
@@ -4923,6 +4873,29 @@ function soft_call_dial(no){
                     }
              });
 }
+function DiaplayPatientDetails(pt_id){
+    
+    var data1="pt_id="+pt_id+"&action=DiaplayPatientDetails";
+    $.ajax({
+            url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
+            beforeSend: function() 
+            {
+               Popup_Display_Load();
+            },
+            success: function (html)
+            {
+                $("#include_eventlog").hide();
+                $("#include_patientlist_enquiry").html(html);
+                $("#include_patientlist_enquiry").show();
+                
+			},
+            complete : function()
+            {
+               Popup_Hide_Load();
+            }
+        });
+        
+   }
 function soft_call(){
     var phone_no = parseInt(document.getElementById('output').value);
     //var user = '<?php //echo $_SESSION['first_name'];?>';
@@ -4996,7 +4969,7 @@ function search_missed_calls(){
 			{
                 if(xmlhttp.readyState==4 && xmlhttp.status==200)
 				{
-				//	alert(xmlhttp.responseText);
+					//alert(xmlhttp.responseText);
                    	document.getElementById("Missed_call_list").innerHTML=xmlhttp.responseText;
 				}
 			}
@@ -5338,63 +5311,35 @@ function softdial(){
                     }
                 });
     }
-    function search_professional_whatsapp(){
-        
-        var search_professionalid = document.getElementById('search_professionalid').value;
-        //alert(search_professionalid);
-        document.getElementById("Whats_App_No").value = search_professionalid;
-        
-    }
-     function Whats_App_SMS(){
-      //  $("#ready_mode").show();
-       // $("#pause_mode").hide();
-        var status='1'
-        var data1="status="+status+"&action=WhatsAppSMS";
-        $.ajax({
-                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+    function ViewFormDetails(pt_id){
+    if(pt_id)
+        {
+            var data1="pt_id="+pt_id+"&action=View_Form_Details";
+           // alert(data1);
+             $.ajax({
+                    url: "event_ajax_process.php", type: "post", data: data1, cache: false,async: false,
                     beforeSend: function() 
                     {
                         Display_Load();
                     },
                     success: function (html)
                     {
-                        //bootbox.alert("<div class='msg-success'>Call disconnected..Now you are in Ready mode</div>");
-                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
-                        $("#AllAjaxData_avaya").html(html);
+                        $('#vw_enquiry_details').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_enquiry").html(html);
+                        
                         $("#viewEventDetails .modal-body").mCustomScrollbar({
-                                       setHeight:100,
-                                    
+                                        setHeight:200,
+                                     
+                                        //theme:"minimal-dark"
                                 });
                     },
                     complete : function()
                     {
-                        Hide_Load();
+                       Hide_Load();
                     }
-                });
-    }
-    function whats_app_sms(){
-        var status='1'
-        var Whats_App_No=document.getElementById('Whats_App_No').value;
-        var Whats_App_Msg=document.getElementById('Whats_App_Msg').value
-        
-        var data1="Whats_App_Msg="+Whats_App_Msg+"&Whats_App_No="+Whats_App_No+"&action=whats_App_Sms";
-        $.ajax({
-                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
-                    beforeSend: function() 
-                    {
-                        Display_Load();
-                    },
-                    success: function (html)
-                    {
-                       
-                        
-                    },
-                    complete : function()
-                    {
-                        $("#vw_avaya").modal("hide");
-                    }
-                });
-    }
+             }); 
+        }
+   }
     function conf_mode()
     {
         $status='1';
@@ -5423,6 +5368,29 @@ function softdial(){
                        Hide_Load();
                     }
              }); 
+    }
+    function whats_app_sms(){
+        var status='1'
+        var Whats_App_No=document.getElementById('Whats_App_No').value;
+        var Whats_App_Msg=document.getElementById('Whats_App_Msg').value
+        
+        var data1="Whats_App_Msg="+Whats_App_Msg+"&Whats_App_No="+Whats_App_No+"&action=whats_App_Sms";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                       
+                        
+                    },
+                    complete : function()
+                    {
+                        $("#vw_avaya").modal("hide");
+                    }
+                });
     }
     function add_call(){
         var status='1'
@@ -5493,11 +5461,45 @@ function softdial(){
                     }
                 });
     }
+    function Whats_App_SMS(){
+      //  $("#ready_mode").show();
+       // $("#pause_mode").hide();
+        var status='1'
+        var data1="status="+status+"&action=WhatsAppSMS";
+        $.ajax({
+                    url: "dialerbox.php", type: "post", data: data1, cache: false,async: false,
+                    beforeSend: function() 
+                    {
+                        Display_Load();
+                    },
+                    success: function (html)
+                    {
+                        //bootbox.alert("<div class='msg-success'>Call disconnected..Now you are in Ready mode</div>");
+                        $('#vw_avaya').modal({backdrop: 'static',keyboard: false}); 
+                        $("#AllAjaxData_avaya").html(html);
+                        $("#viewEventDetails .modal-body").mCustomScrollbar({
+                                       setHeight:100,
+                                    
+                                });
+                    },
+                    complete : function()
+                    {
+                        Hide_Load();
+                    }
+                });
+    }
     function search_professional(){
         
         var search_professionalid = document.getElementById('search_professionalid').value;
         //alert(search_professionalid);
         document.getElementById("conf_no").value = search_professionalid;
+        
+    }
+    function search_professional_whatsapp(){
+        
+        var search_professionalid = document.getElementById('search_professionalid').value;
+        //alert(search_professionalid);
+        document.getElementById("Whats_App_No").value = search_professionalid;
         
     }
     function professional_remainder(){
@@ -5520,6 +5522,7 @@ function softdial(){
                     }
                 });
     }
+   
 </script>
 <?php
 $_SESSION['flag'] = '2';

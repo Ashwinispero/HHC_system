@@ -357,8 +357,6 @@ class eventClass extends AbstractDB
         }
         
         
-      //  echo $arg['listPageDefaultFilter'];
-       // die();
         if($SearchfromDate_service && $SearchToDate_service)
         {
             $daterange_service .= " AND dtl_pln.Actual_Service_date BETWEEN '".$SearchfromDate_service."' AND '".$SearchToDate_service."' ";
@@ -379,10 +377,10 @@ class eventClass extends AbstractDB
                      ".$join."
                     WHERE 1 and se.status !='3' ".$isStatusWhere." ".$preWhere." ".$daterange." GROUP BY se.event_id ".$filterWhere." ";
         }
-      //  echo '<pre>';
-//print_r($RecordSql);
-      //  echo '</pre>';
-//die();
+        //echo '<pre>';
+        //print_r($RecordSql);
+        //echo '</pre>';
+
         
         $this->result = $this->query($RecordSql);
         if ($this->num_of_rows($this->result))
@@ -609,7 +607,6 @@ class eventClass extends AbstractDB
         $insertData['phone_no']=$arg['phone_no'];
         $insertData['email_id']=$arg['email_id'];
         $insertData['patient_ref_name']=$arg['patient_ref_name'];
-        
         if(!empty($arg['dob']))
             $insertData['dob']= date('Y-m-d',strtotime($arg['dob'])); 
         $insertData['status']=1;        
@@ -847,7 +844,7 @@ class eventClass extends AbstractDB
         $temp_event_id                    = $arg['temp_event_id'];
         $updateData['patient_id']         = $RecordId;
         $updateData['purpose_id']         = $purpose_id;
-        //$updateData['event_status']       = 2;
+      //  $updateData['event_status']       = 2;
         $updateData['last_modified_by']   = $employee_id;
         $updateData['ref_hos_id']         = $ref_hos_id;
        $updateData['ref_hos_nm']         = $arg['ref_hos_nm'];
@@ -2609,9 +2606,12 @@ class eventClass extends AbstractDB
 			} else {
 				$insertData['service_date_to'] =  date('Y-m-d', strtotime($service_date_tos));
 			}
-
+            //var_dump($service_id);
+            if($service_id == 14){
+                $insertData['service_cost'] = $_REQUEST['consultantFinalCost'];
+            }else{
             $insertData['service_cost'] =  $_REQUEST['hidden_costService_' . $v . '_' . $arg['event_requirement_id']];
-            
+            }
             if ($v == 0) {
                 $existIDPlan = $_REQUEST['existIDPlan_' . $arg['event_requirement_id']];
             }
@@ -2735,7 +2735,7 @@ class eventClass extends AbstractDB
         /* Discount code start here */
 
         $updateEve['finalcost'] = $arg['finalcost_eve'];
-
+        
         $whereEve = "event_id ='" . $arg['event_id'] . "' ";
         $updateRecord = $this->query_update('sp_events', $updateEve, $whereEve);
 
@@ -2767,7 +2767,7 @@ class eventClass extends AbstractDB
     public function GetPatientById($arg)
     {
         $patient_id=$this->escape($arg['patient_id']);
-        $GetOnePatientSql="SELECT patient_ref_name,patient_id,hhc_code,name,first_name,middle_name,email_id,residential_address,permanant_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date,lattitude,langitude,google_location FROM sp_patients WHERE patient_id='".$patient_id."'";
+        $GetOnePatientSql="SELECT patient_id,hhc_code,name,first_name,middle_name,email_id,residential_address,permanant_address,location_id,phone_no,mobile_no,dob,status,isDelStatus,added_by,added_date,last_modified_by,last_modified_date,lattitude,langitude,google_location FROM sp_patients WHERE patient_id='".$patient_id."'";
         if($this->num_of_rows($this->query($GetOnePatientSql)))
         {
             $Patient = $this->fetch_array($this->query($GetOnePatientSql));
