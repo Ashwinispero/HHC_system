@@ -58,7 +58,7 @@ elseif($_REQUEST['action'] == 'Checkdisconnect')
         $db->query($updateEvents);
         $user = $_SESSION['first_name'];
        // $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=END";
-        $form_url =  "http://183.87.122.153:8080/API/Hangup.php?user=".$user;
+        $form_url =  "http://183.87.122.153/API/Hangup.php?user=".$user;
         $data_to_post = array();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $form_url);
@@ -82,7 +82,7 @@ elseif($_REQUEST['action'] == 'CheckCallerExist')
         //$db->query($updateEvents);
         
         $user = $_SESSION['first_name'];
-        $form_url =  "http://183.87.122.153:8080/API/CallResponse.php?user=".$user."&value=ACCEPT";
+        $form_url =  "http://183.87.122.153/API/CallResponse.php?user=".$user."&value=ACCEPT";
          
         $data_to_post = array();
         $curl = curl_init();
