@@ -1497,6 +1497,9 @@ if($_REQUEST['EID'])
                 var fromDtSelected = $("#eve_from_date"+splitString[1]).val();
                 var toDateSelcted = $(this).datepicker().val();
                 var splitID = splitString[1].split('_'); 
+                $("#ConfromDate").val(fromDtSelected); 
+                $("#ContoDate").val(toDateSelcted); 
+                
                 if(fromDtSelected)
                 {
                     var data1="fromDtSelected="+fromDtSelected+"&toDateSelcted="+toDateSelcted+"&eventRequirementID="+splitID[2];
@@ -1626,16 +1629,15 @@ if($_REQUEST['EID'])
                 }
                   
             }
-          //  alert(costvalue);
-           //alert(existValue);
+          //  alert(toDate);
+          // alert(fromDate);
            var consultantCost = $("#consultantCost").val();   
            if(costvalue>=0 && existValue >=0)
            {
                 var finalcost = parseInt(costvalue)+parseInt(existValue);
                 var cosul_cost = consultantCost * finalcost;
                 var printFinalcost = finalcost+cosul_cost+".00";
-                // alert(finalcost);
-                $("#TotalConCost").html(cosul_cost); 
+                 $("#TotalConCost").html(cosul_cost); 
                 $("#consultantFinalCost").val(cosul_cost); 
                 $("#TotalEstCost").html(printFinalcost); 
                 $("#finalcost_eve").val(printFinalcost); 

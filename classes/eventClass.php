@@ -2597,11 +2597,8 @@ class eventClass extends AbstractDB
             $service_dates            = $_REQUEST['eve_from_date_' . $v . '_' . $arg['event_requirement_id']];
 			$service_date_tos         = $_REQUEST['eve_to_date_' . $v . '_' . $arg['event_requirement_id']];
 			
-			if ($service_dates!='') {
-                $insertData['service_date'] =  date('Y-m-d', strtotime($service_dates));
-            } else {
-                $insertData['service_date'] = '';
-            }
+			$insertData['service_date'] =  date('Y-m-d', strtotime($service_dates));
+            
 				
 			if (($service_id == 17 || $service_id == 13) && $sub_service_id != 425) {
 				if ($service_dates != '') {
@@ -2637,7 +2634,10 @@ class eventClass extends AbstractDB
             if (mysql_num_rows($this->query($select_exist))) {
                 $insertData['last_modified_by']   = $employee_id;
                 $insertData['last_modified_date'] = date('Y-m-d H:i:s');
-                
+                if ($service_id ==14) {
+                    $insertData['service_date'] = date('Y-m-d', strtotime($_REQUEST['ConfromDate']));
+                    $insertData['service_date_to'] = date('Y-m-d', strtotime($_REQUEST['ContoDate']));
+                }
                 $val_existRecord = $this->fetch_array($this->query($select_exist));
                 
                 $where = "plan_of_care_id ='" . $val_existRecord['plan_of_care_id'] . "' ";
@@ -2672,6 +2672,11 @@ class eventClass extends AbstractDB
                 $insertData['added_by'] = $employee_id;
                 $insertData['added_date'] = date('Y-m-d H:i:s');
                 $insertData['status'] = '1';
+                if ($service_id ==14) {
+                    $insertData['service_date'] = date('Y-m-d', strtotime($_REQUEST['ConfromDate']));
+                    $insertData['service_date_to'] = date('Y-m-d', strtotime($_REQUEST['ContoDate']));
+                }
+               // var_dump($insertData);
                 $RecordId = $this->query_insert('sp_event_plan_of_care', $insertData);
 
                 // Added activity log while successfully add event paln of care details

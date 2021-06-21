@@ -756,6 +756,8 @@ else if ($_REQUEST['action'] == 'submitPlanofCare')
         {
             $argPass['event_requirement_id'] = $explodeReq[$i];
             $argPass['consultantFinalCost'] = $_POST['consultantFinalCost'];
+            $argPass['ConfromDate'] = $_POST['ConfromDate'];
+            $argPass['ContoDate'] = $_POST['ContoDate'];
             //$argPass['start_date'] = $_POST['starttime_'.$explodeReq[$i]];
             //$argPass['end_date'] = $_POST['endtime_'.$explodeReq[$i]];
             $argPass['event_id'] = $_POST['event_id'];            
@@ -777,7 +779,7 @@ else if ($_REQUEST['action'] == 'submitPlanofCare')
                 $argPass['finalcost_eve']   = $_POST['finalCostWithDiscount_eve'];
             }
             /* Discount Code ends here */
-            //var_dump($argPass);die();
+            var_dump($argPass);
             $InsertPlanCare = $eventClass->InsertPlanOfCare($argPass);
 
             if (!empty($InsertPlanCare)) {

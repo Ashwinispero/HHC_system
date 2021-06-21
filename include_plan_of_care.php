@@ -485,6 +485,9 @@ else
         
         
         echo '<input type="hidden" name="consultantFinalCost" id="consultantFinalCost">';
+        echo '<input type="hidden" name="ConfromDate" id="ConfromDate">';
+        echo '<input type="hidden" name="ContoDate" id="ContoDate">';
+        
         echo '<div class="main-row" style="background: #fdeed4; margin-top:20px;">
 				  <div style="width:92%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">TOTAL ESTIMATED COST:</div>
 				  <div id="TotalEstCost" class="text-right" style="width:7%;display:inline-block;vertical-align:top;padding-right:1%;padding:4px;">'.number_format(($finalcost), 2).'</div> 
