@@ -235,6 +235,12 @@ $date2=date_create("$toDate");
 								$cost=$finalcost / $numberDays_qty;
 								
 							}
+							else if($recommomded_service=='Consultant Charges')
+							{
+								$finalcost=$row4['service_cost'];
+								$cost=$finalcost;
+								
+							}
 							else
 							{
 								if(($service_id==17 OR $service_id==13) AND $sub_service_id!=425)
