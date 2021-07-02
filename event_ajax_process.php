@@ -994,7 +994,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                 $arr['status']='1';
                 $arr['added_by']=$_REQUEST['login_user_id'];
                 $arr['added_date']=date('Y-m-d H:i:s');
-                $InsertRecords=$eventClass->InsertJobSummary($arr);
+                 $InsertRecords=$eventClass->InsertJobSummary($arr);
                 if($InsertRecords)
                 {
                     $success=1;
@@ -1008,6 +1008,7 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                     $args['event_id']=$arr['event_id'];
                     $EventDtls=$eventClass->GetEvent($args);                    
                     
+    
                     // Get Service Details
                     $recListResponseJob= $eventClass->SelectedPlanCareServices($args);
                     $recListJob=$recListResponseJob['data'];
@@ -1165,7 +1166,25 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                         $argsDoc['type']='2';
                         $DocDtls=$eventClass->GetConsultantByPatient($argsDoc); 
                         
-                                                                        
+                    $requirement_id= mysql_query("SELECT sub_service_id,service_id FROM sp_event_requirements  where event_id='".$ValRequirement['event_id']."'");
+					while($row1=mysql_fetch_array($requirement_id))
+					{
+                        $sub_service_id=$row1['sub_service_id'];
+						$service_id=$row1['service_id'];
+                        
+                        if($service_id !='3' && $service_id !='9' && $service_id !='10' && $service_id !='14' && $service_id !='15' && $service_id !='17' && $service_id !='21')
+                        {
+                        $GetServiceSql="SELECT service_title FROM sp_services WHERE service_id='".$service_id."'";
+                        $GetService=$db->fetch_array($db->query($GetServiceSql));
+                        $service_name_msg .="  ". $GetService['service_title'];
+
+                        $service="SELECT * FROM sp_sub_services  where sub_service_id='".$sub_service_id."'";
+                        $service_name=$db->fetch_array($db->query($service));
+                        $recommomded_service .="  ". $service_name['recommomded_service'];
+
+                        }
+                    }
+                                                                   
                         
 
                         //.............. send msg to professional .......//
@@ -1183,11 +1202,11 @@ else if($_REQUEST['action'] == 'SubmitJobSum')
                                     $txtMsg1 .= "\nMob No : ".$PatientDtls['mobile_no'];
                                     $txtMsg1 .= "\n\nAddress : ".$PatientDtls['residential_address'];
                                     $txtMsg1 .= "\n\nEvent No : ".$Event_Code;
-                                    $txtMsg1 .= "\nService : ".$GetService['service_title']."\nSub-Service : ".$sub_service;
+                                    $txtMsg1 .= "\nService : ".$service_name_msg."\nSub-Service : ".$recommomded_service;
                                     $txtMsg1 .= "".$dateofServicenew;//$dateofService;
                                     $txtMsg1 .= "\n\nMessage:".$reporting_instructionNew;
                                     $txtMsg1 .= "\n\nSpero";
-                                    //var_dump($txtMsg1);die();
+                                    var_dump($txtMsg1);die();
                        // Dear hii x%,%nPatient : x x,%nCaller No : x ,%nMob No : x,%nAddress : x,x,%nMsg : x.
                        $args = array(
                            'event_code'=> $event_code,
